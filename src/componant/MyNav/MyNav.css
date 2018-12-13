@@ -1,0 +1,21 @@
+.MyNav {
+  position: absolute;
+  top: 46px;
+  right: 46px;
+}
+
+.MyNav ul {
+  margin-left: 20px;
+}
+
+.MyNav ul a:focus,
+.MyNav ul a:hover,
+.MyNav ul a:active {
+  color: #282c34 !important;
+  background-color: #d4dff6;
+}
+
+.MyNav ul a {
+  color: #d4dff6;
+}
+/*# sourceMappingURL=MyNav.css.map */
