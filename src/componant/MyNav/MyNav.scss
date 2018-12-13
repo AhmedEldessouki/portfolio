@@ -1,0 +1,20 @@
+$MyLightBlue: #d4dff6;
+$MyDarkBlue:#282c34;
+
+.MyNav {
+  position: absolute;
+  top: 46px;
+  right: 46px;
+  ul {
+    margin-left: 20px;
+    a:focus,
+    a:hover,
+    a:active {
+      color: $MyDarkBlue !important;
+      background-color: $MyLightBlue;
+    }
+    a {
+      color: $MyLightBlue;
+    }
+  }
+}
