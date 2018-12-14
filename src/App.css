@@ -4,7 +4,7 @@
 
 .App .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 622px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -20,11 +20,17 @@
           justify-content: center;
   font-size: calc(10px + 2vmin);
   color: #d4dff6;
-  height: 622px;
 }
 
 .App main {
-  height: 622px;
+  min-height: 622px;
   background-color: #d4dff6;
+}
+
+@media screen and (max-width: 516px) {
+  .App {
+    min-height: 750px;
+    font-size: 14px;
+  }
 }
 /*# sourceMappingURL=App.css.map */
