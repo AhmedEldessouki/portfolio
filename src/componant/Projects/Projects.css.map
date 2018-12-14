@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,SAAS,CAAA;EACP,KAAK,EAHK,OAAO;CAQlB;;AAND,AAEE,SAFO,CAEP,EAAE,CAAA;EACA,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,MAAM;CAChB",
+    "sources": [
+        "Projects.scss"
+    ],
+    "names": [],
+    "file": "Projects.css"
+}

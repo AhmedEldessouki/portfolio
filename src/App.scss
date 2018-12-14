@@ -3,7 +3,7 @@ $MyDarkBlue:#282c34;
 .App {
   text-align: center;
   .App-header {
-    background-color: #282c34;
+    background-color: $MyDarkBlue;
     min-height: 622px;
     display: flex;
     flex-direction: column;
@@ -11,13 +11,13 @@ $MyDarkBlue:#282c34;
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: $MyLightBlue;
-    @media screen and (max-width: 516px) {
-      min-height: 750px;
-      font-size: 14px;
-    }
   }
   main {
-    height: 622px;
-    background-color: #d4dff6;
+    min-height: 622px;
+    background-color: $MyLightBlue;
+  }
+  @media screen and (max-width: 516px) {
+    min-height: 750px;
+    font-size: 14px;
   }
 }
