@@ -3,6 +3,8 @@ import './App.scss';
 import MyNav from './componant/MyNav/MyNav'
 import MyInfo from './componant/MyInfo/MyInfo'
 import Projects from './componant/Projects/Projects'
+import ContactMe from './componant/ContactMe/ContactMe'
+import MyFooter from './componant/MyFooter/MyFooter'
 
 class App extends Component {
   render() {
@@ -15,6 +17,10 @@ class App extends Component {
         <main>
           <Projects />
         </main>
+        <footer>
+          <ContactMe />
+          <MyFooter />
+        </footer>
       </div>
     );
   }
