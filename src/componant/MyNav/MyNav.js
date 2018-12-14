@@ -15,14 +15,14 @@ export default class MyNav extends Component {
     return (
       <div className="MyNav">
         <div >
-          <Nav bsStyle="pills" activeKey={1} onSelect={this.handleSelect()}>
-            <NavItem eventKey={1} href="/home">
+          <Nav bsStyle="pills" onSelect={this.handleSelect()}>
+            <NavItem eventKey={1} href="header">
               ABOUT
             </NavItem>
             <NavItem eventKey={2} title="main">
               PROJECTS
             </NavItem>
-            <NavItem eventKey={3} title="Item">
+            <NavItem eventKey={3} title="footer">
               CONTACT ME
             </NavItem>
           </Nav>

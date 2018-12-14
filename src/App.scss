@@ -1,6 +1,5 @@
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
-
 .App {
   text-align: center;
   .App-header {
@@ -12,6 +11,11 @@ $MyDarkBlue:#282c34;
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: $MyLightBlue;
+    height: 622px;
+    @media screen and (max-width: 516px) {
+      height: 750px;
+      font-size: 14px;
+    }
   }
   main {
     height: 622px;
