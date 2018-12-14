@@ -7,8 +7,7 @@ $MyDarkBlue:#282c34;
   grid-gap: 120px;
   align-items: center;
   align-content: center;
-  margin-top: 115px;
-  // height: calc(100% - 115px);
+  justify-items: center;
   @media screen and (max-width: 1150px) {
     grid-gap: 20px;
   }
