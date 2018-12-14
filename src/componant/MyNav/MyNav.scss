@@ -7,13 +7,23 @@ $MyDarkBlue:#282c34;
   right: 26px;
   ul {
     margin-left: 20px;
+    .nav-bills{
+      a:focus{
+        background-color: $MyDarkBlue;
+      }
+    }
     a:focus,
     a:hover,
     a:active {
       color: $MyDarkBlue !important;
       background-color: $MyLightBlue;
+    &:focus{
+      
+       color: $MyDarkBlue !important;
+      }
     }
     a {
+      background-color: $MyDarkBlue;
       color: $MyLightBlue;
     }
   }
