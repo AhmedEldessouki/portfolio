@@ -13,7 +13,12 @@ $MyDarkBlue:#282c34;
   }
   @media screen and (max-width: 880px) {
     grid-template-columns: 1fr;
-    margin: 115px 25px 25px;
+    margin: 25px 25px 25px;
+    justify-items: center;
+  }
+  @media screen and (max-width: 880px) {
+    grid-template-columns: 1fr;
+    margin-top:115px;
     justify-items: center;
   }
   .first-container {
