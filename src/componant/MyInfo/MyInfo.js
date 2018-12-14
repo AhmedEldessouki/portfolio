@@ -36,7 +36,7 @@ export default class MyInfo extends Component {
               Lives in {profile.location}
             </li>
             <li>
-              <a href={profile.url}>
+              <a href={profile.html_url}>
                 My Github
 							</a>
             </li>
