@@ -8,9 +8,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  justify-items: center;
 }
 
 @media screen and (max-width: 1150px) {
@@ -24,7 +21,6 @@
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
     margin: 25px 25px 25px;
-    justify-items: center;
   }
 }
 
@@ -33,12 +29,13 @@
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
     margin-top: 115px;
-    justify-items: center;
   }
 }
 
 .MyInfo .first-container {
   width: 500px;
+  -ms-grid-column-align: end;
+      justify-self: end;
 }
 
 .MyInfo .first-container .img-container {
@@ -118,6 +115,13 @@
   }
 }
 
+@media screen and (max-width: 860px) {
+  .MyInfo .first-container {
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
+}
+
 @media screen and (max-width: 516px) {
   .MyInfo .first-container {
     width: 300px;
@@ -127,10 +131,19 @@
 .MyInfo .second-container {
   width: 80%;
   max-height: 200px;
-  font-size: 14px;
+  font-size: 16px;
   font-stretch: extra-expanded;
   text-align: justify;
   font-weight: 500px;
   color: #d4dff6;
+  -ms-grid-column-align: start;
+      justify-self: start;
+}
+
+@media screen and (max-width: 1150px) {
+  .MyInfo .second-container {
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
 }
 /*# sourceMappingURL=MyInfo.css.map */
