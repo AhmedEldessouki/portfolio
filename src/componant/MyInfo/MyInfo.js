@@ -44,10 +44,10 @@ export default class MyInfo extends Component {
         </div>
         <div className="second-container">
           <p>
-          Welcome I'm Ahmed Eldessouki I work as <em>Fron-End Developer</em> I'm from Egypt 
-          and I'm currently living in Turkey. I graduated from Universty Of South Wales and 
-          right now I work in RoomMe as an entry level Front-End Developer. I'm very passionate 
-          newbie Front-End Developer who loves  to develop himself and stay up-to-date with the 
+          Welcome! I'm Ahmed Eldessouki. I work as <em>Front-End Developer</em> I'm 29 years old from Cairo, Egypt. 
+          That's currently living in Turkey. I graduated from Universty Of South Wales. 
+          I work in RoomMe as an entry level Front-End Developer. I'm very passionate 
+          newbie Front-End Developer who loves  to develop himself,my strength is being keen to details and stay up-to-date with the 
           new <em>technologies and technics</em>.
           </p>
         </div>
