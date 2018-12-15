@@ -23,6 +23,7 @@
   -ms-grid-columns: 1fr 1.5fr;
       grid-template-columns: 1fr 1.5fr;
   margin: 10px 50px;
+  padding: 10px;
   width: calc(100% - 100px);
 }
 
@@ -64,7 +65,15 @@
 
 .ContactMe form .second-container .textArea {
   width: 60%;
-  height: 200px;
+  height: 150px;
+  color: #282c34;
+  padding: 12px 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
 }
 
 .ContactMe form button {

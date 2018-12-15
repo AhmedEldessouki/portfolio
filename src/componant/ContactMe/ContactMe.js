@@ -4,8 +4,9 @@ import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 class MyContactMe extends Component {
+  
   render() {
-    const { errors, touched, isSubmitting } = this.props
+    const { errors, touched, isSubmitting, handleChange, } = this.props
     return (
       <div className="ContactMe">
         <h1>Contact Me</h1>
@@ -27,8 +28,7 @@ class MyContactMe extends Component {
             </div>
           </div>
           <div className="second-container">
-          <Field name="description" className="textArea" type="textArea" />
-          {errors.textArea && touched.textArea ? <div className="error-message">{errors.textArea}</div> : null}
+          <textarea name="description" className="textArea" onChange={handleChange} type="textarea" />
           </div>
           <button type="submit" disabled={isSubmitting} >Submit</button>
         </Form>
@@ -36,6 +36,7 @@ class MyContactMe extends Component {
     )
   }
 }
+
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -52,8 +53,6 @@ const ContactMeSchema = withFormik({
       .min(11, 'Too Short!')
       .max(13, 'Too Long!')
       .matches(phoneRegExp, 'Phone number is not valid'),
-    textArea: Yup.string()
-      .required('Please Fill The Description')
   }),
   enableReinitialize: true,
   mapPropsToValues: props => ({

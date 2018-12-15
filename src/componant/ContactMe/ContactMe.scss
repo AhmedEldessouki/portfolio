@@ -14,17 +14,17 @@ $MyDarkBlue:#282c34;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     margin: 10px 50px;
+    padding: 10px; 
     width: calc(100% - 100px);
     .field-container {
       display: block;
       text-align: left;
       margin: 10px 0;
       span {
-        margin-right: 10px; // font-size: 18px;
+        margin-right: 10px;
       }
     }
     .first-container {
-      // width: 50%;
       justify-self: center;
       input {
         padding: 10px;
@@ -36,7 +36,6 @@ $MyDarkBlue:#282c34;
       }
     }
     .second-container {
-      // width: 50%;
       max-height: 200px;
       font-size: 14px;
       font-stretch: extra-expanded;
@@ -45,24 +44,26 @@ $MyDarkBlue:#282c34;
       color: $MyLightBlue;
       .textArea {
         width: 60%;
-        height: 200px;
-      }
-      @media screen and (max-width: 1150px) {
-        // width: 350px;
+        height: 150px;
+        color: $MyDarkBlue;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        resize: none;
       }
     }
     button {
-      //grid-column: 1/-1;
-      //justify-self: flex-start;
       justify-self: center;
       width: 100px;
       padding: 5px;
-      border-radius:    4px ;
-      -webkit-border-radius:    4px ;
-      -moz-border-radius:    4px ;
-      -ms-border-radius:    4px ;
-      -o-border-radius:    4px ;
-}
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      -ms-border-radius: 4px;
+      -o-border-radius: 4px;
+    }
     .error-message {
       color: #d4dff6;
     }
