@@ -4,7 +4,7 @@
 
 .App .App-header {
   background-color: #282c34;
-  min-height: 622px;
+  min-height: 632px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -23,8 +23,13 @@
 }
 
 .App main {
-  min-height: 622px;
+  min-height: 632px;
   background-color: #d4dff6;
+}
+
+.App footer {
+  min-height: 632px;
+  background-color: #282c34;
 }
 
 @media screen and (max-width: 516px) {

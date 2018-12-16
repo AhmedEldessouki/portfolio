@@ -1,0 +1,94 @@
+.ContactMe {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  padding: 20px;
+}
+
+.ContactMe h1 {
+  color: #d4dff6;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.ContactMe form {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1.5fr;
+      grid-template-columns: 1fr 1.5fr;
+  margin: 10px 50px;
+  padding: 10px;
+  width: calc(100% - 100px);
+}
+
+.ContactMe form .field-container {
+  display: block;
+  text-align: left;
+  margin: 10px 0;
+}
+
+.ContactMe form .field-container span {
+  margin-right: 10px;
+}
+
+.ContactMe form .first-container {
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.ContactMe form .first-container input {
+  padding: 10px;
+  width: 200px;
+  height: 30px;
+}
+
+@media screen and (max-width: 516px) {
+  .ContactMe form .first-container {
+    width: 300px;
+  }
+}
+
+.ContactMe form .second-container {
+  max-height: 200px;
+  font-size: 14px;
+  font-stretch: extra-expanded;
+  text-align: justify;
+  font-weight: 500px;
+  color: #d4dff6;
+}
+
+.ContactMe form .second-container .textArea {
+  width: 60%;
+  height: 150px;
+  color: #282c34;
+  padding: 12px 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+.ContactMe form button {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  width: 100px;
+  padding: 5px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.ContactMe form .error-message {
+  color: #d4dff6;
+}
+/*# sourceMappingURL=ContactMe.css.map */
