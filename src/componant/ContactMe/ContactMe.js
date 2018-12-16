@@ -2,19 +2,9 @@ import './ContactMe.scss'
 import React, { Component } from 'react'
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import Axios from 'axios';
+import axios from 'axios';
 
 class MyContactMe extends Component {
-
-  handleSubmit() {
-    const { name, email, phoneNumber, description } = this.props
-    const form = await Axios.post('/api/form', {
-      name,
-      email,
-      phoneNumber,
-      description
-    })
-  }
   render() {
     const { errors, touched, isSubmitting, handleChange, handleSubmit } = this.props
     return (
@@ -74,6 +64,9 @@ const ContactMeSchema = withFormik({
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
+      const form = axios.post('/api/form', {
+        values
+      })
       if (values.name === 'admin') {
         bag.setErrors({ name: 'Nice try!' });
       } else {

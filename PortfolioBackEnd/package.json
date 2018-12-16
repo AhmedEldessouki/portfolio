@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "Portfolio": "yarn run start --prefix Portfolio"
+    "Portfolio": "npm run start --prefix ../../Portfolio",
+    "dev":"concurrently \"npm run server\" \" npm run Portfolio\"  "
   },
   "keywords": [],
   "author": "",
