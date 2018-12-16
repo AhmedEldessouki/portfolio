@@ -6,11 +6,11 @@ import axios from 'axios';
 
 class MyContactMe extends Component {
   render() {
-    const { errors, touched, isSubmitting, handleChange, handleSubmit } = this.props
+    const { errors, touched, isSubmitting, handleChange } = this.props
     return (
       <div className="ContactMe">
         <h1>Contact Me</h1>
-        <Form>
+        <Form method="form">
           <div className="first-container">
             <div className="field-container">
               <Field name="name" placeholder="Enter Your Name" />
@@ -28,7 +28,7 @@ class MyContactMe extends Component {
             </div>
           </div>
           <div className="second-container">
-            <textarea name="description" className="textArea" onChange={handleChange} type="textarea" />
+            <textarea name="description" className="textArea" onChange={handleChange} required />
           </div>
           <button type="submit" disabled={isSubmitting} >Submit</button>
         </Form>
@@ -64,10 +64,17 @@ const ContactMeSchema = withFormik({
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
+    const { name,
+      email,
+      phoneNumber,
+      description } = values
+    const form = axios.post('/api/form', {
+      name,
+      email,
+      phoneNumber,
+      description
+    })
     setTimeout(() => {
-      const form = axios.post('/api/form', {
-        values
-      })
       if (values.name === 'admin') {
         bag.setErrors({ name: 'Nice try!' });
       } else {
