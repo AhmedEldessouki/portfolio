@@ -53,6 +53,7 @@ const ContactMeSchema = withFormik({
       .min(11, 'Too Short!')
       .max(13, 'Too Long!')
       .matches(phoneRegExp, 'Phone number is not valid'),
+    description: Yup.string()
   }),
   enableReinitialize: true,
   mapPropsToValues: props => ({
