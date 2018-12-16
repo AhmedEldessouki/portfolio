@@ -1,9 +1,11 @@
 {
-  "name": "Back-end",
+  "name": "PortfolioBackend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "Portfolio": "yarn run start --prefix Portfolio"
   },
   "keywords": [],
   "author": "",
