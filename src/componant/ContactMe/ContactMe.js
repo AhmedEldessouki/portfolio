@@ -2,11 +2,21 @@ import './ContactMe.scss'
 import React, { Component } from 'react'
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import Axios from 'axios';
 
 class MyContactMe extends Component {
-  
+
+  handleSubmit() {
+    const { name, email, phoneNumber, description } = this.props
+    const form = await Axios.post('/api/form', {
+      name,
+      email,
+      phoneNumber,
+      description
+    })
+  }
   render() {
-    const { errors, touched, isSubmitting, handleChange, } = this.props
+    const { errors, touched, isSubmitting, handleChange, handleSubmit } = this.props
     return (
       <div className="ContactMe">
         <h1>Contact Me</h1>
@@ -28,7 +38,7 @@ class MyContactMe extends Component {
             </div>
           </div>
           <div className="second-container">
-          <textarea name="description" className="textArea" onChange={handleChange} type="textarea" />
+            <textarea name="description" className="textArea" onChange={handleChange} type="textarea" />
           </div>
           <button type="submit" disabled={isSubmitting} >Submit</button>
         </Form>
@@ -59,7 +69,7 @@ const ContactMeSchema = withFormik({
     name: '',
     email: '',
     phoneNumber: '',
-    textArea: ''
+    description: ''
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {

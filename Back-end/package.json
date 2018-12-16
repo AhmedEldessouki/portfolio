@@ -1,0 +1,19 @@
+{
+  "name": "Back-end",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "nodemailer": "^4.7.0",
+    "nodemon": "^1.18.9"
+  }
+}
