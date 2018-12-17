@@ -4,7 +4,8 @@ $MyDarkBlue:#282c34;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  padding: 20px;
+  padding: 0 20px;
+  margin-top: 0;
   h1 {
     color: $MyLightBlue;
     margin: 0;
@@ -14,20 +15,36 @@ $MyDarkBlue:#282c34;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     margin: 10px 50px;
-    padding: 10px; 
+    padding: 10px;
     width: calc(100% - 100px);
+    min-height: 264px;
     .field-container {
       display: block;
+      height: 50px;
       text-align: left;
       margin: 10px 0;
-      span {
-        margin-right: 10px;
+      .input-svg {
+        display: flex;
+        align-items: center;
+        border: 0 solid $MyLightBlue;
+        background-color: $MyLightBlue;
+        padding: 5px;
+        svg {
+          font-size: 30px;
+          margin-right: 10px;
+          color: $MyDarkBlue;
+        }
+        input {
+          color: $MyDarkBlue;
+          border: 0;
+          background-color: $MyLightBlue;
+        }
       }
     }
     .first-container {
       justify-self: center;
       input {
-        padding: 10px;
+        padding: 5px;
         width: 200px;
         height: 30px;
       }
@@ -42,15 +59,15 @@ $MyDarkBlue:#282c34;
       text-align: justify;
       font-weight: 500px;
       color: $MyLightBlue;
+      align-self: center;
       .textArea {
         width: 60%;
-        height: 150px;
+        height: 190px;
         color: $MyDarkBlue;
         padding: 12px 20px;
         box-sizing: border-box;
         border: 2px solid #ccc;
-        border-radius: 4px;
-        background-color: #f8f8f8;
+        background-color: $MyLightBlue;
         resize: none;
       }
     }
@@ -63,9 +80,11 @@ $MyDarkBlue:#282c34;
       -moz-border-radius: 4px;
       -ms-border-radius: 4px;
       -o-border-radius: 4px;
+      background-color: $MyLightBlue;
+      color: $MyDarkBlue;
     }
     .error-message {
-      color: #d4dff6;
+      color: $MyLightBlue;
     }
   }
 }

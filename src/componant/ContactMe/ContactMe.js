@@ -1,8 +1,10 @@
 import './ContactMe.scss'
 import React, { Component } from 'react'
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup';
 import axios from 'axios';
+import { FaAddressCard, FaPhoneSquare } from "react-icons/fa"
+import { GoMention } from "react-icons/go"
 
 class MyContactMe extends Component {
   render() {
@@ -13,17 +15,26 @@ class MyContactMe extends Component {
         <Form method="form">
           <div className="first-container">
             <div className="field-container">
-              <Field name="name" placeholder="Enter Your Name" />
+              <div className="input-svg">
+                <FaAddressCard />
+                <Field name="name" placeholder="Enter Your Name" />
+              </div>
               {errors.name && touched.name ? (
                 <p className="error-message">{errors.name}</p>
               ) : null}
             </div>
             <div className="field-container">
+            <div className="input-svg">
+              <GoMention />
               <Field name="email" type="email" placeholder="Email Address" />
+            </div>
               {errors.email && touched.email ? <div className="error-message">{errors.email}</div> : null}
             </div>
             <div className="field-container">
+            <div className="input-svg">
+              <FaPhoneSquare />
               <Field name="phoneNumber" type="tel" placeholder="Enter Your Phone Number" />
+            </div>
               {errors.phoneNumber && touched.phoneNumber ? <div className="error-message">{errors.phoneNumber}</div> : null}
             </div>
           </div>
