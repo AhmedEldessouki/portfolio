@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './MyInfo.scss'
 import axios from "axios";
+import { GoMarkGithub } from "react-icons/go"
 
 export default class MyInfo extends Component {
   constructor() {
@@ -39,8 +40,8 @@ export default class MyInfo extends Component {
                 </li>
                 <li>
                   <a href={profile.html_url}>
-                    My Github
-							</a>
+                    <GoMarkGithub />   My Github
+							    </a>
                 </li>
               </ul>
             </div>
