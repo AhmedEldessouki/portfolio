@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Berkshire+Swash|Bilbo+Swash+Caps|Clicker+Script|Lovers+Quarrel|Meddon|Merienda+One|Monsieur+La+Doulaise|Pinyon+Script|Tangerine:700');
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
 .App {
@@ -7,10 +8,47 @@ $MyDarkBlue:#282c34;
     min-height: 632px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: center; // justify-content: center; //scroll-spy
     font-size: calc(10px + 2vmin);
     color: $MyLightBlue;
+    .myNav-container {
+      display: grid;
+      grid-template-columns: 5fr 3fr;
+      .my-name {
+        text-align: left;
+        align-self: center;
+        font-size: 50px; 
+        // font-family: 'Berkshire Swash', cursive;
+        // font-family: 'Tangerine', cursive;
+        // font-family: 'Clicker Script', cursive;
+        font-family: 'Merienda One', cursive;
+      }
+      .scroll-spy {
+        display: flex;
+        align-self: flex-end;
+        border: 25px solid transparent;
+        a {
+          margin: 10px;
+          padding: 10px;
+          text-decoration: none;
+          border: 1px solid $MyLightBlue;
+          color: $MyDarkBlue !important;
+          background-color: $MyLightBlue;
+          min-width: 110px;
+          font-size: 18px;
+          font-weight: 500;
+          &:active {
+            color: $MyDarkBlue !important;
+            background-color: $MyLightBlue;
+          }
+          border-radius: 8px;
+          -webkit-border-radius: 8px;
+          -moz-border-radius: 8px;
+          -ms-border-radius: 8px;
+          -o-border-radius: 8px;
+        }
+      }
+    }
   }
   main {
     min-height: 632px;
