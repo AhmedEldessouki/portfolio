@@ -89,7 +89,7 @@ const ContactMeSchema = withFormik({
       if (values.name === 'admin') {
         bag.setErrors({ name: 'Nice try!' });
       } else {
-        console.log(values);
+        // console.log(values);
         bag.resetForm()
       }
       bag.setSubmitting(false);

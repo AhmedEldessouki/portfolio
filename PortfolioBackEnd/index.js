@@ -42,8 +42,8 @@ app.post('/api/form', (req, res) => {
       if (err) {
         return console.log(err)
       } else {
-        console.log('email sent: %s', info.description)
-        console.log('email url: %s', nodemailer.getTestMessageUrl(info))
+        // console.log('email sent: %s', info.description)
+        // console.log('email url: %s', nodemailer.getTestMessageUrl(info))
 
       }
     })
