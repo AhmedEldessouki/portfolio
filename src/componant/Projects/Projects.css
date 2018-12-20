@@ -6,4 +6,10 @@
   margin: 0;
   padding: 10px 0;
 }
+
+@media (max-width: 320px) {
+  .Projects {
+    padding-top: 20px;
+  }
+}
 /*# sourceMappingURL=Projects.css.map */
