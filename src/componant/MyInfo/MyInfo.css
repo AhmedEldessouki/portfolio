@@ -1,4 +1,5 @@
 .MyInfo {
+  min-height: calc(632px - 118px);
   left: 100px;
   display: -ms-grid;
   display: grid;
@@ -10,13 +11,13 @@
           align-items: center;
 }
 
-@media screen and (max-width: 1150px) {
+@media (max-width: 1150px) {
   .MyInfo {
     grid-gap: 20px;
   }
 }
 
-@media screen and (max-width: 880px) {
+@media (max-width: 880px) {
   .MyInfo {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
@@ -24,7 +25,7 @@
   }
 }
 
-@media screen and (max-width: 880px) {
+@media (max-width: 880px) {
   .MyInfo {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
@@ -36,6 +37,13 @@
   width: 500px;
   -ms-grid-column-align: end;
       justify-self: end;
+}
+
+@media (max-width: 880px) {
+  .MyInfo .first-container {
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
 }
 
 .MyInfo .first-container .img-container {
@@ -66,7 +74,7 @@
   color: #282c34;
 }
 
-@media screen and (max-width: 516px) {
+@media (max-width: 516px) {
   .MyInfo .first-container .details-container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -97,7 +105,7 @@
   -o-border-radius: 10px;
 }
 
-@media screen and (max-width: 516px) {
+@media (max-width: 516px) {
   .MyInfo .first-container .details-container li {
     margin: 5px 0;
     padding: 0;
@@ -106,23 +114,27 @@
 
 .MyInfo .first-container .details-container a {
   font-style: none;
+  text-decoration: none;
+  color: #282c34;
+  width: 100%;
+  height: 100%;
 }
 
-@media screen and (max-width: 516px) {
+@media (max-width: 516px) {
   .MyInfo .first-container .details-container {
     padding: 10px;
     margin-bottom: 0;
   }
 }
 
-@media screen and (max-width: 860px) {
+@media (max-width: 860px) {
   .MyInfo .first-container {
     -ms-grid-column-align: center;
         justify-self: center;
   }
 }
 
-@media screen and (max-width: 516px) {
+@media (max-width: 516px) {
   .MyInfo .first-container {
     width: 300px;
   }
@@ -134,16 +146,23 @@
   font-size: 16px;
   font-stretch: extra-expanded;
   text-align: justify;
-  font-weight: 500px;
   color: #d4dff6;
   -ms-grid-column-align: start;
       justify-self: start;
 }
 
-@media screen and (max-width: 1150px) {
+@media (max-width: 1150px) {
   .MyInfo .second-container {
     -ms-grid-column-align: center;
         justify-self: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .MyInfo .second-container {
+    -ms-grid-column-align: center;
+        justify-self: center;
+    font-size: 12px;
   }
 }
 /*# sourceMappingURL=MyInfo.css.map */

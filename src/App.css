@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Berkshire+Swash|Bilbo+Swash+Caps|Clicker+Script|Lovers+Quarrel|Meddon|Merienda+One|Monsieur+La+Doulaise|Pinyon+Script|Tangerine:700");
 .App {
   text-align: center;
 }
@@ -15,11 +16,130 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   font-size: calc(10px + 2vmin);
   color: #d4dff6;
+}
+
+.App .App-header .myNav-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 5fr 3fr;
+      grid-template-columns: 5fr 3fr;
+}
+
+@media (max-width: 1176px) {
+  .App .App-header .myNav-container {
+    width: 100%;
+    margin-top: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+}
+
+@media (max-width: 780px) {
+  .App .App-header .myNav-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    justify-items: center;
+  }
+}
+
+.App .App-header .myNav-container .my-name {
+  text-align: left;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-size: 50px;
+  font-family: 'Merienda One', cursive;
+}
+
+@media (max-width: 700px) {
+  .App .App-header .myNav-container .my-name span {
+    font-size: 40px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.App .App-header .myNav-container .scroll-spy {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  border: 25px solid transparent;
+}
+
+.App .App-header .myNav-container .scroll-spy a {
+  margin: 10px;
+  padding: 10px;
+  text-decoration: none;
+  border: 1px solid #d4dff6;
+  color: #282c34 !important;
+  background-color: #d4dff6;
+  min-width: 120px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.App .App-header .myNav-container .scroll-spy a:active {
+  color: #282c34 !important;
+  background-color: #d4dff6;
+}
+
+@media (max-width: 116px) {
+  .App .App-header .myNav-container .scroll-spy a {
+    font-size: 14px;
+    min-width: 96px;
+    margin: 5px;
+  }
+}
+
+@media (max-width: 500px) {
+  .App .App-header .myNav-container .scroll-spy a {
+    font-size: 12px;
+    min-width: 80px;
+    margin: 0 2px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 320px) {
+  .App .App-header .myNav-container .scroll-spy a {
+    font-size: 12px;
+    min-width: 80px;
+    margin: 10px 2px 0;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 1088px) {
+  .App .App-header .myNav-container .scroll-spy {
+    border: 0px solid;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .App .App-header .myNav-container .scroll-spy {
+    padding: 5px;
+  }
 }
 
 .App main {
@@ -32,10 +152,14 @@
   background-color: #282c34;
 }
 
-@media screen and (max-width: 516px) {
+@media (max-width: 516px) {
   .App {
     min-height: 750px;
     font-size: 14px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
   }
 }
 /*# sourceMappingURL=App.css.map */
