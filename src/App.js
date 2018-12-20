@@ -8,6 +8,9 @@ import { ScrollSpy, Link } from './componant/SpyScroll/ScrollSpy'
 
 
 class App extends Component {
+  componentDidMount(){
+    document.title = "Ahmed ElDessouki"
+  }
   render() {
     return (
       <div className="App">
