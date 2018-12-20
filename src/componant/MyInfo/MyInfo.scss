@@ -86,11 +86,14 @@ $MyDarkBlue:#282c34;
     font-size: 16px;
     font-stretch: extra-expanded;
     text-align: justify;
-    font-weight: 500px;
     color: $MyLightBlue;
     justify-self: start;
     @media screen and (max-width: 1150px) {
       justify-self: center;
+    }
+    @media screen and (max-width: 320px) {
+      justify-self: center;
+      font-size: 12px;
     }
   }
 }

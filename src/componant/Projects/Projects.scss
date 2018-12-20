@@ -7,4 +7,7 @@ $MyDarkBlue:#282c34;
     margin: 0;
     padding: 10px 0;
   }
+  @media screen and (max-width: 320px) {
+    padding-top: 20px;
+  }
 }
