@@ -18,11 +18,29 @@ $MyDarkBlue:#282c34;
     padding: 10px;
     width: calc(100% - 100px);
     min-height: 264px;
+    @media screen and (max-width: 716px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+      margin-left: 0;
+      padding: 0;
+      width: 100%;
+    }
     .field-container {
       display: block;
       height: 50px;
       text-align: left;
       margin: 10px 0;
+      @media screen and (max-width: 716px) {
+        margin: 5px 0;
+        width: 300px;
+      }
+      @media screen and (max-width: 320px) {
+        margin: 5px 0;
+        width: 250px;
+        align-self: center;
+      }
       .input-svg {
         display: flex;
         align-items: center;
@@ -47,9 +65,9 @@ $MyDarkBlue:#282c34;
         padding: 5px;
         width: 200px;
         height: 30px;
-      }
-      @media screen and (max-width: 516px) {
-        width: 300px;
+        @media screen and (max-width: 516px) {
+          width: 300px;
+        }
       }
     }
     .second-container {
@@ -69,6 +87,18 @@ $MyDarkBlue:#282c34;
         border: 2px solid #ccc;
         background-color: $MyLightBlue;
         resize: none;
+        @media screen and (max-width: 716px) {
+          width: 300px;
+          justify-self: center;
+          padding: 0;
+          margin: 0;
+        }
+        @media screen and (max-width: 320px) {
+          width: 250px;
+          justify-self: center;
+          padding: 0;
+          margin: 0;
+        }
       }
     }
     button {
@@ -82,9 +112,19 @@ $MyDarkBlue:#282c34;
       -o-border-radius: 4px;
       background-color: $MyLightBlue;
       color: $MyDarkBlue;
+      @media screen and (max-width: 716px) {
+        margin: 10px 0;
+        width: 300px;
+      }
+      @media screen and (max-width: 320px) {
+        width: 250px;
+      }
     }
     .error-message {
       color: $MyLightBlue;
     }
+  }
+  @media screen and (max-width: 320px) {
+    padding-top: 20px;
   }
 }
