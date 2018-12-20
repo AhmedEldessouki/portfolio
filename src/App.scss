@@ -14,13 +14,19 @@ $MyDarkBlue:#282c34;
     .myNav-container {
       display: grid;
       grid-template-columns: 5fr 3fr;
-      @media screen and (max-width: 1000px) {
-        grid-template-columns: 1fr;
-        justify-items: flex-end;
+      @media screen and (max-width: 1176px) {
+        width: 100%;
+        margin-top: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      @media screen and (max-width: 700px) {
         width: 80%;
         margin-top: 15px;
         display: flex;
         flex-direction: column-reverse;
+        justify-items: flex-end;
       }
       .my-name {
         text-align: left;
@@ -41,12 +47,12 @@ $MyDarkBlue:#282c34;
         border: 25px solid transparent;
         a {
           margin: 10px;
-          padding: 10px;
+          padding: 10px 20px;
           text-decoration: none;
           border: 1px solid $MyLightBlue;
           color: $MyDarkBlue !important;
           background-color: $MyLightBlue;
-          min-width: 80px - 110px;
+          min-width: 80px - 120px;
           font-size: 12px - 18px;
           font-weight: 500;
           &:active {
@@ -58,23 +64,30 @@ $MyDarkBlue:#282c34;
           -moz-border-radius: 8px;
           -ms-border-radius: 8px;
           -o-border-radius: 8px;
-          @media screen and (max-width: 1000px) {
+          @media screen and (max-width: 116px) {
             font-size: 14px;
             min-width: 96px;
+            margin: 5px;
           }
           @media screen and (max-width: 500px) {
-            font-size: 14px;
-            min-width: 96px;
-          }
-          @media screen and (max-width: 320px) {
             font-size: 12px;
             min-width: 80px;
             margin: 0 2px;
             padding: 5px;
           }
+          @media screen and (max-width: 320px) {
+            font-size: 12px;
+            min-width: 80px;
+            margin: 10px 2px 0;
+            padding: 5px;
+          }
+        }
+        @media screen and (max-width: 1088px) {
+          border: 0px solid;
         }
         @media screen and (max-width: 500px) {
           align-self: center;
+          padding: 5px;
         }
       }
     }
