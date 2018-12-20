@@ -13,11 +13,16 @@ $MyDarkBlue:#282c34;
   }
   form {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 300px 500px;
     margin: 10px 50px;
     padding: 10px;
     width: calc(100% - 100px);
     min-height: 264px;
+    align-content: center;
+    justify-content: center;
+    @media (max-width: 800px) {
+      grid-template-columns: 300px 400px;
+    }
     @media (max-width: 716px) {
       display: flex;
       flex-direction: column;
@@ -79,7 +84,7 @@ $MyDarkBlue:#282c34;
       color: $MyLightBlue;
       align-self: center;
       .textArea {
-        width: 60%;
+        width: 400px;
         height: 190px;
         color: $MyDarkBlue;
         padding: 12px 20px;
