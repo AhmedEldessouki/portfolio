@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './App.scss';
-import MyNav from './componant/MyNav/MyNav'
-// import MyNav from './componant/MyNav/SpyScrollNav/SpyScrollNav'
 import MyInfo from './componant/MyInfo/MyInfo'
 import Projects from './componant/Projects/Projects'
 import ContactMe from './componant/ContactMe/ContactMe'

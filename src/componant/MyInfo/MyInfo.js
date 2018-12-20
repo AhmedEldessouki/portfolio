@@ -24,7 +24,7 @@ export default class MyInfo extends Component {
   }
   render() {
     const { profile } = this.state
-    console.log(profile)
+    // console.log(profile)
     return (
       <div >
         {this.state.isLoading ? null :
