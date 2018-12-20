@@ -21,12 +21,24 @@
 .ContactMe form {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1.5fr;
-      grid-template-columns: 1fr 1.5fr;
+  -ms-grid-columns: 300px 500px;
+      grid-template-columns: 300px 500px;
   margin: 10px 50px;
   padding: 10px;
   width: calc(100% - 100px);
   min-height: 264px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .ContactMe form {
+    -ms-grid-columns: 300px 400px;
+        grid-template-columns: 300px 400px;
+  }
 }
 
 @media (max-width: 716px) {
@@ -126,7 +138,7 @@
 }
 
 .ContactMe form .second-container .textArea {
-  width: 60%;
+  width: 400px;
   height: 190px;
   color: #282c34;
   padding: 12px 20px;
