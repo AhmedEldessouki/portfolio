@@ -5,6 +5,8 @@ import Projects from './componant/Projects/Projects'
 import ContactMe from './componant/ContactMe/ContactMe'
 import MyFooter from './componant/MyFooter/MyFooter'
 import { ScrollSpy, Link } from './componant/SpyScroll/ScrollSpy'
+import ScrollUpButton from "react-scroll-up-button";
+import { black } from 'ansi-colors';
 
 
 class App extends Component {
@@ -30,6 +32,14 @@ class App extends Component {
           {/* <MyNav /> */}
           <MyInfo />
         </header>
+        <ScrollUpButton
+        StopPosition={0}
+        ShowAtPosition={150}
+        EasingType='easeOutCubic'
+        AnimationDuration={500}
+        ContainerClassName='ScrollUpButton__Container'
+        TransitionClassName='ScrollUpButton__Toggled'
+         />
         <main id="2">
           <Projects />
         </main>
