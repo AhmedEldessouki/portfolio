@@ -1,0 +1,18 @@
+.SignUp {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  form {
+    display: flex;
+    flex-direction: column;
+    input {
+      padding: 5px;
+      margin: 10px 0;
+      width: 200px;
+    }
+  }
+  .testtest {
+    color: red;
+    font-size: 14px;
+  }
+}

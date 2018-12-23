@@ -1,9 +1,10 @@
 import React from 'react'
 
-const ProjectsSummary = () => {
+const ProjectsSummary = ({project}) => {
   return (
     <div className="ProjectsSummary">
-      <p>asdasdasfefgjh bgfbvasdfvajbfvakgcnsdajsadfjkadsadsfhadsjkfhadskjfhadskfjhasdfkjasdhfkjasdfhaksdjfhaskdjfhadskfjahsdfkjfb asd gfnasdh asdbadfj</p>
+      <h3>{project.projectName}</h3>
+      <p>{project.description}</p>
     </div>
   )
 }

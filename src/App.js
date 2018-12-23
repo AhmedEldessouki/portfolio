@@ -6,6 +6,7 @@ import Dashboard from './componant/Dashboard/Dashboard';
 import SignIn from './componant/Auth/SignIn';
 import SignUp from './componant/Auth/SignUp';
 import ProjectDetails from './componant/Home/Projects/ProjectDetails'
+import CreateProject from './componant/Home/Projects/CreateProject'
 
 class App extends Component {
   componentDidMount(){
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path='/project/:id' component={ProjectDetails}/>
           <Route path='/signin' component={SignIn}/>
           <Route path='/SignUp' component={SignUp}/>
+          <Route path='/CreateProject' component={CreateProject}/>
         </Switch>
       </div>
     );
