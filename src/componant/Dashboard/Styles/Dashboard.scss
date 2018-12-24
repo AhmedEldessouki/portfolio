@@ -1,7 +1,11 @@
-.Dashboard{
+$MyLightBlue: #d4dff6;
+$MyDarkBlue:#282c34;
+
+.Dashboard {
   display: flex;
   justify-content: space-evenly;
   height: 100%;
   padding-top: 20px;
   flex: 0 100%;
+  // background-color: $MyDarkBlue;
 }

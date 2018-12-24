@@ -6,12 +6,16 @@ import ContactMe from './ContactMe/ContactMe'
 import MyFooter from './MyFooter/MyFooter'
 import { ScrollSpy, Link } from './SpyScroll/ScrollSpy'
 import ScrollUpButton from "react-scroll-up-button";
+import {connect} from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import {compose} from 'redux'
 
 class Home extends Component {
   componentDidMount(){
     document.title = "Ahmed ElDessouki"
   }
   render() {
+    const {projectsData} = this.props
     return (
       <div className="Home">
         <header className="Home-header" id="1">
@@ -39,7 +43,7 @@ class Home extends Component {
         TransitionClassName='ScrollUpButton__Toggled'
          />
         <main id="2">
-          <Projects />
+        <Projects projectsData={projectsData}/>
         </main>
         <footer id="3">
           <ContactMe />
@@ -50,4 +54,15 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  console.log('projects', state.firestore.ordered.projects)
+  return{
+      projectsData: state.firestore.ordered.projects
+  }
+}
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+      {collection: 'projects'}
+  ])
+  )(Home)

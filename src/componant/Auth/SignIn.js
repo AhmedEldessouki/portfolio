@@ -18,8 +18,8 @@ import React, { Component } from 'react'
   }
 
   handleSubmit = (e) =>{
-    e.preventDefault();
     console.log(this.state)
+    e.preventDefault();
   } 
   render() {
     return (
