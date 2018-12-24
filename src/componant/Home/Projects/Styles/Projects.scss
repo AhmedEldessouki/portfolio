@@ -6,6 +6,18 @@ $MyDarkBlue:#282c34;
     margin: 0;
     padding: 10px 0;
   }
+  .cards-wrapper{
+    // margin: 10px 0;
+    padding: 20px;
+    display: grid;
+    grid-gap: 25px;
+    justify-content: space-evenly;
+    grid-template-columns: repeat( auto-fit, minmax(180px, 200px));
+    a{
+      text-decoration: none;
+      font-style: none;
+    }
+  }
   @media (max-width: 320px) {
     padding-top: 20px;
   }

@@ -8,7 +8,7 @@ import { GoMention } from "react-icons/go"
 
 class MyContactMe extends Component {
   render() {
-    const { errors, touched, isSubmitting, handleChange } = this.props
+    const { errors, touched, isSubmitting, handleChange } = this.props;
     return (
       <div className="ContactMe">
         <h1>Contact Me</h1>
@@ -49,7 +49,7 @@ class MyContactMe extends Component {
 }
 
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const ContactMeSchema = withFormik({
   validationSchema: Yup.object().shape({
@@ -78,13 +78,13 @@ const ContactMeSchema = withFormik({
     const { name,
       email,
       phoneNumber,
-      description } = values
+      description } = values;
     const form = axios.post('/api/form', {
       name,
       email,
       phoneNumber,
       description
-    })
+    });
     setTimeout(() => {
       if (values.name === 'admin') {
         bag.setErrors({ name: 'Nice try!' });

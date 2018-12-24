@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 import './MyNav.scss'
+import {connect} from 'react-redux'
 
-export default class MyNav extends Component {
+class MyNav extends Component {
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
@@ -31,3 +32,11 @@ export default class MyNav extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return{
+
+  }
+};
+export default connect(mapStateToProps)(MyNav)

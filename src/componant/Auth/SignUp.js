@@ -7,7 +7,7 @@ import { red } from 'ansi-colors';
 
 class SignUp extends Component {
   render() {
-    const { errors, touched, isSubmitting } = this.props
+    const { errors, touched, isSubmitting } = this.props;
     return (
       <div className="SignUp">
         <h1>Signup</h1>

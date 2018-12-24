@@ -1,10 +1,10 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const nodemailer = require('nodemailer')
-const app = express()
+const express = require('express');
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+const app = express();
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/api/form', (req, res) => {
   // console.log('this is the sent message: ', req.body)
@@ -18,7 +18,7 @@ app.post('/api/form', (req, res) => {
   </ul>
   <h3>Message</h3>
   <p>${req.body.description}</p>
-  `
+  `;
 
     let transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
@@ -27,7 +27,7 @@ app.post('/api/form', (req, res) => {
         user: 'cy66udr3gbl537os@ethereal.email',
         pass: '1H81RkHCprms7ECrKX'
       }
-    })
+    });
 
     let mailOptions = {
       from: '"Fred Foo 👻" <foo@example.com>', // sender address
@@ -48,10 +48,10 @@ app.post('/api/form', (req, res) => {
       }
     })
   })
-})
+});
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`)
-})
+});
