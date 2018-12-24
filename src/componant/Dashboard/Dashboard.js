@@ -14,6 +14,7 @@ class Dashboard extends Component {
     return (
       <div className="Dashboard">
         <header>
+          <h1>Dashboard</h1>
           <AuthNavlinks/>
         </header>
         <main>
