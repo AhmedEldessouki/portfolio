@@ -28,36 +28,7 @@ $NavBackgroundBlue:#337ab7;
       opacity: .7;
     }
 
-    ul {
-      display: flex;
-      height: 100%;
-      justify-content: end;
-      align-items: center;
-      list-style: none;
-      width: 500px;
-      padding: 0;
-      justify-self: end;
 
-
-      a {
-        margin: 10px;
-        font-style: none;
-        text-decoration: none;
-        color: $MyLightBlue;
-        background-color: $MyDarkBlue;
-        padding: 6px 15px;
-        border-radius: 20px;
-        -webkit-border-radius: 20px;
-        -moz-border-radius: 20px;
-        -ms-border-radius: 20px;
-        -o-border-radius: 20px;
-
-        &:hover {
-          background-color: $MyLightBlue;
-          color: $MyDarkBlue;
-        }
-      }
-    }
   }
 
   .Dashboard-items {

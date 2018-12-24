@@ -2,28 +2,53 @@ import React, { Component } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import './Styles/SignUp.scss'
-import { red } from 'ansi-colors';
+import connect from "react-redux/es/connect/connect";
+import {Redirect} from "react-router-dom";
+import {signUp} from "../../Store/Actions/AuthActions";
 
 
-class SignUp extends Component {
+class FormikSignUp extends Component {
   render() {
-    const { errors, touched, isSubmitting } = this.props;
+    const { errors, touched, isSubmitting, auth, handleSubmit } = this.props;
+
     return (
-      <div className="SignUp">
-        <h1>Signup</h1>
-        <Form>
-          <Field name="firstName" placeholder="First Name" />
-          {errors.firstName && touched.firstName ? (
-            <div className="testtest">{errors.firstName}</div>
-          ) : null}
-          <Field name="lastName" placeholder="Last Name"/>
-          {errors.lastName && touched.lastName ? (
-            <div className="testtest">{errors.lastName}</div>
-          ) : null}
-          <Field name="email" type="email" placeholder="Email Name"/>
-          {errors.email && touched.email ? <div className="testtest" style={{ color: red, fontSize: 10 }}>{errors.email}</div> : null}
-          <button type="submit" disabled={isSubmitting} >Submit</button>
-        </Form>
+      <div>
+        {!auth.uid ? <Redirect to='/signin'/> :
+          <div className="SignUp">
+            <h1>Sign up</h1>
+            <Form onSubmit={handleSubmit}>
+              <div className="double-container">
+                <div className="field-container">
+                  <Field name="firstName" placeholder="First Name" />
+                  {errors.firstName && touched.firstName ? (
+                    <p className="error-message">{errors.firstName}</p>
+                  ) : null}
+                </div>
+                <div className="field-container">
+                  <Field name="lastName" placeholder="Last Name" />
+                  {errors.lastName && touched.lastName ? (
+                    <div className="error-message">{errors.lastName}</div>
+                  ) : null}
+                </div>
+              </div>
+              <div className="field-container">
+                <Field name="email" type="email" placeholder="Email Address" />
+                {errors.email && touched.email ? <div className="error-message">{errors.email}</div> : null}
+              </div>
+              <div className="double-container">
+                <div className="field-container">
+                  <Field name="password" type="password" placeholder="Enter Password" />
+                  {errors.password && touched.password ? <div className="error-message">{errors.password}</div> : null}
+                </div>
+                <div className="field-container">
+                  <Field name="confirmPassword" type="password" placeholder="Re-Enter Password" />
+                  {errors.confirmPassword && touched.confirmPassword ? <div className="error-message">{errors.confirmPassword}</div> : null}
+                </div>
+              </div>
+              <button type="submit" disabled={isSubmitting} >Submit</button>
+            </Form>
+          </div>
+        }
       </div>
     )
   }
@@ -32,21 +57,25 @@ class SignUp extends Component {
 const SignupSchema = withFormik({
   validationSchema: Yup.object().shape({
     firstName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
     lastName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
     email: Yup.string()
-      .email('Invalid email')
-      .required('Required'),
+    .email('Invalid email')
+    .required('Required'),
+    password: Yup.string()
+    .min(6, 'Too Short!')
+    .required('Required'),
+    confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], "Passwords don't match")
+    .required('Confirm Password is required')
   }),
   mapPropsToValues: props => ({
-    firstName: '',
-    lastName: '',
-    email: '',
+    ...props
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
@@ -56,13 +85,25 @@ const SignupSchema = withFormik({
       } else if (values.lastName === 'admin') {
         bag.setErrors({ lastName: 'Nice try!' });
       } else {
-        console.log(values);
+        console.log('values ', values)
+        values.signUp(values)
         bag.resetForm()
       }
       bag.setSubmitting(false);
     }, 2000)
   },
-  displayName: 'FormikForm',
+  displayName: 'SignUp',
 });
-const FormikForm = SignupSchema(SignUp);
-export default FormikForm
+
+const mapStateToProps = (state) =>{
+  return{
+    auth:state.firebase.auth
+  }
+}
+const mapDispatchToProps= (dispatch) => {
+  return{
+    signUp: (values) => dispatch(signUp(values))
+  }
+}
+const SignUp = SignupSchema(FormikSignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

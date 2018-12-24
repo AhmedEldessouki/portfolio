@@ -9,13 +9,16 @@ import ScrollUpButton from "react-scroll-up-button";
 import {connect} from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import {compose} from 'redux'
+import AuthNavlinks from '../Navigation/AuthNavlinks'
+import Navlinks from '../Navigation/Navlinks'
 
 class Home extends Component {
   componentDidMount(){
     document.title = "Ahmed ElDessouki"
   }
   render() {
-    const {projectsData} = this.props;
+    const {projectsData, auth} = this.props;
+    const links = auth.uid ? <AuthNavlinks/> : null //<Navlinks/>
     return (
       <div className="Home">
         <header className="Home-header" id="1">
@@ -30,6 +33,7 @@ class Home extends Component {
                 <Link className="scroll-spy-item" section="3">Contact Me</Link>
               </ScrollSpy>
             </div>
+            {links}
           </div>
           {/* <MyNav /> */}
           <MyInfo />
@@ -55,9 +59,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('projects', state.firestore.ordered.projects);
   return{
-    projectsData: state.firestore.ordered.projects
+    projectsData: state.firestore.ordered.projects,
+    auth:state.firebase.auth
   }
 };
 export default compose(

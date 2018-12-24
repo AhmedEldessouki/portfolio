@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {createProject } from '../../../Store/Actions/ProjectsActions'
+import {Redirect} from "react-router-dom";
 
 class CreateProject extends Component {
   constructor(){
@@ -27,28 +28,37 @@ class CreateProject extends Component {
     this.props.createProject(this.state)
   };
   render() {
+    const {auth} = this.props
     return (
       <div>
-        <h1>Create New Project</h1>
-        <form onSubmit={this.handleSubmit}>
+        {!auth.uid ? <Redirect to='/signin'/> :
           <div>
-            <input type="text"   id="projectName" onChange={this.handleChange}/>
-            <input type="text"   id="author" onChange={this.handleChange}/>
-            <input type="date"   id="date" onChange={this.handleChange}/>
-            <textarea   id="description" onChange={this.handleChange}/>
+            <h1>Create New Project</h1>
+            <form onSubmit={this.handleSubmit}>
+              <div>
+                <input type="text"   id="projectName" onChange={this.handleChange}/>
+                <input type="text"   id="author" onChange={this.handleChange}/>
+                <input type="date"   id="date" onChange={this.handleChange}/>
+                <textarea   id="description" onChange={this.handleChange}/>
+              </div>
+              <div>
+                <button type="submit">CreateProject</button>
+              </div>
+            </form>
           </div>
-          <div>
-            <button type="submit">CreateProject</button>
-          </div>
-        </form>
+        }
       </div>
     )
   }
 }
-
+const mapStateToProps = (state) =>{
+  return{
+    auth:state.firebase.auth
+  }
+}
 const mapDispatchToProps = (dispatch) =>{
   return{
     createProject: (project) => dispatch(createProject(project))
   }
 };
-export default connect(null, mapDispatchToProps)(CreateProject);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProject);

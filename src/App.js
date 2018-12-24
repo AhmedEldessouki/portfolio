@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Home from './componant/Home/Home'
-import {Route,Switch} from 'react-router-dom'
+import {Route,Switch, Redirect} from 'react-router-dom'
 import Dashboard from './componant/Dashboard/Dashboard';
 import SignIn from './componant/Auth/SignIn';
 import SignUp from './componant/Auth/SignUp';

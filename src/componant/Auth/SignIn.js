@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {signIn} from '../../Store/Actions/AuthActions'
- import MyNav from '../Home/MyNav/MyNav'
+import MyNav from '../Home/MyNav/MyNav'
+import {Redirect} from "react-router-dom";
+import AuthNavlinks from "../Navigation/AuthNavlinks";
+import Navlinks from "../Navigation/Navlinks";
+
 class SignIn extends Component {
   constructor(){
     super();
@@ -24,21 +28,27 @@ class SignIn extends Component {
     this.props.signIn(this.state)
   };
   render() {
-    const { authError } = this.props;
+    const { authError,auth } = this.props;
+    const links = auth.uid ? <AuthNavlinks/> : <Navlinks/>
+
     return (
-      <div> 
-        <MyNav />
-        <h1>Signin</h1>
-        <form onSubmit={this.handleSubmit}>
-        <div>
-          <input type="email"   id="email" onChange={this.handleChange}/>
-          <input type="password"   id="password" onChange={this.handleChange}/>
-        </div>
-        <div>
-          <button type="submit">SignIn</button>
-          {authError? <p>{authError}</p> : null}
-        </div>
-        </form>
+      <div>
+        {auth.uid ? <Redirect to='/'/> :
+          <div>
+            {links}
+            <h1>Signin</h1>
+            <form onSubmit={this.handleSubmit}>
+              <div>
+                <input type="email"   id="email" onChange={this.handleChange}/>
+                <input type="password"   id="password" onChange={this.handleChange}/>
+              </div>
+              <div>
+                <button type="submit">SignIn</button>
+                {authError? <p>{authError}</p> : null}
+              </div>
+            </form>
+          </div>
+        }
       </div>
     )
   }
@@ -46,7 +56,8 @@ class SignIn extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    authError: state.auth.authError
+    authError: state.auth.authError,
+    auth: state.firebase.auth
   }
 };
 const mapDispatchToProps = (dispatch) => {

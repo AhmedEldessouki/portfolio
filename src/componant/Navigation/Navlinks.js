@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
+import './Navigation.scss'
 
 export default class Navlinks extends Component {
   render() {
     return (
       <div>
-        <ul>
-          <li><NavLink to={"/createProject"}>Create Project</NavLink></li>
-          <li><NavLink to={"/SignIn"}>SignIn</NavLink></li>  
+        <ul className="Navigation">
+          {/*<li><NavLink to={"/createProject"}>Create Project</NavLink></li>*/}
+          <li><NavLink to={"/signin"}>SignIn</NavLink></li>
         </ul>
       </div>
     )
