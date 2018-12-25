@@ -17,6 +17,7 @@ const ProjectDetails = (props) => {
           </div>
           <div>
             <div>Author: {project.authorFirtsName} {project.authorLastName}</div>
+            <div>Created At: {project.createdAt.toDate().toDateString()}</div>
           </div>
         </div>
       </div>

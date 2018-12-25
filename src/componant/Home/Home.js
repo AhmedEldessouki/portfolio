@@ -10,15 +10,15 @@ import {connect} from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import {compose} from 'redux'
 import AuthNavlinks from '../Navigation/AuthNavlinks'
-import Navlinks from '../Navigation/Navlinks'
+// import Navlinks from '../Navigation/Navlinks'
 
 class Home extends Component {
   componentDidMount(){
     document.title = "Ahmed ElDessouki"
   }
   render() {
-    const {projectsData, auth} = this.props;
-    const links = auth.uid ? <AuthNavlinks/> : null //<Navlinks/>
+    const {projectsData, auth, profile} = this.props;
+    const links = auth.uid ? <AuthNavlinks profile={profile}/> : null //<Navlinks/>
     return (
       <div className="Home">
         <header className="Home-header" id="1">
@@ -59,9 +59,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return{
     projectsData: state.firestore.ordered.projects,
-    auth:state.firebase.auth
+    auth:state.firebase.auth,
+    profile: state.firebase.profile
   }
 };
 export default compose(

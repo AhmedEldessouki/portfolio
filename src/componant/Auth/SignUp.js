@@ -9,7 +9,7 @@ import {signUp} from "../../Store/Actions/AuthActions";
 
 class FormikSignUp extends Component {
   render() {
-    const { errors, touched, isSubmitting, auth, handleSubmit } = this.props;
+    const { errors, touched, isSubmitting, authError, auth, handleSubmit } = this.props;
 
     return (
       <div>
@@ -44,6 +44,7 @@ class FormikSignUp extends Component {
                   <Field name="confirmPassword" type="password" placeholder="Re-Enter Password" />
                   {errors.confirmPassword && touched.confirmPassword ? <div className="error-message">{errors.confirmPassword}</div> : null}
                 </div>
+                {authError ? <div className="error-message">{authError}</div>  : null}
               </div>
               <button type="submit" disabled={isSubmitting} >Submit</button>
             </Form>
@@ -97,7 +98,8 @@ const SignupSchema = withFormik({
 
 const mapStateToProps = (state) =>{
   return{
-    auth:state.firebase.auth
+    auth:state.firebase.auth,
+    authError: state.auth.authError
   }
 }
 const mapDispatchToProps= (dispatch) => {

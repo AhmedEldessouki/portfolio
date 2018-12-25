@@ -9,8 +9,7 @@ class CreateProject extends Component {
     this.state = {
       projectName:'',
       description:'',
-      author: '',
-      date:null
+
     };
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleChange=this.handleChange.bind(this)
@@ -25,7 +24,9 @@ class CreateProject extends Component {
   handleSubmit = (e) =>{
     e.preventDefault();
     // console.log(this.state)
+    {/*<Redirect to="/dashboard"/>*/}
     this.props.createProject(this.state)
+    this.props.history.push('/');
   };
   render() {
     const {auth} = this.props
@@ -37,8 +38,6 @@ class CreateProject extends Component {
             <form onSubmit={this.handleSubmit}>
               <div>
                 <input type="text"   id="projectName" onChange={this.handleChange}/>
-                <input type="text"   id="author" onChange={this.handleChange}/>
-                <input type="date"   id="date" onChange={this.handleChange}/>
                 <textarea   id="description" onChange={this.handleChange}/>
               </div>
               <div>

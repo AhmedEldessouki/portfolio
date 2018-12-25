@@ -6,6 +6,7 @@ const ProjectsSummary = ({project}) => {
       <img alt="Project's Picture" url=""/>
       <h3>{project.projectName}</h3>
       <p>{project.description}</p>
+      <h4>{project.createdAt.toDate().toDateString()}</h4>
     </div>
   )
 };
