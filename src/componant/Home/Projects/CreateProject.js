@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {createProject } from '../../../Store/Actions/ProjectsActions'
 import {Redirect} from "react-router-dom";
+import './Styles/CreateProject.scss'
+import AuthNavlinks from '../../Navigation/AuthNavlinks'
 
 class CreateProject extends Component {
   constructor(){
@@ -33,13 +35,15 @@ class CreateProject extends Component {
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
-          <div>
+          <div className="CreateProject">
+            <header>
+              <AuthNavlinks/>
+            </header>
+
             <h1>Create New Project</h1>
             <form onSubmit={this.handleSubmit}>
-              <div>
-                <input type="text"   id="projectName" onChange={this.handleChange}/>
-                <textarea   id="description" onChange={this.handleChange}/>
-              </div>
+                <input type="text"  placeholder="Project Name" id="projectName" onChange={this.handleChange}/>
+                <textarea  placeholder="Project Description" id="description" onChange={this.handleChange}/>
               <div>
                 <button type="submit">CreateProject</button>
               </div>

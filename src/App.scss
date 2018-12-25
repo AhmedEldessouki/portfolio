@@ -89,7 +89,10 @@ $MyDarkBlue:#282c34;
       }
     }
   }
-
+header{
+  padding: 20px 0;
+  background: $MyDarkBlue;
+}
   main {
     min-height: 632px;
     background-color: $MyLightBlue;

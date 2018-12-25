@@ -2,24 +2,34 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
-   
+import './Styles/ProjectDetails.scss'
+import ContactMe from '../ContactMe/ContactMe'
+import AuthNavlinks from '../../Navigation/AuthNavlinks'
 
 const ProjectDetails = (props) => {
   const { project } = props;
   console.log(project);
   if (project) {
     return(
-      <div className="ProjectsDetails">
-        <div className="cards-wrapper">
-          <div>
-            <span>{project.projectName}</span>
+      <div className="ProjectDetails">
+        <header>
+          <AuthNavlinks/>
+        </header>
+
+        <div className="details">
+          <div className="first-container">
+            <h2>{project.projectName}</h2>
             <p>{project.description}</p>
           </div>
-          <div>
+          <div className="double-container">
             <div>Author: {project.authorFirtsName} {project.authorLastName}</div>
             <div>Created At: {project.createdAt.toDate().toDateString()}</div>
           </div>
         </div>
+
+        <footer>
+          <ContactMe/>
+        </footer>
       </div>
     )
   } else {
