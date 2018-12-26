@@ -7,11 +7,12 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
+import Messages from './Messages'
 
 class Dashboard extends Component {
   render() {
     // console.log(this.props)
-    const {projectsData, auth} = this.props;
+    const {projectsData, auth, notifications, messagesData} = this.props;
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
@@ -26,10 +27,13 @@ class Dashboard extends Component {
                   <Projects projectsData={projectsData}/>
                 </div>
                 <div className="second-container">
-                  <Notifications/>
+                  <Notifications notifications={notifications}/>
                 </div>
               </div>
             </main>
+                <div>
+                  <Messages messagesData={messagesData} />
+                </div>
           </div>
         }
       </div>
@@ -38,15 +42,20 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('projects', state.firestore.ordered.projects);
+  // console.log('projects', state.firestore.ordered.projects);
+  // console.log('dashboard', state);
   return{
     projectsData: state.firestore.ordered.projects,
-    auth:state.firebase.auth
+    messagesData: state.firestore.ordered.contactedMe,
+    auth:state.firebase.auth,
+    notifications: state.firestore.ordered.notifications,
   }
 };
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    {collection: 'projects'}
+    {collection: 'projects', orderBy: ['createdAt', 'desc']},
+    {collection: 'contactedMe', orderBy: ['sentAt', 'desc']},
+    {collection: 'notifications', limit: 10, orderBy: ['time', 'desc']}
   ])
 )(Dashboard)

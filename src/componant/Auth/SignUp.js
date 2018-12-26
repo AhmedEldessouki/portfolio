@@ -86,7 +86,7 @@ const SignupSchema = withFormik({
       } else if (values.lastName === 'admin') {
         bag.setErrors({ lastName: 'Nice try!' });
       } else {
-        console.log('values ', values)
+        // console.log('values ', values)
         values.signUp(values)
         bag.resetForm()
       }

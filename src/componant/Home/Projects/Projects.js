@@ -4,7 +4,6 @@ import ProjectsSummary from './ProjectsSummary'
 import {NavLink} from 'react-router-dom'
 
 const Projects= ({projectsData}) => {
-  console.log('project data', projectsData);
   return (
     <div className="Projects">
       <h1>My Projects</h1>

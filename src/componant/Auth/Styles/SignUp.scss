@@ -1,6 +1,6 @@
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
-.SignUp {
+.SignUp,.SignIn {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -9,6 +9,7 @@ $MyDarkBlue:#282c34;
   background: $MyDarkBlue;
   color: $MyLightBlue;
   min-height: 630px;
+  height: 100%;
   //form {
   //  display: flex;
   //  flex-direction: column;
@@ -88,12 +89,14 @@ $MyDarkBlue:#282c34;
       width: 100%;
       height: 35px;
     }
-    @media (min-width: 260px) and (max-width: 716px) {
+  }
+  @media (min-width: 260px) and (max-width: 716px) {
+    form {
       width: 300px;
       input{
         width: 275px;
       }
-      .double-container{
+     .double-container{
         width: 275px;
         //padding: 0 10px;
         input{

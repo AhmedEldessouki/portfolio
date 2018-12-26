@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {signIn} from '../../Store/Actions/AuthActions'
-import MyNav from '../Home/MyNav/MyNav'
 import {Redirect} from "react-router-dom";
 import AuthNavlinks from "../Navigation/AuthNavlinks";
 import Navlinks from "../Navigation/Navlinks";
+import './Styles/SignUp.scss'
 
 class SignIn extends Component {
   constructor(){
@@ -34,13 +34,15 @@ class SignIn extends Component {
     return (
       <div>
         {auth.uid ? <Redirect to='/'/> :
-          <div>
-            {links}
+          <div className="SignIn">
+            <header>
+              {links}
+            </header>
             <h1>Signin</h1>
             <form onSubmit={this.handleSubmit}>
-              <div>
-                <input type="email"   id="email" onChange={this.handleChange}/>
-                <input type="password"   id="password" onChange={this.handleChange}/>
+              <div className="field-container">
+                <input type="email" placeholder="Enter Email"  id="email" onChange={this.handleChange}/>
+                <input type="password" placeholder="Enter Password"  id="password" onChange={this.handleChange}/>
               </div>
               <div>
                 <button type="submit">SignIn</button>

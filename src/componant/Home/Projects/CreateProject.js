@@ -11,7 +11,6 @@ class CreateProject extends Component {
     this.state = {
       projectName:'',
       description:'',
-
     };
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleChange=this.handleChange.bind(this)
@@ -39,14 +38,11 @@ class CreateProject extends Component {
             <header>
               <AuthNavlinks/>
             </header>
-
             <h1>Create New Project</h1>
             <form onSubmit={this.handleSubmit}>
-                <input type="text"  placeholder="Project Name" id="projectName" onChange={this.handleChange}/>
-                <textarea  placeholder="Project Description" id="description" onChange={this.handleChange}/>
-              <div>
+              <input type="text"  placeholder="Project Name" id="projectName" onChange={this.handleChange}/>
+              <textarea  placeholder="Project Description" id="description" onChange={this.handleChange}/>
                 <button type="submit">CreateProject</button>
-              </div>
             </form>
           </div>
         }

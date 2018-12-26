@@ -8,7 +8,7 @@ export default class Navlinks extends Component {
       <div>
         <ul className="Navigation">
           {/*<li><NavLink to={"/createProject"}>Create Project</NavLink></li>*/}
-          <li><NavLink to={"/signin"}>SignIn</NavLink></li>
+          <li><NavLink to={"/"}>Home</NavLink></li>
         </ul>
       </div>
     )

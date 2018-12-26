@@ -8,7 +8,7 @@ import AuthNavlinks from '../../Navigation/AuthNavlinks'
 
 const ProjectDetails = (props) => {
   const { project } = props;
-  console.log(project);
+  // console.log(project);
   if (project) {
     return(
       <div className="ProjectDetails">
@@ -45,8 +45,6 @@ const mapStateToProps = (state, ownProps) =>{
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id]: null;
-  console.log('projects',projects);
-  console.log('project',project);
   return { project }
 };
 
