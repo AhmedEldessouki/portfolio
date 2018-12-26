@@ -11,7 +11,6 @@ import Messages from './Messaging/Messages'
 
 class Dashboard extends Component {
   render() {
-    // console.log(this.props)
     const {projectsData, auth, notifications, messagesData} = this.props;
     return (
       <div>
@@ -31,9 +30,9 @@ class Dashboard extends Component {
                 </div>
               </div>
             </main>
-                <div>
-                  <Messages messagesData={messagesData} />
-                </div>
+            <div>
+              <Messages messagesData={messagesData} />
+            </div>
           </div>
         }
       </div>
@@ -42,8 +41,6 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('projects', state.firestore.ordered.projects);
-  // console.log('dashboard', state);
   return{
     projectsData: state.firestore.ordered.projects,
     messagesData: state.firestore.ordered.contactedMe,

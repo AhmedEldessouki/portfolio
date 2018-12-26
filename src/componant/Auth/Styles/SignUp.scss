@@ -1,5 +1,22 @@
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
+.my-spinner-container{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $MyDarkBlue;
+  color: $MyLightBlue;
+  opacity: 0.95;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 .SignUp,.SignIn {
   display: flex;
   flex-direction: column;
@@ -10,37 +27,6 @@ $MyDarkBlue:#282c34;
   color: $MyLightBlue;
   min-height: 630px;
   height: 100%;
-  //form {
-  //  display: flex;
-  //  flex-direction: column;
-  //  align-items: center;
-  //  padding: 6px;
-  //  color: $MyDarkBlue;
-  //  width: 100%;
-  //  height: 100%;
-  //  input {
-  //    padding: 5px;
-  //    margin: 10px 0;
-  //    width: 300px;
-  //    //width: 100%;
-  //  }
-  //  button {
-  //    margin: 10px 0;
-  //    padding: 4px;
-  //    background-color: $MyLightBlue;
-  //    border-radius: 6px;
-  //    width: 300px;
-  //    height: 35px;
-  //  }
-  //  .field-container {
-  //    display: block;
-  //    text-align: left;
-  //    margin: 10px 0;
-  //    span {
-  //      margin-right: 10px; // font-size: 18px;
-  //    }
-  //  }
-  //}
   form {
     display: flex;
     flex-direction: column;
@@ -63,7 +49,7 @@ $MyDarkBlue:#282c34;
       text-align: left;
       margin: 10px 0;
       span {
-        margin-right: 10px; // font-size: 18px;
+        margin-right: 10px;
       }
     }
     .double-container {
@@ -96,7 +82,7 @@ $MyDarkBlue:#282c34;
       input{
         width: 275px;
       }
-     .double-container{
+      .double-container{
         width: 275px;
         //padding: 0 10px;
         input{
@@ -107,9 +93,5 @@ $MyDarkBlue:#282c34;
         width: 280px;
       }
     }
-  }
-  .testtest {
-    color: red;
-    font-size: 14px;
   }
 }

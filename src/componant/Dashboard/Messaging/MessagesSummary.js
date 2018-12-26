@@ -9,8 +9,8 @@ const MessagesSummary = ({contact}) => {
         <p className="description">
           {contact.description}
         </p>
-        {/*<h4>{contact.sentAt.toDate().toDateString()}</h4>*/}
       </Scrollbars>
+        <span>{contact.sentAt.toDate().toDateString()}</span>
     </div>
   )
 };

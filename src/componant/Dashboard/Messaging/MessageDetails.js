@@ -5,6 +5,7 @@ import {compose} from 'redux'
 import './Styles/MessageDetails.scss'
 // import ContactMe from '../ContactMe/ContactMe'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
+import {BarLoader} from "react-spinners";
 
 const MessageDetails = (props) => {
   const { message } = props;
@@ -33,9 +34,14 @@ const MessageDetails = (props) => {
     )
   } else {
     return (
-      <div>
-        <p>message loading...</p>
-      </div>
+      <div className="my-spinner-container">
+        <BarLoader
+          className="my-spinner"
+          sizeUnit={"px"}
+          size={150}
+          color={'#d4dff6'}
+          loading={this.state.loading}
+        />Loading...</div>
     )
   }
 };

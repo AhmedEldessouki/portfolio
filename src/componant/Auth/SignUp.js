@@ -5,6 +5,7 @@ import './Styles/SignUp.scss'
 import connect from "react-redux/es/connect/connect";
 import {Redirect} from "react-router-dom";
 import {signUp} from "../../Store/Actions/AuthActions";
+import {BarLoader} from "react-spinners";
 
 
 class FormikSignUp extends Component {
@@ -48,6 +49,14 @@ class FormikSignUp extends Component {
               </div>
               <button type="submit" disabled={isSubmitting} >Submit</button>
             </Form>
+            {isSubmitting ?  <div className="my-spinner-container">
+              <BarLoader
+                className="my-spinner"
+                sizeUnit={"px"}
+                size={150}
+                color={'#d4dff6'}
+                loading={isSubmitting}
+              />Loading...</div> : null}
           </div>
         }
       </div>
@@ -86,7 +95,6 @@ const SignupSchema = withFormik({
       } else if (values.lastName === 'admin') {
         bag.setErrors({ lastName: 'Nice try!' });
       } else {
-        // console.log('values ', values)
         values.signUp(values)
         bag.resetForm()
       }

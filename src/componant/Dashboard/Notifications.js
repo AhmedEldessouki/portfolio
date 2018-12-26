@@ -2,9 +2,7 @@ import React from 'react'
 import './Styles/Notifications.scss'
 
 const Notifications = (props) => {
-  console.log(props.notifications)
   const {notifications} = props;
-  var content = null;
   return (
     <div className="Notifications">
       <h1>Notification</h1>

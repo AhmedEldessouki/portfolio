@@ -1,6 +1,5 @@
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
-
 .CreateProject{
   font-family: 'Merienda One', cursive;
   background: $MyLightBlue;
@@ -16,11 +15,12 @@ $MyDarkBlue:#282c34;
     justify-content: center;
     align-content: center;
     align-items: center;
-    width: 100%;
+    //width: 100%;
     min-height: 400px;
-    height: 50%;
+    //height: 50%;
     input, textarea{
       padding: 4px 8px;
+      width: 190px;
     }
     button{
       text-align: center;
@@ -31,6 +31,11 @@ $MyDarkBlue:#282c34;
       color: $MyLightBlue;
       padding: 2px;
     }
-
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 0;
+      margin-bottom: 2px;
+    }
   }
 }

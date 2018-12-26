@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './MyInfo.scss'
 import axios from "axios";
 import { GoMarkGithub } from "react-icons/go"
+import { BarLoader } from 'react-spinners';
+
 
 export default class MyInfo extends Component {
   constructor() {
@@ -13,21 +15,29 @@ export default class MyInfo extends Component {
   }
   componentDidMount() {
     axios.get(`https://api.github.com/users/ahmedeldessouki`)
-      .then((res) => {
-        this.setState({
-          profile: res.data,
-          isLoading: false
-        })
-      }).catch((err) => {
-        console.log(err);//todo we don't show the user the error in console. we remove this in the future
-      });
+    .then((res) => {
+      this.setState({
+        profile: res.data,
+        isLoading: false
+      })
+    }).catch((err) => {
+      console.log(err);//todo we don't show the user the error in console. we remove this in the future
+    });
   }
   render() {
-    const { profile } = this.state;
-    // console.log(profile)
+    const { profile, isLoading } = this.state;
     return (
       <div >
-        {this.state.isLoading ? <h1>Loading...</h1> :
+        {isLoading ?
+          <div className="my-spinner-container">
+            <BarLoader
+              className="my-spinner"
+              sizeUnit={"px"}
+              size={150}
+              color={'#d4dff6'}
+              loading={this.state.loading}
+            />Loading...</div>
+          :
           <div className="MyInfo">
             <div className="first-container">
               <div className="img-container">
@@ -41,17 +51,21 @@ export default class MyInfo extends Component {
                 <li>
                   <a href={profile.html_url}>
                     <GoMarkGithub />   My Github
-							    </a>
+                  </a>
                 </li>
               </ul>
             </div>
             <div className="second-container">
               <p>
-                Welcome! I'm Ahmed Eldessouki.  I'm 29 years old from Cairo, Egypt currently living in Turkey. I work as <em>a Front-End Developer</em>.
-                 I graduated from Universty Of South Wales.
-                I work at RoomMe as an entry level Front-End Developer. I'm a very passionate
-                newbie Front-End Developer who loves  to develop himself. A strength of mine, is my ability to be observant of small  details and to stay up-to-date with the
-               newest <em>technologies and techniques</em>.
+                Welcome! I'm Ahmed Eldessouki.  I'm 29 years old from Cairo, Egypt
+                currently living in Turkey. I work as <em>a Front-End Developer</em>.
+                I graduated from University Of South Wales.
+                I work at RoomMe as an entry level Front-End Developer.
+                I'm a very passionate
+                newbie Front-End Developer who loves  to develop himself.
+                A strength of mine, is my ability to be observant of small
+                details and to stay up-to-date with the
+                newest <em>technologies and techniques</em>.
               </p>
             </div>
           </div>

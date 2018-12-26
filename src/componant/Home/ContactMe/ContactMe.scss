@@ -1,5 +1,22 @@
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
+.my-spinner-container{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $MyDarkBlue;
+  color: $MyLightBlue;
+  opacity: 0.95;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 .ContactMe {
   display: flex;
   flex-direction: column;
@@ -80,7 +97,7 @@ $MyDarkBlue:#282c34;
       font-size: 14px;
       font-stretch: extra-expanded;
       text-align: justify;
-      font-weight: 500px;
+      font-weight: 500;
       color: $MyLightBlue;
       align-self: center;
       .textArea {
@@ -126,7 +143,10 @@ $MyDarkBlue:#282c34;
       }
     }
     .error-message {
-      color: $MyLightBlue;
+      color: red;
+      font-size: 14px;
+      margin-top: 0;
+      margin-bottom: auto;
     }
   }
   @media (max-width: 320px) {

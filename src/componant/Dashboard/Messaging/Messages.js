@@ -4,7 +4,6 @@ import MessagesSummary from './MessagesSummary'
 import {NavLink} from 'react-router-dom'
 
 const Messages= ({messagesData}) => {
-  // console.log('contact data', messagesData);
   return (
     <div className="Messages">
       <h1>My Messages</h1>

@@ -5,7 +5,10 @@ export const contactedMe = (contact) => {
     //make async call to the db
     const firestore = getFirestore();
     firestore.collection('contactedMe').add({
-      ...contact,
+      contactName: contact.contactName,
+      email: contact.email,
+      phoneNumber: contact.phoneNumber,
+      description: contact.description,
       sentAt: new Date()
     }).then(()=>{
       dispatch({ type: 'MESSAGE_SENT', contact });
