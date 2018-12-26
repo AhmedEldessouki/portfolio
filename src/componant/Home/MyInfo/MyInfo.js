@@ -27,7 +27,7 @@ export default class MyInfo extends Component {
     // console.log(profile)
     return (
       <div >
-        {this.state.isLoading ? null :
+        {this.state.isLoading ? <h1>Loading...</h1> :
           <div className="MyInfo">
             <div className="first-container">
               <div className="img-container">

@@ -80,7 +80,10 @@ $MyDarkBlue:#282c34;
       justify-self: center;
     }
     @media (max-width: 516px) {
-      width: 300px;
+      width: 92%;
+      img {
+        width: 220px;
+      }
     }
   }
   .second-container {

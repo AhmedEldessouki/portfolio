@@ -13,6 +13,7 @@ $NavBackgroundBlue:#337ab7;
     margin: 0 20px 20px;
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     background-color:black;
     border-radius: 8px;
@@ -64,10 +65,9 @@ $NavBackgroundBlue:#337ab7;
       -o-border-radius: 8px;
     }
 
-      @media (min-width: 220px) and (max-width: 716px) {
+    @media (min-width: 220px) and (max-width: 716px) {
       align-items: center;
       flex-direction: column;
-
       .first-container,
       .second-container {
         width: 100%;

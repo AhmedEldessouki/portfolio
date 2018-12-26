@@ -10,9 +10,13 @@ $NavBackgroundBlue:#337ab7;
   list-style: none;
   //width: 500px;
   padding: 0;
-  //margin: ;
   justify-self: center;
   flex-wrap: wrap;
+  li {
+    margin: 6px 0;
+    justify-self: center;
+    align-self: center;
+  }
 
   a {
     min-width: 120px;
@@ -40,8 +44,9 @@ $NavBackgroundBlue:#337ab7;
     @media (max-width: 500px) {
       font-size: 12px;
       min-width: 80px;
-      margin: 0 2px;
+      margin: 2px;
       padding: 5px;
+      border: 2px solid;
     }
     @media (max-width: 320px) {
       font-size: 12px;

@@ -40,11 +40,11 @@ class Home extends Component {
         </header>
         <ScrollUpButton
           StopPosition={0}
-          ShowAtPosition={150}
+          ShowAtPosition={-1}
           EasingType='easeOutCubic'
           AnimationDuration={500}
-          ContainerClassName='ScrollUpButton__Container'
-          TransitionClassName='ScrollUpButton__Toggled'
+          ContainerClassName='Scrollbars__Container'
+          TransitionClassName='Scrollbars__Toggled'
         />
         <main id="2">
           <Projects projectsData={projectsData}/>
