@@ -1,0 +1,39 @@
+.Notifications {
+  height: 100%;
+  width: 100%;
+  font-family: 'Merienda One', cursive;
+}
+
+.Notifications h1 {
+  position: relative;
+  top: 0;
+  margin: 0 0 16px 0;
+}
+
+.Notifications ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0;
+}
+
+.Notifications ul li div {
+  padding: 1px 0 4px 0;
+  margin: 4px;
+  color: #282c34;
+}
+
+.Notifications ul li .message-received, .Notifications ul li .Added-a-new {
+  background-color: #337ab7;
+}
+
+.Notifications ul li .Joined-The-App {
+  background-color: #ff000e;
+  color: whitesmoke;
+}
+/*# sourceMappingURL=Notifications.css.map */

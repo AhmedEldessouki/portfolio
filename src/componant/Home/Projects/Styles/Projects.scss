@@ -1,0 +1,24 @@
+$MyLightBlue: #d4dff6;
+$MyDarkBlue:#282c34;
+.Projects {
+  color: $MyDarkBlue;
+  h1 {
+    margin: 0;
+    padding: 10px 0;
+  }
+  .cards-wrapper{
+    margin:  0 10px;
+    padding: 20px 10px;
+    display: grid;
+    grid-gap: 25px;
+    justify-content: space-evenly;
+    grid-template-columns: repeat( auto-fit, minmax(220px, 0.6fr));
+    a{
+      text-decoration: none;
+      font-style: none;
+    }
+  }
+  @media (max-width: 320px) {
+    padding-top: 20px;
+  }
+}

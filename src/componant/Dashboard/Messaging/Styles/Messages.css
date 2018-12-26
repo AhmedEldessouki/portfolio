@@ -1,0 +1,31 @@
+.Messages {
+  color: #282c34;
+}
+
+.Messages h1 {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.Messages .cards-wrapper {
+  padding: 20px 10px;
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 25px;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-grid-columns: (minmax(350px, 1.5fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1.5fr));
+}
+
+.Messages .cards-wrapper a {
+  text-decoration: none;
+}
+
+@media (max-width: 320px) {
+  .Messages {
+    padding-top: 20px;
+  }
+}
+/*# sourceMappingURL=Messages.css.map */

@@ -3,6 +3,19 @@
   text-align: center;
 }
 
+.App *::-webkit-scrollbar {
+  width: 1em;
+}
+
+.App *::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.App *::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
 .App .App-header {
   background-color: #282c34;
   min-height: 632px;
@@ -140,6 +153,11 @@
   .App .App-header .myNav-container .scroll-spy {
     padding: 5px;
   }
+}
+
+.App header {
+  padding: 20px 0;
+  background: #282c34;
 }
 
 .App main {

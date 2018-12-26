@@ -3,6 +3,7 @@ $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
 .App {
   text-align: center;
+
   .App-header {
     background-color: $MyDarkBlue;
     min-height: 632px;
@@ -89,9 +90,10 @@ $MyDarkBlue:#282c34;
       }
     }
   }
-  svg{
-    fill:#d4dff6 !important;
-  }
+header{
+  padding: 20px 0;
+  background: $MyDarkBlue;
+}
   main {
     min-height: 632px;
     background-color: $MyLightBlue;

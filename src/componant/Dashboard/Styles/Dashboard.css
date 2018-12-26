@@ -1,0 +1,91 @@
+.Dashboard {
+  background-color: #23527c;
+  height: 100%;
+  padding: 20px;
+  font-family: 'Merienda One', cursive;
+}
+
+.Dashboard header {
+  padding: 20px;
+  margin: 0 20px 20px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: black;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.Dashboard header h1 {
+  margin: 0;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+  color: #d4dff6;
+  opacity: .7;
+}
+
+.Dashboard .Dashboard-items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 100%;
+  background-color: #23527c;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 100%;
+          flex: 0 100%;
+}
+
+.Dashboard .Dashboard-items .first-container {
+  width: calc( 100% - 350px);
+  background-color: #d4dff6;
+  margin: 10px 10px 10px 20px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.Dashboard .Dashboard-items .second-container {
+  color: #d4dff6;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 10px 20px 10px 10px;
+  padding: 20px;
+  width: 350px;
+  background-color: #282c34;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+@media (min-width: 220px) and (max-width: 716px) {
+  .Dashboard .Dashboard-items {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .Dashboard .Dashboard-items .first-container,
+  .Dashboard .Dashboard-items .second-container {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=Dashboard.css.map */

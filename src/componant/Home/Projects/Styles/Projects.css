@@ -1,0 +1,33 @@
+.Projects {
+  color: #282c34;
+}
+
+.Projects h1 {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.Projects .cards-wrapper {
+  margin: 0 10px;
+  padding: 20px 10px;
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 25px;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-grid-columns: (minmax(220px, 0.6fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(220px, 0.6fr));
+}
+
+.Projects .cards-wrapper a {
+  text-decoration: none;
+  font-style: none;
+}
+
+@media (max-width: 320px) {
+  .Projects {
+    padding-top: 20px;
+  }
+}
+/*# sourceMappingURL=Projects.css.map */

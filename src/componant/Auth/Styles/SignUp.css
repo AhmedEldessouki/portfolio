@@ -1,0 +1,114 @@
+.SignUp, .SignIn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: 'Merienda One', cursive;
+  background: #282c34;
+  color: #d4dff6;
+  min-height: 630px;
+  height: 100%;
+}
+
+.SignUp form, .SignIn form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 20px;
+  color: #282c34;
+  width: 550px;
+  height: 100%;
+  padding: 20px;
+  border: 5px solid cadetblue;
+  border-radius: 20px;
+}
+
+.SignUp form input, .SignIn form input {
+  padding: 8px;
+  width: 500px;
+  height: 30px;
+}
+
+.SignUp form .field-container, .SignIn form .field-container {
+  display: block;
+  text-align: left;
+  margin: 10px 0;
+}
+
+.SignUp form .field-container span, .SignIn form .field-container span {
+  margin-right: 10px;
+}
+
+.SignUp form .double-container, .SignIn form .double-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 500px;
+}
+
+.SignUp form .double-container input, .SignIn form .double-container input {
+  width: 230px;
+}
+
+.SignUp form .error-message, .SignIn form .error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: auto;
+}
+
+.SignUp form button, .SignIn form button {
+  margin: 10px 0;
+  padding: 4px;
+  background-color: #d4dff6;
+  border-radius: 6px;
+  width: 100%;
+  height: 35px;
+}
+
+@media (min-width: 260px) and (max-width: 716px) {
+  .SignUp form, .SignIn form {
+    width: 300px;
+  }
+  .SignUp form input, .SignIn form input {
+    width: 275px;
+  }
+  .SignUp form .double-container, .SignIn form .double-container {
+    width: 275px;
+  }
+  .SignUp form .double-container input, .SignIn form .double-container input {
+    width: 130px;
+  }
+  .SignUp form button, .SignIn form button {
+    width: 280px;
+  }
+}
+
+.SignUp .testtest, .SignIn .testtest {
+  color: red;
+  font-size: 14px;
+}
+/*# sourceMappingURL=SignUp.css.map */
