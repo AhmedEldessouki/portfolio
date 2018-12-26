@@ -8,7 +8,6 @@ $NavBackgroundBlue:#337ab7;
   height: 100%;
   padding: 20px;
   font-family: 'Merienda One', cursive;
-
   header {
     padding: 20px;
     margin: 0 20px 20px;
@@ -17,10 +16,10 @@ $NavBackgroundBlue:#337ab7;
     justify-content: space-between;
     background-color:black;
     border-radius: 8px;
-      -webkit-border-radius: 8px;
-      -moz-border-radius: 8px;
-      -ms-border-radius: 8px;
-      -o-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 
     h1 {
       margin: 0;
@@ -41,7 +40,7 @@ $NavBackgroundBlue:#337ab7;
     flex: 0 100%;
 
     .first-container {
-      width: 50%;
+      width: calc( 100% - 350px);
       background-color: $MyLightBlue;
       margin: 10px 10px 10px 20px;
       border-radius: 8px;
@@ -53,9 +52,10 @@ $NavBackgroundBlue:#337ab7;
 
     .second-container {
       color: $MyLightBlue;
+      justify-content: center;
       margin: 10px 20px 10px 10px;
       padding: 20px;
-      width: 50%;
+      width: 350px;
       background-color: $MyDarkBlue;
       border-radius: 8px;
       -webkit-border-radius: 8px;
@@ -64,13 +64,14 @@ $NavBackgroundBlue:#337ab7;
       -o-border-radius: 8px;
     }
 
-    @media (min-width: 220px) and (max-width: 520px) {
+      @media (min-width: 220px) and (max-width: 716px) {
       align-items: center;
       flex-direction: column;
 
       .first-container,
       .second-container {
         width: 100%;
+        margin: 10px;
       }
 
     }

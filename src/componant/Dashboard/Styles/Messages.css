@@ -1,14 +1,13 @@
-.Projects {
+.Messages {
   color: #282c34;
 }
 
-.Projects h1 {
+.Messages h1 {
   margin: 0;
   padding: 10px 0;
 }
 
-.Projects .cards-wrapper {
-  margin: 0 10px;
+.Messages .cards-wrapper {
   padding: 20px 10px;
   display: -ms-grid;
   display: grid;
@@ -16,18 +15,17 @@
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  -ms-grid-columns: (minmax(220px, 0.6fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(220px, 0.6fr));
+  -ms-grid-columns: (minmax(350px, 1.5fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1.5fr));
 }
 
-.Projects .cards-wrapper a {
+.Messages .cards-wrapper a {
   text-decoration: none;
-  font-style: none;
 }
 
 @media (max-width: 320px) {
-  .Projects {
+  .Messages {
     padding-top: 20px;
   }
 }
-/*# sourceMappingURL=Projects.css.map */
+/*# sourceMappingURL=Messages.css.map */

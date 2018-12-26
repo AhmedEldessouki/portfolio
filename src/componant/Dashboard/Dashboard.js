@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
-import Messages from './Messages'
+import Messages from './Messaging/Messages'
 
 class Dashboard extends Component {
   render() {

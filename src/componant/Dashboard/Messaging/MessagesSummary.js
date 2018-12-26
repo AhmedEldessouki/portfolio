@@ -4,7 +4,7 @@ const MessagesSummary = ({contact}) => {
   return (
     <div className="MessagesSummary">
       <h3>{contact.contactName}</h3>
-      <p>{contact.description}</p>
+      <p className="description">{contact.description}</p>
       {/*<h4>{contact.sentAt.toDate().toDateString()}</h4>*/}
     </div>
   )

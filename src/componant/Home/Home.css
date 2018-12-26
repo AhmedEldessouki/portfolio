@@ -1,22 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Berkshire+Swash|Bilbo+Swash+Caps|Clicker+Script|Lovers+Quarrel|Meddon|Merienda+One|Monsieur+La+Doulaise|Pinyon+Script|Tangerine:700");
-.App {
+.Home {
   text-align: center;
 }
 
-.App *::-webkit-scrollbar {
-  width: 1em;
-}
-
-.App *::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.App *::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
-
-.App .App-header {
+.Home .Home-header {
   background-color: #282c34;
   min-height: 632px;
   display: -webkit-box;
@@ -33,15 +20,16 @@
   color: #d4dff6;
 }
 
-.App .App-header .myNav-container {
+.Home .Home-header .myNav-container {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 5fr 3fr;
       grid-template-columns: 5fr 3fr;
+  grid-auto-columns: 1fr;
 }
 
 @media (max-width: 1176px) {
-  .App .App-header .myNav-container {
+  .Home .Home-header .myNav-container {
     width: 100%;
     margin-top: 15px;
     display: -webkit-box;
@@ -57,7 +45,7 @@
 }
 
 @media (max-width: 780px) {
-  .App .App-header .myNav-container {
+  .Home .Home-header .myNav-container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: reverse;
         -ms-flex-direction: column-reverse;
@@ -66,7 +54,7 @@
   }
 }
 
-.App .App-header .myNav-container .my-name {
+.Home .Home-header .myNav-container .my-name {
   text-align: left;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -76,14 +64,14 @@
 }
 
 @media (max-width: 700px) {
-  .App .App-header .myNav-container .my-name span {
+  .Home .Home-header .myNav-container .my-name span {
     font-size: 40px;
     text-align: center;
     width: 100%;
   }
 }
 
-.App .App-header .myNav-container .scroll-spy {
+.Home .Home-header .myNav-container .scroll-spy {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,7 +80,7 @@
   border: 25px solid transparent;
 }
 
-.App .App-header .myNav-container .scroll-spy a {
+.Home .Home-header .myNav-container .scroll-spy a {
   margin: 10px;
   padding: 10px;
   text-decoration: none;
@@ -109,13 +97,13 @@
   -o-border-radius: 8px;
 }
 
-.App .App-header .myNav-container .scroll-spy a:active {
+.Home .Home-header .myNav-container .scroll-spy a:active {
   color: #282c34 !important;
   background-color: #d4dff6;
 }
 
 @media (max-width: 116px) {
-  .App .App-header .myNav-container .scroll-spy a {
+  .Home .Home-header .myNav-container .scroll-spy a {
     font-size: 14px;
     min-width: 96px;
     margin: 5px;
@@ -123,7 +111,7 @@
 }
 
 @media (max-width: 500px) {
-  .App .App-header .myNav-container .scroll-spy a {
+  .Home .Home-header .myNav-container .scroll-spy a {
     font-size: 12px;
     min-width: 80px;
     margin: 0 2px;
@@ -132,7 +120,7 @@
 }
 
 @media (max-width: 320px) {
-  .App .App-header .myNav-container .scroll-spy a {
+  .Home .Home-header .myNav-container .scroll-spy a {
     font-size: 12px;
     min-width: 80px;
     margin: 10px 2px 0;
@@ -141,7 +129,7 @@
 }
 
 @media (max-width: 1088px) {
-  .App .App-header .myNav-container .scroll-spy {
+  .Home .Home-header .myNav-container .scroll-spy {
     border: 0px solid;
     -ms-flex-item-align: center;
         -ms-grid-row-align: center;
@@ -150,28 +138,23 @@
 }
 
 @media (max-width: 500px) {
-  .App .App-header .myNav-container .scroll-spy {
+  .Home .Home-header .myNav-container .scroll-spy {
     padding: 5px;
   }
 }
 
-.App header {
-  padding: 20px 0;
-  background: #282c34;
-}
-
-.App main {
+.Home main {
   min-height: 632px;
   background-color: #d4dff6;
 }
 
-.App footer {
+.Home footer {
   min-height: 632px;
   background-color: #282c34;
 }
 
 @media (max-width: 516px) {
-  .App {
+  .Home {
     min-height: 750px;
     font-size: 14px;
     -webkit-box-orient: horizontal;
@@ -180,4 +163,4 @@
             flex-direction: row;
   }
 }
-/*# sourceMappingURL=App.css.map */
+/*# sourceMappingURL=Home.css.map */
