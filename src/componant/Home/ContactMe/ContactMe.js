@@ -14,7 +14,7 @@ render() {
   return (
     <div className="ContactMe">
       <h1>Contact Me</h1>
-      <Form method="form">
+      <Form id="contactMe">
         <div className="first-container">
           <div className="field-container">
             <div className="input-svg">
@@ -88,6 +88,7 @@ const ContactMeSchema = withFormik({
         bag.setErrors({ contactName: 'Nice try!' });
       } else {
         values.contactedMe(values)
+      document.getElementById("contactMe").reset(); 
         bag.resetForm()
       }
       bag.setSubmitting(false);
