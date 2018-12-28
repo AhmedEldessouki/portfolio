@@ -7,13 +7,14 @@ import ContactMe from '../ContactMe/ContactMe'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
 
 const ProjectDetails = (props) => {
-  const { project } = props;
+  const { project,auth } = props;
+  const links = auth.uid ? <AuthNavlinks profile={profile}/> : null //<Navlinks/>
   // console.log(project);
   if (project) {
     return(
       <div className="ProjectDetails">
         <header>
-          <AuthNavlinks/>
+          {links}
         </header>
 
         <div className="details">
@@ -45,7 +46,10 @@ const mapStateToProps = (state, ownProps) =>{
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id]: null;
-  return { project }
+  return {
+    project,
+    profile: state.firebase.profile
+  }
 };
 
 export default compose(
