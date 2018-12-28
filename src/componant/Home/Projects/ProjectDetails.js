@@ -5,10 +5,11 @@ import {compose} from 'redux'
 import './Styles/ProjectDetails.scss'
 import ContactMe from '../ContactMe/ContactMe'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
+import Navlinks from '../../Navigation/Navlinks'
 
 const ProjectDetails = (props) => {
-  const { project,auth } = props;
-  const links = auth.uid ? <AuthNavlinks profile={profile}/> : null //<Navlinks/>
+  const { project,auth, profile } = props;
+  const links = auth.uid ? <AuthNavlinks profile={profile}/> : <Navlinks/>
   // console.log(project);
   if (project) {
     return(
@@ -48,7 +49,8 @@ const mapStateToProps = (state, ownProps) =>{
   const project = projects ? projects[id]: null;
   return {
     project,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    auth:state.firebase.auth,
   }
 };
 
