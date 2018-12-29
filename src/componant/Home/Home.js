@@ -13,8 +13,8 @@ import AuthNavlinks from '../Navigation/AuthNavlinks'
 
 class Home extends Component {
   scrollStepInPx;
-  constructor (props){
-    super (props);
+  constructor (){
+    super ();
     this.state = {
       intervalId: 0
     }
@@ -75,12 +75,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return{
     projectsData: state.firestore.ordered.projects,
     auth:state.firebase.auth,
-    profile: state.firebase.profile
-  }
+    profile: state.firebase.profile,
+}
 };
 export default compose(
   connect(mapStateToProps),

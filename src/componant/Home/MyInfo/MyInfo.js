@@ -60,7 +60,7 @@ export default class MyInfo extends Component {
             <div className="second-container">
               <p>
                 Welcome! I'm Ahmed Eldessouki.  I'm 29 years old from Cairo, Egypt
-                currently living in Turkey. I work as <em>a Front-End Developer</em>.
+                currently living in Turkey. I work as a<em> Front-End Developer</em>.
                 I graduated from University Of South Wales.
                 I work at RoomMe as an entry level Front-End Developer.
                 I'm a very passionate

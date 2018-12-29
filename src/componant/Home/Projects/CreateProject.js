@@ -7,8 +7,6 @@ import AuthNavlinks from '../../Navigation/AuthNavlinks'
 import {BarLoader} from "react-spinners";
 import Dropzone from "react-dropzone";
 import axios from 'axios';
-
-
 import { withFormik, Form, Field } from 'formik'
 import {
   CLOUDINARY_API_KEY,
@@ -17,7 +15,6 @@ import {
 } from "../../../Config/CloudInary";
 import * as Yup from "yup";
 
-// const dropzoneStyle = {};
 class MyCreateProject extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +29,6 @@ class MyCreateProject extends Component {
       if(acceptedFiles[0].size < 8000000) {
         const reader = new FileReader()
         reader.addEventListener("load", ()=>{
-          console.log( reader.result)
           this.setState({
             imgSrc : reader.result,
             imageDropArray : reader
@@ -49,17 +45,15 @@ class MyCreateProject extends Component {
           formData.append(
             "upload_preset",
             CLOUDINARY_UPLOAD_PRESET
-          ); // Replace the preset name with your own
+          );
           formData.append("api_key", CLOUDINARY_API_KEY); // Replace API key with your own Cloudinary key
           formData.append("timestamp", Date.now() / 1000 || 0); // Replace API key with your own Cloudinary key
-          // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
           return axios
           .post(CLOUDINARY_UPLOAD_URL, formData, {
             headers: { "X-Requested-With": "XMLHttpRequest" }
           })
           .then(response => {
             const data = response.data;
-            // You should store this URL for future references in your app
             this.setState({
               imageDropArray: data
             });
@@ -68,7 +62,7 @@ class MyCreateProject extends Component {
               files: this.state.imageDropArray
             });
           })
-          .catch(e => {});
+          .catch((err) => {console.log(err)});
         });
         axios
         .all(uploaders)
@@ -77,15 +71,11 @@ class MyCreateProject extends Component {
             ...this.props.values,
             projectLogo: this.state.imageDropArray.url
           });
-          // ... perform after upload is successful operation
         })
-        .catch(function(error) {
-          console.log('error', error)
-        });
-
+        .catch((err) => {console.log(err)});
       }
-
-    }if(rejectedFiles && rejectedFiles.length >0){
+    }
+    if(rejectedFiles && rejectedFiles.length >0){
       if(rejectedFiles[0].Size> 8000000) {
         alert('This File is too big')
       }

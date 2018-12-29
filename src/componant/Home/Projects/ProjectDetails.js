@@ -11,6 +11,7 @@ import {BarLoader} from "react-spinners";
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
   const links = auth.uid ? <AuthNavlinks profile={profile}/> : <Navlinks/>
+  window.scrollTo(0, 0)
 
   if (project) {
     return(
