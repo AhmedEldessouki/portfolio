@@ -11,15 +11,13 @@ const Notifications = (props) => {
           <ul className="items">
             {notifications && notifications.map(notification => {
               return (
-                <div>
-                  <li key={notification.id}>
-                    <div className={Array.from(notification.content.split(" ", 3)).join('-')}>
-                      <h4>{notification.user}</h4>
-                      <h6>{notification.content}</h6>
-                      <span>{notification.time.toDate().toDateString()}</span>
-                    </div>
-                  </li>
-                </div>
+                <li key={notification.id}>
+                  <div className={Array.from(notification.content.split(" ", 3)).join('-')}>
+                    <h4>{notification.user}</h4>
+                    <h6>{notification.content}</h6>
+                    <span>{notification.time.toDate().toDateString()}</span>
+                  </div>
+                </li>
               )
             })}
           </ul>

@@ -4,6 +4,7 @@ $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
 
 .MessagesSummary {
+  overflow: hidden !important;
   display: grid;
   background-color: $MyDarkBlue;
   grid-gap: 5px;
@@ -13,7 +14,6 @@ $MyDarkBlue:#282c34;
   overflow: auto;
   border: 5px solid;
   justify-items: center;
-  //align-items: center;
   align-content: space-evenly;
   border-radius: 10px;
   -webkit-border-radius: 10px;
