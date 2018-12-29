@@ -1,22 +1,22 @@
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
-  .my-spinner-container{
-    position: fixed;
-    bottom:0;
-    left: 0;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    background-color: $MyDarkBlue;
-    color: $MyLightBlue;
-    opacity: 0.95;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
+.my-spinner-container{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $MyDarkBlue;
+  color: $MyLightBlue;
+  opacity: 0.95;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 .MyInfo {
   min-height: calc(632px - 118px);
   left: 100px;

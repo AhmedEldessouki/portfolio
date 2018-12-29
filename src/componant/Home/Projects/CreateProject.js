@@ -6,7 +6,6 @@ import './Styles/CreateProject.scss'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
 import {BarLoader} from "react-spinners";
 import Dropzone from "react-dropzone";
-import classNames from 'classnames'
 import axios from 'axios';
 
 
@@ -27,30 +26,70 @@ class MyCreateProject extends Component {
       imageDropArray: []
     };
   }
-  handleUploadImages = images => {
-    // uploads is an array that would hold all the post methods for each image to be uploaded, then we'd use axios.all()
-    const uploads = images.map(image => {
-      // our formdata
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("tags", '{TAGS}'); // Add tags for the images - {Array}
-      formData.append("upload_preset", "{jf4ou0bk}"); // Replace the preset name with your own
-      formData.append("api_key", "{579628475278557}"); // Replace API key with your own Cloudinary API key
-      formData.append("timestamp", (Date.now() / 1000) | 0);
+  handleDrop=(acceptedFiles, rejectedFiles)=>{
+    console.log(acceptedFiles)
+    if(acceptedFiles && acceptedFiles.length >0){
+      if(acceptedFiles[0].size < 8000000) {
+        const reader = new FileReader()
+        reader.addEventListener("load", ()=>{
+          console.log( reader.result)
+          this.setState({
+            imgSrc : reader.result,
+            imageDropArray : reader
+          })
+        }, false)
 
-      // Replace cloudinary upload URL with yours
-      return axios.post(
-        "https://api.cloudinary.com/v1_1/ahmedeldessouki}/image/upload",
-        formData,
-        { headers: { "X-Requested-With": "XMLHttpRequest" }})
-      .then(response => console.log(response.data))
-    });
+        reader.readAsDataURL(acceptedFiles[0])
+        const uploaders = acceptedFiles.map(file => {
+          let formData;
+          // Initial FormData
+          formData = new FormData();
+          formData.append("file", file);
+          formData.append("tags", `codeinfuse, small, gist`);
+          formData.append(
+            "upload_preset",
+            CLOUDINARY_UPLOAD_PRESET
+          ); // Replace the preset name with your own
+          formData.append("api_key", CLOUDINARY_API_KEY); // Replace API key with your own Cloudinary key
+          formData.append("timestamp", Date.now() / 1000 || 0); // Replace API key with your own Cloudinary key
+          // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+          return axios
+          .post(CLOUDINARY_UPLOAD_URL, formData, {
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+          })
+          .then(response => {
+            const data = response.data;
+            // You should store this URL for future references in your app
+            this.setState({
+              imageDropArray: data
+            });
+            this.props.setValues({
+              ...this.props.values,
+              files: this.state.imageDropArray
+            });
+          })
+          .catch(e => {});
+        });
+        axios
+        .all(uploaders)
+        .then(() => {
+          this.props.setValues({
+            ...this.props.values,
+            projectLogo: this.state.imageDropArray.url
+          });
+          // ... perform after upload is successful operation
+        })
+        .catch(function(error) {
+          console.log('error', error)
+        });
 
-    // We would use axios `.all()` method to perform concurrent image upload to cloudinary.
-    axios.all(uploads).then(() => {
-      // ... do anything after successful upload. You can setState() or save the data
-      console.log('Images have all being uploaded')
-    });
+      }
+
+    }if(rejectedFiles && rejectedFiles.length >0){
+      if(rejectedFiles[0].Size> 8000000) {
+        alert('This File is too big')
+      }
+    }
   }
 
   render() {
@@ -65,27 +104,18 @@ class MyCreateProject extends Component {
             </header>
             <h1>Create New Project</h1>
             <Form id="createProject">
-              {imgSrc ? <img src={imgSrc}/> : '' }
-              <Dropzone onDrop={this.handleUploadImages} accept="image/*" multiple maxSize={8000000}>
+              {imgSrc ? <img alt ="" src={imgSrc}/> : '' }
+              <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
                 {({ getRootProps, getInputProps }) => (
                   <div
                     {...getRootProps()}
-                    className={classNames}
+                    className="drop-zone-styles"
                   >
                     <span>drop image(s)</span>
                     <input {...getInputProps()} />
                   </div>
                 )}
               </Dropzone>
-              {/*<ProfilePage*/}
-                {/*hidden*/}
-                {/*accept="image/*"*/}
-                {/*storageRef={this.props.firestore.collection('projects').add('img')}*/}
-                {/*onUploadStart={this.handleUploadStart}*/}
-                {/*onUploadError={this.handleUploadError}*/}
-                {/*onUploadSuccess={this.handleUploadSuccess}*/}
-                {/*onProgress={this.handleProgress}/>*/}
-
               <div className="field-container">
                 <Field type="text"  placeholder="Project Name" name="projectName" />
               </div>
@@ -95,14 +125,18 @@ class MyCreateProject extends Component {
               <textarea  placeholder="Project Description" name="description" onChange={handleChange} required/>
               <button type="submit" disabled={isSubmitting}>CreateProject</button>
             </Form>
-            {isSubmitting ?  <div className="my-spinner-container">
-              <BarLoader
-                className="my-spinner"
-                sizeUnit={"px"}
-                size={150}
-                color={'#d4dff6'}
-                loading={isSubmitting}
-              />Loading...</div> : null}
+            {isSubmitting ?
+              <div className="my-spinner-container">
+                <BarLoader
+                  className="my-spinner"
+                  sizeUnit={"px"}
+                  size={150}
+                  color={'#d4dff6'}
+                  loading={isSubmitting}
+                />
+                Loading...
+              </div>
+              : null}
           </div>
         }
       </div>
@@ -122,19 +156,7 @@ const ContactMeSchema = withFormik({
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
-      console.log('values',values)
       values.createProject(values)
-      axios
-      .all(values.uploaders)
-      .then(() => {
-        console.log('success')
-        // ... perform after upload is successful operation
-      })
-      .catch(function(error) {
-        console.log('error', error)
-      });
-
-      bag.resetForm()
       document.getElementById("createProject").reset();
       bag.setSubmitting(false);
     }, 2000)
@@ -142,10 +164,8 @@ const ContactMeSchema = withFormik({
   displayName: 'createProject',
 });
 const mapStateToProps = (state) =>{
-  console.log(state)
   return{
-    auth:state.firebase.auth,
-
+    auth:state.firebase.auth
   }
 }
 const mapDispatchToProps = (dispatch) =>{

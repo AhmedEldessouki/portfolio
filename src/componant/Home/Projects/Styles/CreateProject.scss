@@ -1,11 +1,34 @@
 $MyLightBlue: #d4dff6;
+$midToDarkGrey: #757575;
 $MyDarkBlue:#282c34;
+
+.my-spinner-container{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $MyDarkBlue;
+  color: $MyLightBlue;
+  opacity: 0.95;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 .CreateProject{
   font-family: 'Merienda One', cursive;
   background: $MyLightBlue;
   min-height: 630px;
   h1{
     padding: 20px;
+  }
+  img{
+    width: 180px;
+    height: 200px;
   }
   form{
     padding: 20px ;
@@ -14,13 +37,30 @@ $MyDarkBlue:#282c34;
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    justify-items: center;
     align-items: center;
-    //width: 100%;
     min-height: 400px;
-    //height: 50%;
+    .drop-zone-styles {
+      width: 185px;
+      height: 150px;
+      border: 2px dashed $midToDarkGrey;
+      border-radius: 2px;
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //position: initial !important;
+      &:hover {
+        cursor: pointer;
+      }
+      input {
+        width: 100%;
+      }
+    }
     input, textarea{
       padding: 4px 8px;
       width: 190px;
+      justify-self: center;
     }
     button{
       text-align: center;

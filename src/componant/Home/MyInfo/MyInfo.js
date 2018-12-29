@@ -36,7 +36,9 @@ export default class MyInfo extends Component {
               size={150}
               color={'#d4dff6'}
               loading={this.state.loading}
-            />Loading...</div>
+            />
+            Loading...
+          </div>
           :
           <div className="MyInfo">
             <div className="first-container">

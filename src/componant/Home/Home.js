@@ -7,12 +7,12 @@ import MyFooter from './MyFooter/MyFooter'
 import { ScrollSpy, Link } from './SpyScroll/ScrollSpy'
 import ScrollUpButton from "react-scroll-up-button";
 import {connect} from 'react-redux'
-import { firestoreConnect, firebaseConnect } from 'react-redux-firebase'
+import { firestoreConnect } from 'react-redux-firebase'
 import {compose} from 'redux'
 import AuthNavlinks from '../Navigation/AuthNavlinks'
-// import Navlinks from '../Navigation/Navlinks'
 
 class Home extends Component {
+  scrollStepInPx;
   constructor (props){
     super (props);
     this.state = {
@@ -85,10 +85,6 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    {collection: 'projects'},
-    // {storage:'projectLogo'}
+    {collection: 'projects', orderBy: ['createdAt', 'desc']},
   ])
-  // ,firebaseConnect([
-  //   {storage: 'projectLogo'}
-  // ])
 )(Home)

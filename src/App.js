@@ -8,45 +8,17 @@ import SignIn from './componant/Auth/SignIn';
 import SignUp from './componant/Auth/SignUp';
 import ProjectDetails from './componant/Home/Projects/ProjectDetails'
 import CreateProject from './componant/Home/Projects/CreateProject'
-import { Scrollbars } from 'react-custom-scrollbars';
-
-let lastScrollY = 0;
-let ticking = false;
 
 class App extends Component {
-  constructor (){
-    super()
-    this.state = {
 
-    }
-    // this.handleScroll = this.handleScroll().bind(this)
-  }
   componentDidMount(){
     document.title = "Ahmed ElDessouki"
-    const {scrollbar} = this.refs;
-    scrollbar.scrollTop(100); // 100px
-    document.body.style.overflow = "hidden"
+    document.body.style.overflow = "overlay"
   }
-  handleScroll = () => {
-    lastScrollY = window.scrollY;
 
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        this.nav.current.style.top = `${lastScrollY}px`;
-        ticking = false;
-      });
-
-      ticking = true;
-    }
-  };
   render() {
     return (
       <div className="App">
-        <Scrollbars
-          ref='scrollbar'
-          autoHeight
-          autoHeightMin={632}
-        >
           <Switch>
             <Route path='/' exact component={Home}/>
             <Route path='/dashboard' component={Dashboard}/>
@@ -57,7 +29,6 @@ class App extends Component {
             <Route path='/CreateProject' component={CreateProject}/>
             <Redirect from="*" to="/" />
           </Switch>
-        </Scrollbars>
       </div>
     );
   }

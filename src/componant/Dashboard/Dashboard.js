@@ -56,9 +56,6 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
-  console.log(state.storageBucket)
-
   return{
     projectsData: state.firestore.ordered.projects,
     isSubmitting: state.firebase.profile.isLoaded,
