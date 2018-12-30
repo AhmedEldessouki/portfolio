@@ -35,9 +35,7 @@ class SignIn extends Component {
       <div>
         {auth.uid ? <Redirect to='/'/> :
           <div className="SignIn">
-            <header>
               {links}
-            </header>
             <h1>Signin</h1>
             <form onSubmit={this.handleSubmit}>
               <div className="field-container">

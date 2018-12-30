@@ -1,3 +1,78 @@
-.MyFooter{
+$MyLightBlue: #d4dff6;
+$MyDarkBlue:#282c34;
 
+.MyFooter{
+  display: grid;
+  align-content: space-evenly;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 100%;
+  min-width: 80%;
+  margin: 0 10%;
+  grid-gap: 20px;
+  @media (max-width: 740px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
+    grid-gap: 0;
+    padding-top: 6px;
+    margin: 0;
+  }
+  .separator {
+    border: 2px solid;
+    color: $MyLightBlue;
+    opacity: 0.35;
+    border-radius: 50%;
+    width: 90%;
+    position: absolute;
+    right: 5%;
+    left: 5%;
+  }
+  svg{
+    width: 25px;
+    font-size: 25px;
+    //font-size: 20px;
+  }
+  a{
+    color: rgba(255,255,255,0.15);
+    &:hover{
+      color: $MyLightBlue;
+    }
+  }
+  .left-container,.right-container, .center-container{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    grid-gap: 5px;
+    p{
+      margin: 0;
+    }
+  }
+  .center-container{
+    justify-content: center;
+    grid-gap: 20px;
+    svg{
+      width: 39px;
+      height: 42px;
+    }
+    .react-logo {
+      animation: react-logo-spin infinite 20s linear;
+      height: 40vmin;
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .right-container{
+    justify-content: flex-end;
+    margin: 0;
+    color: rgba(255,255,255,0.15);
+  }
+}
+@keyframes react-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

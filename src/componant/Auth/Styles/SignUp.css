@@ -1,3 +1,30 @@
+.my-spinner-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #282c34;
+  color: #d4dff6;
+  opacity: 0.95;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 9999;
+}
+
 .SignUp, .SignIn {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -105,10 +132,5 @@
   .SignUp form button, .SignIn form button {
     width: 280px;
   }
-}
-
-.SignUp .testtest, .SignIn .testtest {
-  color: red;
-  font-size: 14px;
 }
 /*# sourceMappingURL=SignUp.css.map */

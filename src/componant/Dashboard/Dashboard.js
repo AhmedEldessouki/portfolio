@@ -12,7 +12,7 @@ import {BarLoader} from "react-spinners";
 
 class Dashboard extends Component {
   render() {
-
+    const title = 'Dashboard'
     const {projectsData, auth, notifications, messagesData,isSubmitting} = this.props;
     return (
       <div>
@@ -29,10 +29,10 @@ class Dashboard extends Component {
                 />Loading...</div>
               :
               <div className="Dashboard">
-                <header>
-                  <h1>Dashboard</h1>
-                  <AuthNavlinks/>
-                </header>
+                {/*<header>*/}
+                  {/*<h1>Dashboard</h1>*/}
+                  <AuthNavlinks title={title}/>
+                {/*</header>*/}
                 <main>
                   <div className="Dashboard-items">
                     <div className="first-container">

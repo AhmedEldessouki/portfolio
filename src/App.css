@@ -1,19 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Berkshire+Swash|Bilbo+Swash+Caps|Clicker+Script|Lovers+Quarrel|Meddon|Merienda+One|Monsieur+La+Doulaise|Pinyon+Script|Tangerine:700");
 .App {
   text-align: center;
-}
-
-.App *::-webkit-scrollbar {
-  width: 1em;
-}
-
-.App *::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.App *::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+  min-height: 100%;
 }
 
 .App .App-header {

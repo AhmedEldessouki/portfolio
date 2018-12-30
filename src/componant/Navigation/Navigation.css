@@ -16,6 +16,15 @@
       flex-wrap: wrap;
 }
 
+.Navigation li {
+  margin: 6px 0;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
 .Navigation a {
   min-width: 120px;
   margin: 10px;
@@ -48,8 +57,9 @@
   .Navigation a {
     font-size: 12px;
     min-width: 80px;
-    margin: 0 2px;
+    margin: 2px;
     padding: 5px;
+    border: 2px solid;
   }
 }
 

@@ -77,12 +77,12 @@ $MyDarkBlue:#282c34;
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
         @media (max-width: 516px) {
-          margin: 5px 0;
-          padding: 0;
+          margin: 4px 0;
+          padding: 4px;
         }
       }
       a {
-        font-style: none;
+        //font-style: none;
         text-decoration: none;
         color: $MyDarkBlue;
         width: 100%;

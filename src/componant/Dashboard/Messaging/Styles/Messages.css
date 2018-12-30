@@ -8,6 +8,7 @@
 }
 
 .Messages .cards-wrapper {
+  margin: 0 10px;
   padding: 20px 10px;
   display: -ms-grid;
   display: grid;
@@ -15,8 +16,8 @@
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  -ms-grid-columns: (minmax(350px, 1.5fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1.5fr));
+  -ms-grid-columns: (minmax(270px, 1.5fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
 }
 
 .Messages .cards-wrapper a {
