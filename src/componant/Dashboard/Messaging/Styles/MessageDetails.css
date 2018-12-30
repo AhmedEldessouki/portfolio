@@ -1,0 +1,111 @@
+.my-spinner-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #282c34;
+  color: #d4dff6;
+  opacity: 0.95;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 9999;
+}
+
+.MessageDetails {
+  min-height: 632px;
+  font-family: 'Merienda One', cursive;
+  background: #282c34;
+  height: 100%;
+}
+
+.MessageDetails .details {
+  padding: 20px;
+  background-color: #d4dff6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.MessageDetails .details .first-container {
+  width: 500px;
+  text-transform: capitalize;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  height: 90%;
+  display: -ms-grid;
+  display: grid;
+  padding: 0 20px 10px;
+}
+
+.MessageDetails .details .double-container {
+  width: 500px;
+  min-width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 10px;
+}
+
+.MessageDetails .details .double-container a {
+  text-decoration: none;
+}
+
+@media all and (max-width: 530px) {
+  .MessageDetails .details .first-container, .MessageDetails .details .first-container .double-container, .MessageDetails .details .double-container {
+    width: 100%;
+    text-align-all: center;
+  }
+  .MessageDetails .details .first-container h2, .MessageDetails .details .first-container .double-container h2, .MessageDetails .details .double-container h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+@media all and (max-width: 440px) {
+  .MessageDetails .details .first-container, .MessageDetails .details .first-container .double-container, .MessageDetails .details .double-container {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+.MessageDetails footer {
+  min-height: 100%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+/*# sourceMappingURL=MessageDetails.css.map */

@@ -7,6 +7,7 @@ import ContactMe from '../ContactMe/ContactMe'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
 import Navlinks from '../../Navigation/Navlinks'
 import {BarLoader} from "react-spinners";
+import MyFooter from "../MyFooter/MyFooter";
 
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
@@ -32,6 +33,7 @@ const ProjectDetails = (props) => {
           </div>
           <footer>
             <ContactMe/>
+            <MyFooter/>
           </footer>
         </div>
       </div>

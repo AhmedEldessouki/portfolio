@@ -1,3 +1,30 @@
+.my-spinner-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #282c34;
+  color: #d4dff6;
+  opacity: 0.95;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 9999;
+}
+
 .Dashboard {
   background-color: #23527c;
   height: 100%;
@@ -12,6 +39,8 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -86,6 +115,7 @@
   .Dashboard .Dashboard-items .first-container,
   .Dashboard .Dashboard-items .second-container {
     width: 100%;
+    margin: 10px;
   }
 }
 /*# sourceMappingURL=Dashboard.css.map */

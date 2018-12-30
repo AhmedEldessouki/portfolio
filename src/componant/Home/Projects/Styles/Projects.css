@@ -22,7 +22,6 @@
 
 .Projects .cards-wrapper a {
   text-decoration: none;
-  font-style: none;
 }
 
 @media (max-width: 320px) {

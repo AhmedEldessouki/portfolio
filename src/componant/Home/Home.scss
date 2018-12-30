@@ -42,6 +42,7 @@ $MyDarkBlue:#282c34;
       .scroll-spy {
         display: flex;
         align-self: flex-end;
+        //flex-wrap: wrap;
         border: 25px solid transparent;
         a {
           margin: 10px;
@@ -89,18 +90,5 @@ $MyDarkBlue:#282c34;
         }
       }
     }
-  }
-  main {
-    min-height: 632px;
-    background-color: $MyLightBlue;
-  }
-  footer {
-    min-height: 632px;
-    background-color: $MyDarkBlue;
-  }
-  @media (max-width: 516px) {
-    min-height: 750px;
-    font-size: 14px;
-    flex-direction: row
   }
 }

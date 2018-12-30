@@ -4,7 +4,6 @@ import MyInfo from './MyInfo/MyInfo'
 import Projects from './Projects/Projects'
 import ContactMe from './ContactMe/ContactMe'
 import MyFooter from './MyFooter/MyFooter'
-import { ScrollSpy, Link } from './SpyScroll/ScrollSpy'
 import ScrollUpButton from "react-scroll-up-button";
 import {connect} from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -12,46 +11,30 @@ import {compose} from 'redux'
 import AuthNavlinks from '../Navigation/AuthNavlinks'
 
 class Home extends Component {
-  scrollStepInPx;
   constructor (){
     super ();
     this.state = {
-      intervalId: 0
+      intervalId: 0,
+      title: 'Nemo Adam'
     }
-    this.scrollStep = this.scrollStep.bind(this)
-    this.scrollToTop= this.scrollToTop.bind(this)
-  }
-  scrollStep() {
-    if (window.pageYOffset === 0) {
-      clearInterval(this.state.intervalId);
-    }
-    window.scroll(0, window.pageYOffset - this.props.scrollStepInPx);
-  }
-
-  scrollToTop() {
-    let intervalId = setInterval(this.scrollStep.bind(this), this.props.delayInMs);
-    this.setState({ intervalId: intervalId });
   }
   render() {
     const {projectsData, auth, profile} = this.props;
-    const links = auth.uid ? <AuthNavlinks profile={profile}/> : null //<Navlinks/>
+    const links = auth.uid ? <AuthNavlinks profile={profile} title={this.state.title}/> :
+      <div className="myNav-container">
+        <div className="my-name">
+          <span>Nemo Adam</span>
+        </div>
+        <div className="scroll-spy">
+          <a className="scroll-spy-item" href="/">Home</a>
+          <a className="scroll-spy-item" href="#projects">Projects</a>
+          <a className="scroll-spy-item" href="#contactMe">Contact Me</a>
+        </div>
+      </div>
     return (
       <div className="Home">
         <header className="Home-header" id="1">
-          <div className="myNav-container">
-            <div className="my-name">
-              <span>Nemo Adam</span>
-            </div>
-            <div className="scroll-spy">
-              <ScrollSpy>
-                <Link className="scroll-spy-item" ref={c => this._firstLink = c} section="1">Home</Link>
-                <Link className="scroll-spy-item" section="2">Projects</Link>
-                <Link className="scroll-spy-item" section="3">Contact Me</Link>
-              </ScrollSpy>
-            </div>
-            {links}
-          </div>
-          {/* <MyNav /> */}
+          {links}
           <MyInfo />
         </header>
         <ScrollUpButton
@@ -62,10 +45,10 @@ class Home extends Component {
           ContainerClassName='ScrollUpButton__Container'
           TransitionClassName='ScrollUpButton__Toggled'
         />
-        <main id="2">
+        <main id="projects">
           <Projects projectsData={projectsData}/>
         </main>
-        <footer id="3">
+        <footer id="contactMe">
           <ContactMe />
           <MyFooter />
         </footer>
@@ -79,7 +62,7 @@ const mapStateToProps = (state) => {
     projectsData: state.firestore.ordered.projects,
     auth:state.firebase.auth,
     profile: state.firebase.profile,
-}
+  }
 };
 export default compose(
   connect(mapStateToProps),
