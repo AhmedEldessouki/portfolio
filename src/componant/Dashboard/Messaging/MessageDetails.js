@@ -13,14 +13,13 @@ const MessageDetails = (props) => {
   if (message) {
     return(
       <div className="MessageDetails">
-        <header>
-          <AuthNavlinks/>
-        </header>
+        <AuthNavlinks/>
+
         <div className="details">
           <div className="first-container">
-          <div className="double-container">
-            <h2><a href={`mailto:${message.email}`}>{message.email}</a></h2>
-            <h2>{message.phoneNumber}</h2>
+            <div className="double-container">
+              <h2><a href={`mailto:${message.email}`}>{message.email}</a></h2>
+              <h2>{message.phoneNumber}</h2>
             </div>
             <p>{message.description}</p>
           </div>
@@ -29,7 +28,6 @@ const MessageDetails = (props) => {
             <div>Created At: {message.sentAt.toDate().toDateString()}</div>
           </div>
         </div>
-        <footer></footer>
       </div>
     )
   } else {
@@ -40,7 +38,7 @@ const MessageDetails = (props) => {
           sizeUnit={"px"}
           size={150}
           color={'#d4dff6'}
-          loading={this.state.loading}
+          loading={true}
         />Loading...</div>
     )
   }

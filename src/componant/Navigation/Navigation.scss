@@ -5,7 +5,8 @@ $NavBackgroundBlue:#337ab7;
 
 .Navigation {
   border: 0;
-  background-color: $MyDarkBlue;
+  padding: 10px;
+  background: $MyDarkBlue;
   display: flex !important;
   justify-content: center;
   font-family: 'Merienda One', cursive;;

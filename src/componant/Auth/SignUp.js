@@ -85,7 +85,7 @@ const SignupSchema = withFormik({
     .required('Confirm Password is required')
   }),
   mapPropsToValues: props => ({
-    ...props
+...props
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {

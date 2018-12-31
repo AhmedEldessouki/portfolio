@@ -54,7 +54,9 @@ $NavBackgroundBlue:#337ab7;
       }
     }
   }
-
+main{
+  background-color:$MyBackgroundBlue !important;
+}
   .Dashboard-items {
     display: flex;
     justify-content: space-evenly;
@@ -62,6 +64,7 @@ $NavBackgroundBlue:#337ab7;
     background-color: $MyBackgroundBlue;
     flex: 0 100%;
     .first-container {
+    padding: 20px 0;
       width: calc( 100% - 350px);
       background-color: $MyLightBlue;
       margin: 10px 10px 10px 20px;

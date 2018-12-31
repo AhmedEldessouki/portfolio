@@ -29,11 +29,7 @@ $MyDarkBlue:#282c34;
   }
   @media (max-width: 880px) {
     grid-template-columns: 1fr;
-    margin: 25px 25px 25px;
-  }
-  @media (max-width: 880px) {
-    grid-template-columns: 1fr;
-    margin-top: 115px;
+    margin-top: 20px;
   }
   .first-container {
     width: 500px;
@@ -105,7 +101,7 @@ $MyDarkBlue:#282c34;
   }
   .second-container {
     width: 80%;
-    max-height: 200px;
+    min-height: 200px;
     font-size: 16px;
     font-stretch: extra-expanded;
     text-align: justify;

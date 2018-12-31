@@ -18,9 +18,7 @@ const ProjectDetails = (props) => {
     return(
       <div className="bg-img" style={{backgroundImage: `url(${project.projectLogo})`}}>
         <div className="ProjectDetails">
-          <header>
             {links}
-          </header>
           <div className="details">
             <div className="first-container">
               <h2>{project.projectName}</h2>
