@@ -1,26 +1,29 @@
-// const metadata = {
-//   projectLogo: `image/jpeg`,
-//   file:[]
-// };
-//
-//
-// export const createProject = (project) => {
-//   return (dispatch, getState, { getFirebase, getFirestore }) =>{
-//     //make async call to the db
-//     // const firestore = getFirestore();
-//     const firebase = getFirebase();
-//     const storageRef= firebase.storage.ref()
-//     const stor = getState().firebase.storage;
-//     const storageRef = this.props.firebase.storage ()
-//     .ref.put ('projectLogo/' + file.name).then(()=>{
-//       console.log('Success')
-//     }).catch((err) =>{
-//       console.log('error', err)
-//     });
-//     storageRef.child(`projectLogo/`).ref.put(projLogo).then(()=>{
-//       dispatch({ type: 'CREATE_PROJECT', project });
-//     }).catch((err)=>{
-//       dispatch({type: 'CREATE_PROJECT_ERROR', err})
-//     })
-//   }
-// };
+const metadata = {
+  contentType: [
+    "image/jpeg",
+    "image/png"
+  ]
+
+};
+
+
+export const uploadLogo = (file) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) =>{
+    //make async call to the db
+    const firebase = getFirebase();
+    const storageRef= firebase.storage()
+    // const stor = getState().firebase.storage;
+    // const storageRef = this.props.firebase.storage ()
+    // .ref.put ('projectLogo/' + file.name).then(()=>{
+    //   console.log('Success')
+    // }).catch((err) =>{
+    //   console.log('error', err)
+    // });
+    console.log('from the action',file)
+    storageRef.ref(`projectLogo/${file.name}`).put(file[0]).then(()=>{
+      dispatch({ type: 'PROJ_LOGO_ADDED', file });
+    }).catch((err)=>{
+      dispatch({type: 'PROJ_LOGO_NOT_ADDED', err})
+    })
+  }
+};
