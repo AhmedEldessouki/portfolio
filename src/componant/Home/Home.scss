@@ -52,7 +52,8 @@ $MyDarkBlue:#282c34;
           color: $MyDarkBlue !important;
           background-color: $MyLightBlue;
           min-width: 120px;
-          font-size: 18px;
+          max-font-size: 18px;
+          min-font-size: 14px;
           font-weight: 500;
           &:active {
             color: $MyDarkBlue !important;
@@ -63,19 +64,19 @@ $MyDarkBlue:#282c34;
           -moz-border-radius: 8px;
           -ms-border-radius: 8px;
           -o-border-radius: 8px;
-          @media (max-width: 116px) {
-            font-size: 14px;
+          @media (max-width: 1280px) {
+            //font-size: 14px;
             min-width: 96px;
             margin: 5px;
           }
           @media (max-width: 500px) {
-            font-size: 12px;
+            //font-size: 12px;
             min-width: 80px;
             margin: 0 2px;
             padding: 5px;
           }
           @media (max-width: 320px) {
-            font-size: 12px;
+            //font-size: 14px;
             min-width: 80px;
             margin: 10px 2px 0;
             padding: 5px;

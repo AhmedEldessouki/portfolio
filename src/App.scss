@@ -5,6 +5,7 @@ $MyDarkBlue:#282c34;
   text-align: center;
   min-height: 100%;
   header {
+    padding: 20px 0;
     background-color: $MyDarkBlue;
     min-height: 632px;
     //display: flex;
@@ -90,15 +91,13 @@ $MyDarkBlue:#282c34;
     //  }
     //}
   }
-  header{
-    padding: 20px 0;
-    background: $MyDarkBlue;
-  }
   main {
+    padding: 20px 0;
     min-height: 632px;
     background-color: $MyLightBlue;
   }
   footer {
+    padding: 20px 0;
     min-height: 404px;
     background-color: $MyDarkBlue;
   }
@@ -107,5 +106,6 @@ $MyDarkBlue:#282c34;
     min-width: 100%;
     font-size: 14px;
     flex-direction: row
+
   }
 }
