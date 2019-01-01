@@ -27,14 +27,16 @@ class MyCreateProject extends Component {
   }
   handleDrop=(acceptedFiles, rejectedFiles)=>{
     console.log(acceptedFiles)
+    this.setState({
+      imageDropArray : acceptedFiles
+    })
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
         const reader = new FileReader()
-        this.props.uploadLogo(acceptedFiles)
+        // this.props.uploadLogo(acceptedFiles)
         reader.addEventListener("load", ()=>{
           this.setState({
-            imgSrc : reader.result,
-            imageDropArray : acceptedFiles
+            imgSrc : reader.result
           })
         }, false)
 
@@ -56,24 +58,15 @@ class MyCreateProject extends Component {
             headers: { "X-Requested-With": "XMLHttpRequest" }
           })
           .then(response => {
-            const data = response.data;
-            this.setState({
-              imageDropArray: data
-            });
-            this.props.setValues({
-              ...this.props.values,
-              files: this.state.imageDropArray
-            });
+            // const data = response.data;
+
           })
           .catch((err) => {console.log(err)});
         });
         axios
         .all(uploaders)
         .then(() => {
-          this.props.setValues({
-            ...this.props.values,
-            projectLogo: this.state.imageDropArray.url
-          });
+
         })
         .catch((err) => {console.log(err)});
       }
@@ -86,7 +79,7 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imgSrc} = this.state
+    const {imgSrc,imageDropArray} = this.state
     const {errors, touched, isSubmitting, handleChange,auth} = this.props
     return (
       <div>
@@ -95,7 +88,15 @@ class MyCreateProject extends Component {
             <AuthNavlinks/>
             <h1>Create New Project</h1>
             <Form id="createProject">
-              {imgSrc ? <img alt ="" src={imgSrc}/> : '' }
+            {imgSrc ?
+              <div className="uploaded-container">
+                {imageDropArray.map((item, index) =>
+                  <div key={index}>
+                    <img alt ="" src={item}/>
+                  </div>
+                )}
+              </div>
+              : '' }
               <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
                 {({ getRootProps, getInputProps }) => (
                   <div
