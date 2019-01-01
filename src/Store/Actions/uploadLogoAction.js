@@ -20,10 +20,13 @@ export const uploadLogo = (file) => {
     //   console.log('error', err)
     // });
     console.log('from the action',file)
-    storageRef.ref(`projectLogo/${file.name}`).put(file[0]).then(()=>{
-      dispatch({ type: 'PROJ_LOGO_ADDED', file });
-    }).catch((err)=>{
-      dispatch({type: 'PROJ_LOGO_NOT_ADDED', err})
+    file.map((item) =>{
+      storageRef.ref(`projectLogo/${item.name}`).put(item).then(()=>{
+        dispatch({ type: 'PROJ_LOGO_ADDED', item });
+      }).catch((err)=>{
+        dispatch({type: 'PROJ_LOGO_NOT_ADDED', err})
+      })
+
     })
   }
 };
