@@ -39,7 +39,7 @@ class Home extends Component {
         </header>
         <ScrollUpButton
           StopPosition={0}
-          ShowAtPosition={-1}
+          ShowAtPosition={150}
           EasingType='easeOutCubic'
           AnimationDuration={500}
           ContainerClassName='ScrollUpButton__Container'

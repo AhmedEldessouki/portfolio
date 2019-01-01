@@ -8,7 +8,8 @@ var config = {
   authDomain: "ahmedeldessouki-a7488.firebaseapp.com",
   databaseURL: "https://ahmedeldessouki-a7488.firebaseio.com",
   projectId: "ahmedeldessouki-a7488",
-  storageBucket: "gs://ahmedeldessouki-a7488.appspot.com/projectLogo",
+  storageBucket: "gs://ahmedeldessouki-a7488.appspot.com",
+  storage: "gs://ahmedeldessouki-a7488.appspot.com",
   messagingSenderId: "928636667018"
 };
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {createProject } from '../../../Store/Actions/ProjectsActions'
+import {uploadLogo } from '../../../Store/Actions/uploadLogoAction'
 import {Redirect} from "react-router-dom";
 import './Styles/CreateProject.scss'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
@@ -14,6 +15,7 @@ import {
   CLOUDINARY_UPLOAD_URL
 } from "../../../Config/CloudInary";
 import * as Yup from "yup";
+import uploadLogoReducer from "../../../Store/Reducer/uploadLogoReducer";
 
 class MyCreateProject extends Component {
   constructor(props) {
@@ -28,10 +30,11 @@ class MyCreateProject extends Component {
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
         const reader = new FileReader()
+        this.props.uploadLogo(acceptedFiles)
         reader.addEventListener("load", ()=>{
           this.setState({
             imgSrc : reader.result,
-            imageDropArray : reader
+            imageDropArray : acceptedFiles
           })
         }, false)
 
@@ -89,9 +92,7 @@ class MyCreateProject extends Component {
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
           <div className="CreateProject">
-            <header>
-              <AuthNavlinks/>
-            </header>
+            <AuthNavlinks/>
             <h1>Create New Project</h1>
             <Form id="createProject">
               {imgSrc ? <img alt ="" src={imgSrc}/> : '' }
@@ -160,7 +161,8 @@ const mapStateToProps = (state) =>{
 }
 const mapDispatchToProps = (dispatch) =>{
   return{
-    createProject: (project) => dispatch(createProject(project))
+    createProject: (project) => dispatch(createProject(project)),
+    uploadLogo: (acceptedFiles) => dispatch(uploadLogo(acceptedFiles))
   }
 };
 const CreateProject = ContactMeSchema(MyCreateProject);
