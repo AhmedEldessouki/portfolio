@@ -5,8 +5,8 @@ const ProjectsSummary = ({project}) => {
   return (
     <div>
       <div className="ProjectSummary">
-        {project.projectLogo[0].url ?
-          <img alt="Project's logo" src={project.projectLogo[0].url}/>
+        {project.projectLogo[0] ?
+          <img alt="Project's logo" src={project.projectLogo[0]}/>
           :
           null
         }

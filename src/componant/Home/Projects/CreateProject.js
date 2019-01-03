@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {createProject } from '../../../Store/Actions/ProjectsActions'
-import {recallLogos, uploadLogo} from '../../../Store/Actions/uploadLogoAction'
+// import {recallLogos, uploadLogo} from '../../../Store/Actions/uploadLogoAction'
 import {Redirect} from "react-router-dom";
 import './Styles/CreateProject.scss'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
@@ -15,7 +15,6 @@ import {
   CLOUDINARY_UPLOAD_URL
 } from "../../../Config/CloudInary";
 import * as Yup from "yup";
-import Thumb from './Thumb/Thumb'
 
 class MyCreateProject extends Component {
   constructor(props) {
@@ -198,7 +197,7 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
   return{
     createProject: (project) => dispatch(createProject(project)),
-    uploadLogo: (file) => dispatch(uploadLogo(file)),
+    // uploadLogo: (file) => dispatch(uploadLogo(file)),
   }
 };
 const CreateProject = ContactMeSchema(MyCreateProject);
