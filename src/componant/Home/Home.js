@@ -58,7 +58,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return{
     projectsData: state.firestore.ordered.projects,
     auth:state.firebase.auth,

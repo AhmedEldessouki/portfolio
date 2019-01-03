@@ -28,17 +28,9 @@ class MyCreateProject extends Component {
       logoDis:[]
     };
     this.handleDrop= this.handleDrop.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-  }
-  handleChange(event) {
-    this.setState({
-      logoDis: URL.createObjectURL(event.target.files[0])
-    })
   }
   handleDrop=(acceptedFiles, rejectedFiles)=>{
     const {projectName, imageDropArray,logoDis} = this.state
-
-    console.log('images', imageDropArray, logoDis)
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
         const reader = new FileReader()
@@ -47,15 +39,9 @@ class MyCreateProject extends Component {
             imgSrc : reader.result,
             imageDropArray : acceptedFiles
           })
-          console.log(this.state.imageDropArray)
-          console.log(this.state.imgSrc)
         })
 
-        // imageDropArray.push(acceptedFiles)
         const uploaders = acceptedFiles.map(file => {
-          this.setState({
-            logoDis: [...logoDis, URL.createObjectURL(file)]
-          })
           if (projectName === null) {
             console.log('project Name is empty', imageDropArray)
           }else {
@@ -111,19 +97,15 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imgSrc,imageDropArray,logoDis} = this.state
+    const {imageDropArray} = this.state
     const {errors, touched, isSubmitting, handleChange,auth,files} = this.props
-    console.log('fileeeessss', imgSrc)
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
           <div className="CreateProject">
             <AuthNavlinks/>
             <h1>Create New Project</h1>
-            {/*{logoDis ?*/}
-            {/*<img alt ="" src={logoDis}/>*/}
-            {/*: '' }*/}
-            <div className="pic-wrapper">
+            <div className="wrapper-container">
               {imageDropArray !== null?
                 <div className="maping">
                   {imageDropArray.map(link => {
@@ -185,8 +167,8 @@ const ContactMeSchema = withFormik({
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
-      console.log('ssssss',values)
       values.createProject(values)
+        //firebase storage action
       // values.imageDropArray.map((item, i) => {
       //   this.props.uploadLogo((item) => {
       //     item.indexOf[i].name = `${values.projectName}-${i}`
@@ -201,7 +183,6 @@ const ContactMeSchema = withFormik({
   displayName: 'createProject',
 });
 const mapStateToProps = (state) =>{
-  console.log(state)
   return{
     auth:state.firebase.auth,
     downloadLinks: state.projectLogos.downloadUrls,
