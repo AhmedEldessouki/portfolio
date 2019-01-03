@@ -8,25 +8,29 @@ import AuthNavlinks from '../../Navigation/AuthNavlinks'
 import Navlinks from '../../Navigation/Navlinks'
 import {BarLoader} from "react-spinners";
 import MyFooter from "../MyFooter/MyFooter";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
   const links = auth.uid ? <AuthNavlinks profile={profile}/> : <Navlinks/>
   window.scrollTo(0, 0)
-
   if (project) {
     return(
-      <div className="bg-img" style={{backgroundImage: `url(${project.projectLogo[0]})`}}>
+      <div className="bg-img">
         <div className="ProjectDetails">
           {links}
           <div className="details-container">
             <div className="logos-container">
               {project.projectLogo !== null?
-                <div className="maping">
+                <Carousel>
                   {project.projectLogo.map((link,ky) => {
-                    return  <img alt ="" key={ky} src={link}/>
+                    return  <div key={ky}>
+                      <img className="img-display" src={link} />
+                    </div>
                   })}
-                </div>
+                </Carousel>
                 : null }
             </div>
             <div className="details">
