@@ -8,25 +8,40 @@ import AuthNavlinks from '../../Navigation/AuthNavlinks'
 import Navlinks from '../../Navigation/Navlinks'
 import {BarLoader} from "react-spinners";
 import MyFooter from "../MyFooter/MyFooter";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
   const links = auth.uid ? <AuthNavlinks profile={profile}/> : <Navlinks/>
   window.scrollTo(0, 0)
-
   if (project) {
     return(
-      <div className="bg-img" style={{backgroundImage: `url(${project.projectLogo})`}}>
+      <div className="bg-img">
         <div className="ProjectDetails">
-            {links}
-          <div className="details">
-            <div className="first-container">
-              <h2>{project.projectName}</h2>
-              <p>{project.description}</p>
+          {links}
+          <div className="details-container">
+            <div className="logos-container">
+              {project.projectLogo !== null?
+                <Carousel>
+                  {project.projectLogo.map((link,ky) => {
+                    return  <div key={ky}>
+                      <img className="img-display" src={link} />
+                    </div>
+                  })}
+                </Carousel>
+                : null }
             </div>
-            <div className="double-container">
-              <div>Author: {project.authorFirstName} {project.authorLastName}</div>
-              <div>Created At: {project.createdAt.toDate().toDateString()}</div>
+            <div className="details">
+              <div className="first-container">
+                <h2>{project.projectName}</h2>
+                <p>{project.description}</p>
+              </div>
+              <div className="double-container">
+                <div>Author: {project.authorFirstName} {project.authorLastName}</div>
+                <div>Created At: {project.createdAt.toDate().toDateString()}</div>
+              </div>
             </div>
           </div>
           <footer>
@@ -56,6 +71,7 @@ const mapStateToProps = (state, ownProps) =>{
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id]: null;
+  console.log(projects)
   return {
     project,
     profile: state.firebase.profile,

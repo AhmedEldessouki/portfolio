@@ -26,9 +26,22 @@ $MyDarkBlue:#282c34;
   h1{
     padding: 20px;
   }
-  img{
-    width: 180px;
-    height: 200px;
+
+  .wrapper-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    .maping{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      width: 50%;
+      height: 414px;
+      grid-gap: 10px;
+      img{
+        width: 122px;
+        height: auto;
+      }
+    }
   }
   .uploaded-container{
     display: grid;
