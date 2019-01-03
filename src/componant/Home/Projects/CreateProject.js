@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {createProject } from '../../../Store/Actions/ProjectsActions'
-import {recallLogos, uploadLogo} from '../../../Store/Actions/uploadLogoAction'
+// import {recallLogos, uploadLogo} from '../../../Store/Actions/uploadLogoAction'
 import {Redirect} from "react-router-dom";
 import './Styles/CreateProject.scss'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
@@ -15,7 +15,6 @@ import {
   CLOUDINARY_UPLOAD_URL
 } from "../../../Config/CloudInary";
 import * as Yup from "yup";
-import Thumb from './Thumb/Thumb'
 
 class MyCreateProject extends Component {
   constructor(props) {
@@ -25,7 +24,8 @@ class MyCreateProject extends Component {
       imageDropArray: [],
       downloadLinks: [],
       projectName : null,
-      logoDis:[]
+      logoDis:[],
+      projectLogos: []
     };
     this.handleDrop= this.handleDrop.bind(this)
   }
@@ -37,20 +37,20 @@ class MyCreateProject extends Component {
         reader.addEventListener("load", ()=>{
           this.setState({
             imgSrc : reader.result,
-            imageDropArray : acceptedFiles
+            // imageDropArray : acceptedFiles
           })
         })
 
         const uploaders = acceptedFiles.map(file => {
-          if (projectName === null) {
-            console.log('project Name is empty', imageDropArray)
-          }else {
-            this.props.uploadLogo((file) => {
-              file.name = this.state.projectName
-              return file
-            })
-            console.log('condition true')
-          }
+          // if (projectName === null) {
+          //   console.log('project Name is empty', imageDropArray)
+          // }else {
+          //   this.props.uploadLogo((file) => {
+          //     file.name = this.state.projectName
+          //     return file
+          //   })
+          //   console.log('condition true')
+          // }
           // this.props.uploadLogo(file)
           let formData;
           // Initial FormData
@@ -70,10 +70,15 @@ class MyCreateProject extends Component {
           .then(response => {
             const data = response.data;
             this.state.imageDropArray.push(data)
-
+            this.state.imageDropArray.map((sup) => {
+              this.state.downloadLinks.push(sup.url)
+            })
+            // const downloadLinks = this.state.downloadLinks.filter((val, id, array) => {
+            //   return array.indexOf(val) == id;
+            // });
             this.props.setValues({
               ...this.props.values,
-              files: this.state.imageDropArray
+              projectLogos: this.state.downloadLinks
             });
           })
           .catch((err) => {console.log(err)});
@@ -83,7 +88,7 @@ class MyCreateProject extends Component {
         .then(() => {
           this.props.setValues({
             ...this.props.values,
-            projectLogo: this.state.imageDropArray.url
+            projectLogos: this.state.imageDropArray
           });
         })
         .catch((err) => {console.log(err)});
@@ -97,7 +102,7 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imageDropArray} = this.state
+    const {imageDropArray,downloadLinks} = this.state
     const {errors, touched, isSubmitting, handleChange,auth,files} = this.props
     return (
       <div>
@@ -106,10 +111,10 @@ class MyCreateProject extends Component {
             <AuthNavlinks/>
             <h1>Create New Project</h1>
             <div className="wrapper-container">
-              {imageDropArray !== null?
+              {downloadLinks !== null?
                 <div className="maping">
-                  {imageDropArray.map(link => {
-                    return  <img alt ="" key={link} src={link.url}/>
+                  {imageDropArray.map((link,ky) => {
+                    return  <img alt ="" key={ky} src={link.url}/>
                   })}
                 </div>
                 : null }
@@ -122,7 +127,7 @@ class MyCreateProject extends Component {
 
                     >
                       <span>drop image(s)</span>
-                      <input {...getInputProps()} />
+                      <input type="file" {...getInputProps()} />
                     </div>
                   )}
                 </Dropzone>
@@ -161,12 +166,13 @@ const ContactMeSchema = withFormik({
     description: Yup.string()
   }),
   enableReinitialize: true,
-  mapPropsToValues: (props, state) => ({
+  mapPropsToValues: (props) => ({
     ...props,
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
+      console.log(values)
       values.createProject(values)
         //firebase storage action
       // values.imageDropArray.map((item, i) => {
@@ -191,7 +197,7 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
   return{
     createProject: (project) => dispatch(createProject(project)),
-    uploadLogo: (file) => dispatch(uploadLogo(file)),
+    // uploadLogo: (file) => dispatch(uploadLogo(file)),
   }
 };
 const CreateProject = ContactMeSchema(MyCreateProject);
