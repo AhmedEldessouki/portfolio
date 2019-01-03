@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {createProject } from '../../../Store/Actions/ProjectsActions'
-import {uploadLogo } from '../../../Store/Actions/uploadLogoAction'
+import {recallLogos, uploadLogo} from '../../../Store/Actions/uploadLogoAction'
 import {Redirect} from "react-router-dom";
 import './Styles/CreateProject.scss'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
@@ -15,31 +15,57 @@ import {
   CLOUDINARY_UPLOAD_URL
 } from "../../../Config/CloudInary";
 import * as Yup from "yup";
-import uploadLogoReducer from "../../../Store/Reducer/uploadLogoReducer";
+import Thumb from './Thumb/Thumb'
 
 class MyCreateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
       imSrc: null,
-      imageDropArray: []
+      imageDropArray: [],
+      downloadLinks: [],
+      projectName : null,
+      logoDis:[]
     };
+    this.handleDrop= this.handleDrop.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange(event) {
+    this.setState({
+      logoDis: URL.createObjectURL(event.target.files[0])
+    })
   }
   handleDrop=(acceptedFiles, rejectedFiles)=>{
-    console.log(acceptedFiles)
+    const {projectName, imageDropArray,logoDis} = this.state
+
+    console.log('images', imageDropArray, logoDis)
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
         const reader = new FileReader()
-        this.props.uploadLogo(acceptedFiles)
         reader.addEventListener("load", ()=>{
           this.setState({
             imgSrc : reader.result,
             imageDropArray : acceptedFiles
           })
-        }, false)
+          console.log(this.state.imageDropArray)
+          console.log(this.state.imgSrc)
+        })
 
-        reader.readAsDataURL(acceptedFiles[0])
+        // imageDropArray.push(acceptedFiles)
         const uploaders = acceptedFiles.map(file => {
+          this.setState({
+            logoDis: [...logoDis, URL.createObjectURL(file)]
+          })
+          if (projectName === null) {
+            console.log('project Name is empty', imageDropArray)
+          }else {
+            this.props.uploadLogo((file) => {
+              file.name = this.state.projectName
+              return file
+            })
+            console.log('condition true')
+          }
+          // this.props.uploadLogo(file)
           let formData;
           // Initial FormData
           formData = new FormData();
@@ -57,9 +83,8 @@ class MyCreateProject extends Component {
           })
           .then(response => {
             const data = response.data;
-            this.setState({
-              imageDropArray: data
-            });
+            this.state.imageDropArray.push(data)
+
             this.props.setValues({
               ...this.props.values,
               files: this.state.imageDropArray
@@ -86,36 +111,49 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imgSrc} = this.state
-    const {errors, touched, isSubmitting, handleChange,auth} = this.props
+    const {imgSrc,imageDropArray,logoDis} = this.state
+    const {errors, touched, isSubmitting, handleChange,auth,files} = this.props
+    console.log('fileeeessss', imgSrc)
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
           <div className="CreateProject">
             <AuthNavlinks/>
             <h1>Create New Project</h1>
-            <Form id="createProject">
-              {imgSrc ? <img alt ="" src={imgSrc}/> : '' }
-              <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
-                {({ getRootProps, getInputProps }) => (
-                  <div
-                    {...getRootProps()}
-                    className="drop-zone-styles"
-                  >
-                    <span>drop image(s)</span>
-                    <input {...getInputProps()} />
-                  </div>
-                )}
-              </Dropzone>
-              <div className="field-container">
-                <Field type="text"  placeholder="Project Name" name="projectName" />
-              </div>
-              {errors.projectName && touched.projectName ? (
-                <p className="error-message">{errors.projectName}</p>
-              ) : null}
-              <textarea  placeholder="Project Description" name="description" onChange={handleChange} required/>
-              <button type="submit" disabled={isSubmitting}>CreateProject</button>
-            </Form>
+            {/*{logoDis ?*/}
+            {/*<img alt ="" src={logoDis}/>*/}
+            {/*: '' }*/}
+            <div className="pic-wrapper">
+              {imageDropArray !== null?
+                <div className="maping">
+                  {imageDropArray.map(link => {
+                    return  <img alt ="" key={link} src={link.url}/>
+                  })}
+                </div>
+                : null }
+              <Form id="createProject">
+                <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
+                  {({ getRootProps, getInputProps }) => (
+                    <div
+                      {...getRootProps()}
+                      className="drop-zone-styles"
+
+                    >
+                      <span>drop image(s)</span>
+                      <input {...getInputProps()} />
+                    </div>
+                  )}
+                </Dropzone>
+                <div className="field-container">
+                  <Field type="text"  placeholder="Project Name" name="projectName" />
+                </div>
+                {errors.projectName && touched.projectName ? (
+                  <p className="error-message">{errors.projectName}</p>
+                ) : null}
+                <textarea  placeholder="Project Description" name="description" onChange={handleChange} required/>
+                <button type="submit" disabled={isSubmitting}>CreateProject</button>
+              </Form>
+            </div>
             {isSubmitting ?
               <div className="my-spinner-container">
                 <BarLoader
@@ -141,13 +179,21 @@ const ContactMeSchema = withFormik({
     description: Yup.string()
   }),
   enableReinitialize: true,
-  mapPropsToValues: props => ({
-    ...props
+  mapPropsToValues: (props, state) => ({
+    ...props,
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
+      console.log('ssssss',values)
       values.createProject(values)
+      // values.imageDropArray.map((item, i) => {
+      //   this.props.uploadLogo((item) => {
+      //     item.indexOf[i].name = `${values.projectName}-${i}`
+      //     return (item , console.log('from formik: ', item, i))
+      //   })
+      // })
+      console.log('condition true')
       document.getElementById("createProject").reset();
       bag.setSubmitting(false);
     }, 2000)
@@ -155,14 +201,16 @@ const ContactMeSchema = withFormik({
   displayName: 'createProject',
 });
 const mapStateToProps = (state) =>{
+  console.log(state)
   return{
-    auth:state.firebase.auth
+    auth:state.firebase.auth,
+    downloadLinks: state.projectLogos.downloadUrls,
   }
 }
 const mapDispatchToProps = (dispatch) =>{
   return{
     createProject: (project) => dispatch(createProject(project)),
-    uploadLogo: (acceptedFiles) => dispatch(uploadLogo(acceptedFiles))
+    uploadLogo: (file) => dispatch(uploadLogo(file)),
   }
 };
 const CreateProject = ContactMeSchema(MyCreateProject);

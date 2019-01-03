@@ -30,6 +30,21 @@ $MyDarkBlue:#282c34;
     width: 180px;
     height: 200px;
   }
+  .img-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    .maping{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      width: 500px;
+      height: 500px;
+      grid-gap: 10px;
+      img{
+        width: 100%;
+      }
+    }
+  }
   form{
     padding: 20px ;
     display: grid;

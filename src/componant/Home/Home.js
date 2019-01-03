@@ -58,6 +58,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return{
     projectsData: state.firestore.ordered.projects,
     auth:state.firebase.auth,
@@ -68,5 +69,6 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([
     {collection: 'projects', orderBy: ['createdAt', 'desc']},
+    {collection:'projectLogo'}
   ])
 )(Home)
