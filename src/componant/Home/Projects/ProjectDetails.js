@@ -16,17 +16,28 @@ const ProjectDetails = (props) => {
 
   if (project) {
     return(
-      <div className="bg-img" style={{backgroundImage: `url(${project.projectLogo})`}}>
+      <div className="bg-img" style={{backgroundImage: `url(${project.projectLogo[0]})`}}>
         <div className="ProjectDetails">
-            {links}
-          <div className="details">
-            <div className="first-container">
-              <h2>{project.projectName}</h2>
-              <p>{project.description}</p>
+          {links}
+          <div className="details-container">
+            <div className="logos-container">
+              {project.projectLogo !== null?
+                <div className="maping">
+                  {project.projectLogo.map((link,ky) => {
+                    return  <img alt ="" key={ky} src={link}/>
+                  })}
+                </div>
+                : null }
             </div>
-            <div className="double-container">
-              <div>Author: {project.authorFirstName} {project.authorLastName}</div>
-              <div>Created At: {project.createdAt.toDate().toDateString()}</div>
+            <div className="details">
+              <div className="first-container">
+                <h2>{project.projectName}</h2>
+                <p>{project.description}</p>
+              </div>
+              <div className="double-container">
+                <div>Author: {project.authorFirstName} {project.authorLastName}</div>
+                <div>Created At: {project.createdAt.toDate().toDateString()}</div>
+              </div>
             </div>
           </div>
           <footer>
@@ -56,6 +67,7 @@ const mapStateToProps = (state, ownProps) =>{
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id]: null;
+  console.log(projects)
   return {
     project,
     profile: state.firebase.profile,
