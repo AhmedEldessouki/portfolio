@@ -68,8 +68,6 @@ class MyCreateProject extends Component {
                 ...this.props.values,
                 projectLogos: myarrayx
               })
-              console.log('myarrayx', myarrayx);
-              console.log('myarrayx', this.props);
             })
           })
           .catch((err) => {console.log(err)});
@@ -161,7 +159,6 @@ const ContactMeSchema = withFormik({
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
-      console.log('values',values)
       values.createProject(values)
         //firebase storage action
       // values.imageDropArray.map((item, i) => {
@@ -170,7 +167,6 @@ const ContactMeSchema = withFormik({
       //     return (item , console.log('from formik: ', item, i))
       //   })
       // })
-      console.log('condition true')
       document.getElementById("createProject").reset();
       bag.setSubmitting(false);
     }, 2000)
