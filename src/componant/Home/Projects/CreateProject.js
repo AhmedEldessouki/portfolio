@@ -22,24 +22,14 @@ class MyCreateProject extends Component {
     this.state = {
       imSrc: null,
       imageDropArray: [],
-      downloadLinks: [],
       projectName : null,
-      logoDis:[],
       projectLogos: []
     };
     this.handleDrop= this.handleDrop.bind(this)
   }
   handleDrop=(acceptedFiles, rejectedFiles)=>{
-    const {projectName, imageDropArray,logoDis} = this.state
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
-        const reader = new FileReader()
-        reader.addEventListener("load", ()=>{
-          this.setState({
-            imgSrc : reader.result,
-            // imageDropArray : acceptedFiles
-          })
-        })
 
         const uploaders = acceptedFiles.map(file => {
           // if (projectName === null) {
@@ -52,6 +42,8 @@ class MyCreateProject extends Component {
           //   console.log('condition true')
           // }
           // this.props.uploadLogo(file)
+          let myarrayx= [];
+
           let formData;
           // Initial FormData
           formData = new FormData();
@@ -71,15 +63,12 @@ class MyCreateProject extends Component {
             const data = response.data;
             this.state.imageDropArray.push(data)
             this.state.imageDropArray.map((sup) => {
-              this.state.downloadLinks.push(sup.url)
+              myarrayx.push(sup.url);
+              this.props.setValues({
+                ...this.props.values,
+                projectLogos: myarrayx
+              })
             })
-            // const downloadLinks = this.state.downloadLinks.filter((val, id, array) => {
-            //   return array.indexOf(val) == id;
-            // });
-            this.props.setValues({
-              ...this.props.values,
-              projectLogos: this.state.downloadLinks
-            });
           })
           .catch((err) => {console.log(err)});
         });
@@ -88,7 +77,6 @@ class MyCreateProject extends Component {
         .then(() => {
           this.props.setValues({
             ...this.props.values,
-            projectLogos: this.state.imageDropArray
           });
         })
         .catch((err) => {console.log(err)});
@@ -102,8 +90,8 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imageDropArray,downloadLinks} = this.state
-    const {errors, touched, isSubmitting, handleChange,auth,files} = this.props
+    const {imageDropArray} = this.state
+    const {errors, touched, isSubmitting, handleChange,auth} = this.props
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
@@ -111,7 +99,7 @@ class MyCreateProject extends Component {
             <AuthNavlinks/>
             <h1>Create New Project</h1>
             <div className="wrapper-container">
-              {downloadLinks !== null?
+              {imageDropArray !== null?
                 <div className="maping">
                   {imageDropArray.map((link,ky) => {
                     return  <img alt ="" key={ky} src={link.url}/>
@@ -124,7 +112,6 @@ class MyCreateProject extends Component {
                     <div
                       {...getRootProps()}
                       className="drop-zone-styles"
-
                     >
                       <span>drop image(s)</span>
                       <input type="file" {...getInputProps()} />
@@ -172,7 +159,6 @@ const ContactMeSchema = withFormik({
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
-      console.log(values)
       values.createProject(values)
         //firebase storage action
       // values.imageDropArray.map((item, i) => {
@@ -181,7 +167,6 @@ const ContactMeSchema = withFormik({
       //     return (item , console.log('from formik: ', item, i))
       //   })
       // })
-      console.log('condition true')
       document.getElementById("createProject").reset();
       bag.setSubmitting(false);
     }, 2000)
@@ -191,7 +176,6 @@ const ContactMeSchema = withFormik({
 const mapStateToProps = (state) =>{
   return{
     auth:state.firebase.auth,
-    downloadLinks: state.projectLogos.downloadUrls,
   }
 }
 const mapDispatchToProps = (dispatch) =>{
