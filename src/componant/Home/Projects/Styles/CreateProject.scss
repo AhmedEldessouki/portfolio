@@ -31,12 +31,14 @@ $MyDarkBlue:#282c34;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    justify-content: center;
     .maping{
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
       width: 50%;
       height: 414px;
       grid-gap: 10px;
+      overflow: auto;
       img{
         width: 122px;
         height: auto;
