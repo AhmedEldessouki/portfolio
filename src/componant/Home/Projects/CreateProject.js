@@ -63,7 +63,7 @@ class MyCreateProject extends Component {
             const data = response.data;
             this.state.imageDropArray.push(data)
             this.state.imageDropArray.map((sup) => {
-              myarrayx.push(sup.url);
+              myarrayx.push(sup.secure_url);
               this.props.setValues({
                 ...this.props.values,
                 projectLogos: myarrayx
