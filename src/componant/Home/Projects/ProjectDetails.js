@@ -35,7 +35,7 @@ const ProjectDetails = (props) => {
             </div>
             <div className="details">
               <div className="first-container">
-                <h2>{project.projectName}</h2>
+                <h2><a href={project.projectLink}>{project.projectName}</a></h2>
                 <p>{project.description}</p>
               </div>
               <div className="double-container">

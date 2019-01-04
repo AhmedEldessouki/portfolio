@@ -15,6 +15,7 @@ import {
   CLOUDINARY_UPLOAD_URL
 } from "../../../Config/CloudInary";
 import * as Yup from "yup";
+import MyFooter from "../MyFooter/MyFooter";
 
 class MyCreateProject extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class MyCreateProject extends Component {
       imSrc: null,
       imageDropArray: [],
       projectName : null,
-      projectLogos: []
+      projectLogos: [],
+      isLoading : false
     };
     this.handleDrop= this.handleDrop.bind(this)
   }
@@ -31,6 +33,9 @@ class MyCreateProject extends Component {
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
 
+        this.setState({
+          isLoading : true
+        })
         const uploaders = acceptedFiles.map(file => {
           // if (projectName === null) {
           //   console.log('project Name is empty', imageDropArray)
@@ -43,7 +48,6 @@ class MyCreateProject extends Component {
           // }
           // this.props.uploadLogo(file)
           let myarrayx= [];
-
           let formData;
           // Initial FormData
           formData = new FormData();
@@ -87,11 +91,15 @@ class MyCreateProject extends Component {
         alert('This File is too big')
       }
     }
+    this.setState({
+      isLoading : false
+    })
   }
 
   render() {
-    const {imageDropArray} = this.state
+    const {imageDropArray,isLoading} = this.state
     const {errors, touched, isSubmitting, handleChange,auth} = this.props
+    let loader = isLoading || isSubmitting
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
@@ -99,13 +107,15 @@ class MyCreateProject extends Component {
             <AuthNavlinks/>
             <h1>Create New Project</h1>
             <div className="wrapper-container">
-              {imageDropArray !== null?
+              {imageDropArray.length !== 0 ?
                 <div className="maping">
                   {imageDropArray.map((link,ky) => {
                     return  <img alt ="" key={ky} src={link.url}/>
                   })}
                 </div>
-                : null }
+                :
+                null
+              }
               <Form id="createProject">
                 <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
                   {({ getRootProps, getInputProps }) => (
@@ -124,6 +134,9 @@ class MyCreateProject extends Component {
                 {errors.projectName && touched.projectName ? (
                   <p className="error-message">{errors.projectName}</p>
                 ) : null}
+                <div className="field-container">
+                  <Field type="url"  placeholder="Project Link" name="projectLink" />
+                </div>
                 <textarea  placeholder="Project Description" name="description" onChange={handleChange} required/>
                 <button type="submit" disabled={isSubmitting}>CreateProject</button>
               </Form>
@@ -135,11 +148,12 @@ class MyCreateProject extends Component {
                   sizeUnit={"px"}
                   size={150}
                   color={'#d4dff6'}
-                  loading={isSubmitting}
+                  loading={loader}
                 />
                 Loading...
               </div>
               : null}
+            <MyFooter/>
           </div>
         }
       </div>
@@ -160,7 +174,7 @@ const ContactMeSchema = withFormik({
   handleSubmit: (values, bag) => {
     setTimeout(() => {
       values.createProject(values)
-        //firebase storage action
+      //firebase storage action
       // values.imageDropArray.map((item, i) => {
       //   this.props.uploadLogo((item) => {
       //     item.indexOf[i].name = `${values.projectName}-${i}`

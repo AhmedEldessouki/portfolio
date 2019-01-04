@@ -17,7 +17,7 @@ class FormikSignUp extends Component {
         {!auth.uid ? <Redirect to='/signin'/> :
           <div className="SignUp">
             <h1>Sign up</h1>
-            <Form onSubmit={handleSubmit}>
+            <Form id="#sign-up" onSubmit={handleSubmit}>
               <div className="double-container">
                 <div className="field-container">
                   <Field name="firstName" placeholder="First Name" />
@@ -96,6 +96,7 @@ const SignupSchema = withFormik({
         bag.setErrors({ lastName: 'Nice try!' });
       } else {
         values.signUp(values)
+        document.getElementById("sign-up").reset();
         bag.resetForm()
       }
       bag.setSubmitting(false);

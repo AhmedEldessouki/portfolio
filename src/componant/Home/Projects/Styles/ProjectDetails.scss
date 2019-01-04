@@ -78,6 +78,9 @@ $MyDarkBlue:#282c34;
         height: 90%;
         display: grid;
         padding: 0 20px 10px;
+        h2 a{
+          text-decoration: none;
+        }
       }
       .double-container {
         width: 500px;

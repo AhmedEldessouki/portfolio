@@ -102,10 +102,9 @@ $MyDarkBlue:#282c34;
     background-color: $MyDarkBlue;
   }
   @media (max-width: 516px) {
-    min-height: 750px;
+    //min-height: 750px;
     min-width: 100%;
     font-size: 14px;
     flex-direction: row
-
   }
 }
