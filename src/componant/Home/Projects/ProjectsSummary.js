@@ -39,7 +39,6 @@ const ProjectsSummary = ({project,auth,...props}) => {
   )
 };
 const mapStateToProps = (state) =>{
-
   return {
     auth:state.firebase.auth
   }

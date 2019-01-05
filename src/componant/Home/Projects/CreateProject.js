@@ -31,6 +31,7 @@ class MyCreateProject extends Component {
     super(props);
     this.state = {
       imSrc: null,
+      description: '',
       imageDropArray: [],
       projectLogos: [],
       isLoading : false
@@ -105,10 +106,9 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imageDropArray,isLoading} = this.state
-    const {errors, touched, isSubmitting,auth, project} = this.props
+    const {imageDropArray,isLoading,description} = this.state
+    const {errors, touched, isSubmitting,auth, project,handleChange} = this.props
     let loader = isLoading || isSubmitting
-    console.log(this.props)
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
@@ -158,6 +158,8 @@ class MyCreateProject extends Component {
                 <textarea
                   placeholder={project ? project.description : "Project Description"}
                   name="description"
+                  // value={description}
+                  onChange={handleChange}
                   // required
                 />
                 <button type="submit" disabled={isSubmitting}>
