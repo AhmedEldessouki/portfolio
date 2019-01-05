@@ -104,7 +104,7 @@ class MyCreateProject extends Component {
     let loader = isLoading || isSubmitting
     console.log(this.props)
     // const projectNameT= project.projectName && project ? project.projectName : projectName
-    const x = (this.props.project && this.props.projectName) ? 'hesham' : 'enmo';
+    const x = (this.props.project && this.props.project.projectName) ? 'hesham' : 'enmo';
     console.log(x);
     console.log(projectName);
     return (
