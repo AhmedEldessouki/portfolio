@@ -9,16 +9,33 @@ const initState ={
 const ProjectReducer = (state = initState,action) => {
   switch(action.type){
     case 'CREATE_PROJECT':
-    console.log('create_project', action.project);
-    return state;
+      console.log('project has been created', action.project);
+      return {...state};
     case 'CREATE_PROJECT_ERROR':
-    console.log('create project error', action.err);
+      console.log('create project error', action.err);
       return {
         ...state,
         projError: action.err.message
       };
+    case 'PROJECT_UPDATED':
+      console.log('project successfully updated', action.project);
+      return {...state};
+    case 'PROJECT_NOT_UPDATED':
+      console.log('project did not update', action.err);
+      return {
+        ...state,
+        projError: action.err.message
+      };
+    case 'PROJECT_DELETED':
+      console.log('project successfully deleted');
+      return null ;
+    case 'PROJECT_DELETE_ERROR':
+      console.log('project still exists', action.err);
+      return {
+        projError: action.err.message
+      };
     default:
-    return state;
+      return state;
   }
 };
 

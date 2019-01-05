@@ -19,6 +19,24 @@ $MyDarkBlue:#282c34;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   font-family: 'Merienda One', cursive;
+  .icons-svg{
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+    min-width: 185px;
+    color: $MyLightBlue;
+    svg{
+      width: 15px;
+      height: 15px;
+    }
+    button{
+      border: 0;
+      background: transparent;
+      &:hover{
+        color: red;
+      }
+    }
+  }
   img {
     border: 5px solid $MyLightBlue;
     width: 150px;
