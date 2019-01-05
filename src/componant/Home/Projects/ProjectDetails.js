@@ -14,7 +14,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
-  const links = auth.uid ? <AuthNavlinks profile={profile}/> : <Navlinks/>
+  const links = auth.uid ? <AuthNavlinks auth={auth} profile={profile}/> : <Navlinks/>
   window.scrollTo(0, 0)
   if (project) {
     return(
@@ -71,7 +71,6 @@ const mapStateToProps = (state, ownProps) =>{
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id]: null;
-  console.log(projects)
   return {
     project,
     profile: state.firebase.profile,

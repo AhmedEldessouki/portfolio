@@ -1,10 +1,30 @@
 import React from 'react'
 import './Styles/ProjectSummary.scss'
+import { FaPen } from "react-icons/fa";
+import { GoTrashcan } from "react-icons/go";
+import {connect} from "react-redux";
+import {NavLink} from 'react-router-dom'
+import {deleteProject} from '../../../Store/Actions/ProjectsActions'
 
-const ProjectsSummary = ({project}) => {
+const ProjectsSummary = ({project,auth,...props}) => {
   return (
     <div>
       <div className="ProjectSummary">
+        {auth.uid ?
+          <div className="icons-svg">
+            <NavLink to={`/edit/${project.id}`} key={project} >
+              <FaPen/>
+            </NavLink>
+            <button onClick={(e)=>{
+              e.preventDefault()
+              props.deleteProject(project)
+            }}>
+              <GoTrashcan />
+            </button>
+          </div>
+          :
+          null
+        }
         {project.projectLogo[0] ?
           <img alt="Project's logo" src={project.projectLogo[0]}/>
           :
@@ -18,5 +38,14 @@ const ProjectsSummary = ({project}) => {
     </div>
   )
 };
-
-export default ProjectsSummary
+const mapStateToProps = (state) =>{
+  return {
+    auth:state.firebase.auth
+  }
+};
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    deleteProject: (project) => dispatch(deleteProject(project)),
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(ProjectsSummary)

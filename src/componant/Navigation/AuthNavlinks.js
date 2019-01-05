@@ -39,7 +39,7 @@ const AuthNavlinks = (props) => {
             <NavItem eventKey={4} href={"/dashboard"}>
                 DashBoard
             </NavItem>
-            <NavItem eventKey={5} href={"/createProject"}>
+            <NavItem eventKey={5} href={"/create-project"}>
                   Create Project
             </NavItem>
             <NavItem eventKey={5} href={"/signup"}>

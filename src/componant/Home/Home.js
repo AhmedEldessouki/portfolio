@@ -20,17 +20,21 @@ class Home extends Component {
   }
   render() {
     const {projectsData, auth, profile} = this.props;
-    const links = auth.uid ? <AuthNavlinks profile={profile} title={this.state.title}/> :
-      <div className="myNav-container">
-        <div className="my-name">
-          <span>Nemo Adam</span>
+
+    const links = auth.uid ?
+      <AuthNavlinks profile={profile} title={this.state.title}/>
+      :(
+        <div className="myNav-container">
+          <div className="my-name">
+            <span>Nemo Adam</span>
+          </div>
+          <div className="scroll-spy">
+            <a className="scroll-spy-item" href="/">Home</a>
+            <a className="scroll-spy-item" href={"#projects"}>Projects</a>
+            <a className="scroll-spy-item" href="#contactMe">Contact Me</a>
+          </div>
         </div>
-        <div className="scroll-spy">
-          <a className="scroll-spy-item" href="/">Home</a>
-          <a className="scroll-spy-item" href="#projects">Projects</a>
-          <a className="scroll-spy-item" href="#contactMe">Contact Me</a>
-        </div>
-      </div>
+      )
     return (
       <div className="Home">
         <header className="Home-header" id="1">
