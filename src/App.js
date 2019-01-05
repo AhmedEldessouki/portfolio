@@ -13,7 +13,7 @@ class App extends Component {
 
   componentDidMount(){
     document.title = "Ahmed ElDessouki"
-    // document.body.style.overflow = "overlay"
+    document.body.style.overflow = "overlay"
   }
 
   render() {
@@ -26,10 +26,9 @@ class App extends Component {
             <Route path='/messages/:id' component={MessageDetails}/>
             <Route path='/signin' component={SignIn}/>
             <Route path='/SignUp' component={SignUp}/>
-            <Route path='/create-project' component={CreateProject}/>
-            <Route path='/edit/:id' component={CreateProject}/>
+            <Route path='/CreateProject' component={CreateProject}/>
             <Redirect from="*" to="/" />
-              </Switch>
+          </Switch>
       </div>
     );
   }

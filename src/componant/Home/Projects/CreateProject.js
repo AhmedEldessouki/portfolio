@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {createProject, updateProject } from '../../../Store/Actions/ProjectsActions'
+import {createProject } from '../../../Store/Actions/ProjectsActions'
 // import {recallLogos, uploadLogo} from '../../../Store/Actions/uploadLogoAction'
 import {Redirect} from "react-router-dom";
 import './Styles/CreateProject.scss'
@@ -17,33 +17,25 @@ import {
 import * as Yup from "yup";
 import MyFooter from "../MyFooter/MyFooter";
 
-// const initProps ={
-//   project:[
-//     {
-//       id: this.props.project.id  && 1 || this.props.project.id || 1,
-//       projectName: this.props.project.projectName || 'cong dong',
-//       description: this.props.project.description || 'jasd asfddasf ',
-//       projectLink: this.props.project.projectLink || ''},
-//   ]
-// };
 class MyCreateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
       imSrc: null,
-      description: '',
       imageDropArray: [],
+      projectName : null,
       projectLogos: [],
       isLoading : false
     };
     this.handleDrop= this.handleDrop.bind(this)
   }
   handleDrop=(acceptedFiles, rejectedFiles)=>{
-    this.setState({
-      isLoading : true
-    });
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
+
+        this.setState({
+          isLoading : true
+        })
         const uploaders = acceptedFiles.map(file => {
           // if (projectName === null) {
           //   console.log('project Name is empty', imageDropArray)
@@ -87,9 +79,6 @@ class MyCreateProject extends Component {
         axios
         .all(uploaders)
         .then(() => {
-          this.setState({
-            isLoading : false
-          })
           this.props.setValues({
             ...this.props.values,
           });
@@ -102,12 +91,14 @@ class MyCreateProject extends Component {
         alert('This File is too big')
       }
     }
-
+    this.setState({
+      isLoading : false
+    })
   }
 
   render() {
-    const {imageDropArray,isLoading,description} = this.state
-    const {errors, touched, isSubmitting,auth, project,handleChange} = this.props
+    const {imageDropArray,isLoading} = this.state
+    const {errors, touched, isSubmitting, handleChange,auth} = this.props
     let loader = isLoading || isSubmitting
     return (
       <div>
@@ -126,10 +117,7 @@ class MyCreateProject extends Component {
                 null
               }
               <Form id="createProject">
-                <Dropzone onDrop={this.handleDrop}
-                          accept="image/*"
-                          multiple maxSize={8000000}
-                >
+                <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
                   {({ getRootProps, getInputProps }) => (
                     <div
                       {...getRootProps()}
@@ -141,33 +129,19 @@ class MyCreateProject extends Component {
                   )}
                 </Dropzone>
                 <div className="field-container">
-                  <Field type="text"
-                         placeholder={project ? project.projectName : "Project Name"}
-                         name="projectName"
-                  />
+                  <Field type="text"  placeholder="Project Name" name="projectName" />
                 </div>
                 {errors.projectName && touched.projectName ? (
                   <p className="error-message">{errors.projectName}</p>
                 ) : null}
                 <div className="field-container">
-                  <Field type="url"
-                         placeholder={project ? project.projectLink : "Project Link"}
-                         name="projectLink"
-                  />
+                  <Field type="url"  placeholder="Project Link" name="projectLink" />
                 </div>
-                <textarea
-                  placeholder={project ? project.description : "Project Description"}
-                  name="description"
-                  // value={description}
-                  onChange={handleChange}
-                  // required
-                />
-                <button type="submit" disabled={isSubmitting}>
-                  {project ? 'Edit' : 'Create'} Project
-                </button>
+                <textarea  placeholder="Project Description" name="description" onChange={handleChange} required/>
+                <button type="submit" disabled={isSubmitting}>CreateProject</button>
               </Form>
             </div>
-            {loader ?
+            {isSubmitting ?
               <div className="my-spinner-container">
                 <BarLoader
                   className="my-spinner"
@@ -188,8 +162,8 @@ class MyCreateProject extends Component {
 }
 const ContactMeSchema = withFormik({
   validationSchema: Yup.object().shape({
-    projectName: Yup.string(),
-    // .required('Required'),
+    projectName: Yup.string()
+    .required('Required'),
     description: Yup.string()
   }),
   enableReinitialize: true,
@@ -199,7 +173,7 @@ const ContactMeSchema = withFormik({
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
-      values.project ? values.updateProject(values) : values.createProject(values)
+      values.createProject(values)
       //firebase storage action
       // values.imageDropArray.map((item, i) => {
       //   this.props.uploadLogo((item) => {
@@ -213,21 +187,14 @@ const ContactMeSchema = withFormik({
   },
   displayName: 'createProject',
 });
-const mapStateToProps = (state, ownProps) =>{
-  const id = ownProps.match.params.id;
-  const projects = state.firestore.data.projects;
-  const project = projects ? projects[id]: null;
-  console.log(projects)
+const mapStateToProps = (state) =>{
   return{
     auth:state.firebase.auth,
-    project
   }
 }
 const mapDispatchToProps = (dispatch) =>{
-
   return{
     createProject: (project) => dispatch(createProject(project)),
-    updateProject: (project) => dispatch(updateProject(project)),
     // uploadLogo: (file) => dispatch(uploadLogo(file)),
   }
 };
