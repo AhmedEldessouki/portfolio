@@ -26,6 +26,14 @@ const ProjectReducer = (state = initState,action) => {
         ...state,
         projError: action.err.message
       };
+    case 'PROJECT_DELETED':
+      console.log('project successfully deleted');
+      return null ;
+    case 'PROJECT_DELETE_ERROR':
+      console.log('project still exists', action.err);
+      return {
+        projError: action.err.message
+      };
     default:
       return state;
   }

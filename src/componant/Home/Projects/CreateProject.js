@@ -160,7 +160,9 @@ class MyCreateProject extends Component {
                   name="description"
                   // required
                 />
-                <button type="submit" disabled={isSubmitting}>CreateProject</button>
+                <button type="submit" disabled={isSubmitting}>
+                  {project ? 'Edit' : 'Create'} Project
+                </button>
               </Form>
             </div>
             {loader ?

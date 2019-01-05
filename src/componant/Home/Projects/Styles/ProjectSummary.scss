@@ -29,6 +29,13 @@ $MyDarkBlue:#282c34;
       width: 15px;
       height: 15px;
     }
+    button{
+      border: 0;
+      background: transparent;
+      &:hover{
+        color: red;
+      }
+    }
   }
   img {
     border: 5px solid $MyLightBlue;
