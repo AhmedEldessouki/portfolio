@@ -14,7 +14,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
-  const links = auth.uid ? <AuthNavlinks profile={profile}/> : <Navlinks/>
+  const links = auth.uid ? <AuthNavlinks auth={auth} profile={profile}/> : <Navlinks/>
   window.scrollTo(0, 0)
   if (project) {
     return(

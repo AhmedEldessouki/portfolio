@@ -23,7 +23,9 @@ class MyCreateProject extends Component {
     this.state = {
       imSrc: null,
       imageDropArray: [],
-      projectName : null,
+      projectName : ''|| '',
+      description : ''|| '',
+      projectLink : ''|| '',
       projectLogos: [],
       isLoading : false
     };
@@ -35,7 +37,7 @@ class MyCreateProject extends Component {
 
         this.setState({
           isLoading : true
-        })
+        });
         const uploaders = acceptedFiles.map(file => {
           // if (projectName === null) {
           //   console.log('project Name is empty', imageDropArray)
@@ -97,9 +99,11 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imageDropArray,isLoading} = this.state
-    const {errors, touched, isSubmitting, handleChange,auth} = this.props
+    const {imageDropArray,isLoading,projectName,description,projectLink} = this.state
+    const {errors, touched, isSubmitting, handleChange,auth, project} = this.props
     let loader = isLoading || isSubmitting
+    console.log(this.props)
+    const projectNameT= project.projectName && project ? project.projectName : projectName
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
@@ -129,15 +133,25 @@ class MyCreateProject extends Component {
                   )}
                 </Dropzone>
                 <div className="field-container">
-                  <Field type="text"  placeholder="Project Name" name="projectName" />
+                  <Field type="text"
+                         value={projectNameT}
+                         placeholder="Project Name" name="projectName"
+                  />
                 </div>
                 {errors.projectName && touched.projectName ? (
                   <p className="error-message">{errors.projectName}</p>
                 ) : null}
                 <div className="field-container">
-                  <Field type="url"  placeholder="Project Link" name="projectLink" />
+                  <Field type="url"
+                         value={this.props.project.projectLink || projectLink}
+                         placeholder="Project Link" name="projectLink"
+                  />
                 </div>
-                <textarea  placeholder="Project Description" name="description" onChange={handleChange} required/>
+                <textarea
+                  placeholder="Project Description"
+                  value={this.props.project.description || description}
+                  name="description" onChange={handleChange} required
+                />
                 <button type="submit" disabled={isSubmitting}>CreateProject</button>
               </Form>
             </div>
@@ -187,12 +201,18 @@ const ContactMeSchema = withFormik({
   },
   displayName: 'createProject',
 });
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state, ownProps) =>{
+  const id = ownProps.match.params.id;
+  const projects = state.firestore.data.projects;
+  const project = projects ? projects[id]: null;
+  console.log(projects)
   return{
     auth:state.firebase.auth,
+    project
   }
 }
 const mapDispatchToProps = (dispatch) =>{
+
   return{
     createProject: (project) => dispatch(createProject(project)),
     // uploadLogo: (file) => dispatch(uploadLogo(file)),

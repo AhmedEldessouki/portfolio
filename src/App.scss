@@ -4,6 +4,8 @@ $MyDarkBlue:#282c34;
 .App {
   text-align: center;
   min-height: 100%;
+  overflow: unset;
+  width: 100%;
   header {
     padding: 20px 0;
     background-color: $MyDarkBlue;

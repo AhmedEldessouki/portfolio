@@ -22,3 +22,21 @@ export const createProject = (project) => {
     })
   }
 };
+export const updateProject = (project) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) =>{
+    //make async call to the db
+    const firestore = getFirestore();
+    const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
+    firestore.collection('projects').doc(project.id).update({
+      projectName: project.projectName,
+      projectLink: project.projectLink,
+      description: project.description,
+      createdAt: new Date()
+    }).then(()=>{
+      dispatch({ type: 'PROJECT_UPDATED', project });
+    }).catch((err)=>{
+      dispatch({type: 'PROJECT_NOT_UPDATED', err})
+    })
+  }
+};
