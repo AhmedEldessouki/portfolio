@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {createProject } from '../../../Store/Actions/ProjectsActions'
+import {createProject, updateProject } from '../../../Store/Actions/ProjectsActions'
 // import {recallLogos, uploadLogo} from '../../../Store/Actions/uploadLogoAction'
 import {Redirect} from "react-router-dom";
 import './Styles/CreateProject.scss'
@@ -17,6 +17,15 @@ import {
 import * as Yup from "yup";
 import MyFooter from "../MyFooter/MyFooter";
 
+// const initProps ={
+//   project:[
+//     {
+//       id: this.props.project.id  && 1 || this.props.project.id || 1,
+//       projectName: this.props.project.projectName || 'cong dong',
+//       description: this.props.project.description || 'jasd asfddasf ',
+//       projectLink: this.props.project.projectLink || ''},
+//   ]
+// };
 class MyCreateProject extends Component {
   constructor(props) {
     super(props);
@@ -103,7 +112,7 @@ class MyCreateProject extends Component {
     const {errors, touched, isSubmitting, handleChange,auth, project} = this.props
     let loader = isLoading || isSubmitting
     console.log(this.props)
-    const projectNameT= project.projectName && project ? project.projectName : projectName
+    const projectNameT=  (this.props.project && project.projectName) ? this.props.project.projectName : projectName
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
@@ -134,8 +143,7 @@ class MyCreateProject extends Component {
                 </Dropzone>
                 <div className="field-container">
                   <Field type="text"
-                         value={projectNameT}
-                         placeholder="Project Name" name="projectName"
+                         placeholder={project ? project.projectName : "Project Name"} name="projectName"
                   />
                 </div>
                 {errors.projectName && touched.projectName ? (
@@ -143,14 +151,14 @@ class MyCreateProject extends Component {
                 ) : null}
                 <div className="field-container">
                   <Field type="url"
-                         value={this.props.project.projectLink || projectLink}
-                         placeholder="Project Link" name="projectLink"
+                         placeholder={project ? project.projectLink : "Project Link"}
+                         name="projectLink"
                   />
                 </div>
                 <textarea
-                  placeholder="Project Description"
-                  value={this.props.project.description || description}
-                  name="description" onChange={handleChange} required
+                  placeholder={project ? project.description : "Project Description"}
+                  name="description"
+                  // required
                 />
                 <button type="submit" disabled={isSubmitting}>CreateProject</button>
               </Form>
@@ -176,8 +184,8 @@ class MyCreateProject extends Component {
 }
 const ContactMeSchema = withFormik({
   validationSchema: Yup.object().shape({
-    projectName: Yup.string()
-    .required('Required'),
+    projectName: Yup.string(),
+    // .required('Required'),
     description: Yup.string()
   }),
   enableReinitialize: true,
@@ -187,7 +195,7 @@ const ContactMeSchema = withFormik({
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
-      values.createProject(values)
+      values.project ? values.updateProject(values) : values.createProject(values)
       //firebase storage action
       // values.imageDropArray.map((item, i) => {
       //   this.props.uploadLogo((item) => {
@@ -215,6 +223,7 @@ const mapDispatchToProps = (dispatch) =>{
 
   return{
     createProject: (project) => dispatch(createProject(project)),
+    updateProject: (project) => dispatch(updateProject(project)),
     // uploadLogo: (file) => dispatch(uploadLogo(file)),
   }
 };
