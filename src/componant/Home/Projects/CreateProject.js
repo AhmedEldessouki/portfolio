@@ -32,21 +32,17 @@ class MyCreateProject extends Component {
     this.state = {
       imSrc: null,
       imageDropArray: [],
-      projectName : ''|| '',
-      description : ''|| '',
-      projectLink : ''|| '',
       projectLogos: [],
       isLoading : false
     };
     this.handleDrop= this.handleDrop.bind(this)
   }
   handleDrop=(acceptedFiles, rejectedFiles)=>{
+    this.setState({
+      isLoading : true
+    });
     if(acceptedFiles && acceptedFiles.length >0){
       if(acceptedFiles[0].size < 8000000) {
-
-        this.setState({
-          isLoading : true
-        });
         const uploaders = acceptedFiles.map(file => {
           // if (projectName === null) {
           //   console.log('project Name is empty', imageDropArray)
@@ -90,6 +86,9 @@ class MyCreateProject extends Component {
         axios
         .all(uploaders)
         .then(() => {
+          this.setState({
+            isLoading : false
+          })
           this.props.setValues({
             ...this.props.values,
           });
@@ -102,17 +101,14 @@ class MyCreateProject extends Component {
         alert('This File is too big')
       }
     }
-    this.setState({
-      isLoading : false
-    })
+
   }
 
   render() {
-    const {imageDropArray,isLoading,projectName,description,projectLink} = this.state
-    const {errors, touched, isSubmitting, handleChange,auth, project} = this.props
+    const {imageDropArray,isLoading} = this.state
+    const {errors, touched, isSubmitting,auth, project} = this.props
     let loader = isLoading || isSubmitting
     console.log(this.props)
-    const projectNameT=  (this.props.project && project.projectName) ? this.props.project.projectName : projectName
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
@@ -130,7 +126,10 @@ class MyCreateProject extends Component {
                 null
               }
               <Form id="createProject">
-                <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
+                <Dropzone onDrop={this.handleDrop}
+                          accept="image/*"
+                          multiple maxSize={8000000}
+                >
                   {({ getRootProps, getInputProps }) => (
                     <div
                       {...getRootProps()}
@@ -143,7 +142,8 @@ class MyCreateProject extends Component {
                 </Dropzone>
                 <div className="field-container">
                   <Field type="text"
-                         placeholder={project ? project.projectName : "Project Name"} name="projectName"
+                         placeholder={project ? project.projectName : "Project Name"}
+                         name="projectName"
                   />
                 </div>
                 {errors.projectName && touched.projectName ? (
@@ -163,7 +163,7 @@ class MyCreateProject extends Component {
                 <button type="submit" disabled={isSubmitting}>CreateProject</button>
               </Form>
             </div>
-            {isSubmitting ?
+            {loader ?
               <div className="my-spinner-container">
                 <BarLoader
                   className="my-spinner"
