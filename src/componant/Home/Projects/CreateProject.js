@@ -23,9 +23,9 @@ class MyCreateProject extends Component {
     this.state = {
       imSrc: null,
       imageDropArray: [],
-      projectName : ''|| '',
-      description : ''|| '',
-      projectLink : ''|| '',
+      projectName : '',
+      description : ''|| '', //todo remove this shit
+      projectLink : ''|| '', //todo remove this shit
       projectLogos: [],
       isLoading : false
     };
@@ -103,73 +103,76 @@ class MyCreateProject extends Component {
     const {errors, touched, isSubmitting, handleChange,auth, project} = this.props
     let loader = isLoading || isSubmitting
     console.log(this.props)
-    const projectNameT= project.projectName && project ? project.projectName : projectName
+    // const projectNameT= project.projectName && project ? project.projectName : projectName
+    const x = (this.props.project && this.props.projectName) ? 'hesham' : 'enmo';
+    console.log(x);
+    console.log(projectName);
     return (
       <div>
-        {!auth.uid ? <Redirect to='/signin'/> :
-          <div className="CreateProject">
-            <AuthNavlinks/>
-            <h1>Create New Project</h1>
-            <div className="wrapper-container">
-              {imageDropArray.length !== 0 ?
-                <div className="maping">
-                  {imageDropArray.map((link,ky) => {
-                    return  <img alt ="" key={ky} src={link.url}/>
-                  })}
-                </div>
-                :
-                null
-              }
-              <Form id="createProject">
-                <Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>
-                  {({ getRootProps, getInputProps }) => (
-                    <div
-                      {...getRootProps()}
-                      className="drop-zone-styles"
-                    >
-                      <span>drop image(s)</span>
-                      <input type="file" {...getInputProps()} />
-                    </div>
-                  )}
-                </Dropzone>
-                <div className="field-container">
-                  <Field type="text"
-                         value={projectNameT}
-                         placeholder="Project Name" name="projectName"
-                  />
-                </div>
-                {errors.projectName && touched.projectName ? (
-                  <p className="error-message">{errors.projectName}</p>
-                ) : null}
-                <div className="field-container">
-                  <Field type="url"
-                         value={this.props.project.projectLink || projectLink}
-                         placeholder="Project Link" name="projectLink"
-                  />
-                </div>
-                <textarea
-                  placeholder="Project Description"
-                  value={this.props.project.description || description}
-                  name="description" onChange={handleChange} required
-                />
-                <button type="submit" disabled={isSubmitting}>CreateProject</button>
-              </Form>
-            </div>
-            {isSubmitting ?
-              <div className="my-spinner-container">
-                <BarLoader
-                  className="my-spinner"
-                  sizeUnit={"px"}
-                  size={150}
-                  color={'#d4dff6'}
-                  loading={loader}
-                />
-                Loading...
-              </div>
-              : null}
-            <MyFooter/>
-          </div>
-        }
+        {/*{!auth.uid ? <Redirect to='/signin'/> :*/}
+          {/*<div className="CreateProject">*/}
+            {/*<AuthNavlinks/>*/}
+            {/*<h1>Create New Project</h1>*/}
+            {/*<div className="wrapper-container">*/}
+              {/*{imageDropArray.length !== 0 ?*/}
+                {/*<div className="maping">*/}
+                  {/*{imageDropArray.map((link,ky) => {*/}
+                    {/*return  <img alt ="" key={ky} src={link.url}/>*/}
+                  {/*})}*/}
+                {/*</div>*/}
+                {/*:*/}
+                {/*null*/}
+              {/*}*/}
+              {/*<Form id="createProject">*/}
+                {/*<Dropzone onDrop={this.handleDrop} accept="image/*" multiple maxSize={8000000}>*/}
+                  {/*{({ getRootProps, getInputProps }) => (*/}
+                    {/*<div*/}
+                      {/*{...getRootProps()}*/}
+                      {/*className="drop-zone-styles"*/}
+                    {/*>*/}
+                      {/*<span>drop image(s)</span>*/}
+                      {/*<input type="file" {...getInputProps()} />*/}
+                    {/*</div>*/}
+                  {/*)}*/}
+                {/*</Dropzone>*/}
+                {/*<div className="field-container">*/}
+                  {/*<Field type="text"*/}
+                         {/*value={projectNameT}*/}
+                         {/*placeholder="Project Name" name="projectName"*/}
+                  {/*/>*/}
+                {/*</div>*/}
+                {/*{errors.projectName && touched.projectName ? (*/}
+                  {/*<p className="error-message">{errors.projectName}</p>*/}
+                {/*) : null}*/}
+                {/*<div className="field-container">*/}
+                  {/*<Field type="url"*/}
+                         {/*value={this.props.project.projectLink || projectLink}*/}
+                         {/*placeholder="Project Link" name="projectLink"*/}
+                  {/*/>*/}
+                {/*</div>*/}
+                {/*<textarea*/}
+                  {/*placeholder="Project Description"*/}
+                  {/*value={this.props.project.description || description}*/}
+                  {/*name="description" onChange={handleChange} required*/}
+                {/*/>*/}
+                {/*<button type="submit" disabled={isSubmitting}>CreateProject</button>*/}
+              {/*</Form>*/}
+            {/*</div>*/}
+            {/*{isSubmitting ?*/}
+              {/*<div className="my-spinner-container">*/}
+                {/*<BarLoader*/}
+                  {/*className="my-spinner"*/}
+                  {/*sizeUnit={"px"}*/}
+                  {/*size={150}*/}
+                  {/*color={'#d4dff6'}*/}
+                  {/*loading={loader}*/}
+                {/*/>*/}
+                {/*Loading...*/}
+              {/*</div>*/}
+              {/*: null}*/}
+            {/*<MyFooter/>*/}
+          {/*</div>*/}
+        {/*}*/}
       </div>
     )
   }
