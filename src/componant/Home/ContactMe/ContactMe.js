@@ -8,9 +8,20 @@ import {contactedMe} from "../../../Store/Actions/ContactedMeActions";
 import connect from "react-redux/es/connect/connect";
 import {BarLoader} from "react-spinners";
 
+const INIT_PROPS ={
+  contactName: '',
+  email: '',
+  phoneNumber: '',
+  description: ''
+}
+
 class MyContactMe extends Component {
+  state = {
+    ...INIT_PROPS
+  }
   render() {
-    const { errors, touched, isSubmitting, handleChange, contError } = this.props;
+    const { errors, touched, isSubmitting, handleChange, contError,
+      contactName, email,phoneNumber,description} = this.props;
     return (
       <div className="ContactMe">
         <h1>Contact Me</h1>
@@ -19,7 +30,8 @@ class MyContactMe extends Component {
             <div className="field-container">
               <div className="input-svg">
                 <FaAddressCard />
-                <Field  name="contactName" placeholder="Enter your name" />
+                <Field  name="contactName" value={contactName}
+                        placeholder="Enter your name" />
               </div>
               {errors.contactName && touched.contactName ? (
                 <p className="error-message">{errors.contactName}</p>
@@ -28,32 +40,41 @@ class MyContactMe extends Component {
             <div className="field-container">
               <div className="input-svg">
                 <GoMention />
-                <Field name="email"  type="email" placeholder="Email Address" />
+                <Field name="email" value={email}
+                       type="email" placeholder="Email Address" />
               </div>
-              {errors.email && touched.email ? <div className="error-message">{errors.email}</div> : null}
+              {errors.email && touched.email ?
+                <div className="error-message">{errors.email}</div> : null}
             </div>
             <div className="field-container">
               <div className="input-svg">
                 <FaPhoneSquare />
-                <Field name="phoneNumber" type="tel" placeholder="Enter Your Phone Number" />
+                <Field name="phoneNumber" type="tel" value={phoneNumber}
+                       placeholder="Enter Your Phone Number" />
               </div>
-              {errors.phoneNumber && touched.phoneNumber ? <div className="error-message">{errors.phoneNumber}</div> : null}
+              {errors.phoneNumber && touched.phoneNumber ?
+                <div className="error-message">{errors.phoneNumber}</div> : null}
             </div>
           </div>
           <div className="second-container">
-            <textarea name="description" onChange={handleChange} className="textArea" required />
+            <textarea name="description" onChange={handleChange}
+                      value={description} className="textArea" required />
           </div>
-          <button type="submit" disabled={isSubmitting} >Submit</button>
+          <button type="submit" disabled={isSubmitting}>Submit</button>
           {contError? <div className="error-message">{contError}</div> : null }
         </Form>
-        {isSubmitting ?  <div className="my-spinner-container">
-          <BarLoader
-            className="my-spinner"
-            sizeUnit={"px"}
-            size={150}
-            color={'#d4dff6'}
-            loading={isSubmitting}
-          />Loading...</div> : null}
+        {isSubmitting ?
+          <div className="my-spinner-container">
+            <span>Thank you for contacting me</span>
+            <BarLoader
+              className="my-spinner"
+              sizeUnit={"px"}
+              size={150}
+              color={'#d4dff6'}
+              loading={isSubmitting}
+            />
+            <span>I will get back to you soon</span>
+          </div> : null}
       </div>
     )
   }
@@ -83,6 +104,7 @@ const ContactMeSchema = withFormik({
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
+
     setTimeout(() => {
       if (values.name === 'admin') {
         bag.setErrors({ contactName: 'Nice try!' });

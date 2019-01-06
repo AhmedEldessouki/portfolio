@@ -1,7 +1,6 @@
 import React from 'react'
 import './Styles/Projects.scss'
 import ProjectsSummary from './ProjectsSummary'
-import {NavLink} from 'react-router-dom'
 
 const Projects= ({projectsData}) => {
   return (
@@ -10,9 +9,7 @@ const Projects= ({projectsData}) => {
       <div className="cards-wrapper">
         {projectsData && projectsData.map(project => {
           return(
-            <NavLink to={`/projects/${project.id}`} key={project.id}>
-              <ProjectsSummary project={project} />
-            </NavLink>
+              <ProjectsSummary project={project} to={`/projects/${project.id}`} key={project.id} />
           )
         })}
       </div>

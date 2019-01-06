@@ -14,7 +14,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
-  const links = auth.uid ? <AuthNavlinks auth={auth} profile={profile}/> : <Navlinks/>
+  const links = auth.uid ? <AuthNavlinks auth={auth} title={"Project Details"} profile={profile}/> : <Navlinks/>
   window.scrollTo(0, 0)
   if (project) {
     return(
@@ -27,7 +27,7 @@ const ProjectDetails = (props) => {
                 <Carousel>
                   {project.projectLogo.map((link,ky) => {
                     return  <div key={ky}>
-                      <img className="img-display" src={link} />
+                      <img className="img-display" alt={'project\'s pictures'} src={link} />
                     </div>
                   })}
                 </Carousel>

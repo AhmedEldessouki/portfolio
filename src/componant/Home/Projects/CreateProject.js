@@ -17,24 +17,21 @@ import {
 import * as Yup from "yup";
 import MyFooter from "../MyFooter/MyFooter";
 
-// const initProps ={
-//   project:[
-//     {
-//       id: this.props.project.id  && 1 || this.props.project.id || 1,
-//       projectName: this.props.project.projectName || 'cong dong',
-//       description: this.props.project.description || 'jasd asfddasf ',
-//       projectLink: this.props.project.projectLink || ''},
-//   ]
-// };
+const INIT_PROPS={
+  projectName: '',
+  projectLink: '',
+  description: '',
+}
+
 class MyCreateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
       imSrc: null,
-      description: '',
       imageDropArray: [],
       projectLogos: [],
-      isLoading : false
+      isLoading : false,
+      ...INIT_PROPS
     };
     this.handleDrop= this.handleDrop.bind(this)
   }
@@ -106,14 +103,14 @@ class MyCreateProject extends Component {
   }
 
   render() {
-    const {imageDropArray,isLoading,description} = this.state
-    const {errors, touched, isSubmitting,auth, project,handleChange} = this.props
+    const {imageDropArray,isLoading} = this.state
+    const {errors, touched, isSubmitting,auth, project,handleChange,description, projectLink, projectName} = this.props
     let loader = isLoading || isSubmitting
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
           <div className="CreateProject">
-            <AuthNavlinks/>
+            <AuthNavlinks title={"Create Project"}/>
             <h1>Create New Project</h1>
             <div className="wrapper-container">
               {imageDropArray.length !== 0 ?
@@ -142,6 +139,7 @@ class MyCreateProject extends Component {
                 </Dropzone>
                 <div className="field-container">
                   <Field type="text"
+                         value={projectName}
                          placeholder={project ? project.projectName : "Project Name"}
                          name="projectName"
                   />
@@ -150,7 +148,7 @@ class MyCreateProject extends Component {
                   <p className="error-message">{errors.projectName}</p>
                 ) : null}
                 <div className="field-container">
-                  <Field type="url"
+                  <Field type="url" value={projectLink}
                          placeholder={project ? project.projectLink : "Project Link"}
                          name="projectLink"
                   />
@@ -158,7 +156,7 @@ class MyCreateProject extends Component {
                 <textarea
                   placeholder={project ? project.description : "Project Description"}
                   name="description"
-                  // value={description}
+                  value={description}
                   onChange={handleChange}
                   // required
                 />
