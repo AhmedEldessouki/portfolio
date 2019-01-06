@@ -21,9 +21,8 @@ $MyDarkBlue:#282c34;
   font-family: 'Merienda One', cursive;
   .icons-svg{
     display: flex;
-    position: absolute;
     justify-content: space-between;
-    min-width: 185px;
+    width: 100%;
     color: $MyLightBlue;
     svg{
       width: 15px;
