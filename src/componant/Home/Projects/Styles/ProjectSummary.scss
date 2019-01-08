@@ -26,9 +26,8 @@ $NavBackgroundBlue:#337ab7;
   }
   .icons-svg{
     display: flex;
-    position: absolute;
     justify-content: space-between;
-    min-width: 185px;
+    width: 100%;
     color: $MyLightBlue;
     justify-self: flex-start;
     align-self: flex-start;
