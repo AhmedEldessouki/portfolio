@@ -1,0 +1,48 @@
+$MyLightBlue: #d4dff6;
+$MyDarkBlue:#282c34;
+$MyBackgroundBlue:#23527c;
+$NavBackgroundBlue:#337ab7;
+
+.PopUp {
+  .toggle-button{
+    border: 0;
+    background: transparent;
+    box-shadow:none !important;
+    padding: 0 !important;
+    color: $NavBackgroundBlue;
+    &:hover{
+      color: red;
+    }
+  }
+}
+.modal-dialog{
+  display: flex;
+  justify-content: center;
+  .modal-content{
+    background-color: $MyDarkBlue;
+    color: $MyLightBlue;
+  }
+  .modal-header{
+    button:first-child{
+      color: silver;
+      &:hover{
+        color: $MyLightBlue;
+      }
+    }
+  }
+  .modal-footer{
+    .btn-default{
+      background: $MyLightBlue;
+      color: $MyDarkBlue;
+      &:hover{
+        opacity: .8;
+      }
+    }
+    .btn-danger{
+      color: $MyDarkBlue;
+      &:hover{
+        color: $MyLightBlue;
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ $NavBackgroundBlue:#337ab7;
 
 .Navigation {
   border: 0;
-  padding: 10px;
+  padding: 20px 10px 10px 10px;
   background: $MyDarkBlue;
   display: flex !important;
   justify-content: center;
@@ -17,6 +17,17 @@ $NavBackgroundBlue:#337ab7;
       color: $MyLightBlue;
     }
   }
+ .not-auth-nav{
+      list-style: none;
+    a{
+      text-decoration: none;
+      color: $MyDarkBlue;
+      border: 2px transparent;
+      background-color: $MyLightBlue;
+      padding: 6px;
+      border-radius: 24px;
+    }
+  }
   a, div, ul *{
     font-size: 18px;
     background-color: $MyDarkBlue;
@@ -25,5 +36,11 @@ $NavBackgroundBlue:#337ab7;
   a:hover{
     background-color: $MyLightBlue;
     color: $MyDarkBlue;
+  }
+  @media (max-width:366px) {
+
+    .navbar-brand{
+      font-size: 24px;
+    }
   }
 }

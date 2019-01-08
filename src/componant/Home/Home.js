@@ -20,7 +20,6 @@ class Home extends Component {
   }
   render() {
     const {projectsData, auth, profile} = this.props;
-
     const links = auth.uid ?
       <AuthNavlinks profile={profile} title={this.state.title}/>
       :(

@@ -6,43 +6,55 @@ import connect from "react-redux/es/connect/connect";
 import {Redirect} from "react-router-dom";
 import {signUp} from "../../Store/Actions/AuthActions";
 import {BarLoader} from "react-spinners";
+import AuthNavlinks from "../Navigation/AuthNavlinks";
 
-
+const INIT_PROPS ={
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
 class FormikSignUp extends Component {
+  state = {
+    ...INIT_PROPS
+  }
   render() {
-    const { errors, touched, isSubmitting, authError, auth, handleSubmit } = this.props;
+    const { errors, touched, isSubmitting, authError, auth, handleSubmit,
+      firstName, lastName, email, password,confirmPassword} = this.props;
 
     return (
       <div>
         {!auth.uid ? <Redirect to='/signin'/> :
           <div className="SignUp">
+            <AuthNavlinks title={"Registration"}/>
             <h1>Sign up</h1>
             <Form id="#sign-up" onSubmit={handleSubmit}>
               <div className="double-container">
                 <div className="field-container">
-                  <Field name="firstName" placeholder="First Name" />
+                  <Field name="firstName" value={firstName} placeholder="First Name" />
                   {errors.firstName && touched.firstName ? (
                     <p className="error-message">{errors.firstName}</p>
                   ) : null}
                 </div>
                 <div className="field-container">
-                  <Field name="lastName" placeholder="Last Name" />
+                  <Field name="lastName" value={lastName} placeholder="Last Name" />
                   {errors.lastName && touched.lastName ? (
                     <div className="error-message">{errors.lastName}</div>
                   ) : null}
                 </div>
               </div>
               <div className="field-container">
-                <Field name="email" type="email" placeholder="Email Address" />
+                <Field name="email" type="email" value={email} placeholder="Email Address" />
                 {errors.email && touched.email ? <div className="error-message">{errors.email}</div> : null}
               </div>
               <div className="double-container">
                 <div className="field-container">
-                  <Field name="password" type="password" placeholder="Enter Password" />
+                  <Field name="password" type="password" value={password} placeholder="Enter Password" />
                   {errors.password && touched.password ? <div className="error-message">{errors.password}</div> : null}
                 </div>
                 <div className="field-container">
-                  <Field name="confirmPassword" type="password" placeholder="Re-Enter Password" />
+                  <Field name="confirmPassword" type="password" value={confirmPassword} placeholder="Re-Enter Password" />
                   {errors.confirmPassword && touched.confirmPassword ? <div className="error-message">{errors.confirmPassword}</div> : null}
                 </div>
                 {authError ? <div className="error-message">{authError}</div>  : null}
@@ -85,7 +97,7 @@ const SignupSchema = withFormik({
     .required('Confirm Password is required')
   }),
   mapPropsToValues: props => ({
-...props
+    ...props
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {

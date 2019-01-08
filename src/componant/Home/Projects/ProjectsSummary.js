@@ -1,10 +1,10 @@
 import React from 'react'
 import './Styles/ProjectSummary.scss'
 import { FaPen } from "react-icons/fa";
-import { GoTrashcan } from "react-icons/go";
 import {connect} from "react-redux";
 import {NavLink} from 'react-router-dom'
 import {deleteProject} from '../../../Store/Actions/ProjectsActions'
+import PopUp from "../../PopUp/PopUp";
 
 const ProjectsSummary = ({project,auth,...props}) => {
   return (
@@ -15,25 +15,22 @@ const ProjectsSummary = ({project,auth,...props}) => {
             <NavLink to={`/edit/${project.id}`} key={project} >
               <FaPen/>
             </NavLink>
-            <button onClick={(e)=>{
-              e.preventDefault()
-              props.deleteProject(project)
-            }}>
-              <GoTrashcan />
-            </button>
+            <PopUp project={project}/>
           </div>
           :
           null
         }
-        {project.projectLogo[0] ?
-          <img alt="Project's logo" src={project.projectLogo[0]}/>
-          :
-          null
-        }
-        {/*<img alt="Project's logo" src={project.projectLogo[0]}/>*/}
-        <h3>{project.projectName}</h3>
-        <p>{project.description}</p>
-        {/*<h4>{project.createdAt.toDate ().toDateString ()}</h4>*/}
+        <NavLink to={props.to} key={props.key}>
+          {project.projectLogo[0] ?
+            <img alt="Project's logo" src={project.projectLogo[0]}/>
+            :
+            null
+          }
+          {/*<img alt="Project's logo" src={project.projectLogo[0]}/>*/}
+          <h3>{project.projectName}</h3>
+          <p>{project.description}</p>
+          {/*<h4>{project.createdAt.toDate ().toDateString ()}</h4>*/}
+        </NavLink>
       </div>
     </div>
   )
