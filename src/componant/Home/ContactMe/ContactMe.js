@@ -16,8 +16,11 @@ const INIT_PROPS ={
 }
 
 class MyContactMe extends Component {
-  state = {
-    ...INIT_PROPS
+  constructor (){
+    super()
+    this.state = {
+      ...INIT_PROPS,
+    }
   }
   render() {
     const { errors, touched, isSubmitting, handleChange, contError,
@@ -25,7 +28,7 @@ class MyContactMe extends Component {
     return (
       <div className="ContactMe">
         <h1>Contact Me</h1>
-        <Form id="contactMe">
+        <Form id={"ContactMe"}>
           <div className="first-container">
             <div className="field-container">
               <div className="input-svg">
@@ -103,17 +106,18 @@ const ContactMeSchema = withFormik({
     ...props
   }),
   mapValuesToPayload: x => x,
-  handleSubmit: (values, bag) => {
+  handleSubmit: (values, {setErrors,resetForm,setSubmitting}) => {
 
     setTimeout(() => {
       if (values.name === 'admin') {
-        bag.setErrors({ contactName: 'Nice try!' });
+        setErrors({ contactName: 'Nice try!' });
       } else {
-        values.contactedMe(values)
-        document.getElementById("contactMe").reset();
-        bag.resetForm()
+        values.contactedMe(values);
+        resetForm({});
+        document.getElementById("ContactMe").reset();
+
       }
-      bag.setSubmitting(false);
+      setSubmitting(false);
     }, 2000)
   },
   displayName: 'ContactMe',
