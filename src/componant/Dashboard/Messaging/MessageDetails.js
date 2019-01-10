@@ -6,6 +6,7 @@ import './Styles/MessageDetails.scss'
 // import ContactMe from '../ContactMe/ContactMe'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
 import {BarLoader} from "react-spinners";
+import {Redirect} from "react-router-dom";
 
 const MessageDetails = (props) => {
   const { message } = props;
@@ -32,14 +33,22 @@ const MessageDetails = (props) => {
     )
   } else {
     return (
-      <div className="my-spinner-container">
-        <BarLoader
-          className="my-spinner"
-          sizeUnit={"px"}
-          size={150}
-          color={'#d4dff6'}
-          loading={true}
-        />Loading...</div>
+      <div>
+        {props.auth.uid ?
+          <div className="my-spinner-container">
+            <BarLoader
+              className="my-spinner"
+              sizeUnit={"px"}
+              size={150}
+              color={'#d4dff6'}
+              loading={true}
+            />
+            Loading...
+          </div>
+          :
+          <Redirect to='/signin'/>
+        }
+      </div>
     )
   }
 };
@@ -48,7 +57,11 @@ const mapStateToProps = (state, ownProps) =>{
   const id = ownProps.match.params.id;
   const contactedMe = state.firestore.data.contactedMe;
   const message = contactedMe ? contactedMe[id]: null;
-  return { message }
+
+  return {
+    message,
+    auth:state.firebase.auth
+  }
 };
 
 export default compose(

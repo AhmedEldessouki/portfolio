@@ -6,7 +6,8 @@ import {NavLink} from 'react-router-dom'
 import {deleteProject} from '../../../Store/Actions/ProjectsActions'
 import PopUp from "../../PopUp/PopUp";
 
-const ProjectsSummary = ({project,auth,...props}) => {
+const ProjectsSummary = (props) => {
+  const {project,auth} = props
   return (
     <div>
       <div className="ProjectSummary">

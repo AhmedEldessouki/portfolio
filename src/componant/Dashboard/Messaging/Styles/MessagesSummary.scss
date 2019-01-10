@@ -2,6 +2,8 @@
 
 $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
+$MyBackgroundBlue:#23527c;
+$NavBackgroundBlue:#337ab7;
 
 .MessagesSummary {
   overflow: hidden !important;
@@ -11,18 +13,22 @@ $MyDarkBlue:#282c34;
   padding: 25px;
   margin: 0;
   height: 220px;
-  overflow: auto;
-  border: 5px solid;
+  //overflow: auto;
   justify-items: center;
   align-content: space-evenly;
+  border: 6px solid darken($MyBackgroundBlue, 10%);
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   font-family: 'Merienda One', cursive;
+  &:hover{
+    border-color: $NavBackgroundBlue;
+  }
   a{
     text-decoration: none;
+    width: 100%;
   }
   .my-scroller {
     height: 103px !important;

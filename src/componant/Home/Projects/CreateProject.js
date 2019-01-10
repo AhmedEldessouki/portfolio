@@ -205,8 +205,9 @@ const ContactMeSchema = withFormik({
       //     return (item , console.log('from formik: ', item, i))
       //   })
       // })
-      document.getElementById("createProject").reset();
+      // document.getElementById("createProject").reset();
       bag.setSubmitting(false);
+      values.history.push("/dashboard")
     }, 2000)
   },
   displayName: 'createProject',
@@ -220,7 +221,7 @@ const mapStateToProps = (state, ownProps) =>{
     auth:state.firebase.auth,
     project
   }
-}
+};
 const mapDispatchToProps = (dispatch) =>{
 
   return{
