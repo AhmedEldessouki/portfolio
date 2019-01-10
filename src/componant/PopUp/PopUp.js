@@ -5,6 +5,7 @@ import {Button} from "react-bootstrap";
 import {GoTrashcan} from "react-icons/go";
 import {deleteProject} from "../../Store/Actions/ProjectsActions";
 import {deleteMessage} from "../../Store/Actions/ContactedMeActions";
+import {deleteNotification} from "../../Store/Actions/NotificationActions";
 import connect from "react-redux/es/connect/connect";
 
 class PopUp extends Component {
@@ -28,6 +29,8 @@ class PopUp extends Component {
       this.props.deleteProject(this.props.project)
     } else if (this.props.contact){
       this.props.deleteMessage(this.props.contact)
+    }else if (this.props.notification){
+      this.props.deleteNotification(this.props.notification)
     }
     this.setState({ show: false });
   }
@@ -37,8 +40,8 @@ class PopUp extends Component {
   }
 
   render () {
-    const HIDE = this.props.project || this.props.contact ? null: {display:'none'}
-    const content =this.props.project ? "project?" : "message?"
+    const HIDE = this.props.project || this.props.contact || this.props.notification ? null: {display:'none'}
+    const content =this.props.title;
 
     return (
       <div className="PopUp">
@@ -68,6 +71,7 @@ const mapDispatchToProps = (dispatch) =>{
   return {
     deleteProject: (project) => dispatch(deleteProject(project)),
     deleteMessage: (contact) => dispatch(deleteMessage(contact)),
+    deleteNotification: (notification) => dispatch(deleteNotification(notification)),
   }
 };
 export default connect(null,mapDispatchToProps)(PopUp)

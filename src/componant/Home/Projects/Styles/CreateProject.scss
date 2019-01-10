@@ -1,6 +1,7 @@
 $MyLightBlue: #d4dff6;
 $midToDarkGrey: #757575;
 $MyDarkBlue:#282c34;
+$MyWarningRed:#ff000e;
 
 .my-spinner-container{
   position: fixed;
@@ -87,7 +88,7 @@ $MyDarkBlue:#282c34;
       padding: 2px;
     }
     .error-message {
-      color: red;
+      color: $MyWarningRed;
       font-size: 14px;
       margin-top: 0;
       margin-bottom: 2px;
