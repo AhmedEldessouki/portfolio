@@ -16,6 +16,8 @@ import {
 } from "../../../Config/CloudInary";
 import * as Yup from "yup";
 import MyFooter from "../MyFooter/MyFooter";
+import { toast } from "react-toastify";
+
 
 const INIT_PROPS={
   projectName: '',
@@ -69,6 +71,7 @@ class MyCreateProject extends Component {
             headers: { "X-Requested-With": "XMLHttpRequest" }
           })
           .then(response => {
+            toast.success(`Images Upload Was Successful`);
             const data = response.data;
             this.state.imageDropArray.push(data)
             this.state.imageDropArray.map((sup) => {
@@ -79,7 +82,10 @@ class MyCreateProject extends Component {
               })
             })
           })
-          .catch((err) => {console.log(err)});
+          .catch((err) => {
+            toast.error("Sorry, Images Didn't Upload!");
+            console.log(err)
+          });
         });
         axios
         .all(uploaders)
