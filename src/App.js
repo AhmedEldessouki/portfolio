@@ -8,6 +8,8 @@ import SignIn from './componant/Auth/SignIn';
 import SignUp from './componant/Auth/SignUp';
 import ProjectDetails from './componant/Home/Projects/ProjectDetails'
 import CreateProject from './componant/Home/Projects/CreateProject'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
 
@@ -19,17 +21,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Switch>
-            <Route path='/' exact component={Home}/>
-            <Route path='/dashboard' component={Dashboard}/>
-            <Route path='/projects/:id' component={ProjectDetails}/>
-            <Route path='/messages/:id' component={MessageDetails}/>
-            <Route path='/signin' component={SignIn}/>
-            <Route path='/SignUp' component={SignUp}/>
-            <Route path='/create-project' component={CreateProject}/>
-            <Route path='/edit/:id' component={CreateProject}/>
-            <Redirect from="*" to="/" />
-              </Switch>
+        <Switch>
+          <Route path='/' exact component={Home}/>
+          <Route path='/dashboard' component={Dashboard}/>
+          <Route path='/projects/:id' component={ProjectDetails}/>
+          <Route path='/messages/:id' component={MessageDetails}/>
+          <Route path='/signin' component={SignIn}/>
+          <Route path='/SignUp' component={SignUp}/>
+          <Route path='/create-project' component={CreateProject}/>
+          <Route path='/edit/:id' component={CreateProject}/>
+          <Redirect from="*" to="/" />
+        </Switch>
+        <ToastContainer autoClose={2000} />
       </div>
     );
   }

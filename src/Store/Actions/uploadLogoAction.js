@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 const metadata = {
   contentType: [
     "image/jpeg",
@@ -20,12 +22,11 @@ export const uploadLogo = (file) => {
           imageName: file.name,
           imageUrl: downloadUrl
         })
-        // JSON.stringify(res)
-         // downloadUrls.push(`${res}`)
+        toast.success(`Images SuccessFully Went Through`);
         dispatch({ type: 'PROJ_LOGO_ADDED', file, downloadUrl });
-        // dispatch({ type: 'PROJ_LOGO_ADDED', file});
       })
     }).catch((err)=>{
+      toast.error("Error! Firebase Didn't Get the Images & The URLs");
       dispatch({type: 'PROJ_LOGO_NOT_ADDED', err})
     })
   }
@@ -34,9 +35,11 @@ export const recallLogos = (file) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     getFirebase ().storage ().ref (`projectLogo/${file.Name}`).getDownloadURL ()
     .then((res)=>{
+      toast.success(`Images SuccessFully Came Through`);
       dispatch({ type: 'PROJ_LOGO_URL', res });
     })
     .catch((err)=>{
+      toast.error("Error! Firebase Didn't Get the Images URL");
       dispatch({type: 'PROJ_LOGO_NOT_URL', err})
     })
   }
