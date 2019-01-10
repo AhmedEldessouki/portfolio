@@ -7,7 +7,7 @@ const MessagesSummary = (props) => {
   const {contact} = props
   return (
     <div className="MessagesSummary">
-      <PopUp contact={contact}/>
+      <PopUp contact={contact} title={'Message'}/>
       <NavLink to={props.to} key={props.key}>
         <h3>{contact.contactName}</h3>
         <Scrollbars className="my-scroller">

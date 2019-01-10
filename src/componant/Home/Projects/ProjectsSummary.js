@@ -16,7 +16,7 @@ const ProjectsSummary = (props) => {
             <NavLink to={`/edit/${project.id}`} key={project} >
               <FaPen/>
             </NavLink>
-            <PopUp project={project}/>
+            <PopUp project={project} title={'Project'}/>
           </div>
           :
           null

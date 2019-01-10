@@ -1,5 +1,6 @@
 import React from 'react'
 import './Styles/Notifications.scss'
+import PopUp from "../PopUp/PopUp";
 
 const Notifications = (props) => {
   const {notifications} = props;
@@ -13,6 +14,7 @@ const Notifications = (props) => {
               return (
                 <li key={notification.id}>
                   <div className={Array.from(notification.content.split(" ", 3)).join('-')}>
+                    <PopUp notification={notification} title={'Notification'}/>
                     <h4>{notification.user}</h4>
                     <h6>{notification.content}</h6>
                     <span>{notification.time.toDate().toDateString()}</span>

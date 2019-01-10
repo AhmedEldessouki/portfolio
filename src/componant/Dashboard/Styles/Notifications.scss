@@ -28,7 +28,7 @@ $MyWarningRed:#ff000e;
         color: $MyDarkBlue;
       }
       .message-received, .Added-a-new{
-        background-color: $NavBackgroundBlue;
+        background-color: darken($NavBackgroundBlue,15%);
       }
       //.Added-a-new{
       //  background-color: lightseagreen;

@@ -4,6 +4,7 @@ $MyLightBlue: #d4dff6;
 $MyDarkBlue:#282c34;
 $MyBackgroundBlue:#23527c;
 $NavBackgroundBlue:#337ab7;
+$MyWarningRed:#ff000e;
 
 .ProjectSummary {
   display: grid;
@@ -39,7 +40,7 @@ $NavBackgroundBlue:#337ab7;
       border: 0;
       background: transparent;
       &:hover{
-        color: red;
+        color: $MyWarningRed;
       }
     }
   }
