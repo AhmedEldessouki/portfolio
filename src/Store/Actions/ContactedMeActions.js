@@ -17,3 +17,16 @@ export const contactedMe = (contact) => {
     })
   }
 };
+
+export const deleteMessage = (contact) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) =>{
+    //make async call to the db
+    const firestore = getFirestore();
+    console.log('message actions....:',contact)
+    firestore.collection('contactedMe').doc(`${contact.id}`).delete().then(()=>{
+      dispatch({ type: 'MESSAGE_DELETED'});
+    }).catch((err)=>{
+      dispatch({type: 'MESSAGE_DELETE_ERROR', err})
+    })
+  }
+};

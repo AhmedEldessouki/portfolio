@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/es/Modal";
 import {Button} from "react-bootstrap";
 import {GoTrashcan} from "react-icons/go";
 import {deleteProject} from "../../Store/Actions/ProjectsActions";
+import {deleteMessage} from "../../Store/Actions/ContactedMeActions";
 import connect from "react-redux/es/connect/connect";
 
 class PopUp extends Component {
@@ -23,7 +24,11 @@ class PopUp extends Component {
     this.setState({ show: false });
   }
   handleDelete() {
-    this.props.deleteProject(this.props.project)
+    if (this.props.project){
+      this.props.deleteProject(this.props.project)
+    } else if (this.props.contact){
+      this.props.deleteMessage(this.props.contact)
+    }
     this.setState({ show: false });
   }
 
@@ -32,7 +37,9 @@ class PopUp extends Component {
   }
 
   render () {
-    const HIDE = this.props.project? null: {display:'none'}
+    const HIDE = this.props.project || this.props.contact ? null: {display:'none'}
+    const content =this.props.project ? "project?" : "message?"
+
     return (
       <div className="PopUp">
         <Button bsStyle="primary" className={"toggle-button"} bsSize="large" onClick={this.handleShow}>
@@ -43,7 +50,7 @@ class PopUp extends Component {
             <Modal.Header closeButton>
               <Modal.Title>Warning</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Do you want to delete this project?</Modal.Body>
+            <Modal.Body>Do you want to delete this {content}</Modal.Body>
             <Modal.Footer>
               <Button onClick={this.handleClose}>No</Button>
               <Button bsStyle="danger"  style={HIDE} onClick={this.handleDelete}>
@@ -60,6 +67,7 @@ class PopUp extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return {
     deleteProject: (project) => dispatch(deleteProject(project)),
+    deleteMessage: (contact) => dispatch(deleteMessage(contact)),
   }
 };
 export default connect(null,mapDispatchToProps)(PopUp)

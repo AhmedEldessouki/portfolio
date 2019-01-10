@@ -20,6 +20,15 @@ const ContactedMeReducer = (state = initState,action) => {
         ...state,
         contError: action.err.message
       };
+    case 'MESSAGE_DELETED':
+      console.log('Message no longer exists');
+      return null;
+    case 'MESSAGE_DELETE_ERROR':
+      console.log('Message cannot be sent', action.err);
+      return {
+        ...state,
+        contError: action.err.message
+      };
     default:
       return state;
   }
