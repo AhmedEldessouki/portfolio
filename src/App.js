@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Home from './componant/Home/Home'
-import {Route,Switch, Redirect} from 'react-router-dom'
+import {Route,Switch, Redirect,BrowserRouter} from 'react-router-dom'
 import Dashboard from './componant/Dashboard/Dashboard';
 import MessageDetails from './componant/Dashboard/Messaging/MessageDetails';
 import SignIn from './componant/Auth/SignIn';
@@ -21,17 +21,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Switch>
-          <Route path='/' exact component={Home}/>
-          <Route path='/dashboard' component={Dashboard}/>
-          <Route path='/projects/:id' component={ProjectDetails}/>
-          <Route path='/messages/:id' component={MessageDetails}/>
-          <Route path='/signin' component={SignIn}/>
-          <Route path='/SignUp' component={SignUp}/>
-          <Route path='/create-project' component={CreateProject}/>
-          <Route path='/edit/:id' component={CreateProject}/>
-          <Redirect from="*" to="/" />
-        </Switch>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/' exact component={Home}/>
+            <Route path='/dashboard' component={Dashboard}/>
+            <Route path='/projects/:id' component={ProjectDetails}/>
+            <Route path='/messages/:id' component={MessageDetails}/>
+            <Route path='/signin' component={SignIn}/>
+            <Route path='/SignUp' component={SignUp}/>
+            <Route path='/create-project' component={CreateProject}/>
+            <Route path='/edit/:id' component={CreateProject}/>
+            <Redirect from="*" to="/" />
+          </Switch>
+        </BrowserRouter>
         <ToastContainer autoClose={2000} />
       </div>
     );
