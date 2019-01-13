@@ -6,7 +6,7 @@ import {GoTrashcan} from "react-icons/go";
 import {deleteProject} from "../../Store/Actions/ProjectsActions";
 import {deleteMessage} from "../../Store/Actions/ContactedMeActions";
 import { deleteNotification} from '../../Store/Actions/NotificationActions';
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
 
 class PopUp extends Component {
   constructor() {
