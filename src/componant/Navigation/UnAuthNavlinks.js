@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
 import './Navigation.scss'
 
-export default class Navlinks extends Component {
+export default class UnAuthNavlinks extends Component {
   render() {
     return (
       <div  className="Navigation">
