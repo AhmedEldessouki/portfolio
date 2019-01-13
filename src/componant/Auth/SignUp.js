@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import './Styles/SignUp.scss'
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {signUp} from "../../Store/Actions/AuthActions";
 import {BarLoader} from "react-spinners";
