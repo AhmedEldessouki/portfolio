@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/*<BrowserRouter>*/}
+        <BrowserRouter>
           <Switch>
             <Route path='/' exact component={Home}/>
             <Route path='/dashboard' component={Dashboard}/>
@@ -33,7 +33,7 @@ class App extends Component {
             <Route path='/edit/:id' component={CreateProject}/>
             <Redirect from="*" to="/" />
           </Switch>
-        {/*</BrowserRouter>*/}
+        </BrowserRouter>
         <ToastContainer autoClose={2000} />
       </div>
     );
