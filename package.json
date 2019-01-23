@@ -16,6 +16,7 @@
     "firebase-functions": "^2.1.0",
     "firebase-tools": "^6.2.2",
     "formik": "^1.4.1",
+    "jest": "^23.6.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "prop-types": "^15.6.2",
