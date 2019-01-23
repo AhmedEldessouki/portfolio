@@ -5,7 +5,7 @@ import {compose} from 'redux'
 import './Styles/ProjectDetails.scss'
 import ContactMe from '../ContactMe/ContactMe'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
-import Navlinks from '../../Navigation/Navlinks'
+import UnAuthNavlinks from '../../Navigation/UnAuthNavlinks'
 import {BarLoader} from "react-spinners";
 import MyFooter from "../MyFooter/MyFooter";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -14,7 +14,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 const ProjectDetails = (props) => {
   const { project,auth, profile } = props;
-  const links = auth.uid ? <AuthNavlinks auth={auth} title={"Project Details"} profile={profile}/> : <Navlinks/>
+  const links = auth.uid ? <AuthNavlinks auth={auth} title={"Project Details"} profile={profile}/> : <UnAuthNavlinks/>
   window.scrollTo(0, 0)
   if (project) {
     return(

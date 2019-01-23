@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {signIn} from '../../Store/Actions/AuthActions'
 import {Redirect} from "react-router-dom";
 import AuthNavlinks from "../Navigation/AuthNavlinks";
-import Navlinks from "../Navigation/Navlinks";
+import UnAuthNavlinks from "../Navigation/UnAuthNavlinks";
 import './Styles/SignUp.scss'
 
 class SignIn extends Component {
@@ -29,14 +29,14 @@ class SignIn extends Component {
   };
   render() {
     const { authError,auth } = this.props;
-    const links = auth.uid ? <AuthNavlinks/> : <Navlinks/>
+    const links = auth.uid ? <AuthNavlinks/> : <UnAuthNavlinks/>
 
     return (
       <div>
         {auth.uid ? <Redirect to='/'/> :
           <div className="SignIn">
               {links}
-            <h1>Signin</h1>
+            <h1>Sign-in</h1>
             <form onSubmit={this.handleSubmit}>
               <div className="field-container">
                 <input type="email" placeholder="Enter Email"  id="email" onChange={this.handleChange}/>

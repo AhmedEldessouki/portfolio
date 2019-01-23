@@ -1,24 +1,22 @@
 import './PopUp.scss'
 import React, {Component} from 'react';
-import Modal from "react-bootstrap/es/Modal";
+import {Modal }from "react-bootstrap";
 import {Button} from "react-bootstrap";
 import {GoTrashcan} from "react-icons/go";
 import {deleteProject} from "../../Store/Actions/ProjectsActions";
 import {deleteMessage} from "../../Store/Actions/ContactedMeActions";
-import {deleteNotification} from "../../Store/Actions/NotificationActions";
-import connect from "react-redux/es/connect/connect";
+import { deleteNotification} from '../../Store/Actions/NotificationActions';
+import {connect} from "react-redux";
 
 class PopUp extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleDelete= this.handleDelete.bind(this);
-
+  constructor() {
+    super();
     this.state = {
       show: false
     };
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleDelete= this.handleDelete.bind(this);
   }
 
   handleClose() {

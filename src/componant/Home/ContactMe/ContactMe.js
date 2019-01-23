@@ -5,8 +5,8 @@ import * as Yup from 'yup';
 import { FaAddressCard, FaPhoneSquare } from "react-icons/fa"
 import { GoMention } from "react-icons/go"
 import {contactedMe} from "../../../Store/Actions/ContactedMeActions";
-import connect from "react-redux/es/connect/connect";
 import {BarLoader} from "react-spinners";
+import {connect} from "react-redux";
 
 const INIT_PROPS ={
   contactName: '',

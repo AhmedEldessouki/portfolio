@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter} from 'react-router-dom'
+// import { BrowserRouter } from 'react-router-dom';
 import {createStore, applyMiddleware, compose} from 'redux'
 import RootReducer from './Store/Reducer/RootReducer'
 import {Provider} from 'react-redux'
@@ -24,9 +24,9 @@ store.firebaseAuthIsReady.then(()=> {
 
   ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
+      {/*<BrowserRouter >*/}
         <App />
-      </BrowserRouter>
+      {/*</BrowserRouter >*/}
     </Provider>
     , document.getElementById('root'));
 
@@ -34,4 +34,4 @@ store.firebaseAuthIsReady.then(()=> {
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
   serviceWorker.unregister();
-})
+});
