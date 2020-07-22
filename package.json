@@ -9,6 +9,7 @@
     "ansi-colors": "^3.2.3",
     "axios": "^0.18.0",
     "bootstrap": "3",
+    "chokidar": "^3.4.1",
     "cloudinary-react": "^1.1.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
@@ -45,6 +46,7 @@
     "redux-firestore": "^0.6.1",
     "redux-thunk": "^2.3.0",
     "serve": "^11.3.2",
+    "typescript": "^3.9.7",
     "yup": "^0.26.6"
   },
   "scripts": {

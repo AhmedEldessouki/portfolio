@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App()   {
 
+// eslint-disable-next-line no-unused-vars
 const [title, setTitle] = useState('Ahmed Eldessouki')
   
 useEffect(() => {
