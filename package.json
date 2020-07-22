@@ -57,7 +57,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "yarn run build",
-    "format": "npx prettier --write"
+    "format": "npx prettier --write "
   },
   "eslintConfig": {
     "extends": "react-app"

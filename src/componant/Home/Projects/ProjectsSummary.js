@@ -1,49 +1,46 @@
 import React from 'react'
 import './Styles/ProjectSummary.scss'
-import { FaPen } from "react-icons/fa";
-import {connect} from "react-redux";
-import {NavLink} from 'react-router-dom'
-import {deleteProject} from '../../../Store/Actions/ProjectsActions'
-import PopUp from "../../PopUp/PopUp";
+import { FaPen } from 'react-icons/fa'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { deleteProject } from '../../../Store/Actions/ProjectsActions'
+import PopUp from '../../PopUp/PopUp'
+import reactL from '../../../assets/react.svg'
 
 const ProjectsSummary = (props) => {
-  const {project,auth} = props
+  const { project, auth } = props
   return (
     <div>
       <div className="ProjectSummary">
-        {auth.uid ?
+        {auth.uid ? (
           <div className="icons-svg">
-            <NavLink to={`/edit/${project.id}`} key={project} >
-              <FaPen/>
+            <NavLink to={`/edit/${project.id}`} key={project}>
+              <FaPen />
             </NavLink>
-            <PopUp project={project} title={'Project'}/>
+            <PopUp project={project} title={'Project'} />
           </div>
-          :
-          null
-        }
+        ) : null}
         <NavLink to={props.to} key={props.key}>
-          {project.projectLogo[0] ?
-            <img alt="Project's logo" src={project.projectLogo[0]}/>
-            :
-            null
-          }
+          {project.projectLogo[0] ? (
+            <img alt="Project's logo" src={project.projectLogo[0] || reactL} />
+          ) : null}
           {/*<img alt="Project's logo" src={project.projectLogo[0]}/>*/}
           <h3>{project.projectName}</h3>
-          <p>{project.description}</p>
+          <p className="cardP">{project.description}</p>
           {/*<h4>{project.createdAt.toDate ().toDateString ()}</h4>*/}
         </NavLink>
       </div>
     </div>
   )
-};
-const mapStateToProps = (state) =>{
+}
+const mapStateToProps = (state) => {
   return {
-    auth:state.firebase.auth
+    auth: state.firebase.auth,
   }
-};
-const mapDispatchToProps = (dispatch) =>{
+}
+const mapDispatchToProps = (dispatch) => {
   return {
     deleteProject: (project) => dispatch(deleteProject(project)),
   }
-};
-export default connect(mapStateToProps,mapDispatchToProps)(ProjectsSummary)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsSummary)
