@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {  useState,useEffect  } from 'react';
 import './App.scss';
 import Home from './componant/Home/Home'
 import {Route,Switch, Redirect,BrowserRouter} from 'react-router-dom'
@@ -11,14 +11,18 @@ import CreateProject from './componant/Home/Projects/CreateProject'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-class App extends Component {
+function App()   {
 
-  componentDidMount(){
-    document.title = "Ahmed ElDessouki"
+// eslint-disable-next-line no-unused-vars
+const [title, setTitle] = useState('Ahmed Eldessouki')
+  
+useEffect(() => {
+    document.title = title
     // document.body.style.overflow = "overlay"
-  }
+  }, [title])
+    
 
-  render() {
+
     return (
       <div className="App">
         <BrowserRouter>
@@ -37,7 +41,6 @@ class App extends Component {
         <ToastContainer autoClose={2000} />
       </div>
     );
-  }
 }
 
 export default App;
