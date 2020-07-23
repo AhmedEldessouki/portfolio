@@ -50,6 +50,9 @@
     "typescript": "^3.9.7",
     "yup": "^0.26.6"
   },
+  "engines": {
+    "node": ">=0.12"
+  },
   "scripts": {
     "dev": "react-scripts start",
     "start": "serve -s build",
