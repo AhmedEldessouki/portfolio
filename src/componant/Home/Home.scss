@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Berkshire+Swash|Bilbo+Swash+Caps|Clicker+Script|Lovers+Quarrel|Meddon|Merienda+One|Monsieur+La+Doulaise|Pinyon+Script|Tangerine:700');
 $MyLightBlue: #d4dff6;
-$MyDarkBlue:#282c34;
+$MyDarkBlue: #282c34;
 .Home {
   text-align: center;
   max-width: 100% !important;
@@ -37,7 +37,7 @@ $MyDarkBlue:#282c34;
           span {
             font-size: 40px;
             text-align: center;
-            width: 100%
+            width: 100%;
           }
         }
       }
@@ -54,8 +54,7 @@ $MyDarkBlue:#282c34;
           color: $MyDarkBlue !important;
           background-color: $MyLightBlue;
           min-width: 120px;
-          max-font-size: 18px;
-          min-font-size: 14px;
+          font-size: 18px;
           font-weight: 500;
           &:active {
             color: $MyDarkBlue !important;
@@ -67,18 +66,18 @@ $MyDarkBlue:#282c34;
           -ms-border-radius: 8px;
           -o-border-radius: 8px;
           @media (max-width: 1280px) {
-            //font-size: 14px;
+            font-size: 14px;
             min-width: 96px;
             margin: 5px;
           }
           @media (max-width: 500px) {
-            //font-size: 12px;
+            font-size: 12px;
             min-width: 80px;
             margin: 0 2px;
             padding: 5px;
           }
           @media (max-width: 320px) {
-            //font-size: 14px;
+            font-size: 14px;
             min-width: 80px;
             margin: 10px 2px 0;
             padding: 5px;

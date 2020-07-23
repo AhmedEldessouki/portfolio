@@ -20,13 +20,19 @@ const ProjectsSummary = (props) => {
             <PopUp project={project} title={'Project'} />
           </div>
         ) : null}
+        {project.projectLogo[0] ? (
+          <img
+            alt="Project's logo"
+            src={
+              `https://images.weserv.nl/?url=${project.projectLogo[0]}` ||
+              reactL
+            }
+          />
+        ) : null}
+        {/*<img alt="Project's logo" src={project.projectLogo[0]}/>*/}
         <NavLink to={props.to} key={props.key}>
-          {project.projectLogo[0] ? (
-            <img alt="Project's logo" src={project.projectLogo[0] || reactL} />
-          ) : null}
-          {/*<img alt="Project's logo" src={project.projectLogo[0]}/>*/}
-          <h3>{project.projectName}</h3>
-          <p className="cardP">{project.description}</p>
+          <h3 style={{ color: 'cornflowerblue' }}>{project.projectName}</h3>
+          {/* <p className="cardP">{project.description}</p> */}
           {/*<h4>{project.createdAt.toDate ().toDateString ()}</h4>*/}
         </NavLink>
       </div>
