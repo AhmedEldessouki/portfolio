@@ -51,7 +51,7 @@
     "yup": "^0.26.6"
   },
   "engines": {
-    "node": ">=0.12"
+    "node": "10.19.0"
   },
   "scripts": {
     "dev": "react-scripts start",
