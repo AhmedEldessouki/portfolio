@@ -41,7 +41,7 @@ export default class MyInfo extends Component {
             Loading...
           </div>
         ) : (
-          <div className="MyInfo">
+          <div className="MyInfo" style={{ height: window.innerHeight }}>
             <div className="first-container">
               <div className="img-container">
                 <img
