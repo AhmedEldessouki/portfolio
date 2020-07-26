@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Styles/Projects.scss'
 import ProjectsSummary from './ProjectsSummary'
 
 const Projects = ({ projectsData }) => {
+  const [visibleHieght, setVisibleHieght] = useState(window.innerHeight)
+
+  useEffect(() => {
+    setVisibleHieght(window.innerHeight)
+  }, [setVisibleHieght])
+
   return (
-    <div className="Projects" style={{ height: window.innerHeight }}>
+    <div className="Projects" style={{ maxHeight: visibleHieght }}>
       <h1>My Projects</h1>
       <div className="cards-wrapper">
         {projectsData &&
