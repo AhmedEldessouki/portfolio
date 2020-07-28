@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.scss'
 import MyInfo from './MyInfo/MyInfo'
 import Projects from './Projects/Projects'
@@ -10,14 +10,13 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import AuthNavlinks from '../Navigation/AuthNavlinks'
 import UnAuthNavlinks from '../Navigation/UnAuthNavlinks'
-// import my from '../../assets/my.svg'
 
 const Home = ({ projectsData, auth, profile }) => {
-  const links = auth.uid ? (
-    <AuthNavlinks profile={profile} />
-  ) : (
-    <UnAuthNavlinks />
-  )
+  const [links, setLinks] = useState(() => { })
+
+  useEffect(() => {
+    setLinks(auth.uid ? <AuthNavlinks profile={profile} /> : <UnAuthNavlinks />)
+  }, [auth.uid, profile])
 
   return (
     <div className="Home">

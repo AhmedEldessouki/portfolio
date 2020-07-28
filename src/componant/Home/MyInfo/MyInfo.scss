@@ -42,6 +42,9 @@ $MyDarkBlue: #282c34;
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
         border-radius: 50%;
+        @media (max-width: 330px) {
+          width: 250px !important;
+        }
       }
     }
     .details-container {
