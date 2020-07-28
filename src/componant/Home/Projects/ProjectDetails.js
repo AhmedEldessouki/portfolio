@@ -1,52 +1,67 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {firestoreConnect} from 'react-redux-firebase'
-import {compose} from 'redux'
+import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 import './Styles/ProjectDetails.scss'
 import ContactMe from '../ContactMe/ContactMe'
 import AuthNavlinks from '../../Navigation/AuthNavlinks'
 import UnAuthNavlinks from '../../Navigation/UnAuthNavlinks'
-import {BarLoader} from "react-spinners";
-import MyFooter from "../MyFooter/MyFooter";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-
+import { BarLoader } from 'react-spinners'
+import MyFooter from '../MyFooter/MyFooter'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { Carousel } from 'react-responsive-carousel'
 
 const ProjectDetails = (props) => {
-  const { project,auth, profile } = props;
-  const links = auth.uid ? <AuthNavlinks auth={auth} title={"Project Details"} profile={profile}/> : <UnAuthNavlinks/>
+  const { project, auth, profile } = props
+  const links = auth.uid ? (
+    <AuthNavlinks auth={auth} title={'Project Details'} profile={profile} />
+  ) : (
+    <UnAuthNavlinks />
+  )
   window.scrollTo(0, 0)
   if (project) {
-    return(
+    return (
       <div className="bg-img">
         <div className="ProjectDetails">
           {links}
           <div className="details-container">
             <div className="logos-container">
-              {project.projectLogo !== null?
+              {project.projectLogo !== null ? (
                 <Carousel>
-                  {project.projectLogo.map((link,ky) => {
-                    return  <div key={ky}>
-                      <img className="img-display" alt={'project\'s pictures'} src={link} />
-                    </div>
+                  {project.projectLogo.map((link, ky) => {
+                    return (
+                      <div key={ky}>
+                        <img
+                          className="img-display"
+                          alt={"project's pictures"}
+                          src={`https://images.weserv.nl/?url=${link}`}
+                        />
+                      </div>
+                    )
                   })}
                 </Carousel>
-                : null }
+              ) : null}
             </div>
             <div className="details">
               <div className="first-container">
-                <h2><a href={project.projectLink}>{project.projectName}</a></h2>
+                <h2>
+                  <a href={project.projectLink}>{project.projectName}</a>
+                </h2>
                 <p>{project.description}</p>
               </div>
               <div className="double-container">
-                <div>Author: {project.authorFirstName} {project.authorLastName}</div>
-                <div>Created At: {project.createdAt.toDate().toDateString()}</div>
+                <div>
+                  Author: {project.authorFirstName} {project.authorLastName}
+                </div>
+                <div>
+                  Created At: {project.createdAt.toDate().toDateString()}
+                </div>
               </div>
             </div>
           </div>
           <footer>
-            <ContactMe/>
-            <MyFooter/>
+            <ContactMe />
+            <MyFooter />
           </footer>
         </div>
       </div>
@@ -56,7 +71,7 @@ const ProjectDetails = (props) => {
       <div className="my-spinner-container">
         <BarLoader
           className="my-spinner"
-          sizeUnit={"px"}
+          sizeUnit={'px'}
           size={150}
           color={'#d4dff6'}
           loading={true}
@@ -65,22 +80,20 @@ const ProjectDetails = (props) => {
       </div>
     )
   }
-};
+}
 
-const mapStateToProps = (state, ownProps) =>{
-  const id = ownProps.match.params.id;
-  const projects = state.firestore.data.projects;
-  const project = projects ? projects[id]: null;
+const mapStateToProps = (state, ownProps) => {
+  const id = ownProps.match.params.id
+  const projects = state.firestore.data.projects
+  const project = projects ? projects[id] : null
   return {
     project,
     profile: state.firebase.profile,
-    auth:state.firebase.auth,
+    auth: state.firebase.auth,
   }
-};
+}
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
-    {collection: 'projects'}
-  ])
+  firestoreConnect([{ collection: 'projects' }])
 )(ProjectDetails)

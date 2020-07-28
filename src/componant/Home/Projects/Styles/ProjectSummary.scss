@@ -1,45 +1,47 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-$MyLightBlue: #d4dff6;
-$MyDarkBlue:#282c34;
-$MyBackgroundBlue:#23527c;
-$NavBackgroundBlue:#337ab7;
-$MyWarningRed:#ff000e;
+$MyLightBlue: cornflowerblue;
+$MyDarkBlue: #282c34;
+$MyBackgroundBlue: #23527c;
+$NavBackgroundBlue: #337ab7;
+$MyWarningRed: #ff000e;
 
 .ProjectSummary {
   display: grid;
-  background-color: $MyDarkBlue;
+  background-color: lighten($MyDarkBlue, 2%);
   grid-gap: 5px;
   padding: 25px;
   margin: 0;
-  height: 350px;
+  height: 300px;
   border: 6px solid $MyBackgroundBlue;
   justify-items: center;
   align-items: center;
-  border-radius: 10px ;
+  border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   font-family: 'Merienda One', cursive;
-  &:hover{
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
     border-color: $NavBackgroundBlue;
+    background-color: $MyDarkBlue;
   }
-  .icons-svg{
+  .icons-svg {
     display: flex;
     justify-content: space-between;
     width: 100%;
     color: $MyLightBlue;
     justify-self: flex-start;
     align-self: flex-start;
-    svg{
+    svg {
       width: 18px;
       height: 18px;
     }
-    button{
+    button {
       border: 0;
       background: transparent;
-      &:hover{
+      &:hover {
         color: $MyWarningRed;
       }
     }
@@ -54,7 +56,11 @@ $MyWarningRed:#ff000e;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
   }
-  a{
-    text-decoration: none;
+  h1 {
+    font-size: 25px;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }

@@ -1,30 +1,39 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-body, header {
+@import url('https://fonts.googleapis.com/css?family=Berkshire+Swash|Bilbo+Swash+Caps|Clicker+Script|Lovers+Quarrel|Meddon|Merienda+One|Monsieur+La+Doulaise|Pinyon+Script|Tangerine:700');
+body,
+header {
   margin: 0;
   padding: 0;
-  //font-family: -apple-system, BlinkMacSystemFont,
-  // 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-  //  'Open Sans';
-  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  //   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-  //   sans-serif;
-  font-family: 'Open Sans', sans-serif;
-  //   -webkit-font-smoothing: antialiased;
-  //   -moz-osx-font-smoothing: grayscale;
+  // font-family: 'Open Sans', sans-serif;
+  font-family: 'Merienda One', cursive;
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  // p {
+  //   color: #d4dff6;
+  // }
+  button {
+    border: 0 solid;
+    &:active {
+      transform: translateY(4px);
+    }
+  }
 }
 *::-webkit-scrollbar {
   width: 1em;
 }
 
 *::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 *::-webkit-scrollbar-thumb {
-background-color: darkgrey;
-outline: 1px solid slategrey;
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-  monospace;
+  font-family: 'Merienda One', cursive;
 }

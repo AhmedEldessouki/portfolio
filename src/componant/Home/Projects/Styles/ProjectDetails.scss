@@ -1,8 +1,9 @@
 $MyLightBlue: #d4dff6;
-$MyDarkBlue:#282c34;
-.my-spinner-container{
+$MyDarkBlue: #282c34;
+
+.my-spinner-container {
   position: fixed;
-  bottom:0;
+  bottom: 0;
   left: 0;
   top: 0;
   right: 0;
@@ -54,13 +55,13 @@ $MyDarkBlue:#282c34;
         background: darkgray;
       }
       @media all and (max-width: 716px) {
-          max-width: 500px;
+        max-width: 500px;
       }
       @media all and (max-width: 530px) {
-          max-width: 400px;
+        max-width: 400px;
       }
       @media all and (max-width: 440px) {
-          max-width: 300px;
+        max-width: 300px;
       }
     }
     .details {
@@ -69,7 +70,6 @@ $MyDarkBlue:#282c34;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      //width: 500px;
       height: 300px;
       .first-container {
         width: 500px;
@@ -78,33 +78,32 @@ $MyDarkBlue:#282c34;
         height: 90%;
         display: grid;
         padding: 0 20px 10px;
-        h2 a{
-          text-decoration: none;
-        }
       }
       .double-container {
         width: 500px;
-        //min-width: 100%;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         padding: 10px;
       }
       @media all and (max-width: 530px) {
-        .first-container, .double-container {
+        .first-container,
+        .double-container {
           width: 100%;
-          text-align-all: center;
+          text-align: center;
         }
       }
       @media all and (max-width: 440px) {
-        .first-container, .double-container {
+        .first-container,
+        .double-container {
           justify-content: center;
           width: 340px;
         }
       }
       @media all and (max-width: 320px) {
         width: 300px;
-        .first-container, .double-container {
+        .first-container,
+        .double-container {
           justify-content: center;
           width: 280px;
         }
@@ -117,18 +116,17 @@ $MyDarkBlue:#282c34;
       }
     }
     @media all and (max-width: 716px) {
-      //grid-template-columns: 1fr;
       .logos-container {
         max-width: 500px;
       }
     }
     @media all and (max-width: 530px) {
-      .logos-container{
+      .logos-container {
         max-width: 400px;
       }
     }
     @media all and (max-width: 440px) {
-      .logos-container{
+      .logos-container {
         max-width: 300px;
       }
     }
