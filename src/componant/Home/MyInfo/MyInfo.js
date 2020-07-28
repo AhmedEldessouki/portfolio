@@ -49,8 +49,7 @@ const MyInfo = () => {
               <li className="follow-container">Lives in {profile.location}</li>
               <li
                 style={{
-                  backgroundColor: '#337ab7',
-                  color: 'cornflowerblue',
+                  backgroundColor: '#23527c',
                 }}
               >
                 <a href={profile.html_url}>

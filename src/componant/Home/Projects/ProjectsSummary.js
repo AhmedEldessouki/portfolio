@@ -29,7 +29,7 @@ const ProjectsSummary = ({ project, auth, ...props }) => {
           />
         ) : null}
         <NavLink to={props.to} key={props.key}>
-          <h3 style={{ color: 'cornflowerblue' }}>{project.projectName}</h3>
+          <h1 style={{ color: 'cornflowerblue' }}>{project.projectName}</h1>
         </NavLink>
       </div>
     </div>

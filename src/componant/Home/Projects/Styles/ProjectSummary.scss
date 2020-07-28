@@ -56,7 +56,8 @@ $MyWarningRed: #ff000e;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
   }
-  h3 {
+  h1 {
+    font-size: 25px;
     transition: all 0.2s ease-in-out;
     &:hover {
       transform: scale(1.1);
