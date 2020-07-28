@@ -56,13 +56,10 @@ $MyWarningRed: #ff000e;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
   }
-  .cardP {
-    display: block;
-    overflow-block: hidden;
-    max-height: 101px;
-    color: cornflowerblue;
-    font-weight: 300;
-    overflow-y: auto;
-    height: 78px;
+  h3 {
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }

@@ -4,21 +4,25 @@ import axios from 'axios'
 import { GoMarkGithub } from 'react-icons/go'
 import { BarLoader } from 'react-spinners'
 
-export default (MyInfo) => {
+const MyInfo = () => {
   const [profile, setProfile] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [url, setUrl] = useState('')
+  const [setTime, setSetTime] = useState(0)
 
   const myGitHub = async () => {
     setUrl('https://api.github.com/users/ahmedeldessouki')
     const res = await axios(url)
     setProfile(res.data)
     setIsLoading(false)
-    return [profile, isLoading]
+    setSetTime(840000)
+    return [profile, isLoading, setTime]
   }
 
   useEffect(() => {
-    myGitHub()
+    setTimeout(() => {
+      myGitHub()
+    }, setTime)
   })
 
   return (
@@ -38,10 +42,7 @@ export default (MyInfo) => {
         <div className="MyInfo" style={{ minHeight: window.innerHeight }}>
           <div className="first-container">
             <div className="img-container">
-              <img
-                src={`https://images.weserv.nl/?url=${profile.avatar_url}`}
-                alt="profilePicture"
-              />
+              <img src={profile.avatar_url} alt="profilePicture" />
             </div>
             <ul className="details-container">
               <li>{profile.name}</li>
@@ -75,3 +76,5 @@ export default (MyInfo) => {
     </div>
   )
 }
+
+export default MyInfo

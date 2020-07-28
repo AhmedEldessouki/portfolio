@@ -7,8 +7,7 @@ import { deleteProject } from '../../../Store/Actions/ProjectsActions'
 import PopUp from '../../PopUp/PopUp'
 import reactL from '../../../assets/react.svg'
 
-const ProjectsSummary = (props) => {
-  const { project, auth } = props
+const ProjectsSummary = ({ project, auth, ...props }) => {
   return (
     <div>
       <div className="ProjectSummary">
@@ -29,11 +28,8 @@ const ProjectsSummary = (props) => {
             }
           />
         ) : null}
-        {/*<img alt="Project's logo" src={project.projectLogo[0]}/>*/}
         <NavLink to={props.to} key={props.key}>
           <h3 style={{ color: 'cornflowerblue' }}>{project.projectName}</h3>
-          {/* <p className="cardP">{project.description}</p> */}
-          {/*<h4>{project.createdAt.toDate ().toDateString ()}</h4>*/}
         </NavLink>
       </div>
     </div>
