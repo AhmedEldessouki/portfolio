@@ -4,14 +4,12 @@ import { signOut } from '../../Store/Actions/AuthActions'
 import './Navigation.scss'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import my from '../../assets/my.svg'
-// import AhmedEldessouki from '../../assets/AhmedEldessouki.svg'
 
 const AuthNavlinks = (props) => {
   return (
     <Navbar className="Navigation" inverse collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          {/* <span>{props.title}</span> */}
           <img
             src={my}
             alt={'Ahmed ElDessouki'}
