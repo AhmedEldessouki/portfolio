@@ -12,7 +12,7 @@ const Projects = ({ projectsData }) => {
   return (
     <div className="Projects" style={{ maxHeight: visibleHieght }}>
       <h1>My Projects</h1>
-      <div className="cards-wrapper">
+      <div className="cards-wrapper" style={{ maxHeight: visibleHieght }}>
         {projectsData &&
           projectsData.map((project) => {
             return (

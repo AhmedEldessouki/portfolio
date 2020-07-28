@@ -3,7 +3,6 @@ body,
 header {
   margin: 0;
   padding: 0;
-  // font-family: 'Open Sans', sans-serif;
   font-family: 'Merienda One', cursive;
   a {
     text-decoration: none;
@@ -11,9 +10,6 @@ header {
       text-decoration: none;
     }
   }
-  // p {
-  //   color: #d4dff6;
-  // }
   button {
     border: 0 solid;
     &:active {
@@ -36,4 +32,8 @@ header {
 }
 code {
   font-family: 'Merienda One', cursive;
+}
+
+header,body, footer{
+  touch-action: pan-x;
 }
