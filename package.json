@@ -8,6 +8,7 @@
     "@google-cloud/storage": "^2.3.4",
     "ansi-colors": "^3.2.3",
     "axios": "^0.18.0",
+    "babel": "^6.23.0",
     "bootstrap": "^3.4.1",
     "chokidar": "^3.4.1",
     "cloudinary-react": "^1.1.0",
@@ -27,7 +28,7 @@
     "react-bootstrap": "^0.32.4",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.6.3",
-    "react-dropzone": "^8.0.3",
+    "react-dropzone": "^11.0.2",
     "react-firebase-file-uploader": "^2.4.2",
     "react-firebaseui": "^3.1.2",
     "react-icons": "^3.2.2",
@@ -49,10 +50,11 @@
     "redux-thunk": "^2.3.0",
     "serve": "^11.3.2",
     "typescript": "^3.9.7",
+    "yarn": "^1.22.4",
     "yup": "^0.26.6"
   },
   "engines": {
-    "node": "10.19.0"
+    "node": ">10.19.0"
   },
   "scripts": {
     "dev": "react-scripts start",
