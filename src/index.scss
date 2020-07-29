@@ -4,6 +4,8 @@ header {
   margin: 0;
   padding: 0;
   font-family: 'Merienda One', cursive;
+  touch-action: pan-y;
+  touch-action: pinch-zoom;
   a {
     text-decoration: none;
     &:hover {
@@ -32,8 +34,4 @@ header {
 }
 code {
   font-family: 'Merienda One', cursive;
-}
-
-header,body, footer{
-  touch-action: pan-x;
 }
