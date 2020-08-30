@@ -12,8 +12,6 @@ var config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 }
 
-console.log(process.env)
-
 firebase.initializeApp(config)
 firebase.firestore()
 
