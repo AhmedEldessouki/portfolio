@@ -6,7 +6,7 @@ import my from '../../assets/my.svg'
 
 const AuthNavlinks = (props) => {
   return (
-    <div className="Navigation" inverse collapseOnSelect>
+    <div className="Navigation" >
         <div>
           <img
             src={my}

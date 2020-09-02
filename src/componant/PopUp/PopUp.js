@@ -41,11 +41,10 @@ class PopUp extends Component {
 
     return (
       <div className="PopUp" style={{display: "none"}}>
-        <button className="toggle-button primary" bsSize="large" onClick={this.handleShow}>
+        <button className="toggle-button primary" onClick={this.handleShow}>
           <GoTrashcan />
         </button>
         <div className="static-modal" >
-          <button show={this.state.show} onHide={this.handleClose} >
             <header>
               <h1>Warning</h1>
             </header>
@@ -56,7 +55,6 @@ class PopUp extends Component {
                 Yes
               </button>
             </footer>
-          </button>
         </div>
       </div>
     );
