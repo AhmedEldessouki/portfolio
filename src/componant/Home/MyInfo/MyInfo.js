@@ -7,23 +7,20 @@ import { BarLoader } from 'react-spinners'
 const MyInfo = () => {
   const [profile, setProfile] = useState('')
   const [isLoading, setIsLoading] = useState(true)
-  const [url, setUrl] = useState('')
+  const [url, setUrl] = useState('https://api.github.com/users/ahmedeldessouki')
   const [setTime, setSetTime] = useState(0)
 
-  const myGitHub = async () => {
-    setUrl('https://api.github.com/users/ahmedeldessouki')
-    const res = await axios(url)
-    setProfile(res.data)
-    setIsLoading(false)
-    setSetTime(840000)
-    return [profile, isLoading, setTime]
-  }
-
   useEffect(() => {
-    setTimeout(() => {
+    const myGitHub = async () => {
+      const res = await axios(url)
+      setProfile(res.data)
+      setIsLoading(false)
+      console.log("CALLED")
+      return [profile, isLoading]
+    }
       myGitHub()
-    }, setTime)
-  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url])
 
   return (
     <div>
