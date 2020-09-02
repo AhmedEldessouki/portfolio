@@ -2,48 +2,42 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { signOut } from '../../Store/Actions/AuthActions'
 import './Navigation.scss'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import my from '../../assets/my.svg'
 
 const AuthNavlinks = (props) => {
   return (
-    <Navbar className="Navigation" inverse collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
+    <div className="Navigation" inverse collapseOnSelect>
+        <div>
           <img
             src={my}
             alt={'Ahmed ElDessouki'}
             style={{ width: '150px', padding: '0' }}
           />
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav pullRight>
-          <NavItem eventKey={1} href={'/'}>
+        </div>
+      <div>
+          <a href={'/'}>
             Home
-          </NavItem>
-          <NavItem eventKey={2} href={'/#projects'}>
+          </a>
+          <a href={'/#projects'}>
             Projects
-          </NavItem>
-          <NavItem eventKey={3} href={'/#contactMe'}>
+          </a>
+          <a href={'/#contactMe'}>
             Contact Me
-          </NavItem>
-          <NavItem eventKey={4} href={'/dashboard'}>
+          </a>
+          <a href={'/dashboard'}>
             DashBoard
-          </NavItem>
-          <NavItem eventKey={5} href={'/create-project'}>
+          </a>
+          <a href={'/create-project'}>
             Create Project
-          </NavItem>
-          <NavItem eventKey={5} href={'/signup'}>
+          </a>
+          <a href={'/signup'}>
             SignUp
-          </NavItem>
-          <NavItem eventKey={5} onClick={props.signOut} href={'/'}>
+          </a>
+          <a onClick={props.signOut} href={'/'}>
             SignOut
-          </NavItem>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+          </a>
+      </div>
+    </div>
   )
 }
 
