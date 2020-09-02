@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import { BrowserRouter } from 'react-router-dom';
 import {createStore, applyMiddleware, compose} from 'redux'
 import RootReducer from './Store/Reducer/RootReducer'
 import {Provider} from 'react-redux'
@@ -24,9 +21,7 @@ store.firebaseAuthIsReady.then(()=> {
 
   ReactDOM.render(
     <Provider store={store}>
-      {/*<BrowserRouter >*/}
         <App />
-      {/*</BrowserRouter >*/}
     </Provider>
     , document.getElementById('root'));
 

@@ -1,7 +1,5 @@
 import './PopUp.scss'
 import React, {Component} from 'react';
-import {Modal }from "react-bootstrap";
-import {Button} from "react-bootstrap";
 import {GoTrashcan} from "react-icons/go";
 import {deleteProject} from "../../Store/Actions/ProjectsActions";
 import {deleteMessage} from "../../Store/Actions/ContactedMeActions";
@@ -38,27 +36,25 @@ class PopUp extends Component {
   }
 
   render () {
-    const HIDE = this.props.project || this.props.contact || this.props.notification ? null: {display:'none'}
+    const HIDE = this.props.project || this.props.contact || this.props.notification ? {display:""}: {display:'none'}
     const content =this.props.title;
 
     return (
-      <div className="PopUp">
-        <Button bsStyle="primary" className={"toggle-button"} bsSize="large" onClick={this.handleShow}>
+      <div className="PopUp" style={{display: "none"}}>
+        <button className="toggle-button primary" onClick={this.handleShow}>
           <GoTrashcan />
-        </Button>
+        </button>
         <div className="static-modal" >
-          <Modal show={this.state.show} onHide={this.handleClose} >
-            <Modal.Header closeButton>
-              <Modal.Title>Warning</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Do you want to delete this {content}</Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.handleClose}>No</Button>
-              <Button bsStyle="danger"  style={HIDE} onClick={this.handleDelete}>
+            <header>
+              <h1>Warning</h1>
+            </header>
+            <h2>Do you want to delete this {content}</h2>
+            <footer>
+              <button onClick={this.handleClose}>No</button>
+              <button className="danger"  style={{HIDE}} onClick={this.handleDelete}>
                 Yes
-              </Button>
-            </Modal.Footer>
-          </Modal>
+              </button>
+            </footer>
         </div>
       </div>
     );
