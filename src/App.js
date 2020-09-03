@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./App.scss";
 import Home from "./components/Home/Home";
 import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -17,7 +16,7 @@ function App() {
   });
 
   return (
-    <div className='App'>
+    <>
       <BrowserRouter>
         <Switch>
           <Route path='/' exact component={Home} />
@@ -32,7 +31,7 @@ function App() {
         </Switch>
       </BrowserRouter>
       <ToastContainer autoClose={2000} />
-    </div>
+    </>
   );
 }
 

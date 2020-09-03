@@ -1,27 +1,67 @@
-import './ContactMe.scss'
-import React, { Component } from 'react'
-import { withFormik, Form, Field } from 'formik'
-import * as Yup from 'yup'
-import { FaAddressCard, FaPhoneSquare } from 'react-icons/fa'
-import { GoMention } from 'react-icons/go'
-import { contactedMe } from '../../../Store/Actions/ContactedMeActions'
-import { BarLoader } from 'react-spinners'
-import { connect } from 'react-redux'
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+import { Component } from 'react';
+import { withFormik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import { FaAddressCard, FaPhoneSquare } from 'react-icons/fa';
+import { GoMention } from 'react-icons/go';
+import { contactedMe } from '../../../Store/Actions/ContactedMeActions';
+import { BarLoader } from 'react-spinners';
+import { connect } from 'react-redux';
+import { wrapper, colors, spinner, btnStyle } from '../../../Styles';
 
 const INIT_PROPS = {
   contactName: '',
   email: '',
   phoneNumber: '',
   description: '',
-}
+};
 
 class MyContactMe extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       ...INIT_PROPS,
-    }
+    };
   }
+  forInput = css`
+    width: 280px;
+    height: 25px;
+    padding: 5px;
+  `;
+  forLabel = css`
+    display: block;
+    width: 310px;
+    padding: 10px;
+  `;
+  warning = css`
+    color: ${colors.red};
+    padding-left: 16px;
+  `;
+
+  spinner = css`
+    @keyframes spinner {
+      0% {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(-50%, -50%, 0) rotate(360deg);
+      }
+    }
+    animation: 1.5s linear infinite spinner;
+    animation-play-state: inherit;
+    border: solid 10px ${colors.aliceLightBlue};
+    border-bottom-color: ${colors.kindaBlue};
+    border-radius: 50%;
+    content: '';
+    height: 40px;
+    width: 40px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+  `;
   render() {
     const {
       errors,
@@ -33,91 +73,97 @@ class MyContactMe extends Component {
       email,
       phoneNumber,
       description,
-    } = this.props
+    } = this.props;
     return (
-      <div className="ContactMe">
+      <div
+        css={css`
+          max-width: 100%;
+          padding: 20px;
+          background-color: ${colors.independenceBlue};
+        `}
+      >
         <h1>Contact Me</h1>
-        <Form id={'ContactMe'}>
-          <div className="first-container">
-            <label className="field-container" htmlFor="contactName">
-              <div className="input-svg">
-                <FaAddressCard />
-                <Field
-                  name="contactName"
-                  id="contactName"
-                  value={contactName}
-                  placeholder="Enter your name"
-                />
-              </div>
+        <Form id={'ContactMe'} css={wrapper}>
+          <div>
+            <label css={this.forLabel} htmlFor='contactName'>
+              <FaAddressCard />
+              <Field
+                css={this.forInput}
+                name='contactName'
+                id='contactName'
+                value={contactName}
+                placeholder='Enter your name'
+              />
               {errors.contactName && touched.contactName ? (
-                <p className="error-message">{errors.contactName}</p>
+                <span css={this.warning}>{errors.contactName}</span>
               ) : null}
             </label>
-            <div className="field-container">
-              <label className="input-svg" htmlFor="email">
-                <GoMention />
-                <Field
-                  name="email"
-                  id="email"
-                  value={email}
-                  type="email"
-                  placeholder="Email Address"
-                />
-              </label>
+            <label css={this.forLabel} htmlFor='email'>
+              <GoMention />
+              <Field
+                css={this.forInput}
+                name='email'
+                id='email'
+                value={email}
+                type='email'
+                placeholder='Email Address'
+              />
               {errors.email && touched.email ? (
-                <div className="error-message">{errors.email}</div>
+                <span css={this.warning}>{errors.email}</span>
               ) : null}
-            </div>
-            <label className="field-container" htmlFor="phoneNumber">
-              <div className="input-svg">
+            </label>
+            <label css={this.forLabel} htmlFor='phoneNumber'>
+              <div className='input-svg'>
                 <FaPhoneSquare />
                 <Field
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  type="tel"
+                  css={this.forInput}
+                  name='phoneNumber'
+                  id='phoneNumber'
+                  type='tel'
                   value={phoneNumber}
-                  placeholder="Enter Your Phone Number"
+                  placeholder='Enter Your Phone Number'
                 />
               </div>
               {errors.phoneNumber && touched.phoneNumber ? (
-                <label className="error-message">{errors.phoneNumber}</label>
+                <span css={this.warning}>{errors.phoneNumber}</span>
               ) : null}
             </label>
           </div>
-          <label className="second-container" htmlFor="description">
+          <label css={this.forLabel} htmlFor='description'>
             <textarea
-              name="description"
-              id="description"
+              name='description'
+              id='description'
               onChange={handleChange}
               value={description}
-              className="textArea"
+              className='textArea'
               required
+              css={css`
+                min-width: 310px;
+                min-height: 150px;
+              `}
             />
           </label>
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-          {contError ? <div className="error-message">{contError}</div> : null}
+          {isSubmitting ? (
+            <div
+              css={css`
+                width: 100%;
+              `}
+            >
+              <div css={this.spinner}></div>
+            </div>
+          ) : (
+            <button type='submit' disabled={isSubmitting} css={btnStyle}>
+              Submit
+            </button>
+          )}
+          {contError ? <span css={this.warning}>{contError}</span> : null}
         </Form>
-        {isSubmitting ? (
-          <div className="my-spinner-container">
-            <span>Thank you for contacting me</span>
-            <BarLoader
-              className="my-spinner"
-              sizeUnit={'px'}
-              size={150}
-              color={'#d4dff6'}
-              loading={isSubmitting}
-            />
-            <span>I will get back to you soon</span>
-          </div>
-        ) : null}
       </div>
-    )
+    );
   }
 }
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const ContactMeSchema = withFormik({
   validationSchema: Yup.object().shape({
@@ -129,37 +175,37 @@ const ContactMeSchema = withFormik({
     phoneNumber: Yup.string()
       .min(11, 'Too Short!')
       .max(13, 'Too Long!')
-      .matches(phoneRegExp, 'Phone number is not valid'),
+      .matches(phoneRegExp, 'Phone number is invalid'),
     description: Yup.string(),
   }),
   enableReinitialize: true,
-  mapPropsToValues: (props) => ({
+  mapPropsToValues: props => ({
     ...props,
   }),
-  mapValuesToPayload: (x) => x,
+  mapValuesToPayload: x => x,
   handleSubmit: (values, { setErrors, resetForm, setSubmitting }) => {
     setTimeout(() => {
       if (values.name === 'admin') {
-        setErrors({ contactName: 'Nice try!' })
+        setErrors({ contactName: 'Nice try!' });
       } else {
-        values.contactedMe(values)
-        resetForm({})
-        document.getElementById('ContactMe').reset()
+        values.contactedMe(values);
+        resetForm({});
+        document.getElementById('ContactMe').reset();
       }
-      setSubmitting(false)
-    }, 2000)
+      setSubmitting(false);
+    }, 2000);
   },
   displayName: 'ContactMe',
-})
-const mapStateToProps = (state) => {
+});
+const mapStateToProps = state => {
   return {
     contError: state.contactedMe.contError,
-  }
-}
-const mapDispatchToProps = (dispatch) => {
+  };
+};
+const mapDispatchToProps = dispatch => {
   return {
-    contactedMe: (contact) => dispatch(contactedMe(contact)),
-  }
-}
-const ContactMe = ContactMeSchema(MyContactMe)
-export default connect(mapStateToProps, mapDispatchToProps)(ContactMe)
+    contactedMe: contact => dispatch(contactedMe(contact)),
+  };
+};
+const ContactMe = ContactMeSchema(MyContactMe);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactMe);

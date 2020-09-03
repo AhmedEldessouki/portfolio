@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 // Global CSS Styles
-import { css } from "@emotion/core";
+import { css } from '@emotion/core';
 
-import { colors, mq } from "./css-utils";
+import { colors, mq, weights } from './css-utils';
 
 export const globalStyles = css`
   /*
@@ -30,11 +30,11 @@ export const globalStyles = css`
     font-kerning: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -moz-font-feature-settings: "kern", "liga", "clig", "calt";
-    -ms-font-feature-settings: "kern", "liga", "clig", "calt";
-    -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
+    -moz-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    -ms-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     text-rendering: optimizeLegibility;
-    font-feature-settings: "kern", "liga", "clig", "calt";
+    font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     color: ${colors.lightBlue};
   }
 
@@ -165,9 +165,5 @@ export const globalStyles = css`
     max-width: 100%;
     padding: 0;
     white-space: normal;
-  }
-
-  textarea {
-    overflow: auto;
   }
 `;
