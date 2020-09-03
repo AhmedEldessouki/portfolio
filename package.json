@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "@emotion/core": "^10.0.35",
     "axios": "^0.20.0",
     "cloudinary-react": "^1.1.0",
     "firebase": "^7.16.1",

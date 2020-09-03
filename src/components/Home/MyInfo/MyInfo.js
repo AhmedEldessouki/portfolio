@@ -8,7 +8,6 @@ const MyInfo = () => {
   const [profile, setProfile] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [url, setUrl] = useState('https://api.github.com/users/ahmedeldessouki')
-  const [setTime, setSetTime] = useState(0)
 
   useEffect(() => {
     const myGitHub = async () => {

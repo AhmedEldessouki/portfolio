@@ -12,12 +12,12 @@ const SignIn = ({ signIn, auth, authError }) => {
 
   function useFormInput(initialValue) {
     const [value, setValue] = useState(initialValue);
-    const handleChange = (e) => {
+    const handleChange = e => {
       setValue(e.target.value);
     };
     return { value, onChange: handleChange };
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const signInValues = {
       email: email.value,
@@ -29,18 +29,18 @@ const SignIn = ({ signIn, auth, authError }) => {
   return (
     <div>
       {auth.uid ? (
-        <Redirect to="/" />
+        <Redirect to='/' />
       ) : (
-        <div className="SignIn">
+        <div className='SignIn'>
           {links}
           <h1>Sign-in</h1>
           <form onSubmit={handleSubmit}>
-            <div className="field-container">
+            <div className='field-container'>
               <input {...email} />
-              <input {...password} type="password" />
+              <input {...password} type='password' />
             </div>
             <div>
-              <button type="submit">SignIn</button>
+              <button type='submit'>SignIn</button>
               {authError ? <p>{authError}</p> : null}
             </div>
           </form>
@@ -50,15 +50,15 @@ const SignIn = ({ signIn, auth, authError }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     authError: state.auth.authError,
     auth: state.firebase.auth,
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    signIn: (creds) => dispatch(signIn(creds)),
+    signIn: creds => dispatch(signIn(creds)),
   };
 };
 
