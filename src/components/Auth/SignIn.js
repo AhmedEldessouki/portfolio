@@ -1,65 +1,99 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { signIn } from "../../Store/Actions/AuthActions";
-import { Redirect } from "react-router-dom";
-import AuthNavlinks from "../Navigation/AuthNavlinks";
-import UnAuthNavlinks from "../Navigation/UnAuthNavlinks";
-import "./Styles/SignUp.scss";
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+import { useState, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
+import { signIn } from '../../Store/Actions/AuthActions'
+import AuthNavlinks from '../Navigation/AuthNavlinks'
+import UnAuthNavlinks from '../Navigation/UnAuthNavlinks'
+import Layout from '../Layout'
+import {
+  signWrapper,
+  labelWrapper,
+  signWrapperInput,
+  h1XL,
+  btnStyle,
+} from '../../Styles'
 
 const SignIn = ({ signIn, auth, authError }) => {
-  const email = useFormInput("Enter Your Email");
-  const password = useFormInput("Enter Your Password");
+  const email = useFormInput('')
+  const password = useFormInput('')
 
   function useFormInput(initialValue) {
-    const [value, setValue] = useState(initialValue);
+    const [value, setValue] = useState(initialValue)
     const handleChange = e => {
-      setValue(e.target.value);
-    };
-    return { value, onChange: handleChange };
+      setValue(e.target.value)
+    }
+    return { value, onChange: handleChange }
   }
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     const signInValues = {
       email: email.value,
       password: password.value,
-    };
-    signIn(signInValues);
-  };
-  const links = auth.uid ? <AuthNavlinks /> : <UnAuthNavlinks />;
+    }
+    signIn(signInValues)
+  }
   return (
-    <div>
+    <Fragment>
       {auth.uid ? (
         <Redirect to='/' />
       ) : (
-        <div className='SignIn'>
-          {links}
-          <h1>Sign-in</h1>
-          <form onSubmit={handleSubmit}>
-            <div className='field-container'>
-              <input {...email} />
-              <input {...password} type='password' />
-            </div>
-            <div>
-              <button type='submit'>SignIn</button>
-              {authError ? <p>{authError}</p> : null}
-            </div>
-          </form>
-        </div>
+        <Layout>
+          <h1 css={h1XL}>Sign-in</h1>
+          <div
+            css={css`
+              width: 100%;
+              display: flex;
+              place-content: center;
+            `}
+          >
+            <form onSubmit={handleSubmit} css={signWrapper}>
+              <div className='field-container'>
+                <label htmlFor='email' css={labelWrapper}>
+                  <input
+                    css={signWrapperInput}
+                    type='email'
+                    id='email'
+                    placeHolder='Email'
+                    {...email}
+                  />
+                </label>
+                <label css={labelWrapper} htmlFor='password'>
+                  <input
+                    css={signWrapperInput}
+                    {...password}
+                    type='password'
+                    id='password'
+                    placeHolder='Password'
+                  />
+                </label>
+              </div>
+              <div>
+                <button css={btnStyle} type='submit'>
+                  SignIn
+                </button>
+                {authError ? <p>{authError}</p> : null}
+              </div>
+            </form>
+          </div>
+        </Layout>
       )}
-    </div>
-  );
-};
+    </Fragment>
+  )
+}
 
 const mapStateToProps = state => {
   return {
     authError: state.auth.authError,
     auth: state.firebase.auth,
-  };
-};
+  }
+}
 const mapDispatchToProps = dispatch => {
   return {
     signIn: creds => dispatch(signIn(creds)),
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

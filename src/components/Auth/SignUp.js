@@ -3,7 +3,6 @@ import { jsx, css } from '@emotion/core'
 import { Component, Fragment } from 'react'
 import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup'
-import './Styles/SignUp.scss'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
