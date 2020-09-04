@@ -16,7 +16,6 @@ export const globalStyles = css`
     -webkit-text-size-adjust: 100%;
     font-size: 100%;
     scrollbar-color: ${colors.lightBlue} ${colors.darkBlue};
-    scrollbar-width: thin;
     ${mq.s} {
       font-size: 112.5%;
     }
@@ -37,6 +36,7 @@ export const globalStyles = css`
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     color: ${colors.aliceLightBlue};
     background: ${colors.independenceBlue};
+    scrollbar-width: thin;
   }
 
   footer,

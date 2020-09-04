@@ -1,27 +1,47 @@
-import React from 'react'
-import './MyFooter.scss'
+/**@jsx jsx */
+import { jsx, css } from '@emotion/core'
 import {
   FaLinkedin,
-  FaSass,
   FaFacebookSquare,
   FaInstagram,
-  FaTwitterSquare,
   FaGooglePlusSquare,
-  FaRegCopyright,
-  FaGithubSquare,
 } from 'react-icons/fa'
-import react from '../../../assets/react.svg'
+import { VscTwitter, VscGithub } from 'react-icons/vsc'
+import { GrReactjs } from 'react-icons/gr'
+import { colors, mq, weights } from '../../../Styles'
 
 const MyFooter = () => {
+  const fWrapper = css`
+    display: grid;
+    border-top: 13px solid ${colors.darkBlue};
+    border-radius: 17%;
+    padding-top: 30px;
+  `
   return (
-    <footer className='MyFooter'>
-      <div className='separator' />
-      <div className='left-container'>
+    <footer css={fWrapper}>
+      <div
+        css={css`
+          grid-row: 1;
+          grid-column: 1 / span 2;
+          place-self: start;
+          padding-left: 20px;
+          font-size: 219%;
+          color: ${colors.darkBlue};
+          & > * {
+            padding-right: 5px;
+          }
+          ${mq.phoneLarge} {
+            grid-column: 1;
+            grid-row: 1;
+            place-self: center;
+          }
+        `}
+      >
         <a href='https://www.linkedin.com/in/ahmedeldessouki/'>
           <FaLinkedin />
         </a>
         <a href='https://www.github.com/ahmedeldessouki/'>
-          <FaGithubSquare />
+          <VscGithub />
         </a>
         <a href='https://plus.google.com/+AhmedElDessouki1'>
           <FaGooglePlusSquare />
@@ -33,14 +53,44 @@ const MyFooter = () => {
           <FaFacebookSquare />
         </a>
         <a href='https://www.twitter.com/nem0adam'>
-          <FaTwitterSquare />
+          <VscTwitter />
         </a>
       </div>
-      <div className='center-container'>
-        <img className='react-logo' alt='' src={react} />
-        <FaSass style={{ color: 'hotpink', alignSelf: 'center' }} />
+      <div
+        css={css`
+          grid-row: 1;
+          grid-column: 3;
+          place-self: center;
+          font-size: 219%;
+          color: #61dafb;
+          ${mq.phoneLarge} {
+            grid-column: 1;
+            grid-row: 2;
+            place-self: center;
+          }
+        `}
+      >
+        <a href='https://reactjs.org/'>
+          <GrReactjs />
+        </a>
       </div>
-      <div className='right-container'>
+      <div
+        css={css`
+          grid-row: 1;
+          grid-column: 4 / span 2;
+          place-self: end;
+          padding-right: 20px;
+          padding-bottom: 30px;
+          color: ${colors.darkBlue};
+          font-size: 137%;
+          font-weight: ${weights.black};
+          ${mq.phoneLarge} {
+            grid-column: 1;
+            grid-row: 3;
+            place-self: center;
+          }
+        `}
+      >
         <span>© 2019 Ahmed ElDessouki</span>
       </div>
     </footer>

@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import { signIn } from '../../Store/Actions/AuthActions'
-import AuthNavlinks from '../Navigation/AuthNavlinks'
-import UnAuthNavlinks from '../Navigation/UnAuthNavlinks'
 import Layout from '../Layout'
 import {
   signWrapper,
