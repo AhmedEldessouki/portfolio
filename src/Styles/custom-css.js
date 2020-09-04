@@ -114,13 +114,19 @@ export const labelWrapper = css`
 
 export const textArea = css`
   width: inherit;
-  height: calc(100% - 9px);
+  height: calc(100% - 14px);
   padding: 8px;
   padding-bottom: 0;
   color: ${colors.aliceLightBlue};
   border: 5px solid ${colors.whiteFaded};
   border-radius: 7%;
   background-color: transparent;
+  margin-left: 10px;
+
+  ${mq.phoneLarge} {
+    margin-left: 0;
+    height: 124px;
+  }
 `
 export const h1XL = css`
   font-size: 200%;

@@ -41,8 +41,7 @@ const MyFooter = () => {
         <FaSass style={{ color: 'hotpink', alignSelf: 'center' }} />
       </div>
       <div className='right-container'>
-        <FaRegCopyright />
-        <p>2019 Ahmed ElDessouki</p>
+        <span>© 2019 Ahmed ElDessouki</span>
       </div>
     </footer>
   )
