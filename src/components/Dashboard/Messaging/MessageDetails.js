@@ -14,6 +14,7 @@ function MessageDetails({ message, auth }) {
     place-content: center;
     place-items: center;
     grid-gap: 0px 17px;
+    place-content: inherit;
     ${mq.phoneLarge} {
       grid-gap: 0;
     }
@@ -72,7 +73,7 @@ function MessageDetails({ message, auth }) {
       {message ? (
         <Fragment>
           <div css={container}>
-            <h1 css={[h1XL, forH1]}>{message.contactName}</h1>
+            <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
             <div css={phoneAndEmailWrapper}>
               <h2>Phone Number: {message.phoneNumber}</h2>
               <h2>

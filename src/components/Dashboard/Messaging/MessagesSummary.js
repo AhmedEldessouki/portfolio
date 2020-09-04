@@ -20,7 +20,6 @@ function MessagesSummary({ contact, to, id }) {
     & > a {
       color: ${colors.independenceBlue};
       padding: 20px;
-      text-decoration: none;
     }
   `
   return (
