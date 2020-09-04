@@ -1,7 +1,8 @@
 /**@jsx jsx */
 import { jsx, css } from '@emotion/core'
-import MessagesSummary from './MessagesSummary'
 import { Fragment } from 'react'
+
+import MessagesSummary from './MessagesSummary'
 
 function Messages({ messagesData }) {
   const mWrapper = css`
