@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core'
 import MessagesSummary from './MessagesSummary'
 import { Fragment } from 'react'
 
-const Messages = ({ messagesData }) => {
+function Messages({ messagesData }) {
   const mWrapper = css`
     margin: 0 10px;
     padding: 20px 10px;
