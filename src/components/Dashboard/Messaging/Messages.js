@@ -1,14 +1,23 @@
-import React from 'react'
-import './Styles/Messages.scss'
+/**@jsx jsx */
+import { jsx, css } from '@emotion/core'
 import MessagesSummary from './MessagesSummary'
+import { Fragment } from 'react'
 
 const Messages = ({ messagesData }) => {
+  const mWrapper = css`
+    margin: 0 10px;
+    padding: 20px 10px;
+    display: grid;
+    grid-gap: 25px;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
+  `
   return (
-    <div className="Messages">
-      <h1>My Messages</h1>
-      <div className="cards-wrapper">
+    <Fragment>
+      <h1>Messages</h1>
+      <div css={mWrapper}>
         {messagesData &&
-          messagesData.map((contact) => {
+          messagesData.map(contact => {
             return (
               <MessagesSummary
                 contact={contact}
@@ -18,7 +27,7 @@ const Messages = ({ messagesData }) => {
             )
           })}
       </div>
-    </div>
+    </Fragment>
   )
 }
 
