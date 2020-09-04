@@ -1,43 +1,37 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { Component } from 'react';
-import { withFormik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { FaAddressCard, FaPhoneSquare } from 'react-icons/fa';
-import { GoMention } from 'react-icons/go';
-import { contactedMe } from '../../../Store/Actions/ContactedMeActions';
-import { BarLoader } from 'react-spinners';
-import { connect } from 'react-redux';
-import { wrapper, colors, spinner, btnStyle } from '../../../Styles';
+import { jsx, css } from '@emotion/core'
+import { Component } from 'react'
+import { withFormik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+import { connect } from 'react-redux'
+
+import { contactedMe } from '../../../Store/Actions/ContactedMeActions'
+import {
+  wrapper,
+  colors,
+  spinner,
+  btnStyle,
+  warning,
+  labelWrapper,
+  signWrapperInput,
+  textArea,
+  h1XL,
+} from '../../../Styles'
 
 const INIT_PROPS = {
   contactName: '',
   email: '',
   phoneNumber: '',
   description: '',
-};
+}
 
 class MyContactMe extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       ...INIT_PROPS,
-    };
+    }
   }
-  forInput = css`
-    width: 280px;
-    height: 25px;
-    padding: 5px;
-  `;
-  forLabel = css`
-    display: block;
-    width: 310px;
-    padding: 10px;
-  `;
-  warning = css`
-    color: ${colors.red};
-    padding-left: 16px;
-  `;
 
   render() {
     const {
@@ -50,35 +44,32 @@ class MyContactMe extends Component {
       email,
       phoneNumber,
       description,
-    } = this.props;
+    } = this.props
     return (
       <div
         css={css`
           max-width: 100%;
-          padding: 20px;
           background-color: ${colors.independenceBlue};
         `}
       >
-        <h1>Contact Me</h1>
+        <h1 css={h1XL}>Contact Me</h1>
         <Form id={'ContactMe'} css={wrapper}>
           <div>
-            <label css={this.forLabel} htmlFor='contactName'>
-              <FaAddressCard />
+            <label css={labelWrapper} htmlFor='contactName'>
               <Field
-                css={this.forInput}
+                css={signWrapperInput}
                 name='contactName'
                 id='contactName'
                 value={contactName}
                 placeholder='Enter your name'
               />
               {errors.contactName && touched.contactName ? (
-                <span css={this.warning}>{errors.contactName}</span>
+                <span css={warning}>{errors.contactName}</span>
               ) : null}
             </label>
-            <label css={this.forLabel} htmlFor='email'>
-              <GoMention />
+            <label css={labelWrapper} htmlFor='email'>
               <Field
-                css={this.forInput}
+                css={signWrapperInput}
                 name='email'
                 id='email'
                 value={email}
@@ -86,38 +77,32 @@ class MyContactMe extends Component {
                 placeholder='Email Address'
               />
               {errors.email && touched.email ? (
-                <span css={this.warning}>{errors.email}</span>
+                <span css={warning}>{errors.email}</span>
               ) : null}
             </label>
-            <label css={this.forLabel} htmlFor='phoneNumber'>
-              <div className='input-svg'>
-                <FaPhoneSquare />
-                <Field
-                  css={this.forInput}
-                  name='phoneNumber'
-                  id='phoneNumber'
-                  type='tel'
-                  value={phoneNumber}
-                  placeholder='Enter Your Phone Number'
-                />
-              </div>
+            <label css={labelWrapper} htmlFor='phoneNumber'>
+              <Field
+                css={signWrapperInput}
+                name='phoneNumber'
+                id='phoneNumber'
+                type='tel'
+                value={phoneNumber}
+                placeholder='Enter Your Phone Number'
+              />
               {errors.phoneNumber && touched.phoneNumber ? (
-                <span css={this.warning}>{errors.phoneNumber}</span>
+                <span css={warning}>{errors.phoneNumber}</span>
               ) : null}
             </label>
           </div>
-          <label css={this.forLabel} htmlFor='description'>
+          <label css={labelWrapper} htmlFor='description'>
             <textarea
               name='description'
               id='description'
               onChange={handleChange}
               value={description}
-              className='textArea'
               required
-              css={css`
-                min-width: 310px;
-                min-height: 150px;
-              `}
+              placeholder='Please Enter Your Message Here...'
+              css={textArea}
             />
           </label>
           {isSubmitting ? (
@@ -133,14 +118,14 @@ class MyContactMe extends Component {
               Submit
             </button>
           )}
-          {contError ? <span css={this.warning}>{contError}</span> : null}
+          {contError ? <span css={warning}>{contError}</span> : null}
         </Form>
       </div>
-    );
+    )
   }
 }
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 const ContactMeSchema = withFormik({
   validationSchema: Yup.object().shape({
@@ -163,26 +148,26 @@ const ContactMeSchema = withFormik({
   handleSubmit: (values, { setErrors, resetForm, setSubmitting }) => {
     setTimeout(() => {
       if (values.name === 'admin') {
-        setErrors({ contactName: 'Nice try!' });
+        setErrors({ contactName: 'Nice try!' })
       } else {
-        values.contactedMe(values);
-        resetForm({});
-        document.getElementById('ContactMe').reset();
+        values.contactedMe(values)
+        resetForm({})
+        document.getElementById('ContactMe').reset()
       }
-      setSubmitting(false);
-    }, 2000);
+      setSubmitting(false)
+    }, 2000)
   },
   displayName: 'ContactMe',
-});
+})
 const mapStateToProps = state => {
   return {
     contError: state.contactedMe.contError,
-  };
-};
+  }
+}
 const mapDispatchToProps = dispatch => {
   return {
     contactedMe: contact => dispatch(contactedMe(contact)),
-  };
-};
-const ContactMe = ContactMeSchema(MyContactMe);
-export default connect(mapStateToProps, mapDispatchToProps)(ContactMe);
+  }
+}
+const ContactMe = ContactMeSchema(MyContactMe)
+export default connect(mapStateToProps, mapDispatchToProps)(ContactMe)

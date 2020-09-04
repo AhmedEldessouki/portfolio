@@ -1,10 +1,10 @@
-const breakpoints = [320, 480, 900, 1220];
-const names = [`xs`, `s`, `phoneLarge`, `desktop`];
+const breakpoints = [320, 480, 900, 1220]
+const names = [`xs`, `s`, `phoneLarge`, `desktop`]
 
 export const mq = breakpoints.reduce((acc, bp, i) => {
-  acc[names[i]] = `@media (max-width: ${bp}px)`;
-  return acc;
-}, {});
+  acc[names[i]] = `@media screen and (max-width: ${bp}px)`
+  return acc
+}, {})
 
 export const colors = {
   whiteFaded: `rgba(255, 255, 255, 0.7)`,
@@ -14,10 +14,10 @@ export const colors = {
   kindaDarkBlue: `#23527c`,
   independenceBlue: `#3A405A`,
   darkBlue: `#282c34`,
-  red: `#ff000e`,
+  red: `tomato`,
   burgundyRed: '#890620',
   gatsbyPurple: '#663399',
-};
+}
 
 export const weights = {
   thin: `100`,
@@ -26,4 +26,4 @@ export const weights = {
   medium: `500`,
   bold: `700`,
   black: `900`,
-};
+}

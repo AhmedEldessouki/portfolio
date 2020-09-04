@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 // Global CSS Styles
-import { css } from '@emotion/core';
+import { css } from '@emotion/core'
 
-import { colors, mq, weights } from './css-utils';
+import { colors, mq, weights } from './css-utils'
 
 export const globalStyles = css`
   /*
@@ -36,6 +36,7 @@ export const globalStyles = css`
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     color: ${colors.lightBlue};
+    background: ${colors.independenceBlue};
   }
 
   footer,
@@ -67,6 +68,8 @@ export const globalStyles = css`
 
   h1 {
     font-size: 2.25rem;
+    font-weight: ${weights.black};
+    color: ${colors.aliceLightBlue};
   }
 
   h2 {
@@ -166,4 +169,4 @@ export const globalStyles = css`
     padding: 0;
     white-space: normal;
   }
-`;
+`

@@ -1,77 +1,148 @@
-import React, { Component } from 'react';
-import { withFormik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+/**@jsx jsx */
+import { jsx, css } from '@emotion/core'
+import { Component, Fragment } from 'react'
+import { withFormik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 import './Styles/SignUp.scss'
-import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
-import {signUp} from "../../Store/Actions/AuthActions";
-import {BarLoader} from "react-spinners";
-import AuthNavlinks from "../Navigation/AuthNavlinks";
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
-const INIT_PROPS ={
+import { signUp } from '../../Store/Actions/AuthActions'
+import {
+  signWrapper,
+  labelWrapper,
+  spinner,
+  warning,
+  btnStyle,
+  signWrapperInput,
+  h1XL,
+} from '../../Styles'
+import Layout from '../Layout'
+
+const INIT_PROPS = {
   firstName: '',
   lastName: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
 }
 class FormikSignUp extends Component {
   state = {
-    ...INIT_PROPS
+    ...INIT_PROPS,
   }
   render() {
-    const { errors, touched, isSubmitting, authError, auth, handleSubmit,
-      firstName, lastName, email, password,confirmPassword} = this.props;
+    const {
+      errors,
+      touched,
+      isSubmitting,
+      authError,
+      auth,
+      handleSubmit,
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+    } = this.props
 
     return (
-      <div>
-        {!auth.uid ? <Redirect to='/signin'/> :
-          <div className="SignUp">
-            <AuthNavlinks title={"Registration"}/>
-            <h1>Sign up</h1>
-            <Form id="#sign-up" onSubmit={handleSubmit}>
-              <div className="double-container">
-                <div className="field-container">
-                  <Field name="firstName" value={firstName} placeholder="First Name" />
+      <Fragment>
+        {!auth.uid ? (
+          <Redirect to='/signin' />
+        ) : (
+          <Layout>
+            <h1 css={h1XL}>Sign up</h1>
+            <div
+              css={css`
+                width: 100%;
+                display: flex;
+                place-content: center;
+              `}
+            >
+              <Form id='#sign-up' css={signWrapper} onSubmit={handleSubmit}>
+                <label htmlFor='firstName' css={labelWrapper}>
+                  <input
+                    css={signWrapperInput}
+                    id='firstName'
+                    name='firstName'
+                    value={firstName}
+                    placeholder='First Name'
+                  />
                   {errors.firstName && touched.firstName ? (
-                    <p className="error-message">{errors.firstName}</p>
+                    <span css={warning}>{errors.firstName}</span>
                   ) : null}
-                </div>
-                <div className="field-container">
-                  <Field name="lastName" value={lastName} placeholder="Last Name" />
+                </label>
+                <label css={labelWrapper} htmlFor='lastName'>
+                  <Field
+                    css={signWrapperInput}
+                    name='lastName'
+                    value={lastName}
+                    id='lastName'
+                    placeholder='Last Name'
+                  />
                   {errors.lastName && touched.lastName ? (
-                    <div className="error-message">{errors.lastName}</div>
+                    <span css={warning}>{errors.lastName}</span>
                   ) : null}
-                </div>
-              </div>
-              <div className="field-container">
-                <Field name="email" type="email" value={email} placeholder="Email Address" />
-                {errors.email && touched.email ? <div className="error-message">{errors.email}</div> : null}
-              </div>
-              <div className="double-container">
-                <div className="field-container">
-                  <Field name="password" type="password" value={password} placeholder="Enter Password" />
-                  {errors.password && touched.password ? <div className="error-message">{errors.password}</div> : null}
-                </div>
-                <div className="field-container">
-                  <Field name="confirmPassword" type="password" value={confirmPassword} placeholder="Re-Enter Password" />
-                  {errors.confirmPassword && touched.confirmPassword ? <div className="error-message">{errors.confirmPassword}</div> : null}
-                </div>
-                {authError ? <div className="error-message">{authError}</div>  : null}
-              </div>
-              <button type="submit" disabled={isSubmitting} >Submit</button>
-            </Form>
-            {isSubmitting ?  <div className="my-spinner-container">
-              <BarLoader
-                className="my-spinner"
-                sizeUnit={"px"}
-                size={150}
-                color={'#d4dff6'}
-                loading={isSubmitting}
-              />Loading...</div> : null}
-          </div>
-        }
-      </div>
+                </label>
+                <label css={labelWrapper} htmlFor='email'>
+                  <Field
+                    css={signWrapperInput}
+                    name='email'
+                    id='email'
+                    type='email'
+                    value={email}
+                    placeholder='Email Address'
+                  />
+                  {errors.email && touched.email ? (
+                    <span css={warning}>{errors.email}</span>
+                  ) : null}
+                </label>
+
+                <label css={labelWrapper} htmlFor='password'>
+                  <Field
+                    css={signWrapperInput}
+                    name='password'
+                    id='password'
+                    type='password'
+                    value={password}
+                    placeholder='Enter Password'
+                  />
+                  {errors.password && touched.password ? (
+                    <span css={warning}>{errors.password}</span>
+                  ) : null}
+                </label>
+                <label css={labelWrapper} htmlFor='confirmPassword'>
+                  <Field
+                    css={signWrapperInput}
+                    id='confirmPassword'
+                    name='confirmPassword'
+                    type='password'
+                    value={confirmPassword}
+                    placeholder='Re-Enter Password'
+                  />
+                  {errors.confirmPassword && touched.confirmPassword ? (
+                    <span css={warning}>{errors.confirmPassword}</span>
+                  ) : null}
+                </label>
+                {authError ? <div css={warning}>{authError}</div> : null}
+                {isSubmitting ? (
+                  <div
+                    css={css`
+                      width: 100%;
+                    `}
+                  >
+                    <div css={spinner}></div>
+                  </div>
+                ) : (
+                  <button type='submit' disabled={isSubmitting} css={btnStyle}>
+                    Submit
+                  </button>
+                )}
+              </Form>
+            </div>
+          </Layout>
+        )}
+      </Fragment>
     )
   }
 }
@@ -79,54 +150,50 @@ class FormikSignUp extends Component {
 const SignupSchema = withFormik({
   validationSchema: Yup.object().shape({
     firstName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
     lastName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-    email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-    password: Yup.string()
-    .min(6, 'Too Short!')
-    .required('Required'),
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string().min(6, 'Too Short!').required('Required'),
     confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], "Passwords don't match")
-    .required('Confirm Password is required')
+      .oneOf([Yup.ref('password'), null], "Passwords don't match")
+      .required('Confirm Password is required'),
   }),
   mapPropsToValues: props => ({
-    ...props
+    ...props,
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
       if (values.firstName === 'admin') {
-        bag.setErrors({ firstName: 'Nice try!' });
+        bag.setErrors({ firstName: 'Nice try!' })
       } else if (values.lastName === 'admin') {
-        bag.setErrors({ lastName: 'Nice try!' });
+        bag.setErrors({ lastName: 'Nice try!' })
       } else {
         values.signUp(values)
-        document.getElementById("sign-up").reset();
+        document.getElementById('sign-up').reset()
         bag.resetForm()
       }
-      bag.setSubmitting(false);
+      bag.setSubmitting(false)
     }, 2000)
   },
   displayName: 'SignUp',
-});
+})
 
-const mapStateToProps = (state) =>{
-  return{
-    auth:state.firebase.auth,
-    authError: state.auth.authError
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+    authError: state.auth.authError,
   }
 }
-const mapDispatchToProps= (dispatch) => {
-  return{
-    signUp: (values) => dispatch(signUp(values))
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: values => dispatch(signUp(values)),
   }
 }
-const SignUp = SignupSchema(FormikSignUp);
+const SignUp = SignupSchema(FormikSignUp)
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

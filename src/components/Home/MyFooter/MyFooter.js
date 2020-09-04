@@ -14,37 +14,37 @@ import react from '../../../assets/react.svg'
 
 const MyFooter = () => {
   return (
-    <div className="MyFooter">
-      <div className="separator" />
-      <div className="left-container">
-        <a href="https://www.linkedin.com/in/ahmedeldessouki/">
+    <footer className='MyFooter'>
+      <div className='separator' />
+      <div className='left-container'>
+        <a href='https://www.linkedin.com/in/ahmedeldessouki/'>
           <FaLinkedin />
         </a>
-        <a href="https://www.github.com/ahmedeldessouki/">
+        <a href='https://www.github.com/ahmedeldessouki/'>
           <FaGithubSquare />
         </a>
-        <a href="https://plus.google.com/+AhmedElDessouki1">
+        <a href='https://plus.google.com/+AhmedElDessouki1'>
           <FaGooglePlusSquare />
         </a>
-        <a href="https://www.instagram.com/eldessouki.a">
+        <a href='https://www.instagram.com/eldessouki.a'>
           <FaInstagram />
         </a>
-        <a href="https://www.facebook.com/ahmed.eldessouki.39">
+        <a href='https://www.facebook.com/ahmed.eldessouki.39'>
           <FaFacebookSquare />
         </a>
-        <a href="https://www.twitter.com/nem0adam">
+        <a href='https://www.twitter.com/nem0adam'>
           <FaTwitterSquare />
         </a>
       </div>
-      <div className="center-container">
-        <img className="react-logo" alt="" src={react} />
+      <div className='center-container'>
+        <img className='react-logo' alt='' src={react} />
         <FaSass style={{ color: 'hotpink', alignSelf: 'center' }} />
       </div>
-      <div className="right-container">
+      <div className='right-container'>
         <FaRegCopyright />
         <p>2019 Ahmed ElDessouki</p>
       </div>
-    </div>
+    </footer>
   )
 }
 export default MyFooter

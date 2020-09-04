@@ -1,25 +1,9 @@
 $MyLightBlue: #d4dff6;
-$MyDarkBlue:#282c34;
-$MyWarningRed:#ff000e;
+$MyDarkBlue: #282c34;
+$MyWarningRed: #ff000e;
 
-.my-spinner-container{
-  position: fixed;
-  bottom:0;
-  left: 0;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  background-color: $MyDarkBlue;
-  color: $MyLightBlue;
-  opacity: 0.95;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-.SignUp,.SignIn {
+.SignUp,
+.SignIn {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -59,7 +43,7 @@ $MyWarningRed:#ff000e;
       justify-content: space-between;
       flex-wrap: wrap;
       width: 500px;
-      input{
+      input {
         width: 230px;
       }
     }
@@ -69,7 +53,7 @@ $MyWarningRed:#ff000e;
       margin-top: 0;
       margin-bottom: auto;
     }
-    button{
+    button {
       margin: 10px 0;
       padding: 4px;
       background-color: $MyLightBlue;
@@ -81,13 +65,13 @@ $MyWarningRed:#ff000e;
   @media (min-width: 260px) and (max-width: 716px) {
     form {
       width: 300px;
-      input{
+      input {
         width: 275px;
       }
-      .double-container{
+      .double-container {
         width: 275px;
         //padding: 0 10px;
-        input{
+        input {
           width: 130px;
         }
       }
