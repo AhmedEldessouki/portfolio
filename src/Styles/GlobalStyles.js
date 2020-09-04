@@ -35,7 +35,7 @@ export const globalStyles = css`
     -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-    color: ${colors.lightBlue};
+    color: ${colors.aliceLightBlue};
     background: ${colors.independenceBlue};
   }
 
@@ -113,13 +113,13 @@ export const globalStyles = css`
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
-    color: ${colors.navBackgroundBlue};
+    color: inherit;
     transition: 0.3s ease all;
 
     &:hover,
     &:focus {
       outline-width: 0;
-      color: ${colors.darkBlue};
+      color: ${colors.whiteFaded};
     }
   }
 
