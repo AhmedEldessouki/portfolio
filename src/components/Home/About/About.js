@@ -1,29 +1,11 @@
 /**@jsx jsx */
 import { jsx, css } from '@emotion/core'
-import { useState, useEffect, Fragment } from 'react'
-import axios from 'axios'
-
 import { GoMarkGithub } from 'react-icons/go'
-import { spinner, colors, weights } from '../../../Styles'
+
+import { colors, weights } from '../../../Styles'
 import AhmedEldessouki from '../../../assets/Layer 1@0,25x.png'
 
 const MyInfo = () => {
-  // const [profile, setProfile] = useState('')
-  // const [isLoading, setIsLoading] = useState(true)
-  // const [url, setUrl] = useState('https://api.github.com/users/ahmedeldessouki')
-
-  // useEffect(() => {
-  //   const myGitHub = async () => {
-  //     const res = await axios(url)
-  //     setProfile(res.data)
-  //     setIsLoading(false)
-  //     return [profile, isLoading]
-  //   }
-  //   myGitHub()
-  //   //disabled because it will go into infinite calls
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [url])
-
   const container = css`
     display: grid;
     place-items: center;
