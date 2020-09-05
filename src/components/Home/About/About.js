@@ -104,7 +104,7 @@ const MyInfo = () => {
           `}
         >
           <a href='www.github.com/ahmedeldessouki' css={css``}>
-            <GoMarkGithub /> My Github
+            <GoMarkGithub /> Github Account
           </a>
         </li>
       </ul>
