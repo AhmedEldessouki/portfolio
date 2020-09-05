@@ -50,7 +50,7 @@ export const globalStyles = css`
 
   img {
     padding: 0;
-    margin: 0 0 1.45rem;
+    margin: 1.45rem 0 1.45rem;
   }
 
   h1,
@@ -128,6 +128,12 @@ export const globalStyles = css`
     font-weight: 600;
   }
 
+  ol li,
+  ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
   /*
    * Global Form Styles
    */
