@@ -1,30 +1,28 @@
-import React from "react";
-import "./Navigation.scss";
-import my from "../../assets/my.svg";
+/**@jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+import my from '../../assets/my.svg'
+import { colors, mq } from '../../Styles'
 
 const UnAuthNavlinks = () => {
+  const container = css`
+    background-color: ${colors.darkBlue};
+    display: flex;
+    justify-content: center;
+  `
+  const imgg = css`
+    width: 267px;
+    padding: 9px 21px;
+    background-color: ${colors.independenceBlue};
+    ${mq.s} {
+      width: 232px;
+    }
+  `
   return (
-    <div className='myNav-container'>
-      <div className='my-name'>
-        <img
-          src={my}
-          alt={"Ahmed Eldessouki"}
-          style={{ width: "267px", padding: "0px 0px 15px 20px" }}
-        />
-      </div>
-      <div className='myNav'>
-        <a className='myNav-item' href='/'>
-          Home
-        </a>
-        <a className='myNav-item' href={"/#projects"}>
-          Projects
-        </a>
-        <a className='myNav-item' href='/#contactMe'>
-          Contact Me
-        </a>
-      </div>
+    <div css={container}>
+      <img src={my} alt={'Ahmed Eldessouki'} css={imgg} />
     </div>
-  );
-};
+  )
+}
 
-export default UnAuthNavlinks;
+export default UnAuthNavlinks

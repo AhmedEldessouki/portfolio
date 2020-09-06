@@ -5,14 +5,14 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { deleteProject } from '../../../Store/Actions/ProjectsActions'
 import PopUp from '../../PopUp/PopUp'
-import reactL from '../../../assets/react.svg'
+import reactL from '../../../assets/logo/a144x144.png'
 
 const ProjectsSummary = ({ project, auth, ...props }) => {
   return (
     <div>
-      <div className="ProjectSummary">
+      <div className='ProjectSummary'>
         {auth.uid ? (
-          <div className="icons-svg">
+          <div className='icons-svg'>
             <NavLink to={`/edit/${project.id}`} key={project}>
               <FaPen />
             </NavLink>
@@ -35,14 +35,14 @@ const ProjectsSummary = ({ project, auth, ...props }) => {
     </div>
   )
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
   }
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    deleteProject: (project) => dispatch(deleteProject(project)),
+    deleteProject: project => dispatch(deleteProject(project)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsSummary)
