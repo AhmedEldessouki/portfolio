@@ -2,20 +2,19 @@
 import { jsx, css } from '@emotion/core'
 import { GoMarkGithub } from 'react-icons/go'
 
-import { colors, weights } from '../../../Styles'
+import { colors, weights, mq } from '../../../Styles'
 import AhmedEldessouki from '../../../assets/Layer 1@0,25x.png'
 
 const MyInfo = () => {
   const container = css`
     display: grid;
     place-items: center;
-    border-left: 45px solid ${colors.darkBlue};
-    border-right: 45px solid ${colors.darkBlue};
+    margin-bottom: 3%;
     border-top: 22.5px solid ${colors.darkBlue};
     border-bottom: 22.5px solid ${colors.darkBlue};
     border-radius: 19%;
     gap: 36px;
-    padding: 34px 88px;
+    padding: 3% 7.5%;
     img {
       border: 15.5px solid ${colors.darkBlue};
       border-radius: 5%;
@@ -23,10 +22,36 @@ const MyInfo = () => {
       grid-row: 1;
     }
     p {
-      font-size: 150%;
+      font-size: 130%;
       grid-column: 2 / span 3;
       grid-row: 1;
       letter-spacing: 0.1rem;
+    }
+    ${mq.desktop} {
+      p {
+        font-size: 115%;
+        letter-spacing: 0.02rem;
+      }
+    }
+    ${mq.phoneLarge} {
+      gap: 0;
+      padding: 7% 1.5%;
+      border-radius: 6%;
+      img {
+        grid-row: 1;
+        grid-column: 1;
+      }
+      p {
+        grid-row: 2;
+        grid-column: 1;
+        padding: 0 13%;
+        font-size: 105%;
+        letter-spacing: 0.02rem;
+      }
+    }
+    ${mq.s} {
+      margin-bottom: 5%;
+      border-radius: 0;
     }
   `
 
@@ -56,6 +81,22 @@ const MyInfo = () => {
         background-color: ${colors.independenceBlue};
         color: ${colors.whiteFaded};
       }
+    }
+    ${mq.phoneLarge} {
+      flex-direction: column;
+      grid-row: 3;
+      grid-column: 1;
+
+      li {
+        font-size: 100%;
+        width: 10rem;
+        text-align: center;
+      }
+    }
+    ${mq.s} {
+      display: none;
+      grid-row: 2;
+      grid-column: 1 / span 2;
     }
   `
 
