@@ -53,7 +53,7 @@ export const btnStyle = css`
   border-radius: 14%;
   border: 0px;
   transition: background-color, color 0.4s steps;
-  &:hover,
+  :hover,
   :focus {
     color: ${colors.whiteFaded};
     background-color: ${colors.darkBlue};
@@ -62,14 +62,15 @@ export const btnStyle = css`
     transform: scale(0.9);
   }
   ${mq.s} {
-    transform: scale(0.8);
+    transform: scale(0.7);
   }
 `
 
 export const signWrapper = css`
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  place-items: center;
+  margin: 0 0 20px;
   background-color: ${colors.independenceBlue};
   width: 550px;
   padding: 20px;
@@ -79,7 +80,7 @@ export const signWrapper = css`
     width: 407px;
   }
   ${mq.s} {
-    width: 300px;
+    transform: scale(0.7);
   }
 `
 
@@ -108,7 +109,7 @@ export const labelWrapper = css`
     width: calc(407px - 30px);
   }
   ${mq.s} {
-    width: calc(300px - 25px);
+    width: calc(394px - 25px);
   }
 `
 

@@ -54,7 +54,7 @@ const SignIn = ({ signIn, auth, authError }) => {
                     css={signWrapperInput}
                     type='email'
                     id='email'
-                    placeHolder='Email'
+                    placeholder='Email'
                     {...email}
                   />
                 </label>
@@ -64,16 +64,14 @@ const SignIn = ({ signIn, auth, authError }) => {
                     {...password}
                     type='password'
                     id='password'
-                    placeHolder='Password'
+                    placeholder='Password'
                   />
                 </label>
               </div>
-              <div>
-                <button css={btnStyle} type='submit'>
-                  SignIn
-                </button>
-                {authError ? <p>{authError}</p> : null}
-              </div>
+              <button css={btnStyle} type='submit'>
+                SignIn
+              </button>
+              {authError ? <p>{authError}</p> : null}
             </form>
           </div>
         </Layout>
