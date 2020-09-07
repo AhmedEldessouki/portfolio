@@ -32,18 +32,10 @@ $MyWarningRed: #ff000e;
     justify-content: space-between;
     width: 100%;
     color: $MyLightBlue;
-    justify-self: flex-start;
-    align-self: flex-start;
-    svg {
-      width: 18px;
-      height: 18px;
-    }
+    font-size: x-large;
     button {
       border: 0;
       background: transparent;
-      &:hover {
-        color: $MyWarningRed;
-      }
     }
   }
   img {
