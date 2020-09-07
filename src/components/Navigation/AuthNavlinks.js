@@ -27,6 +27,7 @@ const AuthNavlinks = ({ signOut }) => {
     }
     ${mq.phoneLarge} {
       flex-direction: column;
+      padding-bottom: 17px;
       & > a {
         width: 73%;
         text-align: center;
@@ -39,7 +40,10 @@ const AuthNavlinks = ({ signOut }) => {
       <NavLink
         to={'/'}
         exact
-        activeStyle={{ backgroundColor: colors.independenceBlue }}
+        activeStyle={{
+          backgroundColor: colors.independenceBlue,
+          padding: `1% 2%`,
+        }}
       >
         <img
           src={my}
@@ -50,21 +54,30 @@ const AuthNavlinks = ({ signOut }) => {
       <NavLink
         to={'/dashboard'}
         exact
-        activeStyle={{ backgroundColor: colors.independenceBlue }}
+        activeStyle={{
+          backgroundColor: colors.independenceBlue,
+          padding: `1% 2%`,
+        }}
       >
         DashBoard
       </NavLink>
       <NavLink
         to={'/create-project'}
         exact
-        activeStyle={{ backgroundColor: colors.independenceBlue }}
+        activeStyle={{
+          backgroundColor: colors.independenceBlue,
+          padding: `1% 2%`,
+        }}
       >
         Create Project
       </NavLink>
       <NavLink
         to={'/signup'}
         exact
-        activeStyle={{ backgroundColor: colors.independenceBlue }}
+        activeStyle={{
+          backgroundColor: colors.independenceBlue,
+          padding: `1% 2%`,
+        }}
       >
         SignUp
       </NavLink>
