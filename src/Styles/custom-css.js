@@ -10,9 +10,14 @@ export const wrapper = css`
   min-height: 267px;
   margin: 1% auto;
   padding: 50px;
-
-  ${mq.xs} {
+  ${mq.desktop} {
     flex-direction: column;
+    flex-wrap: nowrap;
+    place-items: center;
+  }
+  ${mq.s} {
+    padding: 1% 0;
+    margin: 0;
   }
 `
 
@@ -92,6 +97,14 @@ export const signWrapperInput = css`
   color: ${colors.aliceLightBlue};
   border: 4.5px solid ${colors.aliceLightBlue};
   border-radius: 7%;
+  letter-spacing: 2.2px;
+
+  ${mq.desktop} {
+    height: 50px;
+  }
+  ${mq.phoneLarge} {
+    height: 30px;
+  }
 `
 
 export const warning = css`
@@ -105,11 +118,21 @@ export const labelWrapper = css`
   width: calc(550px - 50px);
   padding: 2px;
   margin-right: 19px;
+  font-size: 1.4rem;
+
+  ${mq.desktop} {
+    width: calc(700px - 30px);
+    font-size: 2rem;
+  }
   ${mq.phoneLarge} {
     width: calc(407px - 30px);
+    font-size: 1.345rem;
   }
   ${mq.s} {
-    width: calc(394px - 25px);
+    width: calc(310px - 25px);
+  }
+  ${mq.xs} {
+    width: calc(310px - 25px);
   }
 `
 
@@ -123,9 +146,13 @@ export const textArea = css`
   border-radius: 7%;
   background-color: transparent;
   margin-left: 10px;
+  letter-spacing: 1.2px;
 
-  ${mq.phoneLarge} {
+  ${mq.desktop} {
     margin-left: 0;
+    height: 188px;
+  }
+  ${mq.phoneLarge} {
     height: 124px;
   }
 `

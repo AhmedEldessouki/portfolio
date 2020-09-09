@@ -54,7 +54,7 @@ class MyContactMe extends Component {
       >
         <h1 css={h1XL}>Contact Me</h1>
         <Form id={'ContactMe'} css={wrapper}>
-          <div>
+          <section>
             <label css={labelWrapper} htmlFor='contactName'>
               <Field
                 css={signWrapperInput}
@@ -93,7 +93,7 @@ class MyContactMe extends Component {
                 <span css={warning}>{errors.phoneNumber}</span>
               ) : null}
             </label>
-          </div>
+          </section>
           <label css={labelWrapper} htmlFor='description'>
             <textarea
               name='description'

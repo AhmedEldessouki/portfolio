@@ -91,9 +91,7 @@ function PopUp({ project, deleteProject, contact, deleteMessage, title }) {
       >
         <GoTrashcan />
       </button>
-      {show ? (
-        console.log('bitch')
-      ) : (
+      {show ? null : (
         <div css={popWrapper} id='popup'>
           <header>
             <h1>Warning</h1>

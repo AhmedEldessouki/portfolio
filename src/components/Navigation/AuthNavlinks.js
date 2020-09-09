@@ -13,13 +13,13 @@ const AuthNavlinks = ({ signOut }) => {
     place-content: space-evenly;
     background: black;
     background-color: ${colors.darkBlue};
+    font-size: 124%;
     & > a {
       font-weight: ${weights.black};
       letter-spacing: 0.145rem;
       padding: 0 2%;
       align-self: center;
       flex-grow: 1;
-      flex-basis: min-content;
       &:hover,
       &:focus {
         background-color: ${colors.independenceBlue};
