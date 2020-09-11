@@ -88,9 +88,10 @@ const MyInfo = () => {
       grid-column: 1;
 
       li {
-        font-size: 100%;
+        font-size: 108%;
         width: 10rem;
         text-align: center;
+        letter-spacing: 1.2px;
       }
     }
     ${mq.s} {
