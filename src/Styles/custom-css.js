@@ -9,7 +9,7 @@ export const wrapper = css`
   place-content: center;
   min-height: 267px;
   margin: 1% auto;
-  padding: 50px;
+  padding: 50px 100px;
   ${mq.desktop} {
     flex-direction: column;
     flex-wrap: nowrap;
