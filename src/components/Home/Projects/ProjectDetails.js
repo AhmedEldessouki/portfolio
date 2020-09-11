@@ -1,85 +1,82 @@
-import React from 'react'
+/**@jsx jsx */
+import { jsx, css } from '@emotion/core'
+import { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-import './Styles/ProjectDetails.scss'
-import ContactMe from '../ContactMe/ContactMe'
-import AuthNavlinks from '../../Navigation/AuthNavlinks'
-import UnAuthNavlinks from '../../Navigation/UnAuthNavlinks'
-import { BarLoader } from 'react-spinners'
-import MyFooter from '../MyFooter/MyFooter'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import { Carousel } from 'react-responsive-carousel'
 
-const ProjectDetails = (props) => {
-  const { project, auth, profile } = props
-  const links = auth.uid ? (
-    <AuthNavlinks auth={auth} title={'Project Details'} profile={profile} />
-  ) : (
-    <UnAuthNavlinks />
-  )
+import { colors, h1XL, spinner } from '../../../Styles'
+import Layout from '../../Layout'
+import { Carousel } from '../../Utils/Carousel'
+import ContactMe from '../ContactMe/ContactMe'
+
+const ProjectDetails = ({ project }) => {
+  console.log(project)
   window.scrollTo(0, 0)
-  if (project) {
-    return (
-      <div className="bg-img">
-        <div className="ProjectDetails">
-          {links}
-          <div className="details-container">
-            <div className="logos-container">
-              {project.projectLogo !== null ? (
-                <Carousel>
-                  {project.projectLogo.map((link, ky) => {
-                    return (
-                      <div key={ky}>
-                        <img
-                          className="img-display"
-                          alt={"project's pictures"}
-                          src={`https://images.weserv.nl/?url=${link}`}
-                        />
-                      </div>
-                    )
-                  })}
-                </Carousel>
-              ) : null}
-            </div>
-            <div className="details">
-              <div className="first-container">
-                <h2>
-                  <a href={project.projectLink}>{project.projectName}</a>
-                </h2>
-                <p>{project.description}</p>
-              </div>
-              <div className="double-container">
-                <div>
-                  Author: {project.authorFirstName} {project.authorLastName}
-                </div>
-                <div>
-                  Created At: {project.createdAt.toDate().toDateString()}
-                </div>
-              </div>
+
+  return (
+    <Layout>
+      {project && project ? (
+        <Fragment>
+          <Carousel
+            imgArray={project.projectLogo}
+            imgAlt={project.projectName}
+          />
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+              padding: 10px 50px 33px;
+              place-content: center;
+              min-height: 241px;
+              border-bottom: 24px solid ${colors.darkBlue};
+            `}
+          >
+            <h1
+              css={css`
+                font-size: 2.75rem;
+                font-weight: 900;
+                color: #e9f1f7;
+                padding-left: 0;
+                border-radius: 7.5%;
+              `}
+            >
+              <a href={project.projectLink}>{project.projectName}</a>
+            </h1>
+            <p
+              css={css`
+                padding: 0 5%;
+                font-size: 1.45rem;
+                letter-spacing: 2.4px;
+              `}
+            >
+              {project.description}
+            </p>
+            <div
+              css={css`
+                display: flex;
+                place-content: space-between;
+                font-size: 1.1rem;
+                letter-spacing: 1.2px;
+                font-variant: all-petite-caps;
+              `}
+            >
+              <span>
+                Author: {project.authorFirstName} {project.authorLastName}
+              </span>
+              <span>
+                Created At: {project.createdAt.toDate().toDateString()}
+              </span>
             </div>
           </div>
-          <footer>
-            <ContactMe />
-            <MyFooter />
-          </footer>
-        </div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="my-spinner-container">
-        <BarLoader
-          className="my-spinner"
-          sizeUnit={'px'}
-          size={150}
-          color={'#d4dff6'}
-          loading={true}
-        />
-        Loading...
-      </div>
-    )
-  }
+
+          <ContactMe />
+        </Fragment>
+      ) : (
+        <div css={spinner}></div>
+      )}
+    </Layout>
+  )
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -89,7 +86,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     project,
     profile: state.firebase.profile,
-    auth: state.firebase.auth,
   }
 }
 
