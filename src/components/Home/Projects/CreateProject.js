@@ -1,25 +1,38 @@
-/* eslint-disable array-callback-return */
-import React, { Component } from 'react'
+/**@jsx jsx */
+import { jsx, css } from '@emotion/core'
+import { useState } from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
+import { Redirect } from 'react-router-dom'
+import Dropzone from 'react-dropzone'
+import { withFormik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+import { toast } from 'react-toastify'
+import { Image } from 'cloudinary-react'
+
 import {
   createProject,
   updateProject,
 } from '../../../Store/Actions/ProjectsActions'
-import { Redirect } from 'react-router-dom'
-import './Styles/CreateProject.scss'
-import AuthNavlinks from '../../Navigation/AuthNavlinks'
-import { BarLoader } from 'react-spinners'
-import Dropzone from 'react-dropzone'
-import axios from 'axios'
-import { withFormik, Form, Field } from 'formik'
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../../Config/CloudInary'
-import * as Yup from 'yup'
-import MyFooter from '../MyFooter/MyFooter'
-import { toast } from 'react-toastify'
+import {
+  btnStyle,
+  colors,
+  h1XL,
+  labelWrapper,
+  mq,
+  signWrapper,
+  signWrapperInput,
+  spinner,
+  textArea,
+  warning,
+} from '../../../Styles'
+
+import Layout from '../../Layout'
 
 const INIT_PROPS = {
   projectName: '',
@@ -27,172 +40,230 @@ const INIT_PROPS = {
   description: '',
 }
 
-class MyCreateProject extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imSrc: null,
-      imageDropArray: [],
-      projectLogos: [],
-      isLoading: false,
-      ...INIT_PROPS,
-    }
-    this.handleDrop = this.handleDrop.bind(this)
-  }
-  handleDrop = (acceptedFiles, rejectedFiles) => {
-    this.setState({
-      isLoading: true,
-    })
-    if (acceptedFiles && acceptedFiles.length > 0) {
+function MyCreateProject({
+  errors,
+  touched,
+  isSubmitting,
+  auth,
+  project,
+  handleChange,
+  projectName,
+  description,
+  projectLink,
+  setValues,
+  values,
+}) {
+  const [imageDropArray, setImageDropArray] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  let urls = []
+  function handleDrop(acceptedFiles, rejectedFiles) {
+    setIsLoading(true)
+
+    if (acceptedFiles && acceptedFiles.length === 1) {
       if (acceptedFiles[0].size < 8000000) {
-        const uploaders = acceptedFiles.map((file) => {
-          let myarrayx = []
-          let formData
-          // Initial FormData
-          formData = new FormData()
-          formData.append('file', file)
-          formData.append('tags', `codeinfuse, small, gist`)
-          formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-          formData.append('api_key', CLOUDINARY_API_KEY) // Replace API key with your own Cloudinary key
-          formData.append('timestamp', Date.now() / 1000 || 0) // Replace API key with your own Cloudinary key
-          return axios
-            .post(CLOUDINARY_UPLOAD_URL, formData, {
-              headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            })
-            .then((response) => {
-              toast.success(`Images Upload Was Successful`)
-              const data = response.data
-              this.state.imageDropArray.push(data)
-              this.state.imageDropArray.map((sup) => {
-                myarrayx.push(sup.secure_url)
-                this.props.setValues({
-                  ...this.props.values,
-                  projectLogos: myarrayx,
-                })
-              })
-            })
-            .catch((err) => {
-              toast.error("Sorry, Images Didn't Upload!")
-              console.error(err)
-            })
-        })
+        // TODO: remove it from here and execute onSubmit
+        // TODO: make Tag = projectName
+        // TODO: fix urls array (1 then 3 = 3)
+        let formData
+        formData = new FormData()
+        formData.append('file', acceptedFiles[0])
+        formData.append('tags', `project imaged`)
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+        formData.append('api_key', CLOUDINARY_API_KEY)
+
         axios
-          .all(uploaders)
-          .then(() => {
-            this.setState({
-              isLoading: false,
-            })
-            this.props.setValues({
-              ...this.props.values,
-            })
+          .post(CLOUDINARY_UPLOAD_URL, formData, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
           })
-          .catch((err) => {
+          .then(response => {
+            urls.push(response.data.secure_url)
+            setImageDropArray([...imageDropArray, ...urls])
+            setValues({
+              ...values,
+              projectLogos: urls,
+            })
+            console.dir(response.data.secure_url)
+            console.log(urls)
+            setIsLoading(false)
+
+            toast.success(`Upload Successful`)
+            return urls
+          })
+          .catch(err => {
+            toast.error('Upload Failed!')
             console.error(err)
           })
       }
-    }
-    if (rejectedFiles && rejectedFiles.length > 0) {
+    } else if (acceptedFiles && acceptedFiles.length > 1) {
+      const uploaders = acceptedFiles.map((file, i) => {
+        if (acceptedFiles[i].size < 8000000) {
+          // TODO: remove it from here and execute onSubmit
+          // TODO: make Tag = projectName
+          let formData
+          formData = new FormData()
+          formData.append('file', file)
+          formData.append('tags', `project imaged`)
+          formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+          formData.append('api_key', CLOUDINARY_API_KEY)
+
+          axios
+            .post(CLOUDINARY_UPLOAD_URL, formData, {
+              headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            })
+            .then(response => {
+              console.dir(response)
+              urls.push(response.data.secure_url)
+              setImageDropArray([...imageDropArray, ...urls])
+
+              setValues({
+                ...values,
+                projectLogos: urls,
+              })
+
+              setIsLoading(false)
+              toast.success(`Upload Successful`)
+            })
+            .catch(err => {
+              toast.error('Upload Failed!')
+              setIsLoading(false)
+
+              console.error(err)
+            })
+        }
+        return urls
+      })
+      console.log(uploaders)
+    } else if (rejectedFiles && rejectedFiles.length > 0) {
+      setIsLoading(false)
       if (rejectedFiles[0].Size > 8000000) {
-        alert('This File is too big')
+        toast.error('This File is too big')
       }
     }
   }
-
-  render() {
-    const { imageDropArray, isLoading } = this.state
-    const {
-      errors,
-      touched,
-      isSubmitting,
-      auth,
-      project,
-      handleChange,
-      description,
-      projectLink,
-      projectName,
-    } = this.props
-    let loader = isLoading || isSubmitting
-    return (
-      <div>
-        {!auth.uid ? (
-          <Redirect to="/signin" />
-        ) : (
-          <div className="CreateProject">
-            <AuthNavlinks title={'Create Project'} />
-            <h1>Create New Project</h1>
-            <div className="wrapper-container">
-              {imageDropArray.length !== 0 ? (
-                <div className="maping">
-                  {imageDropArray.map((link, ky) => {
-                    return <img alt="" key={ky} src={link.url} />
-                  })}
-                </div>
+  return (
+    <Layout>
+      {!auth.uid ? (
+        <Redirect to='/signin' />
+      ) : (
+        <div className='CreateProject'>
+          <h1>{project ? `Update` : `Create`} Project</h1>
+          {isLoading || isSubmitting ? <div css={spinner}></div> : null}
+          <div
+            css={css`
+              display: grid;
+              grid-template: 1fr/1fr 2fr;
+              width: 100%;
+              place-items: center;
+              ${mq.s} {
+                grid-template: none;
+              }
+            `}
+          >
+            <div>
+              {imageDropArray.map((link, ky) => (
+                <Image alt='' crop={'lpad'} width={200} key={ky} src={link} />
+              ))}
+            </div>
+            <Form id='createProject' css={signWrapper}>
+              <Dropzone
+                onDrop={handleDrop}
+                accept='image/*'
+                multiple
+                maxSize={8000000}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <label
+                    htmlFor='dropZone'
+                    css={[
+                      labelWrapper,
+                      css`
+                        border: 10px dashed ${colors.darkBlue};
+                        width: 87%;
+                        height: 200px;
+                        text-align: center;
+                        cursor: pointer;
+                        margin-bottom: 20px;
+                        align-self: flex-end;
+                      `,
+                    ]}
+                    {...getRootProps()}
+                  >
+                    <span
+                      css={[
+                        h1XL,
+                        css`
+                          color: ${colors.aliceLightBlue};
+                        `,
+                      ]}
+                    >
+                      Drop Image(s)
+                    </span>
+                    <input
+                      id='dropZone'
+                      type='file'
+                      css={[
+                        textArea,
+                        css`
+                          width: initial;
+                          margin: 0;
+                        `,
+                      ]}
+                      {...getInputProps()}
+                    />
+                  </label>
+                )}
+              </Dropzone>
+              <label htmlFor='projectName' css={labelWrapper}>
+                <Field
+                  type='text'
+                  css={signWrapperInput}
+                  placeholder={project ? project.projectName : 'Project Name'}
+                  value={projectName}
+                  name='projectName'
+                  id='projectName'
+                />
+              </label>
+              {errors.projectName && touched.projectName ? (
+                <span css={warning}>{errors.projectName}</span>
               ) : null}
-              <Form id="createProject">
-                <Dropzone
-                  onDrop={this.handleDrop}
-                  accept="image/*"
-                  multiple
-                  maxSize={8000000}
-                >
-                  {({ getRootProps, getInputProps }) => (
-                    <div {...getRootProps()} className="drop-zone-styles">
-                      <span>drop image(s)</span>
-                      <input type="file" {...getInputProps()} />
-                    </div>
-                  )}
-                </Dropzone>
-                <div className="field-container">
-                  <Field
-                    type="text"
-                    value={projectName}
-                    placeholder={project ? project.projectName : 'Project Name'}
-                    name="projectName"
-                  />
-                </div>
-                {errors.projectName && touched.projectName ? (
-                  <p className="error-message">{errors.projectName}</p>
-                ) : null}
-                <div className="field-container">
-                  <Field
-                    type="url"
-                    value={projectLink}
-                    placeholder={project ? project.projectLink : 'Project Link'}
-                    name="projectLink"
-                  />
-                </div>
+              <label htmlFor='projectLink' css={labelWrapper}>
+                <Field
+                  type='url'
+                  css={signWrapperInput}
+                  value={projectLink}
+                  placeholder={project ? project.projectLink : 'Project Link'}
+                  name='projectLink'
+                  id='projectLink'
+                />
+              </label>
+              <label htmlFor='description' css={labelWrapper}>
                 <textarea
+                  css={[
+                    textArea,
+                    css`
+                      margin: 0;
+                    `,
+                  ]}
                   placeholder={
                     project ? project.description : 'Project Description'
                   }
-                  name="description"
+                  name='description'
                   value={description}
                   onChange={handleChange}
-                  // required
+                  id='description'
+                  required
                 />
-                <button type="submit" disabled={isSubmitting}>
-                  {project ? 'Edit' : 'Create'} Project
-                </button>
-              </Form>
-            </div>
-            {loader ? (
-              <div className="my-spinner-container">
-                <BarLoader
-                  className="my-spinner"
-                  sizeUnit={'px'}
-                  size={150}
-                  color={'#d4dff6'}
-                  loading={loader}
-                />
-                Loading...
-              </div>
-            ) : null}
-            <MyFooter />
+              </label>
+              <button type='submit' css={btnStyle} disabled={isSubmitting}>
+                {project ? 'Edit' : 'Create'} Project
+              </button>
+            </Form>
           </div>
-        )}
-      </div>
-    )
-  }
+        </div>
+      )}
+    </Layout>
+  )
 }
 const ContactMeSchema = withFormik({
   validationSchema: Yup.object().shape({
@@ -201,10 +272,10 @@ const ContactMeSchema = withFormik({
     description: Yup.string(),
   }),
   enableReinitialize: true,
-  mapPropsToValues: (props) => ({
+  mapPropsToValues: props => ({
     ...props,
   }),
-  mapValuesToPayload: (x) => x,
+  mapValuesToPayload: x => x,
   handleSubmit: (values, bag) => {
     setTimeout(() => {
       values.project
@@ -226,10 +297,10 @@ const mapStateToProps = (state, ownProps) => {
     project,
   }
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    createProject: (project) => dispatch(createProject(project)),
-    updateProject: (project) => dispatch(updateProject(project)),
+    createProject: project => dispatch(createProject(project)),
+    updateProject: project => dispatch(updateProject(project)),
   }
 }
 const CreateProject = ContactMeSchema(MyCreateProject)
