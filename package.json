@@ -28,14 +28,14 @@
     "yup": "^0.29.3"
   },
   "engines": {
-    "node": ">10.19.0"
+    "node": "12.18.2"
   },
   "scripts": {
     "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "npm run build --prod",
     "format": "npx prettier --write "
   },
   "eslintConfig": {
