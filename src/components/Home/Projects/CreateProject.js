@@ -83,8 +83,6 @@ function MyCreateProject({
               ...values,
               projectLogos: urls,
             })
-            console.dir(response.data.secure_url)
-            console.log(urls)
             setIsLoading(false)
 
             toast.success(`Upload Successful`)
@@ -112,7 +110,6 @@ function MyCreateProject({
               headers: { 'X-Requested-With': 'XMLHttpRequest' },
             })
             .then(response => {
-              console.dir(response)
               urls.push(response.data.secure_url)
               setImageDropArray([...imageDropArray, ...urls])
 
@@ -133,7 +130,6 @@ function MyCreateProject({
         }
         return urls
       })
-      console.log(uploaders)
     } else if (rejectedFiles && rejectedFiles.length > 0) {
       setIsLoading(false)
       if (rejectedFiles[0].Size > 8000000) {

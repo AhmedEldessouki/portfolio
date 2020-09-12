@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 
-import { colors, h1XL, spinner } from '../../../Styles'
+import { colors, spinner } from '../../../Styles'
 import Layout from '../../Layout'
 import { Carousel } from '../../Utils/Carousel'
 import ContactMe from '../ContactMe/ContactMe'
