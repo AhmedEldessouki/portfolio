@@ -9,7 +9,6 @@
     "cloudinary-react": "^1.1.0",
     "firebase": "^7.20.0",
     "formik": "^2.1.5",
-    "prettier": "^2.0.5",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-dropzone": "^11.1.0",
@@ -36,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "heroku-postbuild": "npm run build",
-    "format": "npx prettier --write "
+    "format": "prettier --write \"**/*.+(js|json|css|md|mdx|html)\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,6 +48,7 @@
   ],
   "devDependencies": {
     "dotenv": "^8.2.0",
+    "prettier": "^2.1.1",
     "react-test-renderer": "^16.7.0"
   }
 }
