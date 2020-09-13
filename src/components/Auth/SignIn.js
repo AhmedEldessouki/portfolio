@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { useState, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import {jsx, css} from '@emotion/core'
+import {useState, Fragment} from 'react'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
-import { signIn } from '../../Store/Actions/AuthActions'
+import {signIn} from '../../Store/Actions/AuthActions'
 import Layout from '../Layout'
 import {
   signWrapper,
@@ -14,7 +14,7 @@ import {
   btnStyle,
 } from '../../Styles'
 
-const SignIn = ({ signIn, auth, authError }) => {
+const SignIn = ({signIn, auth, authError}) => {
   const email = useFormInput('')
   const password = useFormInput('')
 
@@ -23,7 +23,7 @@ const SignIn = ({ signIn, auth, authError }) => {
     const handleChange = e => {
       setValue(e.target.value)
     }
-    return { value, onChange: handleChange }
+    return {value, onChange: handleChange}
   }
   const handleSubmit = e => {
     e.preventDefault()
@@ -36,7 +36,7 @@ const SignIn = ({ signIn, auth, authError }) => {
   return (
     <Fragment>
       {auth.uid ? (
-        <Redirect to='/' />
+        <Redirect to="/" />
       ) : (
         <Layout>
           <h1 css={h1XL}>Sign-in</h1>
@@ -48,27 +48,27 @@ const SignIn = ({ signIn, auth, authError }) => {
             `}
           >
             <form onSubmit={handleSubmit} css={signWrapper}>
-              <div className='field-container'>
-                <label htmlFor='email' css={labelWrapper}>
+              <div className="field-container">
+                <label htmlFor="email" css={labelWrapper}>
                   <input
                     css={signWrapperInput}
-                    type='email'
-                    id='email'
-                    placeholder='Email'
+                    type="email"
+                    id="email"
+                    placeholder="Email"
                     {...email}
                   />
                 </label>
-                <label css={labelWrapper} htmlFor='password'>
+                <label css={labelWrapper} htmlFor="password">
                   <input
                     css={signWrapperInput}
                     {...password}
-                    type='password'
-                    id='password'
-                    placeholder='Password'
+                    type="password"
+                    id="password"
+                    placeholder="Password"
                   />
                 </label>
               </div>
-              <button css={btnStyle} type='submit'>
+              <button css={btnStyle} type="submit">
                 SignIn
               </button>
               {authError ? <p>{authError}</p> : null}

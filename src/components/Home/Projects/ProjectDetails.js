@@ -1,16 +1,16 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Fragment } from 'react'
-import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import { compose } from 'redux'
+import {jsx, css} from '@emotion/core'
+import {Fragment} from 'react'
+import {connect} from 'react-redux'
+import {firestoreConnect} from 'react-redux-firebase'
+import {compose} from 'redux'
 
-import { colors, spinner } from '../../../Styles'
+import {colors, spinner} from '../../../Styles'
 import Layout from '../../Layout'
-import { Carousel } from '../../Utils/Carousel'
+import {Carousel} from '../../Utils/Carousel'
 import ContactMe from '../ContactMe/ContactMe'
 
-const ProjectDetails = ({ project }) => {
+const ProjectDetails = ({project}) => {
   console.log(project)
   window.scrollTo(0, 0)
 
@@ -91,5 +91,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: 'projects' }])
+  firestoreConnect([{collection: 'projects'}]),
 )(ProjectDetails)

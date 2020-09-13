@@ -1,10 +1,10 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Fragment } from 'react'
+import {jsx, css} from '@emotion/core'
+import {Fragment} from 'react'
 
 import MessagesSummary from './MessagesSummary'
 
-function Messages({ messagesData }) {
+function Messages({messagesData}) {
   const mWrapper = css`
     margin: 0 10px;
     padding: 20px 10px;

@@ -3,21 +3,21 @@ import About from './About/About'
 import Projects from './Projects/Projects'
 import ContactMe from './ContactMe/ContactMe'
 import ScrollUpButton from 'react-scroll-up-button'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
 import Layout from '../Layout'
 
-function Home({ projectsData }) {
+function Home({projectsData}) {
   return (
     <Layout>
       <About />
       <ScrollUpButton
         StopPosition={0}
         ShowAtPosition={150}
-        EasingType='easeOutCubic'
+        EasingType="easeOutCubic"
         AnimationDuration={500}
-        ContainerClassName='ScrollUpButton__Container'
-        TransitionClassName='ScrollUpButton__Toggled'
+        ContainerClassName="ScrollUpButton__Container"
+        TransitionClassName="ScrollUpButton__Toggled"
       />
       <Projects projectsData={projectsData} />
       <ContactMe />

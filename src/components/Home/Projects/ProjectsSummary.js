@@ -1,15 +1,15 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Fragment } from 'react'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { FaPen } from 'react-icons/fa'
+import {jsx, css} from '@emotion/core'
+import {Fragment} from 'react'
+import {connect} from 'react-redux'
+import {NavLink} from 'react-router-dom'
+import {FaPen} from 'react-icons/fa'
 
-import { deleteProject } from '../../../Store/Actions/ProjectsActions'
-import { colors, weights } from '../../../Styles'
+import {deleteProject} from '../../../Store/Actions/ProjectsActions'
+import {colors, weights} from '../../../Styles'
 import PopUp from '../../PopUp/PopUp'
 
-const ProjectsSummary = ({ project, auth, ...props }) => {
+const ProjectsSummary = ({project, auth, ...props}) => {
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;

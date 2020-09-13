@@ -1,15 +1,15 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { useState, Fragment } from 'react'
-import { GoTrashcan } from 'react-icons/go'
-import { deleteProject } from '../../Store/Actions/ProjectsActions'
-import { deleteMessage } from '../../Store/Actions/ContactedMeActions'
-import { deleteNotification } from '../../Store/Actions/NotificationActions'
-import { connect } from 'react-redux'
+import {jsx, css} from '@emotion/core'
+import {useState, Fragment} from 'react'
+import {GoTrashcan} from 'react-icons/go'
+import {deleteProject} from '../../Store/Actions/ProjectsActions'
+import {deleteMessage} from '../../Store/Actions/ContactedMeActions'
+import {deleteNotification} from '../../Store/Actions/NotificationActions'
+import {connect} from 'react-redux'
 
-import { colors, weights } from '../../Styles'
+import {colors, weights} from '../../Styles'
 
-function PopUp({ project, deleteProject, contact, deleteMessage, title }) {
+function PopUp({project, deleteProject, contact, deleteMessage, title}) {
   const popWrapper = css`
     @keyframes fadeIn {
       from {
@@ -80,7 +80,7 @@ function PopUp({ project, deleteProject, contact, deleteMessage, title }) {
       setShow(!show)
     } else {
       console.log('damnnnnnn i worked')
-      setShow({ show: false })
+      setShow({show: false})
     }
   }
   return (
@@ -92,7 +92,7 @@ function PopUp({ project, deleteProject, contact, deleteMessage, title }) {
         <GoTrashcan />
       </button>
       {show ? null : (
-        <div css={popWrapper} id='popup'>
+        <div css={popWrapper} id="popup">
           <header>
             <h1>Warning</h1>
           </header>

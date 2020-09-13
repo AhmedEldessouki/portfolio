@@ -1,5 +1,5 @@
-export { globalStyles } from './globalStyles'
-export { colors, mq, weights } from './css-utils'
+export {globalStyles} from './globalStyles'
+export {colors, mq, weights} from './css-utils'
 export {
   wrapper,
   spinner,

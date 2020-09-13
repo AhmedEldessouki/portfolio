@@ -1,11 +1,11 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Fragment } from 'react'
+import {jsx, css} from '@emotion/core'
+import {Fragment} from 'react'
 
-import { h1XL } from '../../../Styles'
+import {h1XL} from '../../../Styles'
 import ProjectsSummary from './ProjectsSummary'
 
-const Projects = ({ projectsData }) => {
+const Projects = ({projectsData}) => {
   const mWrapper = css`
     margin: 0 10px;
     padding: 20px 10px;

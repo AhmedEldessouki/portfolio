@@ -1,21 +1,21 @@
 /**@jsx jsx */
-import { jsx } from '@emotion/core'
-import { Fragment } from 'react'
-import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import { compose } from 'redux'
-import { Redirect } from 'react-router-dom'
+import {jsx} from '@emotion/core'
+import {Fragment} from 'react'
+import {connect} from 'react-redux'
+import {firestoreConnect} from 'react-redux-firebase'
+import {compose} from 'redux'
+import {Redirect} from 'react-router-dom'
 
 import Layout from '../Layout'
 import Messages from './Messaging/Messages'
 import Projects from '../Home/Projects/Projects'
-import { spinner } from '../../Styles'
+import {spinner} from '../../Styles'
 
-const Dashboard = ({ isSubmitting, auth, projectsData, messagesData }) => {
+const Dashboard = ({isSubmitting, auth, projectsData, messagesData}) => {
   return (
     <Fragment>
       {!auth.uid ? (
-        <Redirect to='/signin' />
+        <Redirect to="/signin" />
       ) : (
         <Layout>
           {!isSubmitting ? (
@@ -42,5 +42,5 @@ const mapStateToProps = state => {
 }
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: 'contactedMe', orderBy: ['sentAt', 'desc'] }])
+  firestoreConnect([{collection: 'contactedMe', orderBy: ['sentAt', 'desc']}]),
 )(Dashboard)

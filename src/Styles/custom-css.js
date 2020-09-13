@@ -1,6 +1,6 @@
-import { css } from '@emotion/core'
+import {css} from '@emotion/core'
 
-import { colors, mq, weights } from './index'
+import {colors, mq, weights} from './index'
 
 export const wrapper = css`
   display: flex;
