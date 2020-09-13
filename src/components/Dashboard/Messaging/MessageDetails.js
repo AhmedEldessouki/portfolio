@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Fragment } from 'react'
-import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import { compose } from 'redux'
-import { Redirect } from 'react-router-dom'
+import {jsx, css} from '@emotion/core'
+import {Fragment} from 'react'
+import {connect} from 'react-redux'
+import {firestoreConnect} from 'react-redux-firebase'
+import {compose} from 'redux'
+import {Redirect} from 'react-router-dom'
 import Layout from '../../Layout'
-import { h1XL, colors, mq, spinner } from '../../../Styles'
+import {h1XL, colors, mq, spinner} from '../../../Styles'
 
-function MessageDetails({ message, auth }) {
+function MessageDetails({message, auth}) {
   const container = css`
     display: grid;
     place-content: center;
@@ -88,7 +88,7 @@ function MessageDetails({ message, auth }) {
         </Fragment>
       ) : (
         <Fragment>
-          {auth.uid ? <div css={spinner}></div> : <Redirect to='/signin' />}
+          {auth.uid ? <div css={spinner}></div> : <Redirect to="/signin" />}
         </Fragment>
       )}
     </Layout>
@@ -108,5 +108,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: 'contactedMe' }])
+  firestoreConnect([{collection: 'contactedMe'}]),
 )(MessageDetails)

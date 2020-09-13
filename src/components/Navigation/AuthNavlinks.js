@@ -1,13 +1,13 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import {jsx, css} from '@emotion/core'
+import {connect} from 'react-redux'
+import {NavLink} from 'react-router-dom'
 
-import { signOut } from '../../Store/Actions/AuthActions'
+import {signOut} from '../../Store/Actions/AuthActions'
 import my from '../../assets/my.svg'
-import { colors, weights, mq } from '../../Styles'
+import {colors, weights, mq} from '../../Styles'
 
-const AuthNavlinks = ({ signOut }) => {
+const AuthNavlinks = ({signOut}) => {
   const nav = css`
     display: flex;
     place-content: space-evenly;
@@ -48,7 +48,7 @@ const AuthNavlinks = ({ signOut }) => {
         <img
           src={my}
           alt={'Ahmed ElDessouki'}
-          style={{ width: '150px', padding: '0' }}
+          style={{width: '150px', padding: '0'}}
         />
       </NavLink>
       <NavLink

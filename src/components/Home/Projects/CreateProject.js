@@ -1,14 +1,14 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { useState } from 'react'
-import { connect } from 'react-redux'
+import {jsx, css} from '@emotion/core'
+import {useState} from 'react'
+import {connect} from 'react-redux'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import Dropzone from 'react-dropzone'
-import { withFormik, Form, Field } from 'formik'
+import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
-import { toast } from 'react-toastify'
-import { Image } from 'cloudinary-react'
+import {toast} from 'react-toastify'
+import {Image} from 'cloudinary-react'
 
 import {
   createProject,
@@ -74,7 +74,7 @@ function MyCreateProject({
 
         axios
           .post(CLOUDINARY_UPLOAD_URL, formData, {
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
           })
           .then(response => {
             urls.push(response.data.secure_url)
@@ -107,7 +107,7 @@ function MyCreateProject({
 
           axios
             .post(CLOUDINARY_UPLOAD_URL, formData, {
-              headers: { 'X-Requested-With': 'XMLHttpRequest' },
+              headers: {'X-Requested-With': 'XMLHttpRequest'},
             })
             .then(response => {
               urls.push(response.data.secure_url)
@@ -140,9 +140,9 @@ function MyCreateProject({
   return (
     <Layout>
       {!auth.uid ? (
-        <Redirect to='/signin' />
+        <Redirect to="/signin" />
       ) : (
-        <div className='CreateProject'>
+        <div className="CreateProject">
           <h1>{project ? `Update` : `Create`} Project</h1>
           {isLoading || isSubmitting ? <div css={spinner}></div> : null}
           <div
@@ -158,19 +158,19 @@ function MyCreateProject({
           >
             <div>
               {imageDropArray.map((link, ky) => (
-                <Image alt='' crop={'lpad'} width={200} key={ky} src={link} />
+                <Image alt="" crop={'lpad'} width={200} key={ky} src={link} />
               ))}
             </div>
-            <Form id='createProject' css={signWrapper}>
+            <Form id="createProject" css={signWrapper}>
               <Dropzone
                 onDrop={handleDrop}
-                accept='image/*'
+                accept="image/*"
                 multiple
                 maxSize={8000000}
               >
-                {({ getRootProps, getInputProps }) => (
+                {({getRootProps, getInputProps}) => (
                   <label
-                    htmlFor='dropZone'
+                    htmlFor="dropZone"
                     css={[
                       labelWrapper,
                       css`
@@ -196,8 +196,8 @@ function MyCreateProject({
                       Drop Image(s)
                     </span>
                     <input
-                      id='dropZone'
-                      type='file'
+                      id="dropZone"
+                      type="file"
                       css={[
                         textArea,
                         css`
@@ -210,30 +210,30 @@ function MyCreateProject({
                   </label>
                 )}
               </Dropzone>
-              <label htmlFor='projectName' css={labelWrapper}>
+              <label htmlFor="projectName" css={labelWrapper}>
                 <Field
-                  type='text'
+                  type="text"
                   css={signWrapperInput}
                   placeholder={project ? project.projectName : 'Project Name'}
                   value={projectName}
-                  name='projectName'
-                  id='projectName'
+                  name="projectName"
+                  id="projectName"
                 />
               </label>
               {errors.projectName && touched.projectName ? (
                 <span css={warning}>{errors.projectName}</span>
               ) : null}
-              <label htmlFor='projectLink' css={labelWrapper}>
+              <label htmlFor="projectLink" css={labelWrapper}>
                 <Field
-                  type='url'
+                  type="url"
                   css={signWrapperInput}
                   value={projectLink}
                   placeholder={project ? project.projectLink : 'Project Link'}
-                  name='projectLink'
-                  id='projectLink'
+                  name="projectLink"
+                  id="projectLink"
                 />
               </label>
-              <label htmlFor='description' css={labelWrapper}>
+              <label htmlFor="description" css={labelWrapper}>
                 <textarea
                   css={[
                     textArea,
@@ -244,14 +244,14 @@ function MyCreateProject({
                   placeholder={
                     project ? project.description : 'Project Description'
                   }
-                  name='description'
+                  name="description"
                   value={description}
                   onChange={handleChange}
-                  id='description'
+                  id="description"
                   required
                 />
               </label>
-              <button type='submit' css={btnStyle} disabled={isSubmitting}>
+              <button type="submit" css={btnStyle} disabled={isSubmitting}>
                 {project ? 'Edit' : 'Create'} Project
               </button>
             </Form>

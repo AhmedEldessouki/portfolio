@@ -1,8 +1,8 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
+import {jsx, css} from '@emotion/core'
 
 import my from '../../assets/my.svg'
-import { colors, mq } from '../../Styles'
+import {colors, mq} from '../../Styles'
 
 const UnAuthNavlinks = () => {
   const container = css`

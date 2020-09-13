@@ -1,12 +1,12 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Fragment } from 'react'
+import {jsx, css} from '@emotion/core'
+import {Fragment} from 'react'
 
 import PopUp from '../../PopUp/PopUp'
-import { NavLink } from 'react-router-dom'
-import { colors, h1XL } from '../../../Styles'
+import {NavLink} from 'react-router-dom'
+import {colors, h1XL} from '../../../Styles'
 
-function MessagesSummary({ contact, to, id }) {
+function MessagesSummary({contact, to, id}) {
   const messagesSummary = css`
     overflow: auto;
     display: grid;

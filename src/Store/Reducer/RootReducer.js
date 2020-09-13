@@ -5,16 +5,16 @@ import uploadLogoReducer from './uploadLogoReducer'
 import {combineReducers} from 'redux'
 import {firestoreReducer} from 'redux-firestore'
 import {firebaseReducer} from 'react-redux-firebase'
-import NotificationReducer from "./NotificationReducer";
+import NotificationReducer from './NotificationReducer'
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
   project: ProjectReducer,
   contactedMe: ContactedMeReducer,
-  projectLogos:uploadLogoReducer,
+  projectLogos: uploadLogoReducer,
   firestore: firestoreReducer,
   firebase: firebaseReducer,
-  notifications: NotificationReducer
-});
+  notifications: NotificationReducer,
+})
 
 export default RootReducer

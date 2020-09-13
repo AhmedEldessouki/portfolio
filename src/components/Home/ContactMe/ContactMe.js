@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Component } from 'react'
-import { withFormik, Form, Field } from 'formik'
+import {jsx, css} from '@emotion/core'
+import {Component} from 'react'
+import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
-import { contactedMe } from '../../../Store/Actions/ContactedMeActions'
+import {contactedMe} from '../../../Store/Actions/ContactedMeActions'
 import {
   wrapper,
   colors,
@@ -55,53 +55,53 @@ class MyContactMe extends Component {
         <h1 css={h1XL}>Contact Me</h1>
         <Form id={'ContactMe'} css={wrapper}>
           <section>
-            <label css={labelWrapper} htmlFor='contactName'>
+            <label css={labelWrapper} htmlFor="contactName">
               <Field
                 css={signWrapperInput}
-                name='contactName'
-                id='contactName'
+                name="contactName"
+                id="contactName"
                 value={contactName}
-                placeholder='Enter your name'
+                placeholder="Enter your name"
               />
               {errors.contactName && touched.contactName ? (
                 <span css={warning}>{errors.contactName}</span>
               ) : null}
             </label>
-            <label css={labelWrapper} htmlFor='email'>
+            <label css={labelWrapper} htmlFor="email">
               <Field
                 css={signWrapperInput}
-                name='email'
-                id='email'
+                name="email"
+                id="email"
                 value={email}
-                type='email'
-                placeholder='Email Address'
+                type="email"
+                placeholder="Email Address"
               />
               {errors.email && touched.email ? (
                 <span css={warning}>{errors.email}</span>
               ) : null}
             </label>
-            <label css={labelWrapper} htmlFor='phoneNumber'>
+            <label css={labelWrapper} htmlFor="phoneNumber">
               <Field
                 css={signWrapperInput}
-                name='phoneNumber'
-                id='phoneNumber'
-                type='tel'
+                name="phoneNumber"
+                id="phoneNumber"
+                type="tel"
                 value={phoneNumber}
-                placeholder='Enter Your Phone Number'
+                placeholder="Enter Your Phone Number"
               />
               {errors.phoneNumber && touched.phoneNumber ? (
                 <span css={warning}>{errors.phoneNumber}</span>
               ) : null}
             </label>
           </section>
-          <label css={labelWrapper} htmlFor='description'>
+          <label css={labelWrapper} htmlFor="description">
             <textarea
-              name='description'
-              id='description'
+              name="description"
+              id="description"
               onChange={handleChange}
               value={description}
               required
-              placeholder='Please Enter Your Message Here...'
+              placeholder="Please Enter Your Message Here..."
               css={textArea}
             />
           </label>
@@ -114,7 +114,7 @@ class MyContactMe extends Component {
               <div css={spinner}></div>
             </div>
           ) : (
-            <button type='submit' disabled={isSubmitting} css={btnStyle}>
+            <button type="submit" disabled={isSubmitting} css={btnStyle}>
               Submit
             </button>
           )}
@@ -145,10 +145,10 @@ const ContactMeSchema = withFormik({
     ...props,
   }),
   mapValuesToPayload: x => x,
-  handleSubmit: (values, { setErrors, resetForm, setSubmitting }) => {
+  handleSubmit: (values, {setErrors, resetForm, setSubmitting}) => {
     setTimeout(() => {
       if (values.name === 'admin') {
-        setErrors({ contactName: 'Nice try!' })
+        setErrors({contactName: 'Nice try!'})
       } else {
         values.contactedMe(values)
         resetForm({})

@@ -1,12 +1,12 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Component, Fragment } from 'react'
-import { withFormik, Form, Field } from 'formik'
+import {jsx, css} from '@emotion/core'
+import {Component, Fragment} from 'react'
+import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
-import { signUp } from '../../Store/Actions/AuthActions'
+import {signUp} from '../../Store/Actions/AuthActions'
 import {
   signWrapper,
   labelWrapper,
@@ -47,7 +47,7 @@ class FormikSignUp extends Component {
     return (
       <Fragment>
         {!auth.uid ? (
-          <Redirect to='/signin' />
+          <Redirect to="/signin" />
         ) : (
           <Layout>
             <h1 css={h1XL}>Sign up</h1>
@@ -58,66 +58,66 @@ class FormikSignUp extends Component {
                 place-content: center;
               `}
             >
-              <Form id='#sign-up' css={signWrapper} onSubmit={handleSubmit}>
-                <label htmlFor='firstName' css={labelWrapper}>
+              <Form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
+                <label htmlFor="firstName" css={labelWrapper}>
                   <input
                     css={signWrapperInput}
-                    id='firstName'
-                    name='firstName'
+                    id="firstName"
+                    name="firstName"
                     value={firstName}
-                    placeholder='First Name'
+                    placeholder="First Name"
                   />
                   {errors.firstName && touched.firstName ? (
                     <span css={warning}>{errors.firstName}</span>
                   ) : null}
                 </label>
-                <label css={labelWrapper} htmlFor='lastName'>
+                <label css={labelWrapper} htmlFor="lastName">
                   <Field
                     css={signWrapperInput}
-                    name='lastName'
+                    name="lastName"
                     value={lastName}
-                    id='lastName'
-                    placeholder='Last Name'
+                    id="lastName"
+                    placeholder="Last Name"
                   />
                   {errors.lastName && touched.lastName ? (
                     <span css={warning}>{errors.lastName}</span>
                   ) : null}
                 </label>
-                <label css={labelWrapper} htmlFor='email'>
+                <label css={labelWrapper} htmlFor="email">
                   <Field
                     css={signWrapperInput}
-                    name='email'
-                    id='email'
-                    type='email'
+                    name="email"
+                    id="email"
+                    type="email"
                     value={email}
-                    placeholder='Email Address'
+                    placeholder="Email Address"
                   />
                   {errors.email && touched.email ? (
                     <span css={warning}>{errors.email}</span>
                   ) : null}
                 </label>
 
-                <label css={labelWrapper} htmlFor='password'>
+                <label css={labelWrapper} htmlFor="password">
                   <Field
                     css={signWrapperInput}
-                    name='password'
-                    id='password'
-                    type='password'
+                    name="password"
+                    id="password"
+                    type="password"
                     value={password}
-                    placeholder='Enter Password'
+                    placeholder="Enter Password"
                   />
                   {errors.password && touched.password ? (
                     <span css={warning}>{errors.password}</span>
                   ) : null}
                 </label>
-                <label css={labelWrapper} htmlFor='confirmPassword'>
+                <label css={labelWrapper} htmlFor="confirmPassword">
                   <Field
                     css={signWrapperInput}
-                    id='confirmPassword'
-                    name='confirmPassword'
-                    type='password'
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
                     value={confirmPassword}
-                    placeholder='Re-Enter Password'
+                    placeholder="Re-Enter Password"
                   />
                   {errors.confirmPassword && touched.confirmPassword ? (
                     <span css={warning}>{errors.confirmPassword}</span>
@@ -133,7 +133,7 @@ class FormikSignUp extends Component {
                     <div css={spinner}></div>
                   </div>
                 ) : (
-                  <button type='submit' disabled={isSubmitting} css={btnStyle}>
+                  <button type="submit" disabled={isSubmitting} css={btnStyle}>
                     Submit
                   </button>
                 )}
@@ -169,9 +169,9 @@ const SignupSchema = withFormik({
   handleSubmit: (values, bag) => {
     setTimeout(() => {
       if (values.firstName === 'admin') {
-        bag.setErrors({ firstName: 'Nice try!' })
+        bag.setErrors({firstName: 'Nice try!'})
       } else if (values.lastName === 'admin') {
-        bag.setErrors({ lastName: 'Nice try!' })
+        bag.setErrors({lastName: 'Nice try!'})
       } else {
         values.signUp(values)
         document.getElementById('sign-up').reset()

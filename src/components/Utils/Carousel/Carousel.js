@@ -1,10 +1,10 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { Fragment, useState } from 'react'
-import { Image } from 'cloudinary-react'
-import { colors, mq } from '../../../Styles'
+import {jsx, css} from '@emotion/core'
+import {Fragment, useState} from 'react'
+import {Image} from 'cloudinary-react'
+import {colors, mq} from '../../../Styles'
 
-export function Carousel({ imgArray, imgAlt }) {
+export function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = useState(0)
 
   const cWrapper = css`
@@ -90,7 +90,7 @@ export function Carousel({ imgArray, imgAlt }) {
       {imgArray.length !== 1 ? (
         <div css={cWrapper}>
           <button
-            type='button'
+            type="button"
             css={[currentImage === 0 ? disabledBTN : btn, leftS]}
             onClick={() =>
               currentImage !== 0 ? setCurrentImage(currentImage - 1) : null
@@ -102,10 +102,10 @@ export function Carousel({ imgArray, imgAlt }) {
 
           <a href={imgArray[currentImage]}>
             <Image
-              width='450'
-              height='400'
+              width="450"
+              height="400"
               alt={imgAlt}
-              fit='contain'
+              fit="contain"
               src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
             />
           </a>
@@ -123,7 +123,7 @@ export function Carousel({ imgArray, imgAlt }) {
             {imgArray.map((data, forKC) => (
               <button
                 key={forKC}
-                type='button'
+                type="button"
                 onClick={() => setCurrentImage(forKC)}
                 css={[
                   carouselNav,
@@ -138,7 +138,7 @@ export function Carousel({ imgArray, imgAlt }) {
             ))}
           </section>
           <button
-            type='button'
+            type="button"
             css={[
               currentImage === imgArray.length - 1 ? disabledBTN : btn,
               rightS,
@@ -156,8 +156,8 @@ export function Carousel({ imgArray, imgAlt }) {
       ) : (
         <a href={imgArray[0]}>
           <Image
-            width='250'
-            fit='contain'
+            width="250"
+            fit="contain"
             alt={imgAlt}
             src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=400&fit=contain`}
           />

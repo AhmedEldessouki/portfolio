@@ -1,14 +1,14 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
+import {jsx, css} from '@emotion/core'
 import {
   FaLinkedin,
   FaFacebookSquare,
   FaInstagram,
   FaGooglePlusSquare,
 } from 'react-icons/fa'
-import { VscTwitter, VscGithub } from 'react-icons/vsc'
-import { GrReactjs } from 'react-icons/gr'
-import { colors, mq, weights } from '../../../Styles'
+import {VscTwitter, VscGithub} from 'react-icons/vsc'
+import {GrReactjs} from 'react-icons/gr'
+import {colors, mq, weights} from '../../../Styles'
 
 const MyFooter = () => {
   const fWrapper = css`
@@ -63,27 +63,27 @@ const MyFooter = () => {
   return (
     <footer css={fWrapper}>
       <div css={whereToFindMe}>
-        <a href='https://www.linkedin.com/in/ahmedeldessouki/'>
+        <a href="https://www.linkedin.com/in/ahmedeldessouki/">
           <FaLinkedin />
         </a>
-        <a href='https://www.github.com/ahmedeldessouki/'>
+        <a href="https://www.github.com/ahmedeldessouki/">
           <VscGithub />
         </a>
-        <a href='https://plus.google.com/+AhmedElDessouki1'>
+        <a href="https://plus.google.com/+AhmedElDessouki1">
           <FaGooglePlusSquare />
         </a>
-        <a href='https://www.instagram.com/eldessouki.a'>
+        <a href="https://www.instagram.com/eldessouki.a">
           <FaInstagram />
         </a>
-        <a href='https://www.facebook.com/ahmed.eldessouki.39'>
+        <a href="https://www.facebook.com/ahmed.eldessouki.39">
           <FaFacebookSquare />
         </a>
-        <a href='https://www.twitter.com/nem0adam'>
+        <a href="https://www.twitter.com/nem0adam">
           <VscTwitter />
         </a>
       </div>
       <div css={reactIcon}>
-        <a href='https://reactjs.org/'>
+        <a href="https://reactjs.org/">
           <GrReactjs />
         </a>
       </div>

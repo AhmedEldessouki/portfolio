@@ -1,8 +1,8 @@
 /**@jsx jsx */
-import { jsx, css } from '@emotion/core'
-import { GoMarkGithub } from 'react-icons/go'
+import {jsx, css} from '@emotion/core'
+import {GoMarkGithub} from 'react-icons/go'
 
-import { colors, weights, mq } from '../../../Styles'
+import {colors, weights, mq} from '../../../Styles'
 import AhmedEldessouki from '../../../assets/Layer 1@0,25x.png'
 
 const MyInfo = () => {
@@ -103,7 +103,7 @@ const MyInfo = () => {
 
   return (
     <div css={container}>
-      <img src={AhmedEldessouki} alt='profilePicture' />
+      <img src={AhmedEldessouki} alt="profilePicture" />
       <p>
         Welcome! I'm Ahmed Eldessouki. I'm 31 years old from Cairo, Egypt
         currently living in <b>Istanbul, Turkey</b>. I looking for a new
@@ -116,7 +116,7 @@ const MyInfo = () => {
       </p>
       <ul css={ulContainer}>
         <li>Ahmed ElDessouki</li>
-        <li className='follow-container'>Istanbul, Turkey</li>
+        <li className="follow-container">Istanbul, Turkey</li>
         <li
           css={css`
             font-style: italic;
@@ -127,7 +127,7 @@ const MyInfo = () => {
             }
           `}
         >
-          <a href='www.github.com/ahmedeldessouki' css={css``}>
+          <a href="www.github.com/ahmedeldessouki" css={css``}>
             <GoMarkGithub /> Github Account
           </a>
         </li>
