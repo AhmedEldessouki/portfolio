@@ -67,7 +67,6 @@ function MessageDetails({ message, auth }) {
       font-size: 117%;
     }
   `
-  console.log(message)
   return (
     <Layout>
       {message ? (

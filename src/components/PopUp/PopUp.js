@@ -79,7 +79,6 @@ function PopUp({ project, deleteProject, contact, deleteMessage, title }) {
       deleteMessage(contact)
       setShow(!show)
     } else {
-      console.log('damnnnnnn i worked')
       setShow({ show: false })
     }
   }

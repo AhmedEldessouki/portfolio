@@ -1,37 +1,272 @@
-[debug] [2020-09-12T16:59:22.841Z] ----------------------------------------------------------------------
-[debug] [2020-09-12T16:59:22.843Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -p staging
-[debug] [2020-09-12T16:59:22.843Z] CLI Version:   8.10.0
-[debug] [2020-09-12T16:59:22.843Z] Platform:      win32
-[debug] [2020-09-12T16:59:22.844Z] Node Version:  v12.18.2
-[debug] [2020-09-12T16:59:22.845Z] Time:          Sat Sep 12 2020 19:59:22 GMT+0300 (GMT+03:00)
-[debug] [2020-09-12T16:59:22.845Z] ----------------------------------------------------------------------
-[debug] [2020-09-12T16:59:22.845Z] 
-[debug] [2020-09-12T16:59:22.852Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2020-09-12T16:59:22.853Z] > authorizing via signed-in user
-[debug] [2020-09-12T16:59:22.853Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2020-09-12T16:59:22.856Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
- {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2020-09-12T16:59:29.872Z] ----------------------------------------------------------------------
-[debug] [2020-09-12T16:59:29.874Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging
-[debug] [2020-09-12T16:59:29.875Z] CLI Version:   8.10.0
-[debug] [2020-09-12T16:59:29.875Z] Platform:      win32
-[debug] [2020-09-12T16:59:29.875Z] Node Version:  v12.18.2
-[debug] [2020-09-12T16:59:29.876Z] Time:          Sat Sep 12 2020 19:59:29 GMT+0300 (GMT+03:00)
-[debug] [2020-09-12T16:59:29.876Z] ----------------------------------------------------------------------
-[debug] [2020-09-12T16:59:29.876Z] 
-[debug] [2020-09-12T16:59:29.884Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2020-09-12T16:59:29.884Z] > authorizing via signed-in user
-[debug] [2020-09-12T16:59:29.884Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2020-09-12T16:59:29.887Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
- {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2020-09-12T16:59:30.846Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 12 Sep 2020 16:59:31 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=802","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
-[debug] [2020-09-12T16:59:30.848Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/ahmedeldessouki-portfolio/serviceAccounts/ahmedeldessouki-portfolio@appspot.gserviceaccount.com:testIamPermissions  
- {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2020-09-12T16:59:31.791Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 12 Sep 2020 16:59:32 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
-[debug] [2020-09-12T16:59:31.793Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+[debug] [2020-09-13T12:36:01.639Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T12:36:01.641Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --except functions
+[debug] [2020-09-13T12:36:01.641Z] CLI Version:   8.10.0
+[debug] [2020-09-13T12:36:01.641Z] Platform:      win32
+[debug] [2020-09-13T12:36:01.641Z] Node Version:  v12.18.2
+[debug] [2020-09-13T12:36:01.642Z] Time:          Sun Sep 13 2020 15:36:01 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T12:36:01.642Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T12:36:01.642Z] 
+[debug] [2020-09-13T12:36:01.650Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T12:36:01.650Z] > authorizing via signed-in user
+[debug] [2020-09-13T12:36:01.650Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T12:36:01.653Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T12:36:02.558Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 12:36:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=749","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T12:36:02.560Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
  
-[debug] [2020-09-12T16:59:32.080Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 12 Sep 2020 16:59:32 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
-[debug] [2020-09-12T16:59:32.251Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+[debug] [2020-09-13T12:36:02.881Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 12:36:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T12:36:03.052Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T12:36:45.253Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T12:36:45.255Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --except functions
+[debug] [2020-09-13T12:36:45.255Z] CLI Version:   8.10.0
+[debug] [2020-09-13T12:36:45.255Z] Platform:      win32
+[debug] [2020-09-13T12:36:45.255Z] Node Version:  v12.18.2
+[debug] [2020-09-13T12:36:45.257Z] Time:          Sun Sep 13 2020 15:36:45 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T12:36:45.257Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T12:36:45.257Z] 
+[debug] [2020-09-13T12:36:45.264Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T12:36:45.265Z] > authorizing via signed-in user
+[debug] [2020-09-13T12:36:45.265Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T12:36:45.268Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T12:36:46.266Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 12:36:46 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=803","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T12:36:46.268Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T12:36:46.604Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 12:36:47 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T12:36:46.790Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T14:10:36.952Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T14:10:36.954Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --except functions
+[debug] [2020-09-13T14:10:36.954Z] CLI Version:   8.10.0
+[debug] [2020-09-13T14:10:36.954Z] Platform:      win32
+[debug] [2020-09-13T14:10:36.954Z] Node Version:  v12.18.2
+[debug] [2020-09-13T14:10:36.955Z] Time:          Sun Sep 13 2020 17:10:36 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T14:10:36.955Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T14:10:36.955Z] 
+[debug] [2020-09-13T14:10:36.963Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T14:10:36.964Z] > authorizing via signed-in user
+[debug] [2020-09-13T14:10:36.964Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T14:10:36.967Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-09-13T14:10:36.967Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-09-13T14:10:37.314Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 14:10:37 GMT","server":"scaffolding on HTTPServer2","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T14:10:37.322Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T14:10:38.471Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 14:10:38 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=820","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T14:10:38.473Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T14:10:38.982Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 14:10:39 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T14:10:39.517Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T14:12:32.050Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T14:12:32.052Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --except functions
+[debug] [2020-09-13T14:12:32.052Z] CLI Version:   8.10.0
+[debug] [2020-09-13T14:12:32.053Z] Platform:      win32
+[debug] [2020-09-13T14:12:32.053Z] Node Version:  v12.18.2
+[debug] [2020-09-13T14:12:32.054Z] Time:          Sun Sep 13 2020 17:12:32 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T14:12:32.054Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T14:12:32.054Z] 
+[debug] [2020-09-13T14:12:32.061Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T14:12:32.062Z] > authorizing via signed-in user
+[debug] [2020-09-13T14:12:32.062Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T14:12:32.065Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T14:12:33.332Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 14:12:33 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=793","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T14:12:33.334Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T14:12:33.888Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 14:12:34 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T14:12:34.370Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T14:34:04.734Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T14:34:04.736Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --except functions
+[debug] [2020-09-13T14:34:04.736Z] CLI Version:   8.10.0
+[debug] [2020-09-13T14:34:04.736Z] Platform:      win32
+[debug] [2020-09-13T14:34:04.736Z] Node Version:  v12.18.2
+[debug] [2020-09-13T14:34:04.737Z] Time:          Sun Sep 13 2020 17:34:04 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T14:34:04.738Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T14:34:04.738Z] 
+[debug] [2020-09-13T14:34:04.746Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T14:34:04.746Z] > authorizing via signed-in user
+[debug] [2020-09-13T14:34:04.746Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T14:34:04.749Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T14:34:05.799Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 14:34:06 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=807","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T14:34:05.801Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T14:34:07.223Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 14:34:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T14:34:07.410Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T16:18:49.701Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:18:49.703Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --except functions
+[debug] [2020-09-13T16:18:49.704Z] CLI Version:   8.10.0
+[debug] [2020-09-13T16:18:49.704Z] Platform:      win32
+[debug] [2020-09-13T16:18:49.704Z] Node Version:  v12.18.2
+[debug] [2020-09-13T16:18:49.705Z] Time:          Sun Sep 13 2020 19:18:49 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T16:18:49.705Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:18:49.705Z] 
+[debug] [2020-09-13T16:18:49.712Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T16:18:49.713Z] > authorizing via signed-in user
+[debug] [2020-09-13T16:18:49.713Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T16:18:49.716Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-09-13T16:18:49.716Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-09-13T16:18:49.937Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:18:50 GMT","server":"scaffolding on HTTPServer2","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:18:49.943Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T16:18:50.891Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:18:51 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=760","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:18:50.893Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T16:18:51.298Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:18:51 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:18:51.481Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T16:19:42.217Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:19:42.219Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --except functions
+[debug] [2020-09-13T16:19:42.219Z] CLI Version:   8.10.0
+[debug] [2020-09-13T16:19:42.220Z] Platform:      win32
+[debug] [2020-09-13T16:19:42.220Z] Node Version:  v12.18.2
+[debug] [2020-09-13T16:19:42.221Z] Time:          Sun Sep 13 2020 19:19:42 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T16:19:42.221Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:19:42.221Z] 
+[debug] [2020-09-13T16:19:42.228Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T16:19:42.229Z] > authorizing via signed-in user
+[debug] [2020-09-13T16:19:42.229Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T16:19:42.232Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T16:19:43.180Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:19:43 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=805","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:19:43.182Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T16:19:43.475Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:19:44 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:19:43.689Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T16:19:54.070Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:19:54.072Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --only hosting
+[debug] [2020-09-13T16:19:54.073Z] CLI Version:   8.10.0
+[debug] [2020-09-13T16:19:54.073Z] Platform:      win32
+[debug] [2020-09-13T16:19:54.073Z] Node Version:  v12.18.2
+[debug] [2020-09-13T16:19:54.074Z] Time:          Sun Sep 13 2020 19:19:54 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T16:19:54.075Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:19:54.075Z] 
+[debug] [2020-09-13T16:19:54.083Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T16:19:54.083Z] > authorizing via signed-in user
+[debug] [2020-09-13T16:19:54.084Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T16:19:54.087Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T16:19:55.115Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:19:55 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=754","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:19:55.116Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T16:19:55.366Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:19:55 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:19:55.539Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T16:22:40.714Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:22:40.717Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --only hosting
+[debug] [2020-09-13T16:22:40.717Z] CLI Version:   8.10.0
+[debug] [2020-09-13T16:22:40.717Z] Platform:      win32
+[debug] [2020-09-13T16:22:40.717Z] Node Version:  v12.18.2
+[debug] [2020-09-13T16:22:40.719Z] Time:          Sun Sep 13 2020 19:22:40 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T16:22:40.719Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:22:40.719Z] 
+[debug] [2020-09-13T16:22:40.726Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T16:22:40.727Z] > authorizing via signed-in user
+[debug] [2020-09-13T16:22:40.727Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T16:22:40.731Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T16:22:41.690Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:22:42 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=811","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:22:41.691Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T16:22:41.992Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:22:42 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:22:42.187Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at Command.<anonymous> (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:164:30)
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-09-13T16:23:20.965Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:23:20.967Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy -P staging --only hosting
+[debug] [2020-09-13T16:23:20.967Z] CLI Version:   8.10.0
+[debug] [2020-09-13T16:23:20.967Z] Platform:      win32
+[debug] [2020-09-13T16:23:20.968Z] Node Version:  v12.18.2
+[debug] [2020-09-13T16:23:20.969Z] Time:          Sun Sep 13 2020 19:23:20 GMT+0300 (GMT+03:00)
+[debug] [2020-09-13T16:23:20.969Z] ----------------------------------------------------------------------
+[debug] [2020-09-13T16:23:20.969Z] 
+[debug] [2020-09-13T16:23:20.977Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-13T16:23:20.977Z] > authorizing via signed-in user
+[debug] [2020-09-13T16:23:20.978Z] [iam] checking project ahmedeldessouki-portfolio for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-13T16:23:20.980Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ahmedeldessouki-portfolio:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-13T16:23:21.887Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:23:22 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=744","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:23:21.888Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ahmedeldessouki-portfolio  
+ 
+[debug] [2020-09-13T16:23:22.614Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 13 Sep 2020 16:23:23 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-13T16:23:22.938Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
     at validateString (internal/validators.js:120:11)
     at Object.join (path.js:375:7)
     at Object.checkFunctionsSDKVersion [as fn] (C:\Users\MobiTurk\AppData\Roaming\npm\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)

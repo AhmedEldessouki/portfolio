@@ -11,7 +11,6 @@ import { Carousel } from '../../Utils/Carousel'
 import ContactMe from '../ContactMe/ContactMe'
 
 const ProjectDetails = ({ project }) => {
-  console.log(project)
   window.scrollTo(0, 0)
 
   return (
