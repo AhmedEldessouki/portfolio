@@ -1,4 +1,4 @@
-export {globalStyles} from './globalStyles'
+export {globalStyles} from './GlobalStyles'
 export {colors, mq, weights} from './css-utils'
 export {
   wrapper,
