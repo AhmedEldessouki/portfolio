@@ -29,9 +29,9 @@
     "npm": ">=6"
   },
   "scripts": {
-    "dev": "cross-env REACT_APP_ENV=local react-scripts start",
-    "start": "cross-env REACT_APP_ENV=production serve -s build",
-    "build": "cross-env REACT_APP_ENV=production react-scripts build",
+    "dev": " react-scripts start",
+    "start": " serve -s build",
+    "build": " react-scripts build",
     "test": "react-scripts test",
     "format": "prettier --write \"**/*.+(js|json|css|md|mdx|html)\""
   },
