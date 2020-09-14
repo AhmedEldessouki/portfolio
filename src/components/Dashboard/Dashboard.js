@@ -1,4 +1,7 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable react/jsx-fragments */
+/** @jsx jsx */
+
 import {jsx} from '@emotion/core'
 import {Fragment} from 'react'
 import {connect} from 'react-redux'
@@ -6,10 +9,11 @@ import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
 
-import Layout from '../Layout'
-import Messages from './Messaging/Messages'
-import Projects from '../Home/Projects/Projects'
 import {spinner} from '../../Styles'
+import Projects from '../Home/Projects/Projects'
+import Layout from '../Layout'
+
+import Messages from './Messaging/Messages'
 
 const Dashboard = ({isSubmitting, auth, projectsData, messagesData}) => {
   return (
@@ -19,7 +23,7 @@ const Dashboard = ({isSubmitting, auth, projectsData, messagesData}) => {
       ) : (
         <Layout>
           {!isSubmitting ? (
-            <div css={spinner}></div>
+            <div css={spinner} />
           ) : (
             <Fragment>
               <Projects projectsData={projectsData} />

@@ -1,4 +1,5 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {GoMarkGithub} from 'react-icons/go'
 
@@ -105,14 +106,13 @@ const MyInfo = () => {
     <div css={container}>
       <img src={AhmedEldessouki} alt="profilePicture" />
       <p>
-        Welcome! I'm Ahmed Eldessouki. I'm 31 years old from Cairo, Egypt
-        currently living in <b>Istanbul, Turkey</b>. I looking for a new
-        opportunity as a<em> Front-End Developer</em>. I graduated from
-        University Of Wales. I worked at RoomMe as an entry level Front-End
-        Developer. I'm a very passionate about Front-End Developer. Always
-        developing myself. A strength of mine, is my ability to be observant of
-        small details and to stay up-to-date with the newest{' '}
-        <em>technologies and techniques</em>.
+        Welcome! I`m Ahmed Eldessouki. I`m 31 years old from Cairo, Egypt
+        currently living in Istanbul, Turkey. I looking for a new opportunity as
+        a Front-End Developer. I graduated from University Of Wales. I worked at
+        RoomMe as an entry level Front-End Developer. I`m a very passionate
+        about Front-End Developer. Always developing myself. A strength of mine,
+        is my ability to be observant of small details and to stay up-to-date
+        with the newest technologies and techniques.
       </p>
       <ul css={ulContainer}>
         <li>Ahmed ElDessouki</li>

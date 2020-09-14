@@ -1,11 +1,12 @@
+/* eslint-disable import/order */
 /** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {Component} from 'react'
 import {withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
 import {connect} from 'react-redux'
 
-import {contactedMe} from '../../../Store/Actions/ContactedMeActions'
 import {
   wrapper,
   colors,
@@ -17,6 +18,7 @@ import {
   textArea,
   h1XL,
 } from '../../../Styles'
+import {contactedMe} from '../../../Store/Actions/ContactedMeActions'
 
 const INIT_PROPS = {
   contactName: '',
@@ -53,7 +55,7 @@ class MyContactMe extends Component {
         `}
       >
         <h1 css={h1XL}>Contact Me</h1>
-        <Form id={'ContactMe'} css={wrapper}>
+        <Form id="ContactMe" css={wrapper}>
           <section>
             <label css={labelWrapper} htmlFor="contactName">
               <Field
@@ -111,7 +113,7 @@ class MyContactMe extends Component {
                 width: 100%;
               `}
             >
-              <div css={spinner}></div>
+              <div css={spinner} />
             </div>
           ) : (
             <button type="submit" disabled={isSubmitting} css={btnStyle}>

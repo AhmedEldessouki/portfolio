@@ -1,12 +1,15 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-fragments */
+/** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {useState, Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
+import {connect} from 'react-redux'
+
 import {deleteProject} from '../../Store/Actions/ProjectsActions'
 import {deleteMessage} from '../../Store/Actions/ContactedMeActions'
 import {deleteNotification} from '../../Store/Actions/NotificationActions'
-import {connect} from 'react-redux'
-
 import {colors, weights} from '../../Styles'
 
 function PopUp({project, deleteProject, contact, deleteMessage, title}) {
@@ -87,6 +90,7 @@ function PopUp({project, deleteProject, contact, deleteMessage, title}) {
     <Fragment>
       <button
         css={btnTrash}
+        type="button"
         onClick={() => [setShow(!show), console.log('clicked')]}
       >
         <GoTrashcan />
@@ -96,12 +100,16 @@ function PopUp({project, deleteProject, contact, deleteMessage, title}) {
           <header>
             <h1>Warning</h1>
           </header>
-          <h2>Do you want to delete this {title}</h2>
+          <h2>
+            Do you want to delete this
+            {title}
+          </h2>
           <footer>
-            <button css={btn} onClick={() => setShow(!show)}>
+            <button type="button" css={btn} onClick={() => setShow(!show)}>
               Nah!
             </button>
             <button
+              type="button"
               css={[
                 btn,
                 css`

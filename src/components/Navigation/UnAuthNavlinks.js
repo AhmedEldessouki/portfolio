@@ -1,4 +1,5 @@
-/**@jsx jsx */
+/** @jsx jsx */
+// eslint-disable-next-line import/order
 import {jsx, css} from '@emotion/core'
 
 import my from '../../assets/my.svg'
@@ -20,7 +21,7 @@ const UnAuthNavlinks = () => {
   `
   return (
     <div css={container}>
-      <img src={my} alt={'Ahmed Eldessouki'} css={imgg} />
+      <img src={my} alt="Ahmed Eldessouki" css={imgg} />
     </div>
   )
 }

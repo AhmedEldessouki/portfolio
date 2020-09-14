@@ -2,7 +2,7 @@ import {toast} from 'react-toastify'
 
 export const contactedMe = contact => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    //make async call to the db
+    // make async call to the db
     const firestore = getFirestore()
     firestore
       .collection('contactedMe')
@@ -26,7 +26,7 @@ export const contactedMe = contact => {
 
 export const deleteMessage = contact => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    //make async call to the db
+    // make async call to the db
     const firestore = getFirestore()
     console.log('message actions....:', contact)
     firestore

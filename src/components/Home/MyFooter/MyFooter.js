@@ -1,4 +1,6 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {
   FaLinkedin,
@@ -8,6 +10,7 @@ import {
 } from 'react-icons/fa'
 import {VscTwitter, VscGithub} from 'react-icons/vsc'
 import {GrReactjs} from 'react-icons/gr'
+
 import {colors, mq, weights} from '../../../Styles'
 
 const MyFooter = () => {

@@ -1,4 +1,6 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable no-shadow */
+/** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
@@ -38,7 +40,7 @@ const AuthNavlinks = ({signOut}) => {
   return (
     <div css={nav}>
       <NavLink
-        to={'/'}
+        to="/"
         exact
         activeStyle={{
           backgroundColor: colors.independenceBlue,
@@ -47,12 +49,12 @@ const AuthNavlinks = ({signOut}) => {
       >
         <img
           src={my}
-          alt={'Ahmed ElDessouki'}
+          alt="Ahmed ElDessouki"
           style={{width: '150px', padding: '0'}}
         />
       </NavLink>
       <NavLink
-        to={'/dashboard'}
+        to="/dashboard"
         exact
         activeStyle={{
           backgroundColor: colors.independenceBlue,
@@ -62,7 +64,7 @@ const AuthNavlinks = ({signOut}) => {
         DashBoard
       </NavLink>
       <NavLink
-        to={'/create-project'}
+        to="/create-project"
         exact
         activeStyle={{
           backgroundColor: colors.independenceBlue,
@@ -72,7 +74,7 @@ const AuthNavlinks = ({signOut}) => {
         Create Project
       </NavLink>
       <NavLink
-        to={'/signup'}
+        to="/signup"
         exact
         activeStyle={{
           backgroundColor: colors.independenceBlue,
@@ -81,7 +83,7 @@ const AuthNavlinks = ({signOut}) => {
       >
         SignUp
       </NavLink>
-      <NavLink onClick={signOut} to={'/'}>
+      <NavLink onClick={signOut} to="/">
         SignOut
       </NavLink>
     </div>

@@ -1,8 +1,9 @@
 import {toast} from 'react-toastify'
 
+// eslint-disable-next-line import/prefer-default-export
 export const deleteNotification = notification => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    //make async call to the db
+    // make async call to the db
     const firestore = getFirestore()
     console.log('notification actions....:', notification)
     firestore

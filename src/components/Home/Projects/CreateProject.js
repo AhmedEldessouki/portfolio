@@ -1,4 +1,9 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {useState} from 'react'
 import {connect} from 'react-redux'
@@ -10,15 +15,7 @@ import * as Yup from 'yup'
 import {toast} from 'react-toastify'
 import {Image} from 'cloudinary-react'
 
-import {
-  createProject,
-  updateProject,
-} from '../../../Store/Actions/ProjectsActions'
-import {
-  CLOUDINARY_API_KEY,
-  CLOUDINARY_UPLOAD_PRESET,
-  CLOUDINARY_UPLOAD_URL,
-} from '../../../Config/CloudInary'
+import Layout from '../../Layout'
 import {
   btnStyle,
   colors,
@@ -31,8 +28,15 @@ import {
   textArea,
   warning,
 } from '../../../Styles'
-
-import Layout from '../../Layout'
+import {
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_UPLOAD_PRESET,
+  CLOUDINARY_UPLOAD_URL,
+} from '../../../Config/CloudInary'
+import {
+  createProject,
+  updateProject,
+} from '../../../Store/Actions/ProjectsActions'
 
 const INIT_PROPS = {
   projectName: '',
@@ -56,7 +60,7 @@ function MyCreateProject({
   const [imageDropArray, setImageDropArray] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
-  let urls = []
+  const urls = []
   function handleDrop(acceptedFiles, rejectedFiles) {
     setIsLoading(true)
 
@@ -66,6 +70,7 @@ function MyCreateProject({
         // TODO: make Tag = projectName
         // TODO: fix urls array (1 then 3 = 3)
         let formData
+        // eslint-disable-next-line prefer-const
         formData = new FormData()
         formData.append('file', acceptedFiles[0])
         formData.append('tags', `project imaged`)
@@ -99,6 +104,7 @@ function MyCreateProject({
           // TODO: remove it from here and execute onSubmit
           // TODO: make Tag = projectName
           let formData
+          // eslint-disable-next-line prefer-const
           formData = new FormData()
           formData.append('file', file)
           formData.append('tags', `project imaged`)
@@ -143,8 +149,11 @@ function MyCreateProject({
         <Redirect to="/signin" />
       ) : (
         <div className="CreateProject">
-          <h1>{project ? `Update` : `Create`} Project</h1>
-          {isLoading || isSubmitting ? <div css={spinner}></div> : null}
+          <h1>
+            {project ? `Update` : `Create`}
+            Project
+          </h1>
+          {isLoading || isSubmitting ? <div css={spinner} /> : null}
           <div
             css={css`
               display: grid;
@@ -158,7 +167,7 @@ function MyCreateProject({
           >
             <div>
               {imageDropArray.map((link, ky) => (
-                <Image alt="" crop={'lpad'} width={200} key={ky} src={link} />
+                <Image alt="" crop="lpad" width={200} key={link} src={link} />
               ))}
             </div>
             <Form id="createProject" css={signWrapper}>
@@ -285,8 +294,8 @@ const ContactMeSchema = withFormik({
   displayName: 'createProject',
 })
 const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.id
-  const projects = state.firestore.data.projects
+  const {id} = ownProps.match.params
+  const {projects} = state.firestore.data
   const project = projects ? projects[id] : null
   return {
     auth: state.firebase.auth,

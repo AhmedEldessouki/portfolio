@@ -1,10 +1,13 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable react/jsx-fragments */
+/** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
-
-import PopUp from '../../PopUp/PopUp'
 import {NavLink} from 'react-router-dom'
+
 import {colors, h1XL} from '../../../Styles'
+import PopUp from '../../PopUp/PopUp'
 
 function MessagesSummary({contact, to, id}) {
   const messagesSummary = css`
@@ -50,7 +53,7 @@ function MessagesSummary({contact, to, id}) {
           <h2 css={h1XL}>{contact.contactName}</h2>
         </NavLink>
         <div css={childB}>
-          <PopUp contact={contact} title={'Message'} />
+          <PopUp contact={contact} title="Message" />
         </div>
         <p css={childP}>{contact.description}</p>
         <span css={childD}>{contact.sentAt.toDate().toDateString()}</span>

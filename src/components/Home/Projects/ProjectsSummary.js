@@ -1,13 +1,17 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-fragments */
+/** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
-import {deleteProject} from '../../../Store/Actions/ProjectsActions'
-import {colors, weights} from '../../../Styles'
 import PopUp from '../../PopUp/PopUp'
+import {colors, weights} from '../../../Styles'
+import {deleteProject} from '../../../Store/Actions/ProjectsActions'
 
 const ProjectsSummary = ({project, auth, ...props}) => {
   const pWrapper = css`
@@ -39,7 +43,7 @@ const ProjectsSummary = ({project, auth, ...props}) => {
           <NavLink to={`/edit/${project.id}`} key={project}>
             <FaPen />
           </NavLink>
-          <PopUp project={project} title={'Project'} />
+          <PopUp project={project} title="Project" />
         </Fragment>
       ) : null}
       <NavLink to={props.to} key={props.key}>

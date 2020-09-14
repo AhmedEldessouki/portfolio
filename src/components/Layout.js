@@ -1,13 +1,17 @@
+/* eslint-disable import/order */
 import React, {useState, useEffect} from 'react'
 import {Global} from '@emotion/core'
 import {compose} from 'redux'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
-import '../Styles/layout.css'
+
 import {globalStyles} from '../Styles'
+
+import UnAuthNavlinks from './Navigation/UnAuthNavlinks'
 import MyFooter from './Home/MyFooter/MyFooter'
 import AuthNavlinks from './Navigation/AuthNavlinks'
-import UnAuthNavlinks from './Navigation/UnAuthNavlinks'
+
+import '../Styles/layout.css'
 
 function Layout({children, auth, profile}) {
   const [links, setLinks] = useState(null)

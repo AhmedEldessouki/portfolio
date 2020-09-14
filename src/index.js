@@ -1,13 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import * as serviceWorker from './serviceWorker'
 import {createStore, applyMiddleware, compose} from 'redux'
-import RootReducer from './Store/Reducer/RootReducer'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import {reduxFirestore, getFirestore} from 'redux-firestore'
 import {reactReduxFirebase, getFirebase} from 'react-redux-firebase'
+
+import RootReducer from './Store/Reducer/RootReducer'
+import * as serviceWorker from './serviceWorker'
+import App from './App'
 import firebaseConfig from './Config/FirebaseConfig'
 
 const store = createStore(

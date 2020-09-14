@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-fragments */
+/* eslint-disable react/prop-types */
+/* eslint-disable import/order */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
@@ -5,6 +8,7 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
+
 import Layout from '../../Layout'
 import {h1XL, colors, mq, spinner} from '../../../Styles'
 
@@ -67,7 +71,6 @@ function MessageDetails({message, auth}) {
       font-size: 117%;
     }
   `
-  console.log(message)
   return (
     <Layout>
       {message ? (
@@ -75,7 +78,10 @@ function MessageDetails({message, auth}) {
           <div css={container}>
             <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
             <div css={phoneAndEmailWrapper}>
-              <h2>Phone Number: {message.phoneNumber}</h2>
+              <h2>
+                Phone Number:
+                {message.phoneNumber}
+              </h2>
               <h2>
                 Email: <a href={`mailto:${message.email}`}>{message.email}</a>
               </h2>
@@ -88,7 +94,7 @@ function MessageDetails({message, auth}) {
         </Fragment>
       ) : (
         <Fragment>
-          {auth.uid ? <div css={spinner}></div> : <Redirect to="/signin" />}
+          {auth.uid ? <div css={spinner} /> : <Redirect to="/signin" />}
         </Fragment>
       )}
     </Layout>
@@ -96,8 +102,8 @@ function MessageDetails({message, auth}) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.id
-  const contactedMe = state.firestore.data.contactedMe
+  const {id} = ownProps.match.params
+  const {contactedMe} = state.firestore.data
   const message = contactedMe ? contactedMe[id] : null
 
   return {

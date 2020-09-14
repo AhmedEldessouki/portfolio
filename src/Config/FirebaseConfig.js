@@ -2,7 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
-var config = {
+
+const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'ahmedeldessouki-a7488.firebaseapp.com',
   databaseURL: process.env.REACT_APP_DB_URL,
