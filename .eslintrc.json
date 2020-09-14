@@ -1,6 +1,6 @@
 {
   "settings": {
-    "eslint.packageManager": "yarn"
+    "eslint.packageManager": "npm"
   },
   "parser": "babel-eslint",
   "env": {
