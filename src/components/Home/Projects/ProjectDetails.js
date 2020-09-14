@@ -1,17 +1,19 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable react/jsx-fragments */
+/** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 
-import {colors, spinner} from '../../../Styles'
-import Layout from '../../Layout'
-import {Carousel} from '../../Utils/Carousel'
 import ContactMe from '../ContactMe/ContactMe'
+import {Carousel} from '../../Utils/Carousel'
+import Layout from '../../Layout'
+import {colors, spinner} from '../../../Styles'
 
 const ProjectDetails = ({project}) => {
-  console.log(project)
   window.scrollTo(0, 0)
 
   return (
@@ -73,15 +75,15 @@ const ProjectDetails = ({project}) => {
           <ContactMe />
         </Fragment>
       ) : (
-        <div css={spinner}></div>
+        <div css={spinner} />
       )}
     </Layout>
   )
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.id
-  const projects = state.firestore.data.projects
+  const {id} = ownProps.match.params
+  const {projects} = state.firestore.data
   const project = projects ? projects[id] : null
   return {
     project,

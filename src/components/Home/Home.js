@@ -1,11 +1,13 @@
+/* eslint-disable import/order */
 import React from 'react'
-import About from './About/About'
-import Projects from './Projects/Projects'
-import ContactMe from './ContactMe/ContactMe'
 import ScrollUpButton from 'react-scroll-up-button'
 import {connect} from 'react-redux'
 
 import Layout from '../Layout'
+
+import About from './About/About'
+import Projects from './Projects/Projects'
+import ContactMe from './ContactMe/ContactMe'
 
 function Home({projectsData}) {
   return (

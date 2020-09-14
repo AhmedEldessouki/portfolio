@@ -1,9 +1,14 @@
-/**@jsx jsx */
+/* eslint-disable react/jsx-fragments */
+/** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {Fragment, useState} from 'react'
 import {Image} from 'cloudinary-react'
+
+// eslint-disable-next-line import/order
 import {colors, mq} from '../../../Styles'
 
+// eslint-disable-next-line import/prefer-default-export
 export function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = useState(0)
 
@@ -95,7 +100,7 @@ export function Carousel({imgArray, imgAlt}) {
             onClick={() =>
               currentImage !== 0 ? setCurrentImage(currentImage - 1) : null
             }
-            disabled={currentImage === 0 ? true : false}
+            disabled={currentImage === 0}
           >
             {'<'}
           </button>
@@ -121,7 +126,9 @@ export function Carousel({imgArray, imgAlt}) {
             `}
           >
             {imgArray.map((data, forKC) => (
+              // eslint-disable-next-line jsx-a11y/control-has-associated-label
               <button
+                // eslint-disable-next-line react/no-array-index-key
                 key={forKC}
                 type="button"
                 onClick={() => setCurrentImage(forKC)}
@@ -134,7 +141,7 @@ export function Carousel({imgArray, imgAlt}) {
                       `
                     : null,
                 ]}
-              ></button>
+              />
             ))}
           </section>
           <button
@@ -148,7 +155,7 @@ export function Carousel({imgArray, imgAlt}) {
                 ? setCurrentImage(currentImage + 1)
                 : null
             }
-            disabled={currentImage === imgArray.length - 1 ? true : false}
+            disabled={currentImage === imgArray.length - 1}
           >
             {'>'}
           </button>

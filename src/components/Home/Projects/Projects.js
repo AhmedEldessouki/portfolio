@@ -1,8 +1,11 @@
-/**@jsx jsx */
+/* eslint-disable import/order */
+/* eslint-disable react/jsx-fragments */
+/** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
 
 import {h1XL} from '../../../Styles'
+
 import ProjectsSummary from './ProjectsSummary'
 
 const Projects = ({projectsData}) => {

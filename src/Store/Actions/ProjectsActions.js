@@ -2,9 +2,9 @@ import {toast} from 'react-toastify'
 
 export const createProject = project => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    //make async call to the db
+    // make async call to the db
     const firestore = getFirestore()
-    const profile = getState().firebase.profile
+    const {profile} = getState().firebase
     const authorId = getState().firebase.auth.uid
     firestore
       .collection('projects')
@@ -15,7 +15,7 @@ export const createProject = project => {
         projectLogo: [...project.projectLogos],
         authorFirstName: profile.firstName,
         authorLastName: profile.lastName,
-        authorId: authorId,
+        authorId,
         createdAt: new Date(),
       })
       .then(() => {
@@ -30,7 +30,7 @@ export const createProject = project => {
 }
 export const updateProject = project => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    //make async call to the db
+    // make async call to the db
     const firestore = getFirestore()
     console.log('project actions....:', project)
     firestore
@@ -64,7 +64,7 @@ export const updateProject = project => {
 
 export const deleteProject = project => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    //make async call to the db
+    // make async call to the db
     const firestore = getFirestore()
     console.log('project actions....:', project)
     firestore

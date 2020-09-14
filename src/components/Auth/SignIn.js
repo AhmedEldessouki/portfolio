@@ -1,11 +1,14 @@
+/* eslint-disable import/order */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
+
 import {jsx, css} from '@emotion/core'
 import {useState, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
-import {signIn} from '../../Store/Actions/AuthActions'
-import Layout from '../Layout'
 import {
   signWrapper,
   labelWrapper,
@@ -13,11 +16,10 @@ import {
   h1XL,
   btnStyle,
 } from '../../Styles'
+import {signIn} from '../../Store/Actions/AuthActions'
+import Layout from '../Layout'
 
 const SignIn = ({signIn, auth, authError}) => {
-  const email = useFormInput('')
-  const password = useFormInput('')
-
   function useFormInput(initialValue) {
     const [value, setValue] = useState(initialValue)
     const handleChange = e => {
@@ -25,6 +27,10 @@ const SignIn = ({signIn, auth, authError}) => {
     }
     return {value, onChange: handleChange}
   }
+
+  const email = useFormInput('')
+  const password = useFormInput('')
+
   const handleSubmit = e => {
     e.preventDefault()
     const signInValues = {
