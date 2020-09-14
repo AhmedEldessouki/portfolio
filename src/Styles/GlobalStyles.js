@@ -1,8 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 // Global CSS Styles
-import {css} from '@emotion/core'
 
 import {colors, mq, weights} from './css-utils'
+
+import {css} from '@emotion/core'
 
 export const globalStyles = css`
   /*

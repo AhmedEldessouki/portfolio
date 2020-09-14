@@ -1,6 +1,6 @@
 {
   "git.ignoreLimitWarning": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc",
   "editor.formatOnSave": true,
   "cSpell.words": [
     "Merienda",
