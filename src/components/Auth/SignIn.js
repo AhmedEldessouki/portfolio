@@ -1,6 +1,4 @@
 /* eslint-disable import/order */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-shadow */
 /* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
@@ -19,23 +17,16 @@ import {
 import {signIn} from '../../Store/Actions/AuthActions'
 import Layout from '../Layout'
 
+// eslint-disable-next-line no-shadow
 const SignIn = ({signIn, auth, authError}) => {
-  function useFormInput(initialValue) {
-    const [value, setValue] = useState(initialValue)
-    const handleChange = e => {
-      setValue(e.target.value)
-    }
-    return {value, onChange: handleChange}
-  }
-
-  const email = useFormInput('')
-  const password = useFormInput('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
     const signInValues = {
-      email: email.value,
-      password: password.value,
+      email,
+      password,
     }
     signIn(signInValues)
   }
@@ -61,16 +52,24 @@ const SignIn = ({signIn, auth, authError}) => {
                     type="email"
                     id="email"
                     placeholder="Email"
-                    {...email}
+                    name="email"
+                    value={email}
+                    required
+                    onChange={e => setEmail(e.target.value)}
                   />
                 </label>
                 <label css={labelWrapper} htmlFor="password">
                   <input
                     css={signWrapperInput}
-                    {...password}
                     type="password"
+                    name="password"
                     id="password"
+                    value={password}
+                    minLength={6}
+                    maxLength={20}
+                    required
                     placeholder="Password"
+                    onChange={e => setPassword(e.target.value)}
                   />
                 </label>
               </div>
