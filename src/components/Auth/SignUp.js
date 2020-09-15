@@ -46,7 +46,7 @@ function SignUp({auth, authError, signUp}) {
     e.preventDefault()
     setIsSubmitting(true)
     const arr = {firstName, lastName, email, password, confirmPassword}
-    const err = await signUp(arr)
+    await signUp(arr)
     setIsSubmitting(false)
   }
 

@@ -2,7 +2,6 @@ import {toast} from 'react-toastify'
 
 export const createProject = project => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    // make async call to the db
     const firestore = getFirestore()
     const {profile} = getState().firebase
     const authorId = getState().firebase.auth.uid
@@ -30,12 +29,11 @@ export const createProject = project => {
 }
 export const updateProject = project => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    // make async call to the db
+    // TODO: fix image update
     const firestore = getFirestore()
-    console.log('project actions....:', project)
     firestore
       .collection('projects')
-      .doc(`${project.match.params.id}`)
+      .doc(`${project.id}`)
       .update({
         projectName: project.projectName
           ? project.projectName
@@ -43,9 +41,9 @@ export const updateProject = project => {
         projectLink: project.projectLink
           ? project.projectLink
           : project.project.projectLink,
-        projectLogo: project.projectLogos
-          ? [...project.projectLogos]
-          : [...project.project.projectLogo],
+        // projectLogo: project.projectLogos
+        //   ? [...project.projectLogos]
+        //   : [...project.project.projectLogo],
         description: project.description
           ? project.description
           : project.project.description,
@@ -64,9 +62,7 @@ export const updateProject = project => {
 
 export const deleteProject = project => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    // make async call to the db
     const firestore = getFirestore()
-    console.log('project actions....:', project)
     firestore
       .collection('projects')
       .doc(`${project.id}`)
