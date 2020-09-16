@@ -286,29 +286,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
     </Layout>
   )
 }
-// const ContactMeSchema = withFormik({
-//   validationSchema: Yup.object().shape({
-//     projectName: Yup.string(),
-//     // .required('Required'),
-//     description: Yup.string(),
-//   }),
-//   enableReinitialize: true,
-//   mapPropsToValues: props => ({
-//     ...props,
-//   }),
-//   mapValuesToPayload: x => x,
-//   handleSubmit: (values, bag) => {
-//     setTimeout(() => {
-//       values.project
-//         ? values.updateProject(values)
-//         : values.createProject(values)
 
-//       bag.setSubmitting(false)
-//       values.history.push('/dashboard')
-//     }, 2000)
-//   },
-//   displayName: 'createProject',
-// })
 const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps.match.params
   const {projects} = state.firestore.data
