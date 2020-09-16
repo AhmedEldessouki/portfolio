@@ -1,17 +1,12 @@
-/* eslint-disable import/order */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-shadow */
 /** @jsx jsx */
-
 import {jsx, css} from '@emotion/core'
-import {useState} from 'react'
+import {useLayoutEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import Dropzone from 'react-dropzone'
-import {withFormik, Form, Field} from 'formik'
-import * as Yup from 'yup'
 import {toast} from 'react-toastify'
 import {Image} from 'cloudinary-react'
 
@@ -26,7 +21,6 @@ import {
   signWrapperInput,
   spinner,
   textArea,
-  warning,
 } from '../../../Styles'
 import {
   CLOUDINARY_API_KEY,
@@ -38,29 +32,28 @@ import {
   updateProject,
 } from '../../../Store/Actions/ProjectsActions'
 
-const INIT_PROPS = {
-  projectName: '',
-  projectLink: '',
-  description: '',
-}
-
-function MyCreateProject({
-  errors,
-  touched,
-  isSubmitting,
-  auth,
-  project,
-  handleChange,
-  projectName,
-  description,
-  projectLink,
-  setValues,
-  values,
-}) {
-  const [imageDropArray, setImageDropArray] = useState([])
+function CreateProject({auth, project, updateProject, createProject, match}) {
+  const [projectLogos, setProjectLogos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [projectName, setProjectName] = useState('')
+  const [projectLink, setProjectLink] = useState('')
+  const [description, setDescription] = useState('')
   const urls = []
+
+  useLayoutEffect(() => {
+    if (project) {
+      setProjectName(project.projectName)
+      setDescription(project.description)
+      setProjectLink(project.projectLink)
+    }
+    return () => {
+      setProjectName('')
+      setDescription('')
+      setProjectLink('')
+    }
+  }, [project])
+
   function handleDrop(acceptedFiles, rejectedFiles) {
     setIsLoading(true)
 
@@ -83,11 +76,7 @@ function MyCreateProject({
           })
           .then(response => {
             urls.push(response.data.secure_url)
-            setImageDropArray([...imageDropArray, ...urls])
-            setValues({
-              ...values,
-              projectLogos: urls,
-            })
+            setProjectLogos([...projectLogos, ...urls])
             setIsLoading(false)
 
             toast.success(`Upload Successful`)
@@ -99,7 +88,7 @@ function MyCreateProject({
           })
       }
     } else if (acceptedFiles && acceptedFiles.length > 1) {
-      const uploaders = acceptedFiles.map((file, i) => {
+      acceptedFiles.map((file, i) => {
         if (acceptedFiles[i].size < 8000000) {
           // TODO: remove it from here and execute onSubmit
           // TODO: make Tag = projectName
@@ -117,20 +106,13 @@ function MyCreateProject({
             })
             .then(response => {
               urls.push(response.data.secure_url)
-              setImageDropArray([...imageDropArray, ...urls])
-
-              setValues({
-                ...values,
-                projectLogos: urls,
-              })
-
+              setProjectLogos([...projectLogos, ...urls])
               setIsLoading(false)
               toast.success(`Upload Successful`)
             })
             .catch(err => {
               toast.error('Upload Failed!')
               setIsLoading(false)
-
               console.error(err)
             })
         }
@@ -143,17 +125,40 @@ function MyCreateProject({
       }
     }
   }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    if (project) {
+      const arr = {
+        id: match.params.id,
+        projectName,
+        projectLink,
+        description,
+        projectLogos,
+      }
+      await updateProject(arr)
+    } else {
+      const arr = {
+        id: match.params.id,
+        projectName,
+        projectLink,
+        description,
+        projectLogos,
+      }
+      await createProject(arr)
+    }
+
+    setIsSubmitting(false)
+  }
+
   return (
     <Layout>
       {!auth.uid ? (
         <Redirect to="/signin" />
       ) : (
         <div className="CreateProject">
-          <h1>
-            {project ? `Update` : `Create`}
-            Project
-          </h1>
-          {isLoading || isSubmitting ? <div css={spinner} /> : null}
+          <h1>{project ? `Edit` : `Create`} Project</h1>
           <div
             css={css`
               display: grid;
@@ -166,11 +171,11 @@ function MyCreateProject({
             `}
           >
             <div>
-              {imageDropArray.map((link, ky) => (
+              {projectLogos.map((link, ky) => (
                 <Image alt="" crop="lpad" width={200} key={link} src={link} />
               ))}
             </div>
-            <Form id="createProject" css={signWrapper}>
+            <form id="createProject" css={signWrapper} onSubmit={handleSubmit}>
               <Dropzone
                 onDrop={handleDrop}
                 accept="image/*"
@@ -220,24 +225,26 @@ function MyCreateProject({
                 )}
               </Dropzone>
               <label htmlFor="projectName" css={labelWrapper}>
-                <Field
-                  type="text"
+                <input
+                  onChange={e => setProjectName(e.target.value)}
                   css={signWrapperInput}
-                  placeholder={project ? project.projectName : 'Project Name'}
-                  value={projectName}
-                  name="projectName"
                   id="projectName"
+                  name="projectName"
+                  value={projectName}
+                  placeholder="Name"
+                  required
+                  minLength={3}
+                  maxLength={15}
                 />
               </label>
-              {errors.projectName && touched.projectName ? (
-                <span css={warning}>{errors.projectName}</span>
-              ) : null}
               <label htmlFor="projectLink" css={labelWrapper}>
-                <Field
+                <input
                   type="url"
                   css={signWrapperInput}
+                  required
                   value={projectLink}
                   placeholder={project ? project.projectLink : 'Project Link'}
+                  onChange={e => setProjectLink(e.target.value)}
                   name="projectLink"
                   id="projectLink"
                 />
@@ -255,44 +262,31 @@ function MyCreateProject({
                   }
                   name="description"
                   value={description}
-                  onChange={handleChange}
+                  onChange={e => setDescription(e.target.value)}
                   id="description"
                   required
                 />
               </label>
-              <button type="submit" css={btnStyle} disabled={isSubmitting}>
-                {project ? 'Edit' : 'Create'} Project
-              </button>
-            </Form>
+              {isLoading || isSubmitting ? (
+                <div css={spinner} />
+              ) : (
+                <button
+                  type="submit"
+                  css={btnStyle}
+                  onSubmit={handleSubmit}
+                  disabled={isSubmitting}
+                >
+                  {project ? 'Edit' : 'Create'} Project
+                </button>
+              )}
+            </form>
           </div>
         </div>
       )}
     </Layout>
   )
 }
-const ContactMeSchema = withFormik({
-  validationSchema: Yup.object().shape({
-    projectName: Yup.string(),
-    // .required('Required'),
-    description: Yup.string(),
-  }),
-  enableReinitialize: true,
-  mapPropsToValues: props => ({
-    ...props,
-  }),
-  mapValuesToPayload: x => x,
-  handleSubmit: (values, bag) => {
-    setTimeout(() => {
-      values.project
-        ? values.updateProject(values)
-        : values.createProject(values)
 
-      bag.setSubmitting(false)
-      values.history.push('/dashboard')
-    }, 2000)
-  },
-  displayName: 'createProject',
-})
 const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps.match.params
   const {projects} = state.firestore.data
@@ -308,5 +302,4 @@ const mapDispatchToProps = dispatch => {
     updateProject: project => dispatch(updateProject(project)),
   }
 }
-const CreateProject = ContactMeSchema(MyCreateProject)
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)

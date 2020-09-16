@@ -272,4 +272,8 @@ export const globalStyles = css`
     padding: 0;
     white-space: normal;
   }
+
+  button:disabled {
+    opacity: 0.2;
+  }
 `

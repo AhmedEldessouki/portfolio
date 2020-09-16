@@ -3,9 +3,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
-import {withFormik, Form, Field} from 'formik'
-import * as Yup from 'yup'
+import {Fragment, useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
@@ -21,26 +19,37 @@ import {
 } from '../../Styles'
 import {signUp} from '../../Store/Actions/AuthActions'
 
-const INIT_PROPS = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-}
-function FormikSignUp({
-  errors,
-  touched,
-  isSubmitting,
-  authError,
-  auth,
-  handleSubmit,
-  firstName,
-  lastName,
-  email,
-  password,
-  confirmPassword,
-}) {
+// eslint-disable-next-line no-shadow
+function SignUp({auth, authError, signUp}) {
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [passError, setPassError] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    if (
+      password.length >= 6 &&
+      confirmPassword.length >= 6 &&
+      password !== confirmPassword
+    ) {
+      setPassError(true)
+    }
+    return () => {
+      setPassError(false)
+    }
+  }, [password, confirmPassword])
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    const arr = {firstName, lastName, email, password, confirmPassword}
+    await signUp(arr)
+    setIsSubmitting(false)
+  }
+
   return (
     <Fragment>
       {!auth.uid ? (
@@ -55,72 +64,80 @@ function FormikSignUp({
               place-content: center;
             `}
           >
-            <Form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
+            <form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
               <label htmlFor="firstName" css={labelWrapper}>
                 <input
+                  onChange={e => setFirstName(e.target.value)}
                   css={signWrapperInput}
                   id="firstName"
                   name="firstName"
                   value={firstName}
                   placeholder="First Name"
+                  required
+                  minLength={3}
+                  maxLength={15}
                 />
-                {errors.firstName && touched.firstName ? (
-                  <span css={warning}>{errors.firstName}</span>
-                ) : null}
               </label>
               <label css={labelWrapper} htmlFor="lastName">
-                <Field
+                <input
+                  onChange={e => setLastName(e.target.value)}
                   css={signWrapperInput}
                   name="lastName"
                   value={lastName}
+                  required
+                  minLength={3}
+                  maxLength={15}
                   id="lastName"
                   placeholder="Last Name"
                 />
-                {errors.lastName && touched.lastName ? (
-                  <span css={warning}>{errors.lastName}</span>
-                ) : null}
               </label>
               <label css={labelWrapper} htmlFor="email">
-                <Field
+                <input
+                  onChange={e => setEmail(e.target.value)}
                   css={signWrapperInput}
                   name="email"
                   id="email"
                   type="email"
+                  required
                   value={email}
+                  maxLength={50}
                   placeholder="Email Address"
                 />
-                {errors.email && touched.email ? (
-                  <span css={warning}>{errors.email}</span>
-                ) : null}
               </label>
 
               <label css={labelWrapper} htmlFor="password">
-                <Field
+                <input
+                  onChange={e => setPassword(e.target.value)}
                   css={signWrapperInput}
                   name="password"
                   id="password"
                   type="password"
                   value={password}
                   placeholder="Enter Password"
+                  minLength={6}
+                  maxLength={20}
+                  required
                 />
-                {errors.password && touched.password ? (
-                  <span css={warning}>{errors.password}</span>
-                ) : null}
               </label>
               <label css={labelWrapper} htmlFor="confirmPassword">
-                <Field
+                <input
+                  onChange={e => setConfirmPassword(e.target.value)}
                   css={signWrapperInput}
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
                   value={confirmPassword}
                   placeholder="Re-Enter Password"
+                  minLength={6}
+                  maxLength={20}
+                  required
                 />
-                {errors.confirmPassword && touched.confirmPassword ? (
-                  <span css={warning}>{errors.confirmPassword}</span>
+                {passError ? (
+                  <span css={warning}>Password Don&apos;t Match</span>
                 ) : null}
               </label>
               {authError ? <div css={warning}>{authError}</div> : null}
+
               {isSubmitting ? (
                 <div
                   css={css`
@@ -130,54 +147,21 @@ function FormikSignUp({
                   <div css={spinner} />
                 </div>
               ) : (
-                <button type="submit" disabled={isSubmitting} css={btnStyle}>
+                <button
+                  type="submit"
+                  disabled={isSubmitting || passError}
+                  css={btnStyle}
+                >
                   Submit
                 </button>
               )}
-            </Form>
+            </form>
           </div>
         </Layout>
       )}
     </Fragment>
   )
 }
-
-const SignupSchema = withFormik({
-  validationSchema: Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
-    lastName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().min(6, 'Too Short!').required('Required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], "Passwords don't match")
-      .required('Confirm Password is required'),
-  }),
-  mapPropsToValues: props => ({
-    ...props,
-  }),
-  mapValuesToPayload: x => x,
-  handleSubmit: (values, bag) => {
-    setTimeout(() => {
-      if (values.firstName === 'admin') {
-        bag.setErrors({firstName: 'Nice try!'})
-      } else if (values.lastName === 'admin') {
-        bag.setErrors({lastName: 'Nice try!'})
-      } else {
-        values.signUp(values)
-        document.getElementById('sign-up').reset()
-        bag.resetForm()
-      }
-      bag.setSubmitting(false)
-    }, 2000)
-  },
-  displayName: 'SignUp',
-})
 
 const mapStateToProps = state => {
   return {
@@ -190,5 +174,4 @@ const mapDispatchToProps = dispatch => {
     signUp: values => dispatch(signUp(values)),
   }
 }
-const SignUp = SignupSchema(FormikSignUp)
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
