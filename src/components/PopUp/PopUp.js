@@ -9,7 +9,6 @@ import {connect} from 'react-redux'
 
 import {deleteProject} from '../../Store/Actions/ProjectsActions'
 import {deleteMessage} from '../../Store/Actions/ContactedMeActions'
-import {deleteNotification} from '../../Store/Actions/NotificationActions'
 import {colors, weights} from '../../Styles'
 
 function PopUp({project, deleteProject, contact, deleteMessage, title}) {
@@ -133,8 +132,6 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteProject: project => dispatch(deleteProject(project)),
     deleteMessage: contact => dispatch(deleteMessage(contact)),
-    deleteNotification: notification =>
-      dispatch(deleteNotification(notification)),
   }
 }
 export default connect(null, mapDispatchToProps)(PopUp)
