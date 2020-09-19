@@ -39,6 +39,10 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
   const [projectName, setProjectName] = useState('')
   const [projectLink, setProjectLink] = useState('')
   const [description, setDescription] = useState('')
+  const [projectNameErr, setProjectNameErr] = useState('')
+  const [projectLinkErr, setProjectLinkErr] = useState('')
+  const [descriptionErr, setDescriptionErr] = useState('')
+
   const urls = []
 
   useLayoutEffect(() => {
@@ -226,8 +230,18 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
               </Dropzone>
               <label htmlFor="projectName" css={labelWrapper}>
                 <input
-                  onChange={e => setProjectName(e.target.value)}
-                  css={signWrapperInput}
+                  onChange={e => [
+                    e.target.validity.valid
+                      ? setProjectNameErr('inherit')
+                      : setProjectNameErr(colors.burgundyRed),
+                    setProjectName(e.target.value),
+                  ]}
+                  css={[
+                    signWrapperInput,
+                    css`
+                      border-color: ${projectNameErr};
+                    `,
+                  ]}
                   id="projectName"
                   name="projectName"
                   value={projectName}
@@ -240,11 +254,21 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
               <label htmlFor="projectLink" css={labelWrapper}>
                 <input
                   type="url"
-                  css={signWrapperInput}
+                  css={[
+                    signWrapperInput,
+                    css`
+                      border-color: ${projectLinkErr};
+                    `,
+                  ]}
                   required
                   value={projectLink}
                   placeholder={project ? project.projectLink : 'Project Link'}
-                  onChange={e => setProjectLink(e.target.value)}
+                  onChange={e => [
+                    e.target.validity.valid
+                      ? setProjectLinkErr('inherit')
+                      : setProjectLinkErr(colors.burgundyRed),
+                    setProjectLink(e.target.value),
+                  ]}
                   name="projectLink"
                   id="projectLink"
                 />
@@ -255,6 +279,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
                     textArea,
                     css`
                       margin: 0;
+                      border-color: ${descriptionErr};
                     `,
                   ]}
                   placeholder={
@@ -262,7 +287,13 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
                   }
                   name="description"
                   value={description}
-                  onChange={e => setDescription(e.target.value)}
+                  minLength={10}
+                  onChange={e => [
+                    e.target.validity.valid
+                      ? setDescriptionErr('inherit')
+                      : setDescriptionErr(colors.burgundyRed),
+                    setDescription(e.target.value),
+                  ]}
                   id="description"
                   required
                 />
