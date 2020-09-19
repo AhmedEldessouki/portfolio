@@ -1,6 +1,7 @@
 {
   "git.ignoreLimitWarning": true,
   "prettier.configPath": ".prettierrc",
+  "files.eol": "\n",
   "editor.formatOnSave": true,
   "cSpell.words": [
     "Merienda",
