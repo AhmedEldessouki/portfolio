@@ -6,6 +6,7 @@ import {jsx, css} from '@emotion/core'
 import {useState, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import {
   signWrapper,
@@ -106,6 +107,12 @@ const SignIn = ({signIn, auth, authError}) => {
       )}
     </Fragment>
   )
+}
+
+SignIn.prototypes = {
+  signIn: PropTypes.func,
+  auth: PropTypes.object,
+  authError: PropTypes.string,
 }
 
 const mapStateToProps = state => {

@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 /* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
@@ -9,7 +8,7 @@ import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 
 import ContactMe from '../ContactMe/ContactMe'
-import {Carousel} from '../../Utils/Carousel'
+import Carousel from '../../Utils/Carousel/Carousel'
 import Layout from '../../Layout'
 import {colors, spinner} from '../../../Styles'
 

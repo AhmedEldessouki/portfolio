@@ -9,6 +9,7 @@ import {Redirect} from 'react-router-dom'
 import Dropzone from 'react-dropzone'
 import {toast} from 'react-toastify'
 import {Image} from 'cloudinary-react'
+import PropTypes from 'prop-types'
 
 import Layout from '../../Layout'
 import {
@@ -39,6 +40,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
   const [projectName, setProjectName] = useState('')
   const [projectLink, setProjectLink] = useState('')
   const [description, setDescription] = useState('')
+
   const [projectNameErr, setProjectNameErr] = useState('')
   const [projectLinkErr, setProjectLinkErr] = useState('')
   const [descriptionErr, setDescriptionErr] = useState('')
@@ -316,6 +318,14 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
       )}
     </Layout>
   )
+}
+
+CreateProject.prototypes = {
+  auth: PropTypes.object,
+  project: PropTypes.object,
+  updateProject: PropTypes.func,
+  createProject: PropTypes.func,
+  match: PropTypes.object,
 }
 
 const mapStateToProps = (state, ownProps) => {

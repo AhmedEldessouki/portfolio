@@ -6,6 +6,7 @@ import {jsx, css} from '@emotion/core'
 import {Fragment, useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import Layout from '../Layout'
 import {
@@ -27,13 +28,14 @@ function SignUp({auth, authError, signUp}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const [firstNameErr, setFirstNameErr] = useState('')
   const [lastNameErr, setLastNameErr] = useState('')
   const [emailErr, setEmailErr] = useState('')
   const [passwordErr, setPasswordErr] = useState('')
   const [confirmPasswordErr, setConfirmPasswordErr] = useState('')
   const [passError, setPassError] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     if (
@@ -223,6 +225,12 @@ function SignUp({auth, authError, signUp}) {
       )}
     </Fragment>
   )
+}
+
+SignUp.prototypes = {
+  auth: PropTypes.object,
+  authError: PropTypes.string,
+  signUp: PropTypes.func,
 }
 
 const mapStateToProps = state => {
