@@ -4,6 +4,7 @@
 
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
+import PropTypes from 'prop-types'
 
 import MessagesSummary from './MessagesSummary'
 
@@ -33,6 +34,10 @@ function Messages({messagesData}) {
       </div>
     </Fragment>
   )
+}
+
+Messages.prototypes = {
+  messagesData: PropTypes.object.isRequired,
 }
 
 export default Messages

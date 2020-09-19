@@ -6,6 +6,7 @@ import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
+import PropTypes from 'prop-types'
 
 import ContactMe from '../ContactMe/ContactMe'
 import Carousel from '../../Utils/Carousel/Carousel'
@@ -79,6 +80,8 @@ const ProjectDetails = ({project}) => {
     </Layout>
   )
 }
+
+ProjectDetails.prototype = {project: PropTypes.object.isRequired}
 
 const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps.match.params

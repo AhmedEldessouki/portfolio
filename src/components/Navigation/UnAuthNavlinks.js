@@ -1,9 +1,11 @@
 /** @jsx jsx */
-// eslint-disable-next-line import/order
 import {jsx, css} from '@emotion/core'
+import {NavLink} from 'react-router-dom'
 
 import my from '../../assets/my.svg'
 import {colors, mq} from '../../Styles'
+// try in production
+// import my from './my.svg'
 
 const UnAuthNavlinks = () => {
   const container = css`
@@ -21,7 +23,9 @@ const UnAuthNavlinks = () => {
   `
   return (
     <div css={container}>
-      <img src={my} alt="Ahmed Eldessouki" css={imgg} />
+      <NavLink to="/">
+        <img src={my} alt="Ahmed Eldessouki" css={imgg} />
+      </NavLink>
     </div>
   )
 }

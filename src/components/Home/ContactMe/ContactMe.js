@@ -3,6 +3,7 @@
 import {jsx, css} from '@emotion/core'
 import {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 import {
   wrapper,
@@ -121,7 +122,7 @@ function ContactMe({contError, contactedMe}) {
                 `,
               ]}
               onChange={e => setPhoneNumber(e.target.value)}
-              onBlue={e =>
+              onBlur={e =>
                 e.target.validity.valid
                   ? setPhoneNumberErr('inherit')
                   : setPhoneNumberErr(colors.burgundyRed)
@@ -186,6 +187,8 @@ function ContactMe({contError, contactedMe}) {
     </div>
   )
 }
+
+ContactMe.prototype = {contError: PropTypes.string, contactedMe: PropTypes.func}
 
 const mapStateToProps = state => {
   return {

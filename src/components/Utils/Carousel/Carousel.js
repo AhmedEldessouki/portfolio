@@ -127,8 +127,7 @@ function Carousel({imgArray, imgAlt}) {
             {imgArray.map((data, forKC) => (
               // eslint-disable-next-line jsx-a11y/control-has-associated-label
               <button
-                // eslint-disable-next-line react/no-array-index-key
-                key={forKC}
+                key={data}
                 type="button"
                 onClick={() => setCurrentImage(forKC)}
                 css={[

@@ -1,5 +1,3 @@
-/* eslint-disable import/order */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
@@ -8,12 +6,13 @@ import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
+import PropTypes from 'prop-types'
 
 import PopUp from '../../PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
 import {deleteProject} from '../../../Store/Actions/ProjectsActions'
 
-const ProjectsSummary = ({project, auth, ...props}) => {
+const ProjectsSummary = ({project, auth, to, key}) => {
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;
@@ -46,7 +45,7 @@ const ProjectsSummary = ({project, auth, ...props}) => {
           <PopUp project={project} title="Project" />
         </Fragment>
       ) : null}
-      <NavLink to={props.to} key={props.key}>
+      <NavLink to={to} key={key}>
         <h1 css={forHeader}>{project.projectName}</h1>
       </NavLink>
       <span
@@ -61,6 +60,14 @@ const ProjectsSummary = ({project, auth, ...props}) => {
     </div>
   )
 }
+
+ProjectsSummary.prototype = {
+  project: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  to: PropTypes.string.isRequired,
+  key: PropTypes.string.isRequired,
+}
+
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
