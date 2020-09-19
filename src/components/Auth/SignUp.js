@@ -16,6 +16,7 @@ import {
   btnStyle,
   signWrapperInput,
   h1XL,
+  colors,
 } from '../../Styles'
 import {signUp} from '../../Store/Actions/AuthActions'
 
@@ -26,6 +27,11 @@ function SignUp({auth, authError, signUp}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [firstNameErr, setFirstNameErr] = useState('')
+  const [lastNameErr, setLastNameErr] = useState('')
+  const [emailErr, setEmailErr] = useState('')
+  const [passwordErr, setPasswordErr] = useState('')
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState('')
   const [passError, setPassError] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -36,9 +42,13 @@ function SignUp({auth, authError, signUp}) {
       password !== confirmPassword
     ) {
       setPassError(true)
+      setPasswordErr(colors.burgundyRed)
+      setConfirmPasswordErr(colors.burgundyRed)
     }
     return () => {
       setPassError(false)
+      setConfirmPasswordErr('inherit')
+      setPasswordErr('inherit')
     }
   }, [password, confirmPassword])
 
@@ -67,8 +77,20 @@ function SignUp({auth, authError, signUp}) {
             <form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
               <label htmlFor="firstName" css={labelWrapper}>
                 <input
-                  onChange={e => setFirstName(e.target.value)}
-                  css={signWrapperInput}
+                  onChange={e =>
+                    setFirstName([
+                      e.target.validity.valid
+                        ? setFirstNameErr('inherit')
+                        : setFirstNameErr(colors.burgundyRed),
+                      e.target.value,
+                    ])
+                  }
+                  css={[
+                    signWrapperInput,
+                    css`
+                      border-color: ${firstNameErr};
+                    `,
+                  ]}
                   id="firstName"
                   name="firstName"
                   value={firstName}
@@ -80,8 +102,18 @@ function SignUp({auth, authError, signUp}) {
               </label>
               <label css={labelWrapper} htmlFor="lastName">
                 <input
-                  onChange={e => setLastName(e.target.value)}
-                  css={signWrapperInput}
+                  onChange={e => [
+                    e.target.validity.valid
+                      ? setLastNameErr('inherit')
+                      : setLastNameErr(colors.burgundyRed),
+                    setLastName(e.target.value),
+                  ]}
+                  css={[
+                    signWrapperInput,
+                    css`
+                      border-color: ${lastNameErr};
+                    `,
+                  ]}
                   name="lastName"
                   value={lastName}
                   required
@@ -93,8 +125,18 @@ function SignUp({auth, authError, signUp}) {
               </label>
               <label css={labelWrapper} htmlFor="email">
                 <input
-                  onChange={e => setEmail(e.target.value)}
-                  css={signWrapperInput}
+                  onChange={e => [
+                    e.target.validity.valid
+                      ? setEmailErr('inherit')
+                      : setEmailErr(colors.burgundyRed),
+                    setEmail(e.target.value),
+                  ]}
+                  css={[
+                    signWrapperInput,
+                    css`
+                      border-color: ${emailErr};
+                    `,
+                  ]}
                   name="email"
                   id="email"
                   type="email"
@@ -107,8 +149,18 @@ function SignUp({auth, authError, signUp}) {
 
               <label css={labelWrapper} htmlFor="password">
                 <input
-                  onChange={e => setPassword(e.target.value)}
-                  css={signWrapperInput}
+                  onChange={e => [
+                    e.target.validity.valid
+                      ? setPasswordErr('inherit')
+                      : setPasswordErr(colors.burgundyRed),
+                    setPassword(e.target.value),
+                  ]}
+                  css={[
+                    signWrapperInput,
+                    css`
+                      border-color: ${passwordErr};
+                    `,
+                  ]}
                   name="password"
                   id="password"
                   type="password"
@@ -121,8 +173,18 @@ function SignUp({auth, authError, signUp}) {
               </label>
               <label css={labelWrapper} htmlFor="confirmPassword">
                 <input
-                  onChange={e => setConfirmPassword(e.target.value)}
-                  css={signWrapperInput}
+                  onChange={e => [
+                    e.target.validity.valid
+                      ? setConfirmPasswordErr('inherit')
+                      : setConfirmPasswordErr(colors.burgundyRed),
+                    setConfirmPassword(e.target.value),
+                  ]}
+                  css={[
+                    signWrapperInput,
+                    css`
+                      border-color: ${confirmPasswordErr};
+                    `,
+                  ]}
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
