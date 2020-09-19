@@ -79,13 +79,11 @@ function SignUp({auth, authError, signUp}) {
             <form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
               <label htmlFor="firstName" css={labelWrapper}>
                 <input
-                  onChange={e =>
-                    setFirstName([
-                      e.target.validity.valid
-                        ? setFirstNameErr('inherit')
-                        : setFirstNameErr(colors.burgundyRed),
-                      e.target.value,
-                    ])
+                  onChange={e => setFirstName(e.target.value)}
+                  onBlur={e =>
+                    e.target.validity.valid
+                      ? setFirstNameErr('inherit')
+                      : setFirstNameErr(colors.burgundyRed)
                   }
                   css={[
                     signWrapperInput,
@@ -104,12 +102,12 @@ function SignUp({auth, authError, signUp}) {
               </label>
               <label css={labelWrapper} htmlFor="lastName">
                 <input
-                  onChange={e => [
+                  onChange={e => setLastName(e.target.value)}
+                  onBlur={e =>
                     e.target.validity.valid
                       ? setLastNameErr('inherit')
-                      : setLastNameErr(colors.burgundyRed),
-                    setLastName(e.target.value),
-                  ]}
+                      : setLastNameErr(colors.burgundyRed)
+                  }
                   css={[
                     signWrapperInput,
                     css`
@@ -127,12 +125,12 @@ function SignUp({auth, authError, signUp}) {
               </label>
               <label css={labelWrapper} htmlFor="email">
                 <input
-                  onChange={e => [
+                  onChange={e => setEmail(e.target.value)}
+                  onBlur={e =>
                     e.target.validity.valid
                       ? setEmailErr('inherit')
-                      : setEmailErr(colors.burgundyRed),
-                    setEmail(e.target.value),
-                  ]}
+                      : setEmailErr(colors.burgundyRed)
+                  }
                   css={[
                     signWrapperInput,
                     css`
@@ -151,12 +149,12 @@ function SignUp({auth, authError, signUp}) {
 
               <label css={labelWrapper} htmlFor="password">
                 <input
-                  onChange={e => [
+                  onChange={e => setPassword(e.target.value)}
+                  onBlur={e =>
                     e.target.validity.valid
                       ? setPasswordErr('inherit')
-                      : setPasswordErr(colors.burgundyRed),
-                    setPassword(e.target.value),
-                  ]}
+                      : setPasswordErr(colors.burgundyRed)
+                  }
                   css={[
                     signWrapperInput,
                     css`
@@ -175,12 +173,12 @@ function SignUp({auth, authError, signUp}) {
               </label>
               <label css={labelWrapper} htmlFor="confirmPassword">
                 <input
-                  onChange={e => [
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  onBlur={e =>
                     e.target.validity.valid
                       ? setConfirmPasswordErr('inherit')
-                      : setConfirmPasswordErr(colors.burgundyRed),
-                    setConfirmPassword(e.target.value),
-                  ]}
+                      : setConfirmPasswordErr(colors.burgundyRed)
+                  }
                   css={[
                     signWrapperInput,
                     css`
