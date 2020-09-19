@@ -72,12 +72,12 @@ function ContactMe({contError, contactedMe}) {
                   border-color: ${contactNameErr};
                 `,
               ]}
-              onChange={e => [
+              onChange={e => setContactName(e.target.value)}
+              onBlur={e =>
                 e.target.validity.valid
                   ? setContactNameErr('inherit')
-                  : setContactNameErr(colors.burgundyRed),
-                setContactName(e.target.value),
-              ]}
+                  : setContactNameErr(colors.burgundyRed)
+              }
               name="contactName"
               id="contactName"
               value={contactName}
@@ -91,12 +91,12 @@ function ContactMe({contError, contactedMe}) {
           </label>
           <label css={labelWrapper} htmlFor="email">
             <input
-              onChange={e => [
+              onChange={e => setEmail(e.target.value)}
+              onBlur={e =>
                 e.target.validity.valid
                   ? setEmailErr('inherit')
-                  : setEmailErr(colors.burgundyRed),
-                setEmail(e.target.value),
-              ]}
+                  : setEmailErr(colors.burgundyRed)
+              }
               css={[
                 signWrapperInput,
                 css`
@@ -120,12 +120,12 @@ function ContactMe({contError, contactedMe}) {
                   border-color: ${phoneNumberErr};
                 `,
               ]}
-              onChange={e => [
+              onChange={e => setPhoneNumber(e.target.value)}
+              onBlue={e =>
                 e.target.validity.valid
                   ? setPhoneNumberErr('inherit')
-                  : setPhoneNumberErr(colors.burgundyRed),
-                setPhoneNumber(e.target.value),
-              ]}
+                  : setPhoneNumberErr(colors.burgundyRed)
+              }
               name="phoneNumber"
               id="phoneNumber"
               inputMode="tel"
@@ -144,12 +144,12 @@ function ContactMe({contError, contactedMe}) {
         <label css={labelWrapper} htmlFor="description">
           <textarea
             name="description"
-            onChange={e => [
+            onChange={e => setDescription(e.target.value)}
+            onBlur={e =>
               e.target.validity.valid
                 ? setDescriptionErr('inherit')
-                : setDescriptionErr(colors.burgundyRed),
-              setDescription(e.target.value),
-            ]}
+                : setDescriptionErr(colors.burgundyRed)
+            }
             id="description"
             value={description}
             required
