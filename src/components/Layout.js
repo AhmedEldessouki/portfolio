@@ -4,6 +4,7 @@ import {Global} from '@emotion/core'
 import {compose} from 'redux'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
+import PropTypes from 'prop-types'
 
 import {globalStyles} from '../Styles'
 
@@ -13,11 +14,11 @@ import AuthNavlinks from './Navigation/AuthNavlinks'
 
 import '../Styles/layout.css'
 
-function Layout({children, auth, profile}) {
+function Layout({children, auth}) {
   const [links, setLinks] = useState(null)
   useEffect(() => {
-    setLinks(auth.uid ? <AuthNavlinks profile={profile} /> : <UnAuthNavlinks />)
-  }, [auth.uid, profile])
+    setLinks(auth.uid ? <AuthNavlinks /> : <UnAuthNavlinks />)
+  }, [auth.uid])
 
   return (
     <>
@@ -29,10 +30,14 @@ function Layout({children, auth, profile}) {
   )
 }
 
+Layout.prototype = {
+  children: PropTypes.node.isRequired,
+  auth: PropTypes.object,
+}
+
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile,
   }
 }
 export default compose(

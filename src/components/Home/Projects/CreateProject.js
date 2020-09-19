@@ -9,6 +9,7 @@ import {Redirect} from 'react-router-dom'
 import Dropzone from 'react-dropzone'
 import {toast} from 'react-toastify'
 import {Image} from 'cloudinary-react'
+import PropTypes from 'prop-types'
 
 import Layout from '../../Layout'
 import {
@@ -39,6 +40,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
   const [projectName, setProjectName] = useState('')
   const [projectLink, setProjectLink] = useState('')
   const [description, setDescription] = useState('')
+
   const [projectNameErr, setProjectNameErr] = useState('')
   const [projectLinkErr, setProjectLinkErr] = useState('')
   const [descriptionErr, setDescriptionErr] = useState('')
@@ -230,12 +232,12 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
               </Dropzone>
               <label htmlFor="projectName" css={labelWrapper}>
                 <input
-                  onChange={e => [
+                  onChange={e => setProjectName(e.target.value)}
+                  onBlur={e =>
                     e.target.validity.valid
                       ? setProjectNameErr('inherit')
-                      : setProjectNameErr(colors.burgundyRed),
-                    setProjectName(e.target.value),
-                  ]}
+                      : setProjectNameErr(colors.burgundyRed)
+                  }
                   css={[
                     signWrapperInput,
                     css`
@@ -262,13 +264,13 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
                   ]}
                   required
                   value={projectLink}
-                  placeholder={project ? project.projectLink : 'Project Link'}
-                  onChange={e => [
+                  placeholder="Project Link"
+                  onChange={e => setProjectLink(e.target.value)}
+                  onBlur={e =>
                     e.target.validity.valid
                       ? setProjectLinkErr('inherit')
-                      : setProjectLinkErr(colors.burgundyRed),
-                    setProjectLink(e.target.value),
-                  ]}
+                      : setProjectLinkErr(colors.burgundyRed)
+                  }
                   name="projectLink"
                   id="projectLink"
                 />
@@ -282,18 +284,16 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
                       border-color: ${descriptionErr};
                     `,
                   ]}
-                  placeholder={
-                    project ? project.description : 'Project Description'
-                  }
+                  placeholder="Project Description"
                   name="description"
                   value={description}
                   minLength={10}
-                  onChange={e => [
+                  onChange={e => setDescription(e.target.value)}
+                  onBlur={e =>
                     e.target.validity.valid
                       ? setDescriptionErr('inherit')
-                      : setDescriptionErr(colors.burgundyRed),
-                    setDescription(e.target.value),
-                  ]}
+                      : setDescriptionErr(colors.burgundyRed)
+                  }
                   id="description"
                   required
                 />
@@ -316,6 +316,14 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
       )}
     </Layout>
   )
+}
+
+CreateProject.prototypes = {
+  auth: PropTypes.object,
+  project: PropTypes.object,
+  updateProject: PropTypes.func,
+  createProject: PropTypes.func,
+  match: PropTypes.object,
 }
 
 const mapStateToProps = (state, ownProps) => {

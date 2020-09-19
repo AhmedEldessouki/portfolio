@@ -6,6 +6,7 @@ import {jsx, css} from '@emotion/core'
 import {useState, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import {
   signWrapper,
@@ -63,12 +64,12 @@ const SignIn = ({signIn, auth, authError}) => {
                     name="email"
                     value={email}
                     required
-                    onChange={e => [
+                    onChange={e => setEmail(e.target.value)}
+                    onBlur={e =>
                       e.target.validity.valid
                         ? setEmailErr('inherit')
-                        : setEmailErr(colors.burgundyRed),
-                      setEmail(e.target.value),
-                    ]}
+                        : setEmailErr(colors.burgundyRed)
+                    }
                   />
                 </label>
                 <label css={labelWrapper} htmlFor="password">
@@ -87,12 +88,12 @@ const SignIn = ({signIn, auth, authError}) => {
                     maxLength={20}
                     required
                     placeholder="Password"
-                    onChange={e => [
+                    onChange={e => setPassword(e.target.value)}
+                    onBlur={e =>
                       e.target.validity.valid
                         ? setPasswordErr('inherit')
-                        : setPasswordErr(colors.burgundyRed),
-                      setPassword(e.target.value),
-                    ]}
+                        : setPasswordErr(colors.burgundyRed)
+                    }
                   />
                 </label>
               </div>
@@ -106,6 +107,12 @@ const SignIn = ({signIn, auth, authError}) => {
       )}
     </Fragment>
   )
+}
+
+SignIn.prototypes = {
+  signIn: PropTypes.func,
+  auth: PropTypes.object,
+  authError: PropTypes.string,
 }
 
 const mapStateToProps = state => {

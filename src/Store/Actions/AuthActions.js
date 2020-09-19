@@ -1,5 +1,10 @@
 import {toast} from 'react-toastify'
 
+/**
+ * @param {Function}signIn - handles auth
+ * @param {Function}signUp - handles signUp
+ * @param {Function}signOut - handles sign-out
+ */
 export const signIn = credentials => {
   return (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase()

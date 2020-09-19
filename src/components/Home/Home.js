@@ -1,7 +1,7 @@
-/* eslint-disable import/order */
 import React from 'react'
 import ScrollUpButton from 'react-scroll-up-button'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 import Layout from '../Layout'
 
@@ -26,6 +26,9 @@ function Home({projectsData}) {
     </Layout>
   )
 }
+
+Home.prototype = {projectsData: PropTypes.object}
+
 const mapStateToProps = state => {
   return {
     projectsData: state.firestore.ordered.projects,

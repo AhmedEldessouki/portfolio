@@ -4,12 +4,11 @@
 import {jsx, css} from '@emotion/core'
 import {Fragment, useState} from 'react'
 import {Image} from 'cloudinary-react'
+import PropTypes from 'prop-types'
 
-// eslint-disable-next-line import/order
 import {colors, mq} from '../../../Styles'
 
-// eslint-disable-next-line import/prefer-default-export
-export function Carousel({imgArray, imgAlt}) {
+function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = useState(0)
 
   const cWrapper = css`
@@ -128,8 +127,7 @@ export function Carousel({imgArray, imgAlt}) {
             {imgArray.map((data, forKC) => (
               // eslint-disable-next-line jsx-a11y/control-has-associated-label
               <button
-                // eslint-disable-next-line react/no-array-index-key
-                key={forKC}
+                key={data}
                 type="button"
                 onClick={() => setCurrentImage(forKC)}
                 css={[
@@ -173,3 +171,14 @@ export function Carousel({imgArray, imgAlt}) {
     </Fragment>
   )
 }
+Carousel.defaultProps = {
+  imgArray: [],
+  imgAlt: '',
+}
+
+Carousel.prototypes = {
+  imgArray: PropTypes.array.isRequired,
+  imgAlt: PropTypes.string.isRequired,
+}
+
+export default Carousel

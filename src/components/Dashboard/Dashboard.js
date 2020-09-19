@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import {spinner} from '../../Styles'
 import Projects from '../Home/Projects/Projects'
@@ -34,6 +35,13 @@ const Dashboard = ({isSubmitting, auth, projectsData, messagesData}) => {
       )}
     </Fragment>
   )
+}
+
+Dashboard.prototype = {
+  isSubmitting: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
+  projectsData: PropTypes.object.isRequired,
+  messagesData: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => {

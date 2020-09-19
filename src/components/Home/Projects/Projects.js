@@ -1,8 +1,8 @@
-/* eslint-disable import/order */
 /* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
+import PropTypes from 'prop-types'
 
 import {h1XL} from '../../../Styles'
 
@@ -34,6 +34,10 @@ const Projects = ({projectsData}) => {
       </div>
     </Fragment>
   )
+}
+
+Projects.prototype = {
+  projectsData: PropTypes.object.isRequired,
 }
 
 export default Projects

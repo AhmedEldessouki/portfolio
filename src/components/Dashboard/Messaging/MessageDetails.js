@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import Layout from '../../Layout'
 import {h1XL, colors, mq, spinner} from '../../../Styles'
@@ -99,6 +100,11 @@ function MessageDetails({message, auth}) {
       )}
     </Layout>
   )
+}
+
+MessageDetails.prototypes = {
+  message: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
