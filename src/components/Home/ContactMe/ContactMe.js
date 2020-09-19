@@ -21,17 +21,20 @@ import {contactedMe} from '../../../Store/Actions/ContactedMeActions'
 function ContactMe({contError, contactedMe}) {
   const [contactName, setContactName] = useState('')
   const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState(0)
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [description, setDescription] = useState('')
   const [errPhoneNumber, setErrPhoneNumber] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [descriptionErr, setDescriptionErr] = useState('')
+  const [contactNameErr, setContactNameErr] = useState('')
+  const [phoneNumberErr, setPhoneNumberErr] = useState('')
+  const [emailErr, setEmailErr] = useState('')
 
   useEffect(() => {
-    if (phoneNumber.length <= 11 || phoneNumber.length >= 13)
-      setErrPhoneNumber(true)
     // eslint-disable-next-line no-restricted-globals
-    else if (isNaN(phoneNumber)) setErrPhoneNumber(true)
-
+    if (isNaN(phoneNumber)) {
+      setErrPhoneNumber(true)
+    } else setErrPhoneNumber(false)
     return () => {
       setErrPhoneNumber(false)
     }
@@ -63,11 +66,22 @@ function ContactMe({contError, contactedMe}) {
         <section>
           <label css={labelWrapper} htmlFor="contactName">
             <input
-              css={signWrapperInput}
-              onChange={e => setContactName(e.target.value)}
+              css={[
+                signWrapperInput,
+                css`
+                  border-color: ${contactNameErr};
+                `,
+              ]}
+              onChange={e => [
+                e.target.validity.valid
+                  ? setContactNameErr('inherit')
+                  : setContactNameErr(colors.burgundyRed),
+                setContactName(e.target.value),
+              ]}
               name="contactName"
               id="contactName"
               value={contactName}
+              pattern="[^\(\)0-9]*"
               placeholder="Name"
               required
               minLength={3}
@@ -77,8 +91,18 @@ function ContactMe({contError, contactedMe}) {
           </label>
           <label css={labelWrapper} htmlFor="email">
             <input
-              onChange={e => setEmail(e.target.value)}
-              css={signWrapperInput}
+              onChange={e => [
+                e.target.validity.valid
+                  ? setEmailErr('inherit')
+                  : setEmailErr(colors.burgundyRed),
+                setEmail(e.target.value),
+              ]}
+              css={[
+                signWrapperInput,
+                css`
+                  border-color: ${emailErr};
+                `,
+              ]}
               name="email"
               id="email"
               value={email}
@@ -90,8 +114,18 @@ function ContactMe({contError, contactedMe}) {
           </label>
           <label css={labelWrapper} htmlFor="phoneNumber">
             <input
-              css={signWrapperInput}
-              onChange={e => setPhoneNumber(e.target.value)}
+              css={[
+                signWrapperInput,
+                css`
+                  border-color: ${phoneNumberErr};
+                `,
+              ]}
+              onChange={e => [
+                e.target.validity.valid
+                  ? setPhoneNumberErr('inherit')
+                  : setPhoneNumberErr(colors.burgundyRed),
+                setPhoneNumber(e.target.value),
+              ]}
               name="phoneNumber"
               id="phoneNumber"
               inputMode="tel"
@@ -100,6 +134,7 @@ function ContactMe({contError, contactedMe}) {
               required
               maxLength={13}
               placeholder="Phone Number"
+              pattern="^[0-9\b]+$"
             />
             {errPhoneNumber ? (
               <span css={warning}>Invalid Phone Number</span>
@@ -109,12 +144,24 @@ function ContactMe({contError, contactedMe}) {
         <label css={labelWrapper} htmlFor="description">
           <textarea
             name="description"
-            onChange={e => setDescription(e.target.value)}
+            onChange={e => [
+              e.target.validity.valid
+                ? setDescriptionErr('inherit')
+                : setDescriptionErr(colors.burgundyRed),
+              setDescription(e.target.value),
+            ]}
             id="description"
             value={description}
             required
             placeholder="Description"
-            css={textArea}
+            minLength={10}
+            maxLength={500}
+            css={[
+              textArea,
+              css`
+                border-color: ${descriptionErr};
+              `,
+            ]}
           />
         </label>
         {isSubmitting ? (

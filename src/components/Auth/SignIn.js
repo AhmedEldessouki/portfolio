@@ -13,6 +13,7 @@ import {
   signWrapperInput,
   h1XL,
   btnStyle,
+  colors,
 } from '../../Styles'
 import {signIn} from '../../Store/Actions/AuthActions'
 import Layout from '../Layout'
@@ -20,7 +21,9 @@ import Layout from '../Layout'
 // eslint-disable-next-line no-shadow
 const SignIn = ({signIn, auth, authError}) => {
   const [email, setEmail] = useState('')
+  const [emailErr, setEmailErr] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordErr, setPasswordErr] = useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -48,19 +51,34 @@ const SignIn = ({signIn, auth, authError}) => {
               <div className="field-container">
                 <label htmlFor="email" css={labelWrapper}>
                   <input
-                    css={signWrapperInput}
+                    css={[
+                      signWrapperInput,
+                      css`
+                        border-color: ${emailErr};
+                      `,
+                    ]}
                     type="email"
                     id="email"
                     placeholder="Email"
                     name="email"
                     value={email}
                     required
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={e => [
+                      e.target.validity.valid
+                        ? setEmailErr('inherit')
+                        : setEmailErr(colors.burgundyRed),
+                      setEmail(e.target.value),
+                    ]}
                   />
                 </label>
                 <label css={labelWrapper} htmlFor="password">
                   <input
-                    css={signWrapperInput}
+                    css={[
+                      signWrapperInput,
+                      css`
+                        border-color: ${passwordErr};
+                      `,
+                    ]}
                     type="password"
                     name="password"
                     id="password"
@@ -69,7 +87,12 @@ const SignIn = ({signIn, auth, authError}) => {
                     maxLength={20}
                     required
                     placeholder="Password"
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={e => [
+                      e.target.validity.valid
+                        ? setPasswordErr('inherit')
+                        : setPasswordErr(colors.burgundyRed),
+                      setPassword(e.target.value),
+                    ]}
                   />
                 </label>
               </div>
