@@ -4,7 +4,6 @@ import {Global} from '@emotion/core'
 import {compose} from 'redux'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
-import PropTypes from 'prop-types'
 
 import {globalStyles} from '../Styles'
 
@@ -28,11 +27,6 @@ function Layout({children, auth}) {
       <MyFooter />
     </>
   )
-}
-
-Layout.prototype = {
-  children: PropTypes.node.isRequired,
-  auth: PropTypes.object,
 }
 
 const mapStateToProps = state => {

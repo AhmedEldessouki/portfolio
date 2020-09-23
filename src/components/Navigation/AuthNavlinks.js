@@ -3,13 +3,10 @@
 import {jsx, css} from '@emotion/core'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 import {signOut} from '../../Store/Actions/AuthActions'
 import my from '../../assets/my.svg'
 import {colors, weights, mq} from '../../Styles'
-// try in production
-// import my from './my.svg'
 
 const AuthNavlinks = ({signOut}) => {
   const nav = css`
@@ -49,11 +46,15 @@ const AuthNavlinks = ({signOut}) => {
           padding: `1% 2%`,
         }}
       >
-        <img
-          src={my}
-          alt="Ahmed ElDessouki"
-          style={{width: '150px', padding: '0'}}
-        />
+        {my ? (
+          <img
+            src={my}
+            alt="Ahmed ElDessouki"
+            style={{width: '150px', padding: '0'}}
+          />
+        ) : (
+          <h1 style={{width: '150px', padding: '0'}}>Ahmed Eldessouki</h1>
+        )}
       </NavLink>
       <NavLink
         to="/dashboard"
@@ -91,8 +92,6 @@ const AuthNavlinks = ({signOut}) => {
     </div>
   )
 }
-
-AuthNavlinks.prototype = {signOut: PropTypes.func.isRequired}
 
 const mapDispatchToProps = dispatch => {
   return {

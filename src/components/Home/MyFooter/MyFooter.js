@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
