@@ -4,7 +4,6 @@
 import {jsx, css} from '@emotion/core'
 import {Fragment, useState} from 'react'
 import {Image} from 'cloudinary-react'
-import PropTypes from 'prop-types'
 
 import {colors, mq} from '../../../Styles'
 
@@ -170,15 +169,6 @@ function Carousel({imgArray, imgAlt}) {
       )}
     </Fragment>
   )
-}
-Carousel.defaultProps = {
-  imgArray: [],
-  imgAlt: '',
-}
-
-Carousel.prototypes = {
-  imgArray: PropTypes.array.isRequired,
-  imgAlt: PropTypes.string.isRequired,
 }
 
 export default Carousel

@@ -5,7 +5,6 @@ import {jsx, css} from '@emotion/core'
 import {useState, Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
 
 import {deleteProject} from '../../Store/Actions/ProjectsActions'
 import {deleteMessage} from '../../Store/Actions/ContactedMeActions'
@@ -121,14 +120,6 @@ function PopUp({project, deleteProject, contact, deleteMessage, title}) {
       )}
     </Fragment>
   )
-}
-
-PopUp.prototypes = {
-  project: PropTypes.object,
-  deleteProject: PropTypes.func,
-  contact: PropTypes.object,
-  deleteMessage: PropTypes.func,
-  title: PropTypes.string,
 }
 
 const mapDispatchToProps = dispatch => {

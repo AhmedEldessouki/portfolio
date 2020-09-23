@@ -6,7 +6,6 @@ import {jsx, css} from '@emotion/core'
 import {Fragment, useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 import Layout from '../Layout'
 import {
@@ -223,12 +222,6 @@ function SignUp({auth, authError, signUp}) {
       )}
     </Fragment>
   )
-}
-
-SignUp.prototypes = {
-  auth: PropTypes.object,
-  authError: PropTypes.string,
-  signUp: PropTypes.func,
 }
 
 const mapStateToProps = state => {

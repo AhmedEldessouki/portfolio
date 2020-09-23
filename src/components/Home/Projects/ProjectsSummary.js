@@ -6,7 +6,6 @@ import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
-import PropTypes from 'prop-types'
 
 import PopUp from '../../PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
@@ -59,13 +58,6 @@ const ProjectsSummary = ({project, auth, to, key}) => {
       </span>
     </div>
   )
-}
-
-ProjectsSummary.prototype = {
-  project: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  to: PropTypes.string.isRequired,
-  key: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => {

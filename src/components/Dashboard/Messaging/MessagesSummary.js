@@ -1,11 +1,9 @@
-/* eslint-disable import/order */
 /* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
 import {NavLink} from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 import {colors, h1XL} from '../../../Styles'
 import PopUp from '../../PopUp/PopUp'
@@ -61,12 +59,6 @@ function MessagesSummary({contact, to, id}) {
       </div>
     </Fragment>
   )
-}
-
-MessagesSummary.prototype = {
-  contact: PropTypes.object.isRequired,
-  to: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
 }
 
 export default MessagesSummary

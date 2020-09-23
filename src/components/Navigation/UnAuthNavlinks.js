@@ -4,8 +4,6 @@ import {NavLink} from 'react-router-dom'
 
 import my from '../../assets/my.svg'
 import {colors, mq} from '../../Styles'
-// try in production
-// import my from './my.svg'
 
 const UnAuthNavlinks = () => {
   const container = css`
@@ -24,7 +22,15 @@ const UnAuthNavlinks = () => {
   return (
     <div css={container}>
       <NavLink to="/">
-        <img src={my} alt="Ahmed Eldessouki" css={imgg} />
+        {my ? (
+          <img
+            src={my}
+            alt="Ahmed ElDessouki"
+            style={{width: '150px', padding: '0'}}
+          />
+        ) : (
+          <h1 style={{width: '150px', padding: '0'}}>Ahmed Eldessouki</h1>
+        )}
       </NavLink>
     </div>
   )
