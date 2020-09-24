@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import React, {useState, useEffect} from 'react'
 import {Global} from '@emotion/core'
 import {compose} from 'redux'

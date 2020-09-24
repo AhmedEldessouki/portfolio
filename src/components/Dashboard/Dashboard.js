@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
 import {jsx} from '@emotion/core'
@@ -6,7 +5,6 @@ import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
-import {Redirect} from 'react-router-dom'
 
 import {spinner} from '../../Styles'
 import Projects from '../Home/Projects/Projects'
@@ -14,24 +12,18 @@ import Layout from '../Layout'
 
 import Messages from './Messaging/Messages'
 
-const Dashboard = ({isSubmitting, auth, projectsData, messagesData}) => {
+const Dashboard = ({isSubmitting, projectsData, messagesData}) => {
   return (
-    <Fragment>
-      {!auth.uid ? (
-        <Redirect to="/signin" />
+    <Layout>
+      {isSubmitting ? (
+        <Fragment>
+          <Projects projectsData={projectsData} />
+          <Messages messagesData={messagesData} />
+        </Fragment>
       ) : (
-        <Layout>
-          {!isSubmitting ? (
-            <div css={spinner} />
-          ) : (
-            <Fragment>
-              <Projects projectsData={projectsData} />
-              <Messages messagesData={messagesData} />
-            </Fragment>
-          )}
-        </Layout>
+        <div css={spinner} />
       )}
-    </Fragment>
+    </Layout>
   )
 }
 
@@ -40,7 +32,6 @@ const mapStateToProps = state => {
     projectsData: state.firestore.ordered.projects,
     isSubmitting: state.firebase.profile.isLoaded,
     messagesData: state.firestore.ordered.contactedMe,
-    auth: state.firebase.auth,
   }
 }
 export default compose(

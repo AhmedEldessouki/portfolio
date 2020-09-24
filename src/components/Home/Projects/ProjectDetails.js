@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
@@ -74,7 +73,14 @@ const ProjectDetails = ({project}) => {
           <ContactMe />
         </Fragment>
       ) : (
-        <div css={spinner} />
+        <div
+          css={[
+            spinner,
+            css`
+              margin: 50px 0 0;
+            `,
+          ]}
+        />
       )}
     </Layout>
   )

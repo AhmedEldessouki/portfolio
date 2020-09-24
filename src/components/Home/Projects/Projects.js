@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
@@ -25,7 +24,7 @@ const Projects = ({projectsData}) => {
             return (
               <ProjectsSummary
                 project={project}
-                to={`/projects/${project.id}`}
+                to={`/${project.id}`}
                 key={project.id}
               />
             )

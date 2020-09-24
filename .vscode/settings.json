@@ -9,5 +9,6 @@
     "ahmedeldessouki",
     "firestore",
     "signin"
-  ]
+  ],
+  "eslint.enable": true
 }

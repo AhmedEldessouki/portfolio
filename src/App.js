@@ -1,7 +1,7 @@
-/* eslint-disable import/order */
 import React, {useEffect} from 'react'
 import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
+import {connect} from 'react-redux'
 
 import Home from './components/Home/Home'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -13,29 +13,47 @@ import CreateProject from './components/Home/Projects/CreateProject'
 
 import 'react-toastify/dist/ReactToastify.css'
 
-function App() {
+function App({auth}) {
   useEffect(() => {
     document.title = 'Ahmed Eldessouki'
   })
 
   return (
     <>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/projects/:id" component={ProjectDetails} />
-          <Route path="/messages/:id" component={MessageDetails} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/SignUp" component={SignUp} />
-          <Route path="/create-project" component={CreateProject} />
-          <Route path="/edit/:id" component={CreateProject} />
-          <Redirect from="*" to="/" />
-        </Switch>
-      </BrowserRouter>
+      {auth.uid ? (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/:id" component={ProjectDetails} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard/:id" component={MessageDetails} />
+            <Route path="/signUp" component={SignUp} />
+            <Route path="/create-project" component={CreateProject} />
+            <Route path="/edit/:id" component={CreateProject} />
+            <Redirect from="*" to="/" />
+          </Switch>
+        </BrowserRouter>
+      ) : (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/:id" component={ProjectDetails} />
+            <Redirect from="*" to="/" />
+          </Switch>
+        </BrowserRouter>
+      )}
+
       <ToastContainer autoClose={2000} />
     </>
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+  }
+}
+
+export default connect(mapStateToProps)(App)

@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {useState, Fragment} from 'react'
@@ -10,6 +8,7 @@ import {deleteProject} from '../../Store/Actions/ProjectsActions'
 import {deleteMessage} from '../../Store/Actions/ContactedMeActions'
 import {colors, weights} from '../../Styles'
 
+// eslint-disable-next-line no-shadow
 function PopUp({project, deleteProject, contact, deleteMessage, title}) {
   const popWrapper = css`
     @keyframes fadeIn {

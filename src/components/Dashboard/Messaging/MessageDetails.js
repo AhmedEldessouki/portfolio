@@ -1,16 +1,13 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
-import {Redirect} from 'react-router-dom'
 
 import Layout from '../../Layout'
 import {h1XL, colors, mq, spinner} from '../../../Styles'
 
-function MessageDetails({message, auth}) {
+function MessageDetails({message}) {
   const container = css`
     display: grid;
     place-content: center;
@@ -72,28 +69,24 @@ function MessageDetails({message, auth}) {
   return (
     <Layout>
       {message ? (
-        <Fragment>
-          <div css={container}>
-            <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
-            <div css={phoneAndEmailWrapper}>
-              <h2>
-                Phone Number:
-                {message.phoneNumber}
-              </h2>
-              <h2>
-                Email: <a href={`mailto:${message.email}`}>{message.email}</a>
-              </h2>
-            </div>
-            <p css={midWrapper}>{message.description}</p>
-            <h3 css={lowerWrapper}>
-              Msg Received: {message.sentAt.toDate().toDateString()}
-            </h3>
+        <div css={container}>
+          <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
+          <div css={phoneAndEmailWrapper}>
+            <h2>
+              Phone Number:
+              {message.phoneNumber}
+            </h2>
+            <h2>
+              Email: <a href={`mailto:${message.email}`}>{message.email}</a>
+            </h2>
           </div>
-        </Fragment>
+          <p css={midWrapper}>{message.description}</p>
+          <h3 css={lowerWrapper}>
+            Msg Received: {message.sentAt.toDate().toDateString()}
+          </h3>
+        </div>
       ) : (
-        <Fragment>
-          {auth.uid ? <div css={spinner} /> : <Redirect to="/signin" />}
-        </Fragment>
+        <div css={spinner} />
       )}
     </Layout>
   )
@@ -106,7 +99,6 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     message,
-    auth: state.firebase.auth,
   }
 }
 

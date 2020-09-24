@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
@@ -64,16 +64,13 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
 
     if (acceptedFiles && acceptedFiles.length === 1) {
       if (acceptedFiles[0].size < 8000000) {
-        // TODO: remove it from here and execute onSubmit
-        // TODO: make Tag = projectName
-        // TODO: fix urls array (1 then 3 = 3)
         let formData
         // eslint-disable-next-line prefer-const
         formData = new FormData()
-        formData.append('file', acceptedFiles[0])
-        formData.append('tags', `project imaged`)
-        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-        formData.append('api_key', CLOUDINARY_API_KEY)
+        formData.set('file', acceptedFiles[0])
+        formData.set('tags', `project imaged`)
+        formData.set('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+        formData.set('api_key', CLOUDINARY_API_KEY)
 
         axios
           .post(CLOUDINARY_UPLOAD_URL, formData, {
@@ -95,15 +92,13 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
     } else if (acceptedFiles && acceptedFiles.length > 1) {
       acceptedFiles.map((file, i) => {
         if (acceptedFiles[i].size < 8000000) {
-          // TODO: remove it from here and execute onSubmit
-          // TODO: make Tag = projectName
           let formData
           // eslint-disable-next-line prefer-const
           formData = new FormData()
-          formData.append('file', file)
-          formData.append('tags', `project imaged`)
-          formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-          formData.append('api_key', CLOUDINARY_API_KEY)
+          formData.set('file', file)
+          formData.set('tags', `project imaged`)
+          formData.set('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+          formData.set('api_key', CLOUDINARY_API_KEY)
 
           axios
             .post(CLOUDINARY_UPLOAD_URL, formData, {
@@ -159,9 +154,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
 
   return (
     <Layout>
-      {!auth.uid ? (
-        <Redirect to="/signin" />
-      ) : (
+      {auth.uid ? (
         <div className="CreateProject">
           <h1>{project ? `Edit` : `Create`} Project</h1>
           <div
@@ -176,7 +169,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
             `}
           >
             <div>
-              {projectLogos.map((link, ky) => (
+              {projectLogos.map(link => (
                 <Image alt="" crop="lpad" width={200} key={link} src={link} />
               ))}
             </div>
@@ -312,6 +305,8 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
             </form>
           </div>
         </div>
+      ) : (
+        <Redirect to="/signin" />
       )}
     </Layout>
   )

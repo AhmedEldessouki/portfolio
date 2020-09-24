@@ -1,8 +1,6 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
@@ -37,12 +35,18 @@ const ProjectsSummary = ({project, auth, to, key}) => {
   return (
     <div css={pWrapper}>
       {auth.uid ? (
-        <Fragment>
+        <div
+          css={css`
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          `}
+        >
           <NavLink to={`/edit/${project.id}`} key={project}>
-            <FaPen />
+            <FaPen style={{color: colors.lightBlue, fontSize: '1.5rem'}} />
           </NavLink>
           <PopUp project={project} title="Project" />
-        </Fragment>
+        </div>
       ) : null}
       <NavLink to={to} key={key}>
         <h1 css={forHeader}>{project.projectName}</h1>

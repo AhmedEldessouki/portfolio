@@ -3,7 +3,7 @@ import {jsx, css} from '@emotion/core'
 import {NavLink} from 'react-router-dom'
 
 import my from '../../assets/my.svg'
-import {colors, mq} from '../../Styles'
+import {colors} from '../../Styles'
 
 const UnAuthNavlinks = () => {
   const container = css`
@@ -11,14 +11,7 @@ const UnAuthNavlinks = () => {
     display: flex;
     justify-content: center;
   `
-  const imgg = css`
-    width: 267px;
-    padding: 9px 21px;
-    background-color: ${colors.independenceBlue};
-    ${mq.s} {
-      width: 232px;
-    }
-  `
+
   return (
     <div css={container}>
       <NavLink to="/">

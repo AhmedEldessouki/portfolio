@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {toast} from 'react-toastify'
 
 export const createProject = project => {
@@ -47,7 +48,6 @@ export const updateProject = project => {
         description: project.description
           ? project.description
           : project.project.description,
-        // createdAt: new Date()
       })
       .then(() => {
         toast.success(`Project "${project.projectName}" Updated`)
