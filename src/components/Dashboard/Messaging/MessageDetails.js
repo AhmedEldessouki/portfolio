@@ -3,12 +3,11 @@ import {jsx, css} from '@emotion/core'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
-import {Redirect} from 'react-router-dom'
 
 import Layout from '../../Layout'
 import {h1XL, colors, mq, spinner} from '../../../Styles'
 
-function MessageDetails({message, auth}) {
+function MessageDetails({message}) {
   const container = css`
     display: grid;
     place-content: center;
@@ -86,10 +85,8 @@ function MessageDetails({message, auth}) {
             Msg Received: {message.sentAt.toDate().toDateString()}
           </h3>
         </div>
-      ) : auth.uid ? (
-        <div css={spinner} />
       ) : (
-        <Redirect to="/signin" />
+        <div css={spinner} />
       )}
     </Layout>
   )
@@ -102,7 +99,6 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     message,
-    auth: state.firebase.auth,
   }
 }
 
