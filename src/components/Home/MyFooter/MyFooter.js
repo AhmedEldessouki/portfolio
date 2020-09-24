@@ -11,6 +11,7 @@ import {VscTwitter, VscGithub} from 'react-icons/vsc'
 import {GrReactjs} from 'react-icons/gr'
 
 import {colors, mq, weights} from '../../../Styles'
+import {Link} from 'react-router-dom'
 
 const MyFooter = () => {
   const fWrapper = css`
@@ -90,7 +91,17 @@ const MyFooter = () => {
         </a>
       </div>
       <div css={copyWrite}>
-        <span>© 2019 Ahmed ElDessouki</span>
+        <Link
+          to="/signin"
+          css={css`
+            :hover {
+              color: inherit;
+              cursor: context-menu;
+            }
+          `}
+        >
+          <span>© 2019 Ahmed ElDessouki</span>
+        </Link>
       </div>
     </footer>
   )
