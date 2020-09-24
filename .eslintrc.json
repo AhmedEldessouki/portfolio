@@ -4,12 +4,13 @@
     "kentcdodds/import",
     "kentcdodds/react",
     "kentcdodds/jsx-a11y",
-    "kentcdodds/jest"
+    "kentcdodds/jest",
+    "plugin:cypress/recommended",
+    "plugin:chai-friendly/recommended"
   ],
   "rules": {
     "react/prop-types": "off",
     "jsx-a11y/autocomplete-valid": "off",
-
     "jest/no-done-callback": "off"
   }
 }
