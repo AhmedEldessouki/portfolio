@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {GoMarkGithub} from 'react-icons/go'

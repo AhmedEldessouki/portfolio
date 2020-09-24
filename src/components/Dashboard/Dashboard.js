@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
 import {jsx} from '@emotion/core'
@@ -15,23 +14,19 @@ import Layout from '../Layout'
 import Messages from './Messaging/Messages'
 
 const Dashboard = ({isSubmitting, auth, projectsData, messagesData}) => {
-  return (
-    <Fragment>
-      {!auth.uid ? (
-        <Redirect to="/signin" />
+  return auth.uid ? (
+    <Layout>
+      {isSubmitting ? (
+        <Fragment>
+          <Projects projectsData={projectsData} />
+          <Messages messagesData={messagesData} />
+        </Fragment>
       ) : (
-        <Layout>
-          {!isSubmitting ? (
-            <div css={spinner} />
-          ) : (
-            <Fragment>
-              <Projects projectsData={projectsData} />
-              <Messages messagesData={messagesData} />
-            </Fragment>
-          )}
-        </Layout>
+        <div css={spinner} />
       )}
-    </Fragment>
+    </Layout>
+  ) : (
+    <Redirect to="/signin" />
   )
 }
 

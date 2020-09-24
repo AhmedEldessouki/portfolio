@@ -16,7 +16,7 @@
     "react-redux": "^5.1.1",
     "react-redux-firebase": "^2.2.5",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "3.4.3",
     "react-toastify": "^6.0.8",
     "redux": "^4.0.1",
     "redux-firestore": "^0.13.0",
@@ -33,7 +33,7 @@
     "test": "react-scripts test",
     "heroku-postbuild": "npm run build",
     "format": "prettier --write \"**/*.+(js|json|css|md|mdx|html)\"",
-    "lint": "node ./node_modules/eslint/bin/eslint . --ignore-path .gitignore"
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,6 +45,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@testing-library/jest-dom": "^5.11.4",
@@ -53,15 +54,9 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
     "dotenv": "^8.2.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint": "^6.8.0",
+    "eslint-config-kentcdodds": "^16.0.1",
     "eslint-plugin-jest-dom": "^3.2.3",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.21.1",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "eslint-plugin-testing-library": "^3.9.0",
     "husky": "^4.3.0",
     "jest": "24.9.0",
     "jest-dom": "^4.0.0",

@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
@@ -154,9 +154,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
 
   return (
     <Layout>
-      {!auth.uid ? (
-        <Redirect to="/signin" />
-      ) : (
+      {auth.uid ? (
         <div className="CreateProject">
           <h1>{project ? `Edit` : `Create`} Project</h1>
           <div
@@ -171,7 +169,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
             `}
           >
             <div>
-              {projectLogos.map((link, ky) => (
+              {projectLogos.map(link => (
                 <Image alt="" crop="lpad" width={200} key={link} src={link} />
               ))}
             </div>
@@ -307,6 +305,8 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
             </form>
           </div>
         </div>
+      ) : (
+        <Redirect to="/signin" />
       )}
     </Layout>
   )

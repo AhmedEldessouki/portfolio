@@ -1,5 +1,4 @@
-/* eslint-disable import/order */
-/* eslint-disable react/jsx-fragments */
+/* eslint-disable react/jsx-no-useless-fragment */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
@@ -63,9 +62,7 @@ function SignUp({auth, authError, signUp}) {
 
   return (
     <Fragment>
-      {!auth.uid ? (
-        <Redirect to="/signin" />
-      ) : (
+      {auth.uid ? (
         <Layout>
           <h1 css={h1XL}>Sign up</h1>
           <div
@@ -219,6 +216,8 @@ function SignUp({auth, authError, signUp}) {
             </form>
           </div>
         </Layout>
+      ) : (
+        <Redirect to="/signin" />
       )}
     </Fragment>
   )

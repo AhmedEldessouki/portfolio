@@ -1,4 +1,5 @@
-/* eslint-disable react/jsx-fragments */
+/* eslint-disable no-negated-condition */
+
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
@@ -89,74 +90,69 @@ function Carousel({imgArray, imgAlt}) {
     }
   `
   return (
-    <Fragment>
-      <div css={cWrapper}>
-        <button
-          type="button"
-          css={[currentImage === 0 ? disabledBTN : btn, leftS]}
-          onClick={() =>
-            currentImage !== 0 ? setCurrentImage(currentImage - 1) : null
-          }
-          disabled={currentImage === 0}
-        >
-          {'<'}
-        </button>
+    <div css={cWrapper}>
+      <button
+        type="button"
+        css={[currentImage === 0 ? disabledBTN : btn, leftS]}
+        onClick={() =>
+          currentImage !== 0 ? setCurrentImage(currentImage - 1) : null
+        }
+        disabled={currentImage === 0}
+      >
+        {'<'}
+      </button>
 
-        <a href={imgArray[currentImage]}>
-          <Image
-            width="450"
-            height="400"
-            alt={imgAlt}
-            fit="contain"
-            src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
-          />
-        </a>
-        <section
-          css={css`
-            justify-self: center;
-            grid-row: 5;
-            grid-column: 2 / span 3;
-            ${mq.phoneLarge} {
-              grid-row: 2;
-              grid-column: 1;
-            }
-          `}
-        >
-          {imgArray.map((data, forKC) => (
-            // eslint-disable-next-line jsx-a11y/control-has-associated-label
-            <button
-              key={data}
-              type="button"
-              onClick={() => setCurrentImage(forKC)}
-              css={[
-                carouselNav,
-                currentImage === forKC
-                  ? css`
-                      background: ${colors.whiteFaded};
-                      outline: none;
-                    `
-                  : null,
-              ]}
-            />
-          ))}
-        </section>
-        <button
-          type="button"
-          css={[
-            currentImage === imgArray.length - 1 ? disabledBTN : btn,
-            rightS,
-          ]}
-          onClick={() =>
-            currentImage !== imgArray.length
-              ? setCurrentImage(currentImage + 1)
-              : null
+      <a href={imgArray[currentImage]}>
+        <Image
+          width="450"
+          height="400"
+          alt={imgAlt}
+          fit="contain"
+          src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
+        />
+      </a>
+      <section
+        css={css`
+          justify-self: center;
+          grid-row: 5;
+          grid-column: 2 / span 3;
+          ${mq.phoneLarge} {
+            grid-row: 2;
+            grid-column: 1;
           }
-          disabled={currentImage === imgArray.length - 1}
-        >
-          {'>'}
-        </button>
-      </div>
-    </Fragment>
+        `}
+      >
+        {imgArray.map((data, forKC) => (
+          // eslint-disable-next-line jsx-a11y/control-has-associated-label
+          <button
+            key={data}
+            type="button"
+            onClick={() => setCurrentImage(forKC)}
+            css={[
+              carouselNav,
+              currentImage === forKC
+                ? css`
+                    background: ${colors.whiteFaded};
+                    outline: none;
+                  `
+                : null,
+            ]}
+          />
+        ))}
+      </section>
+      <button
+        type="button"
+        css={[currentImage === imgArray.length - 1 ? disabledBTN : btn, rightS]}
+        onClick={() =>
+          currentImage !== imgArray.length
+            ? setCurrentImage(currentImage + 1)
+            : null
+        }
+        disabled={currentImage === imgArray.length - 1}
+      >
+        {'>'}
+      </button>
+    </div>
   )
 }
 

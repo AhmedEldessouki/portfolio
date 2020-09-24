@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 // Global CSS Styles
 
 import {css} from '@emotion/core'

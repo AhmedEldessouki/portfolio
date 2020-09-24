@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-fragments */
+/* eslint-disable react/jsx-no-useless-fragment */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'

@@ -1,8 +1,6 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
 import {NavLink} from 'react-router-dom'
 
 import {colors, h1XL} from '../../../Styles'
@@ -46,18 +44,16 @@ function MessagesSummary({contact, to, id}) {
     padding-right: 11px;
   `
   return (
-    <Fragment>
-      <div css={messagesSummary}>
-        <NavLink css={childN} to={to} key={id}>
-          <h2 css={h1XL}>{contact.contactName}</h2>
-        </NavLink>
-        <div css={childB}>
-          <PopUp contact={contact} title="Message" />
-        </div>
-        <p css={childP}>{contact.description}</p>
-        <span css={childD}>{contact.sentAt.toDate().toDateString()}</span>
+    <div css={messagesSummary}>
+      <NavLink css={childN} to={to} key={id}>
+        <h2 css={h1XL}>{contact.contactName}</h2>
+      </NavLink>
+      <div css={childB}>
+        <PopUp contact={contact} title="Message" />
       </div>
-    </Fragment>
+      <p css={childP}>{contact.description}</p>
+      <span css={childD}>{contact.sentAt.toDate().toDateString()}</span>
+    </div>
   )
 }
 

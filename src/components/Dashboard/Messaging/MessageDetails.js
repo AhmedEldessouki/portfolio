@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-fragments */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
@@ -72,28 +70,26 @@ function MessageDetails({message, auth}) {
   return (
     <Layout>
       {message ? (
-        <Fragment>
-          <div css={container}>
-            <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
-            <div css={phoneAndEmailWrapper}>
-              <h2>
-                Phone Number:
-                {message.phoneNumber}
-              </h2>
-              <h2>
-                Email: <a href={`mailto:${message.email}`}>{message.email}</a>
-              </h2>
-            </div>
-            <p css={midWrapper}>{message.description}</p>
-            <h3 css={lowerWrapper}>
-              Msg Received: {message.sentAt.toDate().toDateString()}
-            </h3>
+        <div css={container}>
+          <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
+          <div css={phoneAndEmailWrapper}>
+            <h2>
+              Phone Number:
+              {message.phoneNumber}
+            </h2>
+            <h2>
+              Email: <a href={`mailto:${message.email}`}>{message.email}</a>
+            </h2>
           </div>
-        </Fragment>
+          <p css={midWrapper}>{message.description}</p>
+          <h3 css={lowerWrapper}>
+            Msg Received: {message.sentAt.toDate().toDateString()}
+          </h3>
+        </div>
+      ) : auth.uid ? (
+        <div css={spinner} />
       ) : (
-        <Fragment>
-          {auth.uid ? <div css={spinner} /> : <Redirect to="/signin" />}
-        </Fragment>
+        <Redirect to="/signin" />
       )}
     </Layout>
   )

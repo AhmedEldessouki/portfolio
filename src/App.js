@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import React, {useEffect} from 'react'
 import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
