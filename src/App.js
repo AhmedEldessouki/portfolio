@@ -25,9 +25,9 @@ function App({auth}) {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/projects/:id" component={ProjectDetails} />
+            <Route path="/:id" component={ProjectDetails} />
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/messages/:id" component={MessageDetails} />
+            <Route path="/message/:id" component={MessageDetails} />
             <Route path="/SignUp" component={SignUp} />
             <Route path="/create-project" component={CreateProject} />
             <Route path="/edit/:id" component={CreateProject} />
@@ -39,7 +39,7 @@ function App({auth}) {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/projects/:id" component={ProjectDetails} />
+            <Route path="/:id" component={ProjectDetails} />
             <Redirect from="*" to="/" />
           </Switch>
         </BrowserRouter>

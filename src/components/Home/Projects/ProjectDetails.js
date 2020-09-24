@@ -73,7 +73,14 @@ const ProjectDetails = ({project}) => {
           <ContactMe />
         </Fragment>
       ) : (
-        <div css={spinner} />
+        <div
+          css={[
+            spinner,
+            css`
+              margin: 50px 0 0;
+            `,
+          ]}
+        />
       )}
     </Layout>
   )
