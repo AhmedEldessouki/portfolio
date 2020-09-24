@@ -9,9 +9,9 @@ import {
 } from 'react-icons/fa'
 import {VscTwitter, VscGithub} from 'react-icons/vsc'
 import {GrReactjs} from 'react-icons/gr'
+import {Link} from 'react-router-dom'
 
 import {colors, mq, weights} from '../../../Styles'
-import {Link} from 'react-router-dom'
 
 const MyFooter = () => {
   const fWrapper = css`
