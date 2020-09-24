@@ -1,9 +1,7 @@
-/* eslint-disable no-negated-condition */
-
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {Fragment, useState} from 'react'
+import {useState} from 'react'
 import {Image} from 'cloudinary-react'
 
 import {colors, mq} from '../../../Styles'
