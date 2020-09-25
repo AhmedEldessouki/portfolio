@@ -7,8 +7,10 @@
     "Merienda",
     "Navlinks",
     "ahmedeldessouki",
+    "browserslist",
     "firestore",
-    "signin"
+    "signin",
+    "toastify"
   ],
   "eslint.enable": true
 }
