@@ -24,7 +24,7 @@ const Projects = ({projectsData}) => {
             return (
               <ProjectsSummary
                 project={project}
-                to={`/${project.id}`}
+                to={`project/${project.id}`}
                 key={project.id}
               />
             )

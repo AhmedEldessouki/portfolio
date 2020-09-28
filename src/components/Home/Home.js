@@ -8,6 +8,7 @@ import Projects from './Projects/Projects'
 import ContactMe from './ContactMe/ContactMe'
 
 function Home({projectsData}) {
+  console.log(projectsData)
   return (
     <Layout>
       <About />

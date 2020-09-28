@@ -16,7 +16,7 @@ const ProjectDetails = ({project}) => {
 
   return (
     <Layout>
-      {project && project ? (
+      {project ? (
         <Fragment>
           <Carousel
             imgArray={project.projectLogo}

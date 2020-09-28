@@ -5,7 +5,6 @@
     "kentcdodds/react",
     "kentcdodds/jsx-a11y",
     "kentcdodds/jest",
-    "plugin:cypress/recommended",
     "plugin:chai-friendly/recommended"
   ],
   "rules": {
