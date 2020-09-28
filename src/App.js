@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
-import {connect} from 'react-redux'
 
 import Home from './components/Home/Home'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -13,14 +12,10 @@ import CreateProject from './components/Home/Projects/CreateProject'
 
 import 'react-toastify/dist/ReactToastify.css'
 
-function App({auth}) {
-  useEffect(() => {
-    document.title = 'Ahmed Eldessouki'
-  })
-
+function App() {
   return (
     <>
-      {auth.uid ? (
+      {false ? (
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -50,10 +45,4 @@ function App({auth}) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  }
-}
-
-export default connect(mapStateToProps)(App)
+export default App

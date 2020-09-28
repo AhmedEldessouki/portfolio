@@ -1,6 +1,5 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-
 import {render, screen} from '@testing-library/react'
 import App from '../App'
 
@@ -17,5 +16,5 @@ it('App Rendered', () => {
     screen.getByPlaceholderText(/name/i),
     'If you see this it means that the text was a success',
   )
-  userEvent.click(screen.getByRole('button')).toBeEnabled()
+  userEvent.click(screen.getByRole('button'))
 })

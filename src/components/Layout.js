@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {Global} from '@emotion/core'
-import {compose} from 'redux'
-import {connect} from 'react-redux'
-import {firestoreConnect} from 'react-redux-firebase'
 
 import {globalStyles} from '../Styles'
 
@@ -12,11 +9,11 @@ import AuthNavlinks from './Navigation/AuthNavlinks'
 
 import '../Styles/layout.css'
 
-function Layout({children, auth}) {
+function Layout({children}) {
   const [links, setLinks] = useState(null)
   useEffect(() => {
-    setLinks(auth.uid ? <AuthNavlinks /> : <UnAuthNavlinks />)
-  }, [auth.uid])
+    setLinks(false ? <AuthNavlinks /> : <UnAuthNavlinks />)
+  }, [])
 
   return (
     <>
@@ -28,12 +25,4 @@ function Layout({children, auth}) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  }
-}
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{collection: 'projects', orderBy: ['createdAt', 'desc']}]),
-)(Layout)
+export default Layout
