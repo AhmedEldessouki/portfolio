@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
-import {connect} from 'react-redux'
-import {firestoreConnect} from 'react-redux-firebase'
-import {compose} from 'redux'
 
 import Layout from '../../Layout'
 import {h1XL, colors, mq, spinner} from '../../../Styles'
 
-function MessageDetails({message}) {
+function MessageDetails() {
+  const message = {}
+
   const container = css`
     display: grid;
     place-content: center;
@@ -92,17 +91,4 @@ function MessageDetails({message}) {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const {id} = ownProps.match.params
-  const {contactedMe} = state.firestore.data
-  const message = contactedMe ? contactedMe[id] : null
-
-  return {
-    message,
-  }
-}
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{collection: 'contactedMe'}]),
-)(MessageDetails)
+export default MessageDetails

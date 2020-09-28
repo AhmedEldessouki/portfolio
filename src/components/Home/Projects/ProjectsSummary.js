@@ -1,15 +1,13 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
 import PopUp from '../../PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
-import {deleteProject} from '../../../Store/Actions/ProjectsActions'
 
-const ProjectsSummary = ({project, auth, to, key}) => {
+const ProjectsSummary = ({project, to, xyz}) => {
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;
@@ -34,7 +32,7 @@ const ProjectsSummary = ({project, auth, to, key}) => {
 
   return (
     <div css={pWrapper}>
-      {auth.uid ? (
+      {false ? (
         <div
           css={css`
             display: flex;
@@ -48,7 +46,7 @@ const ProjectsSummary = ({project, auth, to, key}) => {
           <PopUp project={project} title="Project" />
         </div>
       ) : null}
-      <NavLink to={to} key={key}>
+      <NavLink to={to} key={xyz}>
         <h1 css={forHeader}>{project.projectName}</h1>
       </NavLink>
       <span
@@ -64,14 +62,4 @@ const ProjectsSummary = ({project, auth, to, key}) => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    deleteProject: project => dispatch(deleteProject(project)),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsSummary)
+export default ProjectsSummary

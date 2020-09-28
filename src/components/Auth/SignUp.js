@@ -3,7 +3,6 @@
 
 import {jsx, css} from '@emotion/core'
 import {useEffect, useState} from 'react'
-import {connect} from 'react-redux'
 
 import Layout from '../Layout'
 import {
@@ -16,10 +15,10 @@ import {
   h1XL,
   colors,
 } from '../../Styles'
-import {signUp} from '../../Store/Actions/AuthActions'
+// import {signUp} from '../../Store/Actions/AuthActions'
 
 // eslint-disable-next-line no-shadow
-function SignUp({authError, signUp}) {
+function SignUp() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -55,8 +54,9 @@ function SignUp({authError, signUp}) {
     e.preventDefault()
     setIsSubmitting(true)
     const arr = {firstName, lastName, email, password, confirmPassword}
-    await signUp(arr)
+    // await signUp(arr)
     setIsSubmitting(false)
+    return arr
   }
 
   return (
@@ -191,7 +191,7 @@ function SignUp({authError, signUp}) {
               <span css={warning}>Password Don&apos;t Match</span>
             ) : null}
           </label>
-          {authError ? <div css={warning}>{authError}</div> : null}
+          {/* {authError ? <div css={warning}>{authError}</div> : null} */}
 
           {isSubmitting ? (
             <div
@@ -216,14 +216,4 @@ function SignUp({authError, signUp}) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    authError: state.auth.authError,
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    signUp: values => dispatch(signUp(values)),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default SignUp

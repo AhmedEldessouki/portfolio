@@ -26,6 +26,7 @@ const Projects = ({projectsData}) => {
                 project={project}
                 to={`project/${project.id}`}
                 key={project.id}
+                xyz={project.id}
               />
             )
           })}

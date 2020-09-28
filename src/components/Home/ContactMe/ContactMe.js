@@ -2,7 +2,6 @@
 
 import {jsx, css} from '@emotion/core'
 import {useEffect, useState} from 'react'
-import {connect} from 'react-redux'
 
 import {
   wrapper,
@@ -18,7 +17,7 @@ import {
 import {contactedMe} from '../../../Store/Actions/ContactedMeActions'
 
 // eslint-disable-next-line no-shadow
-function ContactMe({contError, contactedMe}) {
+function ContactMe() {
   const [contactName, setContactName] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -40,12 +39,12 @@ function ContactMe({contError, contactedMe}) {
     }
   }, [phoneNumber])
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault()
     setIsSubmitting(true)
     const arr = {contactName, email, phoneNumber, description}
-    await contactedMe(arr)
-
+    console.log(arr)
+    contactedMe(arr)
     setTimeout(() => {
       setPhoneNumber('')
       setEmail('')
@@ -53,6 +52,7 @@ function ContactMe({contError, contactedMe}) {
       setContactName('')
     }, 1000)
     setIsSubmitting(false)
+    return arr
   }
   return (
     <div
@@ -164,7 +164,7 @@ function ContactMe({contError, contactedMe}) {
             ]}
           />
         </label>
-        {isSubmitting ? (
+        {false ? (
           <div
             css={css`
               width: 100%;
@@ -181,20 +181,10 @@ function ContactMe({contError, contactedMe}) {
             Submit
           </button>
         )}
-        {contError ? <span css={warning}>{contError}</span> : null}
+        {/* {contError ? <span css={warning}>{contError}</span> : null} */}
       </form>
     </div>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    contError: state.contactedMe.contError,
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    contactedMe: contact => dispatch(contactedMe(contact)),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ContactMe)
+export default ContactMe

@@ -2,16 +2,14 @@
 
 import {jsx, css} from '@emotion/core'
 import {Fragment} from 'react'
-import {connect} from 'react-redux'
-import {firestoreConnect} from 'react-redux-firebase'
-import {compose} from 'redux'
 
 import ContactMe from '../ContactMe/ContactMe'
 import Carousel from '../../Utils/Carousel/Carousel'
 import Layout from '../../Layout'
 import {colors, spinner} from '../../../Styles'
 
-const ProjectDetails = ({project}) => {
+const ProjectDetails = () => {
+  const project = {}
   window.scrollTo(0, 0)
 
   return (
@@ -86,17 +84,4 @@ const ProjectDetails = ({project}) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const {id} = ownProps.match.params
-  const {projects} = state.firestore.data
-  const project = projects ? projects[id] : null
-  return {
-    project,
-    profile: state.firebase.profile,
-  }
-}
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{collection: 'projects'}]),
-)(ProjectDetails)
+export default ProjectDetails
