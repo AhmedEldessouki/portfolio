@@ -1,15 +1,7 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
 import {render, screen} from '@testing-library/react'
-import {
-  toBeEmpty,
-  toBeEnabled,
-  toHaveFocus,
-  toHaveAttribute,
-  toHaveClass,
-  toHaveStyle,
-  toBeDisabled,
-} from '@testing-library/jest-dom'
+import {toBeEnabled, toBeDisabled} from '@testing-library/jest-dom'
 
 import Carousel from '../components/Utils/Carousel/Carousel'
 

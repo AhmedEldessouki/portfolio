@@ -1,13 +1,16 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
+import {useState} from 'react'
 import {NavLink} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
-import PopUp from '../../PopUp/PopUp'
+import PopUp from '../../Utils/PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
 
 const ProjectsSummary = ({project, to, xyz}) => {
+  const [auth, setAuth] = useState(false)
+
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;
@@ -32,7 +35,7 @@ const ProjectsSummary = ({project, to, xyz}) => {
 
   return (
     <div css={pWrapper}>
-      {false ? (
+      {auth ? (
         <div
           css={css`
             display: flex;
