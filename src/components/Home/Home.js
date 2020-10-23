@@ -27,7 +27,7 @@ function Home() {
       description:
         "If You're Wondering About What i Have Been Doing. Then Check This Is The Staging App for My Coming Soon Portfolio.",
       projectLink: 'https://ahmedeldessouki.herokuapp.com/',
-      projectName: 'Portfolio V2',
+      projectName: 'Portfolio V1',
       createdAt: {
         seconds: 1600255260,
         nanoseconds: 74000000,

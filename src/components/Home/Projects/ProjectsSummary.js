@@ -2,15 +2,17 @@
 
 import {jsx, css} from '@emotion/core'
 import {useState} from 'react'
-import {NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
 import PopUp from '../../Utils/PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
+import ProjectDetails from './ProjectDetails'
 
 const ProjectsSummary = ({project, to, xyz}) => {
   const [auth, setAuth] = useState(false)
 
+  console.log(project)
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;
@@ -43,15 +45,13 @@ const ProjectsSummary = ({project, to, xyz}) => {
             align-items: center;
           `}
         >
-          <NavLink to={`/edit/${project.id}`} key={project}>
+          <Link to={`/edit/${project.id}`} key={project}>
             <FaPen style={{color: colors.lightBlue, fontSize: '1.5rem'}} />
-          </NavLink>
+          </Link>
           <PopUp project={project} title="Project" />
         </div>
       ) : null}
-      <NavLink to={to} key={xyz}>
-        <h1 css={forHeader}>{project.projectName}</h1>
-      </NavLink>
+      <h1 css={forHeader}>{project.projectName}</h1>
       <span
         css={css`
           padding: 10px 20px;
