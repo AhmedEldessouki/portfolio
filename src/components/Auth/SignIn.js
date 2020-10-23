@@ -2,7 +2,6 @@
 
 import {jsx, css} from '@emotion/core'
 import {useState} from 'react'
-import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
 import {
@@ -13,11 +12,11 @@ import {
   btnStyle,
   colors,
 } from '../../Styles'
-import {signIn} from '../../Store/Actions/AuthActions'
+// import {signIn} from '../../Store/Actions/AuthActions'
 import Layout from '../Layout'
 
 // eslint-disable-next-line no-shadow
-const SignIn = ({signIn, auth, authError}) => {
+const SignIn = ({signIn}) => {
   const [email, setEmail] = useState('')
   const [emailErr, setEmailErr] = useState('')
   const [password, setPassword] = useState('')
@@ -31,7 +30,7 @@ const SignIn = ({signIn, auth, authError}) => {
     }
     signIn(signInValues)
   }
-  return auth.uid ? (
+  return false ? (
     <Redirect to="/" />
   ) : (
     <Layout>
@@ -95,23 +94,11 @@ const SignIn = ({signIn, auth, authError}) => {
           <button css={btnStyle} type="submit">
             SignIn
           </button>
-          {authError ? <p>{authError}</p> : null}
+          {/* {authError ? <p>{authError}</p> : null} */}
         </form>
       </div>
     </Layout>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    authError: state.auth.authError,
-    auth: state.firebase.auth,
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    signIn: creds => dispatch(signIn(creds)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default SignIn

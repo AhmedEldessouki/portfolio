@@ -2,14 +2,13 @@
 import {jsx, css} from '@emotion/core'
 import {useState, Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
-import {connect} from 'react-redux'
 
-import {deleteProject} from '../../Store/Actions/ProjectsActions'
-import {deleteMessage} from '../../Store/Actions/ContactedMeActions'
-import {colors, weights} from '../../Styles'
+import {deleteProject} from '../../../Store/Actions/ProjectsActions'
+import {deleteMessage} from '../../../Store/Actions/ContactedMeActions'
+import {colors, weights} from '../../../Styles'
 
 // eslint-disable-next-line no-shadow
-function PopUp({project, deleteProject, contact, deleteMessage, title}) {
+function PopUp({project, contact, title}) {
   const popWrapper = css`
     @keyframes fadeIn {
       from {
@@ -121,10 +120,4 @@ function PopUp({project, deleteProject, contact, deleteMessage, title}) {
   )
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    deleteProject: project => dispatch(deleteProject(project)),
-    deleteMessage: contact => dispatch(deleteMessage(contact)),
-  }
-}
-export default connect(null, mapDispatchToProps)(PopUp)
+export default PopUp

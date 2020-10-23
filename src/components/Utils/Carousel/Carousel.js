@@ -95,6 +95,7 @@ function Carousel({imgArray, imgAlt}) {
         onClick={() =>
           currentImage !== 0 ? setCurrentImage(currentImage - 1) : null
         }
+        data-testid="previous"
         disabled={currentImage === 0}
       >
         {'<'}
@@ -126,6 +127,7 @@ function Carousel({imgArray, imgAlt}) {
             key={data}
             type="button"
             onClick={() => setCurrentImage(forKC)}
+            data-testid={`btn${forKC}`}
             css={[
               carouselNav,
               currentImage === forKC
@@ -140,6 +142,7 @@ function Carousel({imgArray, imgAlt}) {
       </section>
       <button
         type="button"
+        data-testid="next"
         css={[currentImage === imgArray.length - 1 ? disabledBTN : btn, rightS]}
         onClick={() =>
           currentImage !== imgArray.length

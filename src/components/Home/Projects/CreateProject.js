@@ -3,7 +3,6 @@
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {useLayoutEffect, useState} from 'react'
-import {connect} from 'react-redux'
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import Dropzone from 'react-dropzone'
@@ -32,7 +31,8 @@ import {
   updateProject,
 } from '../../../Store/Actions/ProjectsActions'
 
-function CreateProject({auth, project, updateProject, createProject, match}) {
+function CreateProject({match}) {
+  const project = {}
   const [projectLogos, setProjectLogos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -154,7 +154,7 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
 
   return (
     <Layout>
-      {auth.uid ? (
+      {false ? (
         <div className="CreateProject">
           <h1>{project ? `Edit` : `Create`} Project</h1>
           <div
@@ -312,19 +312,4 @@ function CreateProject({auth, project, updateProject, createProject, match}) {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const {id} = ownProps.match.params
-  const {projects} = state.firestore.data
-  const project = projects ? projects[id] : null
-  return {
-    auth: state.firebase.auth,
-    project,
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    createProject: project => dispatch(createProject(project)),
-    updateProject: project => dispatch(updateProject(project)),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)
+export default CreateProject

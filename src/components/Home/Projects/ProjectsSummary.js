@@ -1,15 +1,16 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
+import {useState} from 'react'
+import {Link} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
-import PopUp from '../../PopUp/PopUp'
+import PopUp from '../../Utils/PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
-import {deleteProject} from '../../../Store/Actions/ProjectsActions'
 
-const ProjectsSummary = ({project, auth, to, key}) => {
+const ProjectsSummary = ({project}) => {
+  const [auth] = useState(false)
+
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;
@@ -34,7 +35,7 @@ const ProjectsSummary = ({project, auth, to, key}) => {
 
   return (
     <div css={pWrapper}>
-      {auth.uid ? (
+      {auth ? (
         <div
           css={css`
             display: flex;
@@ -42,15 +43,13 @@ const ProjectsSummary = ({project, auth, to, key}) => {
             align-items: center;
           `}
         >
-          <NavLink to={`/edit/${project.id}`} key={project}>
+          <Link to={`/edit/${project.id}`} key={project}>
             <FaPen style={{color: colors.lightBlue, fontSize: '1.5rem'}} />
-          </NavLink>
+          </Link>
           <PopUp project={project} title="Project" />
         </div>
       ) : null}
-      <NavLink to={to} key={key}>
-        <h1 css={forHeader}>{project.projectName}</h1>
-      </NavLink>
+      <h1 css={forHeader}>{project.projectName}</h1>
       <span
         css={css`
           padding: 10px 20px;
@@ -64,14 +63,4 @@ const ProjectsSummary = ({project, auth, to, key}) => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    deleteProject: project => dispatch(deleteProject(project)),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsSummary)
+export default ProjectsSummary
