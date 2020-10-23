@@ -7,10 +7,9 @@ import {FaPen} from 'react-icons/fa'
 
 import PopUp from '../../Utils/PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
-import ProjectDetails from './ProjectDetails'
 
 const ProjectsSummary = ({project}) => {
-  const [auth, setAuth] = useState(false)
+  const [auth] = useState(false)
 
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
