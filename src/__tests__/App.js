@@ -1,6 +1,6 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import {
   toBeInTheDocument,
   toBeDisabled,
@@ -40,6 +40,14 @@ describe('Portfolio', () => {
       screen.getByPlaceholderText(/description/i),
       'If you see this it means that the text was a success',
     )
-    userEvent.click(screen.getByRole('button'))
+    userEvent.click(screen.getByTestId('submit'))
+  })
+
+  test('Project Details Render', () => {
+    render(<App />)
+
+    userEvent.click(screen.getByText(/Portfolio v2/i))
+
+    expect(screen.getByText(/Portfolio v2/i)).toBeTruthy()
   })
 })
