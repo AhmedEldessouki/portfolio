@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
+import {Fragment, useState} from 'react'
 
-import {h1XL} from '../../../Styles'
+import {btnStyle, h1XL} from '../../../Styles'
+import ProjectDetails from './ProjectDetails'
 
 import ProjectsSummary from './ProjectsSummary'
 
 const Projects = ({projectsData}) => {
+  const [project, setProject] = useState(null)
   const mWrapper = css`
     margin: 0 10px;
     padding: 20px 10px;
@@ -15,22 +17,34 @@ const Projects = ({projectsData}) => {
     justify-content: space-evenly;
     grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
   `
-  return (
+  return !project ? (
     <Fragment>
       <h1 css={h1XL}>My Projects</h1>
       <div css={mWrapper}>
-        {projectsData &&
-          projectsData.map(project => {
-            return (
+        {projectsData?.map(project => {
+          return (
+            <button
+              key={project.id}
+              type="button"
+              onClick={() => setProject(project)}
+              style={{background: 'transparent', border: 'none'}}
+            >
               <ProjectsSummary
                 project={project}
                 to={`project/${project.id}`}
-                key={project.id}
                 xyz={project.id}
               />
-            )
-          })}
+            </button>
+          )
+        })}
       </div>
+    </Fragment>
+  ) : (
+    <Fragment>
+      <button css={btnStyle} onClick={() => setProject(null)} type="button">
+        Back
+      </button>
+      <ProjectDetails project={project} />
     </Fragment>
   )
 }

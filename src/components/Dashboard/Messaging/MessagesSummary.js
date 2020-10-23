@@ -4,7 +4,7 @@ import {jsx, css} from '@emotion/core'
 import {NavLink} from 'react-router-dom'
 
 import {colors, h1XL} from '../../../Styles'
-import PopUp from '../../PopUp/PopUp'
+import PopUp from '../../Utils/PopUp/PopUp'
 
 function MessagesSummary({contact, to, id}) {
   const messagesSummary = css`
