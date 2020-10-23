@@ -9,10 +9,9 @@ import PopUp from '../../Utils/PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
 import ProjectDetails from './ProjectDetails'
 
-const ProjectsSummary = ({project, to, xyz}) => {
+const ProjectsSummary = ({project}) => {
   const [auth, setAuth] = useState(false)
 
-  console.log(project)
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;

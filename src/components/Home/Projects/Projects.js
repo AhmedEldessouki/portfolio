@@ -4,7 +4,6 @@ import {Fragment, useState} from 'react'
 
 import {btnStyle, h1XL} from '../../../Styles'
 import ProjectDetails from './ProjectDetails'
-
 import ProjectsSummary from './ProjectsSummary'
 
 const Projects = ({projectsData}) => {
@@ -29,11 +28,7 @@ const Projects = ({projectsData}) => {
               onClick={() => setProject(project)}
               style={{background: 'transparent', border: 'none'}}
             >
-              <ProjectsSummary
-                project={project}
-                to={`project/${project.id}`}
-                xyz={project.id}
-              />
+              <ProjectsSummary project={project} />
             </button>
           )
         })}

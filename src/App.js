@@ -7,7 +7,6 @@ import Dashboard from './components/Dashboard/Dashboard'
 import MessageDetails from './components/Dashboard/Messaging/MessageDetails'
 import SignIn from './components/Auth/SignIn'
 import SignUp from './components/Auth/SignUp'
-import ProjectDetails from './components/Home/Projects/ProjectDetails'
 import CreateProject from './components/Home/Projects/CreateProject'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -20,7 +19,6 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/project/:id" component={ProjectDetails} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/message/:id" component={MessageDetails} />
             <Route path="/signUp" component={SignUp} />
@@ -34,7 +32,6 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/project/:id" component={ProjectDetails} />
             <Redirect from="*" to="/" />
           </Switch>
         </BrowserRouter>
