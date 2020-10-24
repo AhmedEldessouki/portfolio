@@ -16,6 +16,7 @@ export const colors = {
   darkBlue: `#282c34`,
   red: `tomato`,
   burgundyRed: '#890620',
+  lightGreen: '#1BBC9B',
   gatsbyPurple: '#663399',
 }
 

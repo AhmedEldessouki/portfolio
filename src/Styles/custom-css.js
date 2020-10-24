@@ -90,6 +90,7 @@ export const signWrapper = css`
 `
 
 export const signWrapperInput = css`
+  outline: none;
   padding: 8px;
   width: inherit;
   height: 30px;
@@ -137,6 +138,7 @@ export const labelWrapper = css`
 `
 
 export const textArea = css`
+  outline: none;
   width: inherit;
   height: calc(100% - 14px);
   padding: 8px;
