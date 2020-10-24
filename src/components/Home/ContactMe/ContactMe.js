@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {useEffect, useState} from 'react'
+import {Fragment, useEffect, useState} from 'react'
 
 import {
   wrapper,
@@ -64,12 +64,7 @@ function ContactMe() {
     return arr
   }
   return (
-    <div
-      css={css`
-        max-width: 100%;
-        background-color: ${colors.independenceBlue};
-      `}
-    >
+    <Fragment>
       <h1 css={h1XL}>Contact Me</h1>
       <form id="ContactMe" onSubmit={handleSubmit} css={wrapper}>
         <section>
@@ -193,7 +188,7 @@ function ContactMe() {
         )}
         {/* {contError ? <span css={warning}>{contError}</span> : null} */}
       </form>
-    </div>
+    </Fragment>
   )
 }
 
