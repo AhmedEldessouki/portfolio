@@ -16,6 +16,8 @@ import {
 } from '../../../Styles'
 import {contactedMe} from '../../../Store/Actions/ContactedMeActions'
 
+import useAsync from '../../Utils/Custome-hooks/useAsync'
+
 // eslint-disable-next-line no-shadow
 function ContactMe() {
   const [contactName, setContactName] = useState('')
@@ -23,11 +25,12 @@ function ContactMe() {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [description, setDescription] = useState('')
   const [errPhoneNumber, setErrPhoneNumber] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [descriptionErr, setDescriptionErr] = useState('')
   const [contactNameErr, setContactNameErr] = useState('')
   const [phoneNumberErr, setPhoneNumberErr] = useState('')
   const [emailErr, setEmailErr] = useState('')
+
+  const [, status, , dispatch] = useAsync()
 
   useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
@@ -41,7 +44,9 @@ function ContactMe() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    setIsSubmitting(true)
+    dispatch({type: 'pending'})
+    // Simulate back-end call
+    setTimeout(() => {}, 1000)
     const arr = {contactName, email, phoneNumber, description}
     console.log(arr)
     contactedMe(arr)
@@ -50,8 +55,12 @@ function ContactMe() {
       setEmail('')
       setDescription('')
       setContactName('')
+      setDescriptionErr(colors.aliceLightBlue)
+      setContactNameErr(colors.aliceLightBlue)
+      setPhoneNumberErr(colors.aliceLightBlue)
+      setEmailErr(colors.aliceLightBlue)
+      dispatch({type: 'ready'})
     }, 1000)
-    setIsSubmitting(false)
     return arr
   }
   return (
@@ -75,7 +84,7 @@ function ContactMe() {
               onChange={e => setContactName(e.target.value)}
               onBlur={e =>
                 e.target.validity.valid
-                  ? setContactNameErr('inherit')
+                  ? setContactNameErr(colors.lightGreen)
                   : setContactNameErr(colors.burgundyRed)
               }
               name="contactName"
@@ -94,7 +103,7 @@ function ContactMe() {
               onChange={e => setEmail(e.target.value)}
               onBlur={e =>
                 e.target.validity.valid
-                  ? setEmailErr('inherit')
+                  ? setEmailErr(colors.lightGreen)
                   : setEmailErr(colors.burgundyRed)
               }
               css={[
@@ -123,7 +132,7 @@ function ContactMe() {
               onChange={e => setPhoneNumber(e.target.value)}
               onBlur={e =>
                 e.target.validity.valid
-                  ? setPhoneNumberErr('inherit')
+                  ? setPhoneNumberErr(colors.lightGreen)
                   : setPhoneNumberErr(colors.burgundyRed)
               }
               name="phoneNumber"
@@ -147,7 +156,7 @@ function ContactMe() {
             onChange={e => setDescription(e.target.value)}
             onBlur={e =>
               e.target.validity.valid
-                ? setDescriptionErr('inherit')
+                ? setDescriptionErr(colors.lightGreen)
                 : setDescriptionErr(colors.burgundyRed)
             }
             id="description"
@@ -176,7 +185,7 @@ function ContactMe() {
           <button
             type="submit"
             data-testid="submit"
-            disabled={isSubmitting || errPhoneNumber}
+            disabled={status === 'pending' ? true : false}
             css={btnStyle}
           >
             Submit
