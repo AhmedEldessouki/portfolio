@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-shadow */
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {useLayoutEffect, useState} from 'react'
@@ -46,18 +47,20 @@ function CreateProject({match}) {
 
   const urls = []
 
-  useLayoutEffect(() => {
-    if (project) {
-      setProjectName(project.projectName)
-      setDescription(project.description)
-      setProjectLink(project.projectLink)
-    }
-    return () => {
-      setProjectName('')
-      setDescription('')
-      setProjectLink('')
-    }
-  }, [project])
+  // TODO: this is to be uncommented when we get the DB up and running
+
+  // useLayoutEffect(() => {
+  //   if (project) {
+  //     setProjectName(project.projectName)
+  //     setDescription(project.description)
+  //     setProjectLink(project.projectLink)
+  //   }
+  //   return () => {
+  //     setProjectName('')
+  //     setDescription('')
+  //     setProjectLink('')
+  //   }
+  // }, [project])
 
   function handleDrop(acceptedFiles, rejectedFiles) {
     setIsLoading(true)
