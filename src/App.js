@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
 

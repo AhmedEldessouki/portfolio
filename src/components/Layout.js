@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import * as React from 'react'
 import {Global} from '@emotion/core'
 
 import {globalStyles} from '../Styles'
@@ -10,8 +10,8 @@ import AuthNavlinks from './Navigation/AuthNavlinks'
 import '../Styles/layout.css'
 
 function Layout({children}) {
-  const [links, setLinks] = useState(null)
-  useEffect(() => {
+  const [links, setLinks] = React.useState(null)
+  React.useEffect(() => {
     setLinks(false ? <AuthNavlinks /> : <UnAuthNavlinks />)
   }, [])
 

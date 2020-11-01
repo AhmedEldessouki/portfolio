@@ -1,7 +1,8 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/core'
-import {useState} from 'react'
+import * as React from 'react'
 import {Redirect} from 'react-router-dom'
 
 import {
@@ -17,10 +18,10 @@ import Layout from '../Layout'
 
 // eslint-disable-next-line no-shadow
 const SignIn = ({signIn}) => {
-  const [email, setEmail] = useState('')
-  const [emailErr, setEmailErr] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordErr, setPasswordErr] = useState('')
+  const [email, setEmail] = React.useState('')
+  const [emailErr, setEmailErr] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [passwordErr, setPasswordErr] = React.useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
