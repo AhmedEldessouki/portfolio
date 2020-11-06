@@ -1,8 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
+import {css} from '@emotion/core'
+import * as React from 'react'
 
 import MessagesSummary from './MessagesSummary'
 
@@ -16,7 +15,7 @@ function Messages({messagesData}) {
     grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
   `
   return (
-    <Fragment>
+    <React.Fragment>
       <h1>Messages</h1>
       <div css={mWrapper}>
         {messagesData &&
@@ -30,7 +29,7 @@ function Messages({messagesData}) {
             )
           })}
       </div>
-    </Fragment>
+    </React.Fragment>
   )
 }
 

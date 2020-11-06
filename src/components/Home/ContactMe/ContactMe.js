@@ -1,8 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
-import {Fragment, useEffect, useState} from 'react'
+import {css} from '@emotion/core'
+import * as React from 'react'
 
 import {
   wrapper,
@@ -21,19 +20,19 @@ import useAsync from '../../Utils/Custome-hooks/useAsync'
 
 // eslint-disable-next-line no-shadow
 function ContactMe() {
-  const [contactName, setContactName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [description, setDescription] = useState('')
-  const [errPhoneNumber, setErrPhoneNumber] = useState(false)
-  const [descriptionErr, setDescriptionErr] = useState('')
-  const [contactNameErr, setContactNameErr] = useState('')
-  const [phoneNumberErr, setPhoneNumberErr] = useState('')
-  const [emailErr, setEmailErr] = useState('')
+  const [contactName, setContactName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [phoneNumber, setPhoneNumber] = React.useState('')
+  const [description, setDescription] = React.useState('')
+  const [errPhoneNumber, setErrPhoneNumber] = React.useState(false)
+  const [descriptionErr, setDescriptionErr] = React.useState('')
+  const [contactNameErr, setContactNameErr] = React.useState('')
+  const [phoneNumberErr, setPhoneNumberErr] = React.useState('')
+  const [emailErr, setEmailErr] = React.useState('')
 
   const [, status, , dispatch] = useAsync()
 
-  useEffect(() => {
+  React.useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(phoneNumber)) {
       setErrPhoneNumber(true)
@@ -65,7 +64,7 @@ function ContactMe() {
     return arr
   }
   return (
-    <Fragment>
+    <React.Fragment>
       <h1 css={h1XL}>Contact Me</h1>
       <form id="ContactMe" onSubmit={handleSubmit} css={wrapper}>
         <section>
@@ -189,7 +188,7 @@ function ContactMe() {
         )}
         {/* {contError ? <span css={warning}>{contError}</span> : null} */}
       </form>
-    </Fragment>
+    </React.Fragment>
   )
 }
 
