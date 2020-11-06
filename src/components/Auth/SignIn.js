@@ -1,7 +1,6 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
+import {css} from '@emotion/core'
 import * as React from 'react'
 import {Redirect} from 'react-router-dom'
 

@@ -1,7 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
+import * as React from 'react'
+import {css} from '@emotion/core'
 import {NavLink} from 'react-router-dom'
 
 import {colors, h1XL} from '../../../Styles'

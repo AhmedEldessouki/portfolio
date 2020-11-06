@@ -1,8 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
-import {useState} from 'react'
+import {css} from '@emotion/core'
+import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
@@ -10,7 +9,7 @@ import PopUp from '../../Utils/PopUp/PopUp'
 import {colors, weights} from '../../../Styles'
 
 const ProjectsSummary = ({project}) => {
-  const [auth] = useState(false)
+  const [auth] = React.useState(false)
 
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};

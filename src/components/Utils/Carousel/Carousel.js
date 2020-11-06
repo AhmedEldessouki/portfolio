@@ -1,14 +1,13 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
-import {useState} from 'react'
+import {css} from '@emotion/core'
+import * as React from 'react'
 import {Image} from 'cloudinary-react'
 
 import {colors, mq} from '../../../Styles'
 
 function Carousel({imgArray, imgAlt}) {
-  const [currentImage, setCurrentImage] = useState(0)
+  const [currentImage, setCurrentImage] = React.useState(0)
 
   const cWrapper = css`
     width: 100%;

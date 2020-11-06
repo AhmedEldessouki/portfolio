@@ -1,8 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
-import {useEffect, useState} from 'react'
+import {css} from '@emotion/core'
+import * as React from 'react'
 
 import Layout from '../Layout'
 import {
@@ -19,21 +18,21 @@ import {
 
 // eslint-disable-next-line no-shadow
 function SignUp() {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [firstName, setFirstName] = React.useState('')
+  const [lastName, setLastName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [confirmPassword, setConfirmPassword] = React.useState('')
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
 
-  const [firstNameErr, setFirstNameErr] = useState('')
-  const [lastNameErr, setLastNameErr] = useState('')
-  const [emailErr, setEmailErr] = useState('')
-  const [passwordErr, setPasswordErr] = useState('')
-  const [confirmPasswordErr, setConfirmPasswordErr] = useState('')
-  const [passError, setPassError] = useState(false)
+  const [firstNameErr, setFirstNameErr] = React.useState('')
+  const [lastNameErr, setLastNameErr] = React.useState('')
+  const [emailErr, setEmailErr] = React.useState('')
+  const [passwordErr, setPasswordErr] = React.useState('')
+  const [confirmPasswordErr, setConfirmPasswordErr] = React.useState('')
+  const [passError, setPassError] = React.useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (
       password.length >= 6 &&
       confirmPassword.length >= 6 &&

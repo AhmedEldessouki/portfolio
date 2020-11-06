@@ -1,15 +1,14 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 
-import {jsx, css} from '@emotion/core'
-import {Fragment} from 'react'
+import {css} from '@emotion/core'
+import * as React from 'react'
 
 import Carousel from '../../Utils/Carousel/Carousel'
 import {colors, spinner} from '../../../Styles'
 
 const ProjectDetails = ({project}) => {
   return project ? (
-    <Fragment>
+    <React.Fragment>
       <Carousel imgArray={project.projectLogo} imgAlt={project.projectName} />
       <div
         css={css`
@@ -59,7 +58,7 @@ const ProjectDetails = ({project}) => {
           </span>
         </div>
       </div>
-    </Fragment>
+    </React.Fragment>
   ) : (
     <div
       css={[
