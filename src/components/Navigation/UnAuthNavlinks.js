@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import {jsx, css} from '@emotion/core'
+
+import {jsx, css} from '@emotion/react'
 import {NavLink} from 'react-router-dom'
 
 import my from '../../assets/my.svg'

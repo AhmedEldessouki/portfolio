@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import {jsx, css} from '@emotion/core'
+
+import {jsx, css} from '@emotion/react'
 import {Fragment, useState} from 'react'
 
 import {btnStyle, h1XL} from '../../../Styles'
