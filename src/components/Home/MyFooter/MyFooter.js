@@ -1,7 +1,8 @@
-/** @jsxImportSource @emotion/core */
+/** @jsxRuntime classic */
+/** @jsx jsx */
 
-import * as React from 'react'
-import {css} from '@emotion/core'
+import {jsx, css} from '@emotion/react'
+import React from 'react'
 import {
   FaLinkedin,
   FaFacebookSquare,

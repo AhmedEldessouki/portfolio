@@ -1,6 +1,6 @@
 // Global CSS Styles
 
-import {css} from '@emotion/core'
+import {css} from '@emotion/react'
 
 import {colors, mq, weights} from './css-utils'
 

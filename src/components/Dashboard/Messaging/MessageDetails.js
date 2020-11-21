@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import {jsx, css} from '@emotion/core'
+
+import {jsx, css} from '@emotion/react'
 
 import Layout from '../../Layout'
 import {h1XL, colors, mq, spinner} from '../../../Styles'

@@ -1,6 +1,7 @@
-/** @jsxImportSource @emotion/core */
+/** @jsxRuntime classic */
+/** @jsx jsx */
 
-import {css} from '@emotion/core'
+import {jsx, css} from '@emotion/react'
 import * as React from 'react'
 
 import Carousel from '../../Utils/Carousel/Carousel'

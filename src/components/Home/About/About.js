@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import {jsx, css} from '@emotion/core'
+
+import {jsx, css} from '@emotion/react'
 import {GoMarkGithub} from 'react-icons/go'
 
 import {colors, weights, mq} from '../../../Styles'
