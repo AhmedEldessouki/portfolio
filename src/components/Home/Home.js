@@ -3,8 +3,8 @@ import * as React from 'react'
 import Layout from '../Layout'
 
 import About from './About/About'
-import Projects from './Projects/Projects'
-import ContactMe from './ContactMe/ContactMe'
+const Projects = React.lazy(() => import('./Projects/Projects'))
+const ContactMe = React.lazy(() => import('./ContactMe/ContactMe'))
 
 function Home() {
   const projectsData = [
@@ -40,8 +40,10 @@ function Home() {
   return (
     <Layout>
       <About />
-      <Projects projectsData={projectsData} />
-      <ContactMe />
+      <React.Suspense fallback={<div>loading...</div>}>
+        <Projects projectsData={projectsData} />
+        <ContactMe />
+      </React.Suspense>
     </Layout>
   )
 }
