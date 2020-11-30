@@ -1,15 +1,16 @@
-/* eslint-disable no-shadow */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
 import {NavLink} from 'react-router-dom'
 
-import {signOut} from '../../Store/Actions/AuthActions'
 import my from '../../assets/my.svg'
 import {colors, weights, mq} from '../../Styles'
+import {useAuth} from '../Utils/AuthProvider'
 
 const AuthNavlinks = () => {
+  const {signOut} = useAuth()
+
   const nav = css`
     display: flex;
     place-content: space-evenly;

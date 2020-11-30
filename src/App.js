@@ -1,42 +1,44 @@
 import * as React from 'react'
-import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
 
-import Home from './components/Home/Home'
-import Dashboard from './components/Dashboard/Dashboard'
-import MessageDetails from './components/Dashboard/Messaging/MessageDetails'
-import SignIn from './components/Auth/SignIn'
-import SignUp from './components/Auth/SignUp'
-import CreateProject from './components/Home/Projects/CreateProject'
+import {auth} from './Config/firebase'
+import AuthRoutes from './components/Routes/AuthRoutes'
+import UnAuthRoutes from './components/Routes/UnAuthRoutes'
+import {useAuth} from './components/Utils/AuthProvider'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
+  const {authData, setAuthData} = useAuth()
+  const currentUser = auth.currentUser
+  React.useEffect(() => {
+    console.log(currentUser)
+    // setInterval(() => setAuthData(currentUser?.uid), 3000)
+    //   db.collection('projects')
+    //     .get()
+    //     .then(querySnapshot => {
+    //       const data = querySnapshot.docs.map(doc => doc.data())
+    //       console.log(data) // array of cities objects
+    //     })
+    //     .catch(e => console.log(e))
+    //   db.collection('contactedMe')
+    //     .get()
+    //     .then(querySnapshot => {
+    //       const r = querySnapshot.docs.map(doc => doc.data())
+    //       console.log(r) // array of cities objects
+    //     })
+    //   auth.signInWithEmailAndPassword('nemoahmed534@gmail.com', '123789').then(
+    //     r => console.log(r),
+    //     e => console.log(e),
+    //   )
+    //   setTimeout(() => {
+    //     auth.signOut()
+    //   }, 3000)
+  }, [currentUser, setAuthData])
+
   return (
     <>
-      {false ? (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/message/:id" component={MessageDetails} />
-            <Route path="/signUp" component={SignUp} />
-            <Route path="/create-project" component={CreateProject} />
-            <Route path="/edit/:id" component={CreateProject} />
-            <Redirect from="*" to="/" />
-          </Switch>
-        </BrowserRouter>
-      ) : (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/signin" component={SignIn} />
-            <Redirect from="*" to="/" />
-          </Switch>
-        </BrowserRouter>
-      )}
-
+      {authData ? <AuthRoutes /> : <UnAuthRoutes />}
       <ToastContainer autoClose={2000} />
     </>
   )

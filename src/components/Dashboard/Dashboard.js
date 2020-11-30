@@ -5,7 +5,7 @@ import {jsx} from '@emotion/react'
 import {Fragment} from 'react'
 
 import {spinner} from '../../Styles'
-import Projects from '../Home/Projects/Projects'
+import Projects from '../Projects/Projects'
 import Layout from '../Layout'
 
 import Messages from './Messaging/Messages'

@@ -4,8 +4,8 @@
 import {jsx, css} from '@emotion/react'
 import * as React from 'react'
 
-import Carousel from '../../Utils/Carousel/Carousel'
-import {colors, spinner} from '../../../Styles'
+import Carousel from '../Utils/Carousel/Carousel'
+import {colors, spinner} from '../../Styles'
 
 const ProjectDetails = ({project}) => {
   return project ? (

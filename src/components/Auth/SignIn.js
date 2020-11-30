@@ -13,15 +13,17 @@ import {
   btnStyle,
   colors,
 } from '../../Styles'
+import {useAuth} from '../Utils/AuthProvider'
 // import {signIn} from '../../Store/Actions/AuthActions'
 import Layout from '../Layout'
 
 // eslint-disable-next-line no-shadow
-const SignIn = ({signIn}) => {
+const SignIn = () => {
   const [email, setEmail] = React.useState('')
   const [emailErr, setEmailErr] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [passwordErr, setPasswordErr] = React.useState('')
+  const {signIn, setAuthData} = useAuth(null)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -29,7 +31,8 @@ const SignIn = ({signIn}) => {
       email,
       password,
     }
-    signIn(signInValues)
+
+    setAuthData(signIn(signInValues))
   }
   return false ? (
     <Redirect to="/" />

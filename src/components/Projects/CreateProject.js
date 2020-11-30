@@ -11,7 +11,7 @@ import Dropzone from 'react-dropzone'
 import {toast} from 'react-toastify'
 import {Image} from 'cloudinary-react'
 
-import Layout from '../../Layout'
+import Layout from '../Layout'
 import {
   btnStyle,
   colors,
@@ -22,16 +22,13 @@ import {
   signWrapperInput,
   spinner,
   textArea,
-} from '../../../Styles'
+} from '../../Styles'
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
-} from '../../../Config/CloudInary'
-import {
-  createProject,
-  updateProject,
-} from '../../../Store/Actions/ProjectsActions'
+} from '../../Config/CloudInary'
+import {createProject, updateProject} from '../../Store/Actions/ProjectsActions'
 
 function CreateProject({match}) {
   const project = {}
