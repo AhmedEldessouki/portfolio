@@ -1,11 +1,6 @@
 import * as React from 'react'
 import userEvent from '@testing-library/user-event'
-import {render, screen, waitFor} from '@testing-library/react'
-import {
-  toBeInTheDocument,
-  toBeDisabled,
-  toHaveDescription,
-} from '@testing-library/jest-dom'
+import {render, screen} from '@testing-library/react'
 
 import App from '../App'
 

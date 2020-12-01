@@ -3,12 +3,9 @@
 
 import {jsx, css} from '@emotion/react'
 
-import Layout from '../../Layout'
-import {h1XL, colors, mq, spinner} from '../../../Styles'
+import {h1XL, colors, mq} from '../../../Styles'
 
-function MessageDetails() {
-  const message = {}
-
+function MessageDetails({message}) {
   const container = css`
     display: grid;
     place-content: center;
@@ -68,28 +65,22 @@ function MessageDetails() {
     }
   `
   return (
-    <Layout>
-      {message ? (
-        <div css={container}>
-          <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
-          <div css={phoneAndEmailWrapper}>
-            <h2>
-              Phone Number:
-              {message.phoneNumber}
-            </h2>
-            <h2>
-              Email: <a href={`mailto:${message.email}`}>{message.email}</a>
-            </h2>
-          </div>
-          <p css={midWrapper}>{message.description}</p>
-          <h3 css={lowerWrapper}>
-            Msg Received: {message.sentAt.toDate().toDateString()}
-          </h3>
-        </div>
-      ) : (
-        <div css={spinner} />
-      )}
-    </Layout>
+    <div css={container}>
+      <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
+      <div css={phoneAndEmailWrapper}>
+        <h2>
+          Phone Number:
+          {message.phoneNumber}
+        </h2>
+        <h2>
+          Email: <a href={`mailto:${message.email}`}>{message.email}</a>
+        </h2>
+      </div>
+      <p css={midWrapper}>{message.description}</p>
+      <h3 css={lowerWrapper}>
+        Msg Received: {message.sentAt.toDate().toDateString()}
+      </h3>
+    </div>
   )
 }
 

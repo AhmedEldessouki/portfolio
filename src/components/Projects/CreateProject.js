@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
-/* eslint-disable no-shadow */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import {useLayoutEffect, useState} from 'react'
+import {useState} from 'react'
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import Dropzone from 'react-dropzone'

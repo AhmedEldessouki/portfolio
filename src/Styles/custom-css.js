@@ -81,6 +81,9 @@ export const signWrapper = css`
   padding: 20px;
   border: 5px solid ${colors.darkBlue};
   border-radius: 20px;
+  ${mq.desktop} {
+    width: 530px;
+  }
   ${mq.phoneLarge} {
     width: 407px;
   }
@@ -92,7 +95,7 @@ export const signWrapper = css`
 export const signWrapperInput = css`
   outline: none;
   padding: 8px;
-  width: inherit;
+  width: 100%;
   height: 30px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
@@ -122,7 +125,7 @@ export const labelWrapper = css`
   font-size: 1.4rem;
 
   ${mq.desktop} {
-    width: calc(700px - 30px);
+    width: 500px;
     font-size: 2rem;
   }
   ${mq.phoneLarge} {
@@ -130,10 +133,7 @@ export const labelWrapper = css`
     font-size: 1.345rem;
   }
   ${mq.s} {
-    width: calc(310px - 25px);
-  }
-  ${mq.xs} {
-    width: calc(310px - 25px);
+    width: 356px;
   }
 `
 

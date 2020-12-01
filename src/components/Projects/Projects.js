@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import {Fragment, useEffect, useState} from 'react'
+import React from 'react'
 import {useQuery} from 'react-query'
 import {Link} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
@@ -15,6 +15,9 @@ import ProjectDetails from './ProjectDetails'
 import ProjectsSummary from './ProjectsSummary'
 
 const Projects = () => {
+  const {authData, setAuthData} = useAuth()
+  const [project, setProject] = React.useState(null)
+
   const {status, error, data: projectsData} = useQuery({
     queryKey: 'projects',
     queryFn: async () =>
@@ -30,13 +33,12 @@ const Projects = () => {
         ),
   })
 
-  const {authData, setAuthData} = useAuth()
-  const [project, setProject] = useState(null)
-  useEffect(() => {
+  React.useEffect(() => {
     if (auth.currentUser) {
       setAuthData(auth.currentUser.uid)
     }
   })
+
   if (status === 'loading') return 'loading'
   if (error) throw error.message
 
@@ -59,7 +61,7 @@ const Projects = () => {
   `
 
   return !project ? (
-    <Fragment>
+    <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
       <div css={mWrapper}>
         {projectsData?.map(project => {
@@ -96,14 +98,14 @@ const Projects = () => {
           )
         })}
       </div>
-    </Fragment>
+    </React.Fragment>
   ) : (
-    <Fragment>
+    <React.Fragment>
       <button css={btnStyle} onClick={() => setProject(null)} type="button">
         Back
       </button>
       <ProjectDetails project={project} />
-    </Fragment>
+    </React.Fragment>
   )
 }
 

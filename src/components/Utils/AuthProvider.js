@@ -13,7 +13,9 @@ const AuthContext = React.createContext()
 AuthContext.displayName = 'AuthContext'
 
 function AuthProvider({children}) {
-  const [authData, setAuthData] = React.useState(auth.currentUser?.uid)
+  const [authData, setAuthData] = React.useState(
+    auth.currentUser ? auth.currentUser.uid : null,
+  )
 
   function signIn(credentials) {
     auth
@@ -46,7 +48,7 @@ function AuthProvider({children}) {
             initials: newUser.firstName[0] + newUser.lastName[0],
           })
         toast.success(`Welcome "${newUser.email}" to The Club`)
-        return (data = newUser)
+        return newUser
       },
       err => {
         toast.error('SignUp Failed')
