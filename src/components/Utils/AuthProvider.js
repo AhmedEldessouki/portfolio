@@ -17,18 +17,23 @@ function AuthProvider({children}) {
     auth.currentUser ? auth.currentUser.uid : null,
   )
 
-  function signIn(credentials) {
-    auth
+  async function signIn(credentials) {
+    let resolved
+    let error
+    await auth
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(
         res => {
           toast.success(`LogIn Successful`)
           setAuthData(res.user)
+          resolved = res.user
         },
         err => {
-          throw err.message
+          toast.error(`SignIn Failed "${err.message}"`)
+          error = err.message
         },
       )
+    return {resolved, error}
   }
 
   function signOut() {
@@ -37,24 +42,30 @@ function AuthProvider({children}) {
     toast.success(`See You Soon`)
   }
 
-  function signUp(newUser) {
-    auth.createUserWithEmailAndPassword(newUser.email, newUser.password).then(
-      resp => {
-        db.collection('users')
-          .doc(resp.user.uid)
-          .set({
-            hstName: newUser.firstName,
-            lastName: newUser.lastName,
-            initials: newUser.firstName[0] + newUser.lastName[0],
-          })
-        toast.success(`Welcome "${newUser.email}" to The Club`)
-        return newUser
-      },
-      err => {
-        toast.error('SignUp Failed')
-        throw err
-      },
-    )
+  async function signUp(newUser) {
+    let resolved
+    let error
+    await auth
+      .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .then(
+        resp => {
+          db.collection('users')
+            .doc(resp.user.uid)
+            .set({
+              hstName: newUser.firstName,
+              lastName: newUser.lastName,
+              initials: newUser.firstName[0] + newUser.lastName[0],
+            })
+          resolved = newUser
+          toast.success(`Welcome "${newUser.email}" to The Club`)
+          console.log(resp)
+        },
+        err => {
+          error = err.message
+          toast.error(`SignUp Failed "${err.message}"`)
+        },
+      )
+    return {resolved, error}
   }
   const value = {signIn, signOut, signUp, authData, setAuthData}
 

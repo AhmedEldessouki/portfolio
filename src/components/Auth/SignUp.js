@@ -7,7 +7,6 @@ import React from 'react'
 import Layout from '../Layout'
 import {
   signWrapper,
-  labelWrapper,
   spinner,
   warning,
   btnStyle,
@@ -15,13 +14,12 @@ import {
   h1XL,
   colors,
 } from '../../Styles'
-// import {signUp} from '../../Store/Actions/AuthActions'
+import {useAuth} from '../Utils/AuthProvider'
+import Input from '../Utils/Input'
 
-// eslint-disable-next-line no-shadow
 function SignUp() {
-  const [firstName, setFirstName] = React.useState('')
-  const [lastName, setLastName] = React.useState('')
-  const [email, setEmail] = React.useState('')
+  const {signUp} = useAuth()
+  const [authError, setAuthError] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [confirmPassword, setConfirmPassword] = React.useState('')
   const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -45,18 +43,37 @@ function SignUp() {
     }
     return () => {
       setPassError(false)
-      setConfirmPasswordErr('inherit')
-      setPasswordErr('inherit')
+      setConfirmPasswordErr('none')
+      setPasswordErr('none')
     }
   }, [password, confirmPassword])
 
   const handleSubmit = async e => {
     e.preventDefault()
     setIsSubmitting(true)
-    const arr = {firstName, lastName, email, password, confirmPassword}
-    // await signUp(arr)
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+    } = e.target.elements
+    const formData = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value,
+    }
+    console.log(formData)
+    const {error, resolved} = await signUp(formData)
+    if (error) {
+      setAuthError(error)
+    }
+    if (resolved) {
+      e.currentTarget.reset()
+    }
     setIsSubmitting(false)
-    return arr
   }
 
   return (
@@ -70,128 +87,113 @@ function SignUp() {
         `}
       >
         <form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
-          <label htmlFor="firstName" css={labelWrapper}>
-            <input
-              onChange={e => setFirstName(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setFirstNameErr('inherit')
-                  : setFirstNameErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${firstNameErr};
-                `,
-              ]}
-              id="firstName"
-              name="firstName"
-              value={firstName}
-              placeholder="First Name"
-              required
-              minLength={3}
-              maxLength={15}
-            />
-          </label>
-          <label css={labelWrapper} htmlFor="lastName">
-            <input
-              onChange={e => setLastName(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setLastNameErr('inherit')
-                  : setLastNameErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${lastNameErr};
-                `,
-              ]}
-              name="lastName"
-              value={lastName}
-              required
-              minLength={3}
-              maxLength={15}
-              id="lastName"
-              placeholder="Last Name"
-            />
-          </label>
-          <label css={labelWrapper} htmlFor="email">
-            <input
-              onChange={e => setEmail(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setEmailErr('inherit')
-                  : setEmailErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${emailErr};
-                `,
-              ]}
-              name="email"
-              id="email"
-              type="email"
-              required
-              value={email}
-              maxLength={50}
-              placeholder="Email Address"
-            />
-          </label>
+          <Input
+            onBlur={e =>
+              e.target.validity.valid
+                ? setFirstNameErr('none')
+                : setFirstNameErr(colors.burgundyRed)
+            }
+            css={[
+              signWrapperInput,
+              css`
+                border-color: ${firstNameErr};
+              `,
+            ]}
+            name="firstName"
+            placeholder="First Name"
+            required
+            minLength={3}
+            maxLength={15}
+          />
+          <Input
+            onBlur={e =>
+              e.target.validity.valid
+                ? setLastNameErr('none')
+                : setLastNameErr(colors.burgundyRed)
+            }
+            css={[
+              signWrapperInput,
+              css`
+                border-color: ${lastNameErr};
+              `,
+            ]}
+            name="lastName"
+            required
+            minLength={3}
+            maxLength={15}
+            id="lastName"
+            placeholder="Last Name"
+          />
+          <Input
+            onBlur={e =>
+              e.target.validity.valid
+                ? setEmailErr('none')
+                : setEmailErr(colors.burgundyRed)
+            }
+            css={[
+              signWrapperInput,
+              css`
+                border-color: ${emailErr};
+              `,
+            ]}
+            name="email"
+            autoComplete="username"
+            type="email"
+            required
+            maxLength={50}
+            placeholder="Email Address"
+          />
 
-          <label css={labelWrapper} htmlFor="password">
-            <input
-              onChange={e => setPassword(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setPasswordErr('inherit')
-                  : setPasswordErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${passwordErr};
-                `,
-              ]}
-              name="password"
-              id="password"
-              type="password"
-              value={password}
-              placeholder="Enter Password"
-              minLength={6}
-              maxLength={20}
-              required
-            />
-          </label>
-          <label css={labelWrapper} htmlFor="confirmPassword">
-            <input
-              onChange={e => setConfirmPassword(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setConfirmPasswordErr('inherit')
-                  : setConfirmPasswordErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${confirmPasswordErr};
-                `,
-              ]}
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              placeholder="Re-Enter Password"
-              minLength={6}
-              maxLength={20}
-              required
-            />
-            {passError ? (
-              <span css={warning}>Password Don&apos;t Match</span>
-            ) : null}
-          </label>
-          {/* {authError ? <div css={warning}>{authError}</div> : null} */}
+          <Input
+            onBlur={e => {
+              setPassword(e.target.value)
+              e.target.validity.valid
+                ? setPasswordErr('none')
+                : setPasswordErr(colors.burgundyRed)
+            }}
+            css={[
+              signWrapperInput,
+              css`
+                border-color: ${passwordErr};
+              `,
+            ]}
+            name="password"
+            autoComplete="new-password"
+            type="password"
+            placeholder="Enter Password"
+            minLength={6}
+            maxLength={20}
+            required
+          />
+          <Input
+            onBlur={e => {
+              setConfirmPassword(e.target.value)
+              e.target.validity.valid
+                ? setConfirmPasswordErr('none')
+                : setConfirmPasswordErr(colors.burgundyRed)
+            }}
+            css={[
+              signWrapperInput,
+              css`
+                border-color: ${confirmPasswordErr};
+              `,
+            ]}
+            autoComplete="new-password"
+            name="confirmPassword"
+            type="password"
+            placeholder="Re-Enter Password"
+            minLength={6}
+            maxLength={20}
+            required
+          />
+          {passError ? (
+            <span css={warning}>Password Don&apos;t Match</span>
+          ) : null}
+          {authError ? (
+            <div css={warning} type="alert">
+              {authError}
+            </div>
+          ) : null}
 
           {isSubmitting ? (
             <div

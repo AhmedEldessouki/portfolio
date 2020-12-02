@@ -2,13 +2,14 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import React from 'react'
 import {NavLink} from 'react-router-dom'
 
 import my from '../../assets/my.svg'
 import {colors, weights, mq} from '../../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 
-const AuthNavlinks = () => {
+const AuthNavlinksX = () => {
   const {signOut} = useAuth()
 
   const nav = css`
@@ -94,5 +95,5 @@ const AuthNavlinks = () => {
     </div>
   )
 }
-
+const AuthNavlinks = React.memo(AuthNavlinksX)
 export default AuthNavlinks

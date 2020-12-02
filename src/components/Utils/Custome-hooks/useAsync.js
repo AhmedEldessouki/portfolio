@@ -13,7 +13,7 @@ function reducer(state, action) {
 
     default:
       throw new Error(
-        `Something Went Wrong In the useAsync. called with ${action.type}`,
+        `Something Went Wrong In the useAsync. You called ${action.type}`,
       )
   }
 }

@@ -10,7 +10,7 @@ import {useAuth} from './Utils/AuthProvider'
 
 import '../Styles/layout.css'
 
-function Layout({children}) {
+function LayoutX({children}) {
   const {authData} = useAuth()
 
   return (
@@ -22,5 +22,5 @@ function Layout({children}) {
     </>
   )
 }
-
+const Layout = React.memo(LayoutX)
 export default Layout

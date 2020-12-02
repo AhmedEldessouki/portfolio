@@ -46,6 +46,7 @@ export const spinner = css`
 `
 
 export const btnStyle = css`
+  outline: none;
   place-self: center;
   background-color: ${colors.whiteFaded};
   color: ${colors.independenceBlue};

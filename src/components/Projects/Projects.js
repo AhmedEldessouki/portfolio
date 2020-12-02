@@ -14,7 +14,7 @@ import {btnStyle, colors, h1XL} from '../../Styles'
 import ProjectDetails from './ProjectDetails'
 import ProjectsSummary from './ProjectsSummary'
 
-const Projects = () => {
+const ProjectsX = () => {
   const {authData, setAuthData} = useAuth()
   const [project, setProject] = React.useState(null)
 
@@ -108,5 +108,5 @@ const Projects = () => {
     </React.Fragment>
   )
 }
-
+const Projects = React.memo(ProjectsX)
 export default Projects

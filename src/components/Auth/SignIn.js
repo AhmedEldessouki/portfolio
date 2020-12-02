@@ -6,30 +6,43 @@ import React from 'react'
 
 import {
   signWrapper,
-  labelWrapper,
   signWrapperInput,
   h1XL,
   btnStyle,
   colors,
+  warning,
+  spinner,
 } from '../../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 import Layout from '../Layout'
+import Input from '../Utils/Input'
 
 const SignIn = () => {
-  const [email, setEmail] = React.useState('')
-  const [emailErr, setEmailErr] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [passwordErr, setPasswordErr] = React.useState('')
   const {signIn, setAuthData} = useAuth(null)
 
-  const handleSubmit = e => {
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [authError, setAuthError] = React.useState('')
+  const [emailErr, setEmailErr] = React.useState('')
+  const [passwordErr, setPasswordErr] = React.useState('')
+
+  const handleSubmit = async e => {
     e.preventDefault()
-    const signInValues = {
-      email,
-      password,
+    setIsSubmitting(true)
+    const {email, password} = e.target.elements
+    const formData = {
+      email: email.value,
+      password: password.value,
     }
 
-    setAuthData(signIn(signInValues))
+    const {error, resolved} = await signIn(formData)
+    e.target.reset()
+    setIsSubmitting(false)
+    if (error) {
+      setAuthError(error)
+    }
+    if (resolved) {
+      setAuthData(resolved)
+    }
   }
 
   return (
@@ -44,57 +57,63 @@ const SignIn = () => {
       >
         <form onSubmit={handleSubmit} css={signWrapper}>
           <div className="field-container">
-            <label htmlFor="email" css={labelWrapper}>
-              <input
-                css={[
-                  signWrapperInput,
-                  css`
-                    border-color: ${emailErr};
-                  `,
-                ]}
-                type="email"
-                id="email"
-                placeholder="Email"
-                name="email"
-                value={email}
-                required
-                onChange={e => setEmail(e.target.value)}
-                onBlur={e =>
-                  e.target.validity.valid
-                    ? setEmailErr('inherit')
-                    : setEmailErr(colors.burgundyRed)
-                }
-              />
-            </label>
-            <label css={labelWrapper} htmlFor="password">
-              <input
-                css={[
-                  signWrapperInput,
-                  css`
-                    border-color: ${passwordErr};
-                  `,
-                ]}
-                type="password"
-                name="password"
-                id="password"
-                value={password}
-                minLength={6}
-                maxLength={20}
-                required
-                placeholder="Password"
-                onChange={e => setPassword(e.target.value)}
-                onBlur={e =>
-                  e.target.validity.valid
-                    ? setPasswordErr('inherit')
-                    : setPasswordErr(colors.burgundyRed)
-                }
-              />
-            </label>
+            <Input
+              css={[
+                signWrapperInput,
+                css`
+                  border-color: ${emailErr};
+                `,
+              ]}
+              type="email"
+              autoComplete="email"
+              placeholder="Email"
+              name="email"
+              required
+              onBlur={e =>
+                e.target.validity.valid
+                  ? setEmailErr('inherit')
+                  : setEmailErr(colors.burgundyRed)
+              }
+            />
+            <Input
+              css={[
+                signWrapperInput,
+                css`
+                  border-color: ${passwordErr};
+                `,
+              ]}
+              type="password"
+              name="password"
+              autoComplete="password"
+              minLength={6}
+              maxLength={20}
+              required
+              placeholder="Password"
+              onBlur={e =>
+                e.target.validity.valid
+                  ? setPasswordErr('inherit')
+                  : setPasswordErr(colors.burgundyRed)
+              }
+            />
           </div>
-          <button css={btnStyle} type="submit">
-            SignIn
-          </button>
-          {/* {authError ? <p>{authError}</p> : null} */}
+          {authError ? (
+            <div type="alert" css={warning}>
+              {authError}
+            </div>
+          ) : null}
+          {isSubmitting ? (
+            <div
+              css={css`
+                width: 100%;
+              `}
+            >
+              <div css={spinner} />
+            </div>
+          ) : (
+            <button type="submit" disabled={isSubmitting} css={btnStyle}>
+              Submit
+            </button>
+          )}
         </form>
       </div>
     </Layout>
