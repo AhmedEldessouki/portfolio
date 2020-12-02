@@ -32,7 +32,7 @@ export const spinner = css`
   }
   animation: 1.5s linear infinite spinner;
   animation-play-state: inherit;
-  border: solid 10px ${colors.aliceLightBlue};
+  border: double 10px ${colors.aliceLightBlue};
   border-bottom-color: ${colors.kindaBlue};
   border-radius: 50%;
   content: '';

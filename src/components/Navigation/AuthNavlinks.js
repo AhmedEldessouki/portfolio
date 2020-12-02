@@ -5,7 +5,6 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 
-import my from '../../assets/my.svg'
 import {colors, weights, mq} from '../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 
@@ -49,15 +48,18 @@ const AuthNavlinksX = () => {
           padding: `1% 2%`,
         }}
       >
-        {my ? (
-          <img
-            src={my}
-            alt="Ahmed ElDessouki"
-            style={{width: '150px', padding: '0'}}
-          />
-        ) : (
-          <h1 style={{width: '150px', padding: '0'}}>Ahmed Eldessouki</h1>
-        )}
+        <span
+          style={{
+            width: '100%',
+            fontSize: '2rem',
+            padding: '5px 0',
+            color: '#61dafb',
+            letterSpacing: '1.6px',
+            fontVariantCaps: 'petite-caps',
+          }}
+        >
+          Ahmed ElDessouki
+        </span>
       </NavLink>
       <NavLink
         to="/dashboard"

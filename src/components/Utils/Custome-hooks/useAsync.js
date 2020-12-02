@@ -24,7 +24,7 @@ function useAsync() {
     status: 'idle',
     error: null,
   })
-  return [data, status, error, dispatch]
+  return {data, status, error, dispatch}
 }
 
 export default useAsync

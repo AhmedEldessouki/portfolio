@@ -4,45 +4,37 @@
 import {jsx, css} from '@emotion/react'
 import {NavLink} from 'react-router-dom'
 
-import my from '../../assets/my.svg'
-import {colors} from '../Styles'
+import {colors, mq} from '../Styles'
 
 const UnAuthNavlinks = () => {
   const container = css`
     background-color: ${colors.darkBlue};
     display: flex;
     justify-content: center;
+    min-width: 100%;
   `
   const h1a = css`
-    padding: 10px 23px;
-    color: ${colors.whiteFaded};
+    padding: 23px 40px 24px;
+    color: #61dafb;
     font-size: 2.6rem;
     background: ${colors.independenceBlue};
     margin: 16px 0;
-    letter-spacing: -0.5px;
+    letter-spacing: 1.5px;
     border-radius: 12%;
+    font-variant-caps: petite-caps;
     :hover {
       color: ${colors.aliceLightBlue};
       background: ${colors.kindaDarkBlue};
     }
-  `
-  const imgA = css`
-    width: 284px;
-    padding: 10px 15px;
-    background: ${colors.independenceBlue};
-    border-radius: 12%;
-    :hover {
-      background: ${colors.kindaDarkBlue};
+    ${mq.s} {
+      font-size: 1.6rem;
     }
   `
+
   return (
     <div css={container}>
       <NavLink to="/">
-        {my ? (
-          <img src={my} css={imgA} alt="Ahmed ElDessouki" />
-        ) : (
-          <h1 css={h1a}>Ahmed Eldessouki</h1>
-        )}
+        <h1 css={h1a}>Ahmed Eldessouki</h1>
       </NavLink>
     </div>
   )

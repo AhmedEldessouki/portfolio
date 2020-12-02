@@ -13,6 +13,7 @@ import {useAuth} from '../Utils/AuthProvider'
 import {btnStyle, colors, h1XL} from '../Styles'
 import ProjectDetails from './ProjectDetails'
 import ProjectsSummary from './ProjectsSummary'
+import {deleteProject} from '../firebaseApi'
 
 const ProjectsX = () => {
   const {authData, setAuthData} = useAuth()
@@ -26,7 +27,9 @@ const ProjectsX = () => {
         .get()
         .then(
           querySnapshot => {
-            const data = querySnapshot.docs.map(doc => doc.data())
+            const data = querySnapshot.docs.map(doc => {
+              return {...doc.data(), id: doc.id}
+            })
             return data
           },
           err => err,
@@ -80,7 +83,11 @@ const ProjectsX = () => {
                       style={{color: colors.lightBlue, fontSize: '1.5rem'}}
                     />
                   </Link>
-                  <PopUp project={project} title="Project" />
+                  <PopUp
+                    project={project}
+                    title="Project"
+                    fn={deleteProject(project)}
+                  />
                 </div>
               ) : null}
               <button

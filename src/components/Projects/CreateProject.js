@@ -26,8 +26,8 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../Config/CloudInary'
-import {createProject, updateProject} from '../../Store/Actions/ProjectsActions'
 import {useAuth} from '../Utils/AuthProvider'
+import {createProject, updateProject} from '../firebaseApi'
 
 function CreateProject({match}) {
   const {authData} = useAuth()

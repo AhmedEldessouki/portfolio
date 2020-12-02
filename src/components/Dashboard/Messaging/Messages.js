@@ -38,7 +38,10 @@ function Messages() {
         .collection('contactedMe')
         .get()
         .then(querySnapshot => {
-          const r = querySnapshot.docs.map(doc => doc.data())
+          const r = querySnapshot.docs.map(doc => {
+            return {...doc.data(), id: doc.id}
+          })
+          console.log(querySnapshot.docs)
           return r
         }),
   })

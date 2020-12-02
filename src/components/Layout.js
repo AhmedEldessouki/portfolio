@@ -1,8 +1,6 @@
 import * as React from 'react'
 import {Global} from '@emotion/react'
 import {ToastContainer} from 'react-toastify'
-import {QueryCache, ReactQueryCacheProvider} from 'react-query'
-import {ReactQueryDevtools} from 'react-query-devtools'
 
 import {globalStyles} from './Styles'
 
@@ -15,8 +13,6 @@ import './Styles/layout.css'
 
 const MyFooter = React.lazy(() => import('./MyFooter/MyFooter'))
 
-const queryCache = new QueryCache()
-
 function LayoutX({children}) {
   const {authData} = useAuth()
 
@@ -24,14 +20,11 @@ function LayoutX({children}) {
     <>
       {authData ? <AuthNavlinks /> : <UnAuthNavlinks />}
       <Global styles={globalStyles} />
-      <ReactQueryCacheProvider queryCache={queryCache}>
-        {children}
-      </ReactQueryCacheProvider>
+      {children}
       <React.Suspense fallback={'loading...'}>
         <MyFooter />
       </React.Suspense>
       <ToastContainer autoClose={2000} />
-      <ReactQueryDevtools />
     </>
   )
 }

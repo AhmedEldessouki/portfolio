@@ -2,6 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import {deleteMessage} from '../../firebaseApi'
 
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
@@ -51,7 +52,7 @@ function MessagesSummary({message, fn}) {
         <h2 css={h1XL}>{message.contactName}</h2>
       </button>
       <div css={childB}>
-        <PopUp message={message} title="Message" />
+        <PopUp title={message.contactName} fn={() => deleteMessage(message)} />
       </div>
       <p css={childP}>{message.description}</p>
       <span css={childD}>{message.sentAt.toDate().toDateString()}</span>
