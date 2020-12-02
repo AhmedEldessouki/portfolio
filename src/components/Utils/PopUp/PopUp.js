@@ -7,7 +7,7 @@ import {GoTrashcan} from 'react-icons/go'
 
 import {deleteProject} from '../../../Store/Actions/ProjectsActions'
 import {deleteMessage} from '../../../Store/Actions/ContactedMeActions'
-import {colors, weights} from '../../../Styles'
+import {colors, weights} from '../../Styles'
 
 // eslint-disable-next-line no-shadow
 function PopUp({project, contact, title}) {

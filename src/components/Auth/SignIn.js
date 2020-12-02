@@ -12,7 +12,7 @@ import {
   colors,
   warning,
   spinner,
-} from '../../Styles'
+} from '../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 import Layout from '../Layout'
 import Input from '../Utils/Input'

@@ -13,7 +13,7 @@ import {
   signWrapperInput,
   h1XL,
   colors,
-} from '../../Styles'
+} from '../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 import Input from '../Utils/Input'
 

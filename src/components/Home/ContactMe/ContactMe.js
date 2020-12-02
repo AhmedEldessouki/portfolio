@@ -14,7 +14,7 @@ import {
   signWrapperInput,
   textArea,
   h1XL,
-} from '../../../Styles'
+} from '../../Styles'
 import {contactedMe} from '../../../Store/Actions/ContactedMeActions'
 
 import useAsync from '../../Utils/Custome-hooks/useAsync'

@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import {jsx} from '@emotion/react'
-import {labelWrapper} from '../../Styles'
+import {labelWrapper} from '../Styles'
 
 function Input({onChange, name, ...props}) {
   return (

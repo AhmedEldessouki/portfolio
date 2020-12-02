@@ -10,7 +10,7 @@ import {FaPen} from 'react-icons/fa'
 import PopUp from '../Utils/PopUp/PopUp'
 import {auth, db} from '../../Config/firebase'
 import {useAuth} from '../Utils/AuthProvider'
-import {btnStyle, colors, h1XL} from '../../Styles'
+import {btnStyle, colors, h1XL} from '../Styles'
 import ProjectDetails from './ProjectDetails'
 import ProjectsSummary from './ProjectsSummary'
 

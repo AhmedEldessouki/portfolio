@@ -16,7 +16,7 @@ function AuthRoutes() {
         <Route path="/message/:id" component={MessageDetails} />
         <Route path="/signUp" component={SignUp} />
         <Route path="/create-project" component={CreateProject} />
-        <Route path="/edit/:id" component={CreateProject} />
+        {/* <Route path="/create-project/:id" component={CreateProject} /> */}
         <Redirect from="*" to="/" />
       </Switch>
     </BrowserRouter>

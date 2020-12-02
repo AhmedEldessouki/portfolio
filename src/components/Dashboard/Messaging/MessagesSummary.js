@@ -3,7 +3,7 @@
 
 import {jsx, css} from '@emotion/react'
 
-import {colors, h1XL} from '../../../Styles'
+import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
 
 function MessagesSummary({message, fn}) {

@@ -6,7 +6,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 
 import my from '../../assets/my.svg'
-import {colors, weights, mq} from '../../Styles'
+import {colors, weights, mq} from '../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 
 const AuthNavlinksX = () => {

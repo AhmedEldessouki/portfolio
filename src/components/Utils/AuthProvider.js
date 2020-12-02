@@ -15,6 +15,7 @@ AuthContext.displayName = 'AuthContext'
 function AuthProvider({children}) {
   const [authData, setAuthData] = React.useState(
     auth.currentUser ? auth.currentUser.uid : null,
+    // true,
   )
 
   async function signIn(credentials) {

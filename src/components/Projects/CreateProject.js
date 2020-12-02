@@ -20,15 +20,17 @@ import {
   signWrapperInput,
   spinner,
   textArea,
-} from '../../Styles'
+} from '../Styles'
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../Config/CloudInary'
 import {createProject, updateProject} from '../../Store/Actions/ProjectsActions'
+import {useAuth} from '../Utils/AuthProvider'
 
 function CreateProject({match}) {
+  const {authData} = useAuth()
   const project = {}
   const [projectLogos, setProjectLogos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -153,7 +155,7 @@ function CreateProject({match}) {
 
   return (
     <Layout>
-      {false ? (
+      {authData ? (
         <div className="CreateProject">
           <h1>{project ? `Edit` : `Create`} Project</h1>
           <div

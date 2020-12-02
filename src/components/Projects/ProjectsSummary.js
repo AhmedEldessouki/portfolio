@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import {Fragment} from 'react'
 
-import {colors, weights} from '../../Styles'
+import {colors, weights} from '../Styles'
 
 const ProjectsSummary = ({project}) => {
   const forHeader = css`

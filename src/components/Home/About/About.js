@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import {GoMarkGithub} from 'react-icons/go'
 
-import {colors, weights, mq} from '../../../Styles'
+import {colors, weights, mq} from '../../Styles'
 import AhmedEldessouki from '../../../assets/Layer-1@0,25x.png'
 
 const MyInfo = () => {

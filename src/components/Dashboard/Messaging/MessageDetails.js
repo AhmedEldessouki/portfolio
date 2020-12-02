@@ -3,7 +3,7 @@
 
 import {jsx, css} from '@emotion/react'
 
-import {h1XL, colors, mq} from '../../../Styles'
+import {h1XL, colors, mq} from '../../Styles'
 
 function MessageDetails({message}) {
   const container = css`
