@@ -3,7 +3,6 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {useQuery} from 'react-query'
 import {Link} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
@@ -13,12 +12,12 @@ import {useAuth} from '../Utils/AuthProvider'
 import {btnStyle, colors, h1XL} from '../Styles'
 import ProjectDetails from './ProjectDetails'
 import ProjectsSummary from './ProjectsSummary'
-import {deleteProject} from '../firebaseApi'
+import {deleteProject} from './utils'
+import {useQuery} from 'react-query'
 
-const ProjectsX = () => {
-  const {authData, setAuthData} = useAuth()
+const Projects = () => {
+  const {authData, setAuthData, setProject: setPorj} = useAuth()
   const [project, setProject] = React.useState(null)
-
   const {status, error, data: projectsData} = useQuery({
     queryKey: 'projects',
     queryFn: async () =>
@@ -35,7 +34,6 @@ const ProjectsX = () => {
           err => err,
         ),
   })
-
   React.useEffect(() => {
     if (auth.currentUser) {
       setAuthData(auth.currentUser.uid)
@@ -44,6 +42,7 @@ const ProjectsX = () => {
 
   if (status === 'loading') return 'loading'
   if (error) throw error.message
+  console.log('project.js', projectsData)
 
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
@@ -69,7 +68,7 @@ const ProjectsX = () => {
       <div css={mWrapper}>
         {projectsData?.map(project => {
           return (
-            <div css={pWrapper} key={project.projectLink}>
+            <div css={pWrapper} key={project.id}>
               {authData ? (
                 <div
                   css={css`
@@ -78,7 +77,11 @@ const ProjectsX = () => {
                     align-items: center;
                   `}
                 >
-                  <Link to={`/edit/${project.id}`}>
+                  <Link
+                    to={`/edit/${project.id}`}
+                    params={project}
+                    onClick={() => setPorj(project)}
+                  >
                     <FaPen
                       style={{color: colors.lightBlue, fontSize: '1.5rem'}}
                     />
@@ -86,7 +89,7 @@ const ProjectsX = () => {
                   <PopUp
                     project={project}
                     title="Project"
-                    fn={deleteProject(project)}
+                    fn={() => deleteProject(project)}
                   />
                 </div>
               ) : null}
@@ -115,5 +118,5 @@ const ProjectsX = () => {
     </React.Fragment>
   )
 }
-const Projects = React.memo(ProjectsX)
+// const Projects = React.memo(ProjectsX)
 export default Projects

@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import {deleteMessage} from '../../firebaseApi'
+import {deleteMessage} from './utils'
 
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'

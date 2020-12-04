@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import {contactedMe} from '../../firebaseApi'
+import {contactedMe} from './utils'
 import {
   wrapper,
   colors,
@@ -17,7 +17,7 @@ import {
   h1XL,
 } from '../../Styles'
 import Input from '../../Utils/Input'
-import useAsync from '../../Utils/Custome-hooks/useAsync'
+import {useAsync} from '../../Utils/Custom-hooks/Custom-hooks'
 
 function ContactMe() {
   const [errPhoneNumber, setErrPhoneNumber] = React.useState(false)

@@ -17,6 +17,7 @@ function AuthProvider({children}) {
     auth.currentUser ? auth.currentUser.uid : null,
     // true,
   )
+  const [project, setProject] = React.useState(null)
 
   async function signIn(credentials) {
     let resolved
@@ -68,7 +69,15 @@ function AuthProvider({children}) {
       )
     return {resolved, error}
   }
-  const value = {signIn, signOut, signUp, authData, setAuthData}
+  const value = {
+    signIn,
+    signOut,
+    signUp,
+    authData,
+    setAuthData,
+    project,
+    setProject,
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
