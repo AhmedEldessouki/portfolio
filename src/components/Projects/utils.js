@@ -15,9 +15,8 @@ import {
 import {colors, h1XL, labelWrapper, textArea} from '../Styles'
 import {db} from '../../Config/firebase'
 
-async function createProject(project, profile) {
-  let resolved
-  let error
+async function createNewProject(project, profile) {
+  console.log(' created', project)
 
   const authorId = profile.uid
   await db
@@ -34,21 +33,16 @@ async function createProject(project, profile) {
     })
     .then(() => {
       toast.success(`Project "${project.projectName}" Created`)
-      resolved = true
     })
     .catch(err => {
-      toast.error('Project Creation Failed')
-      error = err.message
+      toast.error(`Project Creation Failed ${err.message}`)
+      throw err
     })
-  return {resolved, error}
 }
 
 function updateProject(project) {
-  let resolved
-  let error
-  console.log(project)
+  console.log(' Updated', project)
   const {id, projectName, projectLink, projectLogo, description} = project
-  // TODO: fix image update
   db.collection('projects')
     .doc(`${id}`)
     .update({
@@ -60,38 +54,28 @@ function updateProject(project) {
     })
     .then(() => {
       toast.success(`Project "${projectName}" Updated`)
-      resolved = 'success'
     })
     .catch(err => {
-      toast.error("Project Didn't Update")
-      error = err.message
+      toast.error(`Project Didn't Update ${err.message}`)
+      throw err
     })
-  return {resolved, error}
 }
 
 async function deleteProject(project) {
-  let resolved
-  let error
-
   await db
     .collection('projects')
     .doc(`${project.id}`)
     .delete()
     .then(() => {
       toast.success(`Project "${project.projectName}" deleted`)
-      resolved = true
     })
     .catch(err => {
-      toast.error('Project Deletion Failed')
-      console.log(error)
-      error = err.message
+      toast.error(`Project Deletion Failed ${err.message}`)
+      throw err
     })
-  return {resolved, error}
 }
 
 function uploadImage(image, project) {
-  let result
-  let err
   let formData
   formData = new FormData()
   formData.set('file', image)
@@ -106,12 +90,10 @@ function uploadImage(image, project) {
     .then(
       res => {
         console.log(res)
-        result = res.data.secure_url
-        return result
+        return res.data.secure_url
       },
       err => {
-        toast.error('Upload Failed!')
-        err = err.message
+        toast.error(`Upload of ${image.name}Failed!`)
         return err
       },
     )
@@ -182,13 +164,17 @@ function useSafeDispatch(dispatch) {
 }
 
 const reducer = (state, {type, payload}) => {
-  const {formData} = state
-  const {oldImages, fetch} = payload
+  const {formData, imagesFile, imagesDisplay} = state
   switch (type) {
     case 'images':
       return {
         ...state,
-        imagesFile: [...payload],
+        imagesFile: imagesFile
+          ? [...imagesFile, ...payload.file]
+          : [...payload.file],
+        imagesDisplay: imagesDisplay
+          ? [...imagesDisplay, ...payload.url]
+          : [...payload.url],
         status: 'idle',
         error: null,
       }
@@ -200,38 +186,21 @@ const reducer = (state, {type, payload}) => {
         error: null,
       }
 
-    case 'upload_images':
-      const imagesUrl = []
-      Promise.allSettled(
-        fetch.map(url => uploadImage(url, formData.projectName)),
-      ).then(results =>
-        results.forEach(result => {
-          toast.success('Images Uploaded')
-          imagesUrl.push(result.value)
-        }),
-      )
-      const projectLogo = oldImages ? [...oldImages, ...imagesUrl] : imagesUrl
-      console.dir('projectLogo', projectLogo)
+    case 'idle':
+      return {...state, status: 'idle'}
+    case 'next':
+      return {...state, status: 'next'}
+    case 'images_uploaded':
+      return {...state, status: 'images_uploaded'}
+    case 'next_add':
+      formData.projectLogo.push(payload)
       return {
         ...state,
-        formData: {...formData, projectLogo},
-        status: 'images_uploaded',
-        error: null,
+        status: 'next_add',
       }
-
-    case 'update_project':
-      console.log(formData)
-      const {error} = updateProject(payload)
-      if (error) return {...state, error: error, status: 'rejected'}
-      return {...state, error: null, status: 'idle'}
-
-    case 'create_project':
-      const {error: err} = createProject(payload)
-      if (err) return {...state, error: error, status: 'rejected'}
-      return {...state, error: null, status: 'idle'}
-
-    default:
-      return state
+    default: {
+      throw new Error(`Unhandled action type: ${type}`)
+    }
   }
 }
 export {
@@ -241,5 +210,5 @@ export {
   reducer,
   updateProject,
   deleteProject,
-  createProject,
+  createNewProject,
 }
