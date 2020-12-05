@@ -6,13 +6,22 @@ import * as React from 'react'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 import Dropzone from 'react-dropzone'
+import {Image} from 'cloudinary-react'
 
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../Config/CloudInary'
-import {colors, h1XL, labelWrapper, textArea} from '../Styles'
+import {
+  btnStyle,
+  colors,
+  h1XL,
+  labelWrapper,
+  mq,
+  spinner,
+  textArea,
+} from '../Styles'
 import {db} from '../../Config/firebase'
 
 async function createNewProject(project, profile) {
@@ -203,6 +212,85 @@ const reducer = (state, {type, payload}) => {
     }
   }
 }
+
+function Button({status, project}) {
+  return status !== 'idle' ? (
+    <div
+      css={css`
+        width: 100%;
+        margin-top: 43px;
+      `}
+    >
+      <div css={spinner} />
+    </div>
+  ) : (
+    <button type="submit" css={btnStyle} disabled={status !== 'idle'}>
+      {project ? 'Edit' : 'Create'} Project
+    </button>
+  )
+}
+
+const imgWrap = css`
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 10px;
+  overflow: auto hidden;
+  background: ${colors.kindaDarkBlue};
+  height: 199px;
+  padding-left: 22px;
+`
+const xyz = css`
+  height: 54vmin;
+  background: ${colors.darkBlue};
+  overflow: hidden;
+  padding: 0 31px 43px;
+  width: 36vw;
+  ${mq.phoneLarge} {
+    width: 76vw;
+  }
+`
+const hStyle = css`
+  margin: 3px 0px 3px -15px;
+  background: ${colors.independenceBlue};
+  padding: 5px;
+`
+function DisplayingImages({imagesDisplay, oldImages}) {
+  return (
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+      `}
+    >
+      <div css={xyz}>
+        <h2 css={hStyle}>New Images</h2>
+        <div css={imgWrap}>
+          {imagesDisplay &&
+            imagesDisplay.map((file, i) => (
+              <div key={file}>
+                <Image alt="" crop="lpad" width={100} src={file} />
+              </div>
+            ))}
+        </div>
+      </div>
+      {oldImages ? (
+        <div css={xyz}>
+          <h2 css={hStyle}>Old Images</h2>
+          <div css={imgWrap}>
+            {oldImages &&
+              oldImages.map((file, i) => (
+                <div key={file}>
+                  <Image alt="" crop="lpad" width={100} src={file} />
+                </div>
+              ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 export {
   uploadImage,
   ImageDropZone,
@@ -211,4 +299,6 @@ export {
   updateProject,
   deleteProject,
   createNewProject,
+  Button,
+  DisplayingImages,
 }

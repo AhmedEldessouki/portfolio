@@ -5,7 +5,6 @@ import {jsx, css} from '@emotion/react'
 import React, {cloneElement} from 'react'
 import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
-import {Image} from 'cloudinary-react'
 
 import Layout from '../Layout'
 import {
@@ -28,6 +27,8 @@ import {
   reducer,
   createNewProject,
   updateProject,
+  Button,
+  DisplayingImages,
 } from './utils'
 import {ErrorBoundary} from 'react-error-boundary'
 import {ErrorMessage} from '../Utils/util'
@@ -164,29 +165,25 @@ function CreateProjectX({match}) {
 
   return (
     <Layout>
-      <div className="CreateProject">
+      <div>
         <h1>{project ? `Edit` : `Create`} Project</h1>
         <div
           css={css`
-            display: grid;
-            grid-template: 1fr/1fr 2fr;
-            width: 100%;
-            place-items: center;
+            display: flex;
+            width: 98vw;
+            place-content: space-around;
+            flex-wrap: wrap-reverse;
             ${mq.s} {
+              place-content: center;
               grid-template: none;
             }
           `}
         >
-          <div>
-            {imagesDisplay &&
-              imagesDisplay.map((file, i) => (
-                <div key={file}>
-                  <Image alt="" crop="lpad" width={200} src={file} />
-                </div>
-              ))}
-          </div>
-          {/* <form id="createProject" css={signWrapper} > */}
-          <form id="createProject" css={signWrapper} onSubmit={useHandleSubmit}>
+          <DisplayingImages
+            imagesDisplay={imagesDisplay}
+            oldImages={project ? project.projectLogo : null}
+          />
+          <form css={signWrapper} onSubmit={useHandleSubmit}>
             <ImageDropZone handleDrop={handleDrop} />
             <Input
               onChange={e => console.log(e.target.value)}
@@ -201,7 +198,6 @@ function CreateProjectX({match}) {
                   border-color: ${projectNameErr};
                 `,
               ]}
-              id="projectName"
               name="projectName"
               value={projectName}
               placeholder="Name"
@@ -227,7 +223,6 @@ function CreateProjectX({match}) {
                   : setProjectLinkErr(colors.burgundyRed)
               }
               name="projectLink"
-              id="projectLink"
             />
             <label htmlFor="description" css={labelWrapper}>
               <textarea
@@ -248,24 +243,10 @@ function CreateProjectX({match}) {
                     ? setDescriptionErr('inherit')
                     : setDescriptionErr(colors.burgundyRed)
                 }
-                id="description"
                 required
               />
             </label>
-            {status !== 'idle' ? (
-              <div
-                css={css`
-                  width: 100%;
-                  margin-top: 43px;
-                `}
-              >
-                <div css={spinner} />
-              </div>
-            ) : (
-              <button type="submit" css={btnStyle} disabled={status !== 'idle'}>
-                {project ? 'Edit' : 'Create'} Project
-              </button>
-            )}
+            <Button status={status} project={project ? true : false} />
           </form>
         </div>
       </div>
