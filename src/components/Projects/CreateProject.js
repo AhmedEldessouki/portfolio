@@ -2,19 +2,17 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React, {cloneElement} from 'react'
+import React from 'react'
 import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
 import Layout from '../Layout'
 import {
-  btnStyle,
   colors,
   labelWrapper,
   mq,
   signWrapper,
   signWrapperInput,
-  spinner,
   textArea,
 } from '../Styles'
 
@@ -39,7 +37,6 @@ function FallBackComp({error}) {
 
 function CreateProjectX({match}) {
   const {project, setProject} = useAuth()
-  console.dir('createProject-project', project)
 
   const [
     {
@@ -68,10 +65,6 @@ function CreateProjectX({match}) {
     //   descriptionErr: '',
     // },
   })
-  console.log('createProject-status', status)
-  console.log('createProject-status', Object.is(project, formData))
-
-  console.dir('createProject-formData', formData)
 
   const dispatch = useSafeDispatch(unsafeDispatch)
 
@@ -105,7 +98,6 @@ function CreateProjectX({match}) {
       type: 'images',
       payload: {file: imagesFile, url: imagesDisplay},
     })
-    console.log(imagesFile)
   }
 
   const bamBam = React.useCallback(
@@ -118,7 +110,10 @@ function CreateProjectX({match}) {
       )
         .then(results =>
           results.forEach(result => {
-            dispatch({type: 'next_add', payload: result.value})
+            if (result.status === 'fulfilled') {
+              dispatch({type: 'next_add', payload: result.value})
+              return result.value
+            }
             return result.value
           }),
         )
@@ -129,12 +124,7 @@ function CreateProjectX({match}) {
     [dispatch, formData.projectName, imagesFile],
   )
   async function useSubmitImages() {
-    console.dir('Async before run')
-    console.log('submit images', imagesFile)
-
     await bamBam()
-
-    console.dir(' Async after run', projectLogo)
 
     if (project !== formData) {
       updateProject({...formData, id: project.id})

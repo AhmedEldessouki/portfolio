@@ -25,8 +25,6 @@ import {
 import {db} from '../../Config/firebase'
 
 async function createNewProject(project, profile) {
-  console.log(' created', project)
-
   const authorId = profile.uid
   await db
     .collection('projects')
@@ -50,7 +48,6 @@ async function createNewProject(project, profile) {
 }
 
 function updateProject(project) {
-  console.log(' Updated', project)
   const {id, projectName, projectLink, projectLogo, description} = project
   db.collection('projects')
     .doc(`${id}`)
@@ -98,7 +95,6 @@ function uploadImage(image, project) {
     })
     .then(
       res => {
-        console.log(res)
         return res.data.secure_url
       },
       err => {
@@ -240,7 +236,6 @@ const imgWrap = css`
   padding-left: 22px;
 `
 const xyz = css`
-  height: 54vmin;
   background: ${colors.darkBlue};
   overflow: hidden;
   padding: 0 31px 43px;
