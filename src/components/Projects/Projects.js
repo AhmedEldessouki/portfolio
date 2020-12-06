@@ -35,6 +35,8 @@ const Projects = () => {
         ),
   })
   React.useEffect(() => {
+    console.log('project.js', projectsData)
+
     if (auth.currentUser) {
       setAuthData(auth.currentUser.uid)
     }
@@ -42,7 +44,6 @@ const Projects = () => {
 
   if (status === 'loading') return 'loading'
   if (error) throw error.message
-  console.log('project.js', projectsData)
 
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
@@ -79,8 +80,7 @@ const Projects = () => {
                 >
                   <Link
                     to={`/edit/${project.id}`}
-                    params={project}
-                    onClick={() => setPorj(project)}
+                    onFocus={() => setPorj(project)}
                   >
                     <FaPen
                       style={{color: colors.lightBlue, fontSize: '1.5rem'}}

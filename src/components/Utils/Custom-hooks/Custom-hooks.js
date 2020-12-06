@@ -16,14 +16,17 @@ function useSafeDispatch(dispatch) {
 
 function asyncReducer(state, action) {
   switch (action.type) {
+    case 'idle': {
+      return {status: 'idle'}
+    }
     case 'pending': {
-      return {status: 'pending', data: null, error: null}
+      return {status: 'pending'}
     }
     case 'resolved': {
-      return {status: 'resolved', data: action.data, error: null}
+      return {status: 'resolved'}
     }
     case 'rejected': {
-      return {status: 'rejected', data: null, error: action.error}
+      return {status: 'rejected'}
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -32,48 +35,16 @@ function asyncReducer(state, action) {
 }
 
 function useAsync(initialState) {
-  const [state, unsafeDispatch] = React.useReducer(asyncReducer, {
+  const [{status}, unsafeDispatch] = React.useReducer(asyncReducer, {
     status: 'idle',
-    data: null,
-    error: null,
     ...initialState,
   })
 
   const dispatch = useSafeDispatch(unsafeDispatch)
 
-  const {data, error, status} = state
-
-  const run = React.useCallback(
-    promise => {
-      dispatch({type: 'pending'})
-      promise.then(
-        data => {
-          dispatch({type: 'resolved', data})
-        },
-        error => {
-          dispatch({type: 'rejected', error})
-        },
-      )
-    },
-    [dispatch],
-  )
-
-  const setData = React.useCallback(
-    data => dispatch({type: 'resolved', data}),
-    [dispatch],
-  )
-  const setError = React.useCallback(
-    error => dispatch({type: 'rejected', error}),
-    [dispatch],
-  )
-
   return {
-    setData,
-    setError,
-    error,
     status,
-    data,
-    run,
+    dispatch,
   }
 }
 

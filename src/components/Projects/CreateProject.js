@@ -3,21 +3,13 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
+import {ErrorBoundary} from 'react-error-boundary'
 
 import Layout from '../Layout'
-import {
-  colors,
-  labelWrapper,
-  mq,
-  signWrapper,
-  signWrapperInput,
-  textArea,
-} from '../Styles'
+import {colors, labelWrapper, mq, signWrapper, textArea} from '../Styles'
 
 import {useAuth} from '../Utils/AuthProvider'
-import Input from '../Utils/Input'
 import {
   uploadImage,
   ImageDropZone,
@@ -27,26 +19,15 @@ import {
   updateProject,
   Button,
   DisplayingImages,
+  ProjInput,
 } from './utils'
-import {ErrorBoundary} from 'react-error-boundary'
 import {ErrorMessage} from '../Utils/util'
 
-function FallBackComp({error}) {
-  return <ErrorMessage error={error} />
-}
-
-function CreateProjectX({match}) {
+function CreateProjectX() {
   const {project, setProject} = useAuth()
 
   const [
-    {
-      status,
-      formData,
-      error,
-      imagesFile,
-      imagesDisplay,
-      // err: {projectNameErr, projectLinkErr, descriptionErr},
-    },
+    {status, formData, imagesFile, imagesDisplay},
     unsafeDispatch,
   ] = React.useReducer(reducer, {
     status: 'idle',
@@ -59,25 +40,28 @@ function CreateProjectX({match}) {
     error: null,
     imagesFile: [],
     imagesDisplay: [],
-    // err: {
-    //   projectNameErr: '',
-    //   projectLinkErr: '',
-    //   descriptionErr: '',
-    // },
   })
 
   const dispatch = useSafeDispatch(unsafeDispatch)
 
-  const [projectLinkErr, setProjectLinkErr] = React.useState('')
   const [descriptionErr, setDescriptionErr] = React.useState('')
-  const [projectNameErr, setProjectNameErr] = React.useState('')
+
+  if (status === 'images_uploaded') {
+    if (project) {
+      updateProject({...formData, id: project.id})
+    }
+    if (!project) {
+      createNewProject(formData)
+    }
+    dispatch({type: 'idle'})
+  }
 
   React.useEffect(() => {
-    console.log(`Rendered`)
     return () => {
       setProject(null)
+      dispatch({type: 'clean_up'})
     }
-  }, [setProject])
+  }, [dispatch, setProject])
 
   function handleDrop(acceptedFiles, rejectedFiles) {
     const imagesFile = []
@@ -96,11 +80,11 @@ function CreateProjectX({match}) {
     })
     dispatch({
       type: 'images',
-      payload: {file: imagesFile, url: imagesDisplay},
+      payload: {file: imagesFile, src: imagesDisplay},
     })
   }
 
-  const bamBam = React.useCallback(
+  const gradualUpload = React.useCallback(
     () =>
       Promise.allSettled(
         imagesFile.map(file => {
@@ -123,16 +107,9 @@ function CreateProjectX({match}) {
         }),
     [dispatch, formData.projectName, imagesFile],
   )
-  async function useSubmitImages() {
-    await bamBam()
 
-    if (project !== formData) {
-      updateProject({...formData, id: project.id})
-    }
-    if (!project) {
-      createNewProject(formData)
-    }
-    dispatch({type: 'idle'})
+  async function useSubmitImages() {
+    await gradualUpload()
   }
 
   function useHandleSubmit(e) {
@@ -145,10 +122,14 @@ function CreateProjectX({match}) {
         projectName: projectName.value,
         projectLink: projectLink.value,
         description: description.value,
-        projectLogo,
       },
     })
     useSubmitImages()
+    e.currentTarget.reset()
+  }
+
+  function handleDescription(e) {
+    dispatch({type: 'submit_description', payload: e.target.value})
   }
 
   const {projectName, projectLink, description, projectLogo} = formData
@@ -171,48 +152,29 @@ function CreateProjectX({match}) {
         >
           <DisplayingImages
             imagesDisplay={imagesDisplay}
-            oldImages={project ? project.projectLogo : null}
+            oldImages={project ? projectLogo : null}
+            handleClick={(array, index) =>
+              dispatch({type: 'remove_image', payload: {array, index}})
+            }
           />
           <form css={signWrapper} onSubmit={useHandleSubmit}>
             <ImageDropZone handleDrop={handleDrop} />
-            <Input
-              onChange={e => console.log(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setProjectNameErr('inherit')
-                  : setProjectNameErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${projectNameErr};
-                `,
-              ]}
+            <ProjInput
               name="projectName"
-              value={projectName}
+              project={projectName}
               placeholder="Name"
               required
               minLength={3}
               maxLength={15}
+              cleanColor={status === 'pending' ? true : false}
             />
-            <Input
+            <ProjInput
               type="url"
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${projectLinkErr};
-                `,
-              ]}
               required
-              value={projectLink}
+              project={projectLink}
               placeholder="Project Link"
-              onChange={e => console.log(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setProjectLinkErr('inherit')
-                  : setProjectLinkErr(colors.burgundyRed)
-              }
               name="projectLink"
+              cleanColor={status === 'pending' ? true : false}
             />
             <label htmlFor="description" css={labelWrapper}>
               <textarea
@@ -225,14 +187,15 @@ function CreateProjectX({match}) {
                 ]}
                 placeholder="Project Description"
                 name="description"
-                value={description}
+                value={project ? description : void 0}
                 minLength={10}
-                onChange={e => console.log(e.target.value)}
-                onBlur={e =>
+                onChange={project ? e => handleDescription(e) : void 0}
+                onBlur={e => {
                   e.target.validity.valid
-                    ? setDescriptionErr('inherit')
+                    ? setDescriptionErr(colors.lightGreen)
                     : setDescriptionErr(colors.burgundyRed)
-                }
+                  project ? handleDescription.cancel() : void 0
+                }}
                 required
               />
             </label>
@@ -244,12 +207,16 @@ function CreateProjectX({match}) {
   )
 }
 
+function FallBackComp({error}) {
+  return <ErrorMessage error={error} />
+}
+
+const CreateProjectY = React.memo(CreateProjectX)
 function CreateProject() {
   return (
     <ErrorBoundary fallback={<FallBackComp />}>
-      <CreateProjectX />
+      <CreateProjectY />
     </ErrorBoundary>
   )
 }
-
 export default CreateProject

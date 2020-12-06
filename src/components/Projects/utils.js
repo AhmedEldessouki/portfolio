@@ -23,19 +23,13 @@ import {
   textArea,
 } from '../Styles'
 import {db} from '../../Config/firebase'
+import Input from '../Utils/Input'
+import PopUp from '../Utils/PopUp/PopUp'
 
-async function createNewProject(project, profile) {
-  const authorId = profile.uid
-  await db
-    .collection('projects')
+function createNewProject(project) {
+  db.collection('projects')
     .add({
-      projectName: project.projectName,
-      projectLink: project.projectLink,
-      description: project.description,
-      projectLogo: [...project.projectLogos],
-      // authorFirstName: profile.firstName,
-      // authorLastName: profile.lastName,
-      authorId,
+      ...project,
       createdAt: new Date(),
     })
     .then(() => {
@@ -67,9 +61,8 @@ function updateProject(project) {
     })
 }
 
-async function deleteProject(project) {
-  await db
-    .collection('projects')
+function deleteProject(project) {
+  db.collection('projects')
     .doc(`${project.id}`)
     .delete()
     .then(() => {
@@ -178,17 +171,29 @@ const reducer = (state, {type, payload}) => {
           ? [...imagesFile, ...payload.file]
           : [...payload.file],
         imagesDisplay: imagesDisplay
-          ? [...imagesDisplay, ...payload.url]
-          : [...payload.url],
+          ? [...imagesDisplay, ...payload.src]
+          : [...payload.src],
         status: 'idle',
         error: null,
       }
+    case 'remove_image':
+      const {array, index} = payload
+      if (array === 'oldImages') formData.projectLogo.splice(index, 1)
+      if (array === 'imagesDisplay') imagesDisplay.splice(index, 1)
+      return {...state}
     case 'submit_formData':
+      formData.projectName = payload.projectName
+      formData.projectLink = payload.projectLink
+      formData.description = payload.description
       return {
         ...state,
-        formData: {...payload},
         status: 'submitted',
         error: null,
+      }
+    case 'submit_description':
+      return {
+        ...state,
+        formData: {...formData, description: payload},
       }
 
     case 'idle':
@@ -202,6 +207,19 @@ const reducer = (state, {type, payload}) => {
       return {
         ...state,
         status: 'next_add',
+      }
+
+    case 'clean_up':
+      formData.projectName = ''
+      formData.projectLink = ''
+      formData.description = ''
+      formData.projectLogo = []
+      imagesFile.length = 0
+      imagesDisplay.length = 0
+      return {
+        ...state,
+        status: 'idle',
+        error: null,
       }
     default: {
       throw new Error(`Unhandled action type: ${type}`)
@@ -226,30 +244,38 @@ function Button({status, project}) {
   )
 }
 
-const imgWrap = css`
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 10px;
-  overflow: auto hidden;
-  background: ${colors.kindaDarkBlue};
-  height: 199px;
-  padding-left: 22px;
-`
-const xyz = css`
-  background: ${colors.darkBlue};
-  overflow: hidden;
-  padding: 0 31px 43px;
-  width: 36vw;
-  ${mq.phoneLarge} {
-    width: 76vw;
-  }
-`
-const hStyle = css`
-  margin: 3px 0px 3px -15px;
-  background: ${colors.independenceBlue};
-  padding: 5px;
-`
-function DisplayingImages({imagesDisplay, oldImages}) {
+function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
+  const imgWrap = css`
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 10px;
+    overflow: auto hidden;
+    background: ${colors.kindaDarkBlue};
+    height: 199px;
+    padding-left: 22px;
+  `
+  const xyz = css`
+    background: ${colors.darkBlue};
+    overflow: hidden;
+    padding: 0 31px 43px;
+    width: 36vw;
+    ${mq.phoneLarge} {
+      width: 76vw;
+    }
+  `
+  const hStyle = css`
+    margin: 3px 0px 3px -15px;
+    background: ${colors.independenceBlue};
+    padding: 5px;
+  `
+  const div = css`
+    display: flex;
+    place-items: flex-start;
+    padding-right: 28px;
+    :hover {
+      background: ${colors.darkBlue};
+    }
+  `
   return (
     <div
       css={css`
@@ -263,7 +289,17 @@ function DisplayingImages({imagesDisplay, oldImages}) {
         <div css={imgWrap}>
           {imagesDisplay &&
             imagesDisplay.map((file, i) => (
-              <div key={file}>
+              <div key={file} css={div}>
+                <PopUp
+                  title="Image"
+                  fn={() => handleClick('imagesDisplay', i)}
+                />
+                {/* <button
+                  type="button"
+                  onClick={() => handleClick('imagesDisplay', i)}
+                >
+                  X
+                </button> */}
                 <Image alt="" crop="lpad" width={100} src={file} />
               </div>
             ))}
@@ -275,7 +311,14 @@ function DisplayingImages({imagesDisplay, oldImages}) {
           <div css={imgWrap}>
             {oldImages &&
               oldImages.map((file, i) => (
-                <div key={file}>
+                <div key={file} css={div}>
+                  <PopUp title="Image" fn={() => handleClick('oldImages', i)} />
+                  {/* <button
+                    type="button"
+                    onClick={() => handleClick('oldImages', i)}
+                  >
+                    X
+                  </button> */}
                   <Image alt="" crop="lpad" width={100} src={file} />
                 </div>
               ))}
@@ -286,7 +329,22 @@ function DisplayingImages({imagesDisplay, oldImages}) {
   )
 }
 
+function ProjInput({project, ...props}) {
+  const [state, setState] = React.useState(project)
+
+  if (project)
+    return (
+      <Input
+        value={state}
+        onChange={e => setState(e.target.value)}
+        {...props}
+      />
+    )
+  return <Input {...props} />
+}
+
 export {
+  ProjInput,
   uploadImage,
   ImageDropZone,
   useSafeDispatch,

@@ -12,7 +12,6 @@ import {
   btnStyle,
   warning,
   labelWrapper,
-  signWrapperInput,
   textArea,
   h1XL,
 } from '../../Styles'
@@ -22,9 +21,6 @@ import {useAsync} from '../../Utils/Custom-hooks/Custom-hooks'
 function ContactMe() {
   const [errPhoneNumber, setErrPhoneNumber] = React.useState(false)
   const [descriptionErr, setDescriptionErr] = React.useState('')
-  const [contactNameErr, setContactNameErr] = React.useState('')
-  const [phoneNumberErr, setPhoneNumberErr] = React.useState('')
-  const [emailErr, setEmailErr] = React.useState('')
   const [contError, setContError] = React.useState('')
 
   const {status, dispatch} = useAsync()
@@ -47,11 +43,7 @@ function ContactMe() {
       setContError(error)
     }
     setDescriptionErr(colors.aliceLightBlue)
-    setContactNameErr(colors.aliceLightBlue)
-    setPhoneNumberErr(colors.aliceLightBlue)
-    setEmailErr(colors.aliceLightBlue)
-
-    dispatch({type: 'ready'})
+    dispatch({type: 'idle'})
   }
   return (
     <React.Fragment>
@@ -59,17 +51,6 @@ function ContactMe() {
       <form id="ContactMe" onSubmit={handleSubmit} css={wrapper}>
         <section>
           <Input
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${contactNameErr};
-              `,
-            ]}
-            onBlur={e =>
-              e.target.validity.valid
-                ? setContactNameErr(colors.lightGreen)
-                : setContactNameErr(colors.burgundyRed)
-            }
             name="contactName"
             pattern="[^\(\)0-9]*"
             placeholder="Name"
@@ -77,36 +58,18 @@ function ContactMe() {
             minLength={3}
             maxLength={30}
             inputMode="text"
+            cleanColor={status === 'pending' ? true : false}
           />
           <Input
-            onBlur={e =>
-              e.target.validity.valid
-                ? setEmailErr(colors.lightGreen)
-                : setEmailErr(colors.burgundyRed)
-            }
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${emailErr};
-              `,
-            ]}
             name="email"
             type="email"
             inputMode="email"
             placeholder="Email Address"
             required
+            cleanColor={status === 'pending' ? true : false}
           />
           <Input
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${phoneNumberErr};
-              `,
-            ]}
             onBlur={e => {
-              e.target.validity.valid
-                ? setPhoneNumberErr(colors.lightGreen)
-                : setPhoneNumberErr(colors.burgundyRed)
               if (e.target.value.search(/^[0-9\b]+$/g)) {
                 setErrPhoneNumber(true)
               } else setErrPhoneNumber(false)
@@ -118,6 +81,7 @@ function ContactMe() {
             maxLength={13}
             placeholder="Phone Number"
             pattern="^[0-9\b]+$"
+            cleanColor={status === 'pending' ? true : false}
           />
           {errPhoneNumber ? (
             <span css={warning}>Invalid Phone Number</span>

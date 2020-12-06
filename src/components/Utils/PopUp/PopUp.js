@@ -8,7 +8,7 @@ import {GoTrashcan} from 'react-icons/go'
 import {colors, weights} from '../../Styles'
 import {useAsync} from '../Custom-hooks/Custom-hooks'
 
-function PopUp({project, message, title, fn}) {
+function PopUp({title, fn}) {
   const popWrapper = css`
     @keyframes fadeIn {
       from {
@@ -71,8 +71,7 @@ function PopUp({project, message, title, fn}) {
   const {status, dispatch} = useAsync()
 
   async function handleDelete() {
-    const {error} = await fn()
-    if (error) throw error
+    await fn()
     dispatch({type: 'idle'})
   }
 
@@ -91,10 +90,7 @@ function PopUp({project, message, title, fn}) {
           <header>
             <h1>Warning</h1>
           </header>
-          <h2>
-            Do you want to delete this
-            {title}
-          </h2>
+          <h2>Do you want to delete this {title}</h2>
           <footer>
             <button
               type="button"
