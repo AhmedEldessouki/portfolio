@@ -1,9 +1,5 @@
 import * as React from 'react'
-
 import {useAuth} from './components/Utils/AuthProvider'
-
-// import AuthRoutes from './components/Routes/AuthRoutes'
-// import UnAuthRoutes from './components/Routes/UnAuthRoutes'
 
 import 'react-toastify/dist/ReactToastify.css'
 const AuthRoutes = React.lazy(() =>
@@ -15,9 +11,10 @@ const UnAuthRoutes = React.lazy(() =>
 
 function App() {
   const {authData} = useAuth()
+
   return (
     <React.Suspense fallback={'loading...'}>
-      {authData ? <AuthRoutes /> : <UnAuthRoutes />}
+      {authData !== undefined ? <AuthRoutes /> : <UnAuthRoutes />}
     </React.Suspense>
   )
 }

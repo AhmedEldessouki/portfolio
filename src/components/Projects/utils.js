@@ -22,7 +22,7 @@ import {
   spinner,
   textArea,
 } from '../Styles'
-import {db} from '../../Config/firebase'
+import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
 

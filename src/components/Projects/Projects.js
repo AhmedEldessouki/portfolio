@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import {FaPen} from 'react-icons/fa'
 
 import PopUp from '../Utils/PopUp/PopUp'
-import {auth, db} from '../../Config/firebase'
+import {db} from '../Utils/firebase'
 import {useAuth} from '../Utils/AuthProvider'
 import {btnStyle, colors, h1XL} from '../Styles'
 import ProjectDetails from './ProjectDetails'
@@ -16,7 +16,7 @@ import {deleteProject} from './utils'
 import {useQuery} from 'react-query'
 
 const Projects = () => {
-  const {authData, setAuthData, setProject: setPorj} = useAuth()
+  const {authData, setProject: setPorj} = useAuth()
   const [project, setProject] = React.useState(null)
   const {status, error, data: projectsData} = useQuery({
     queryKey: 'projects',
@@ -33,13 +33,6 @@ const Projects = () => {
           },
           err => err,
         ),
-  })
-  React.useEffect(() => {
-    console.log('project.js', projectsData)
-
-    if (auth.currentUser) {
-      setAuthData(auth.currentUser.uid)
-    }
   })
 
   if (status === 'loading') return 'loading'

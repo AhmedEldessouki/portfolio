@@ -1,7 +1,8 @@
 import React from 'react'
 import {toast} from 'react-toastify'
 
-import {db, auth} from '../../Config/firebase'
+import {db, firebaseApp} from './firebase'
+import {useLocalStorageState} from './util'
 
 /**
  * @param {Function} signIn - handles auth
@@ -12,13 +13,19 @@ import {db, auth} from '../../Config/firebase'
 const AuthContext = React.createContext()
 AuthContext.displayName = 'AuthContext'
 
-function AuthProvider({children}) {
-  const [authData, setAuthData] = React.useState(
-    auth.currentUser ? auth.currentUser.uid : null,
-    // true,
-  )
-  const [project, setProject] = React.useState(null)
+function AuthProvider({children, auth}) {
+  const [authData, setAuthData] = useLocalStorageState()
 
+  const [project, setProject] = React.useState(null)
+  React.useEffect(() => {
+    firebaseApp.auth().onAuthStateChanged(user => {
+      if (user && user.id !== authData) {
+        setAuthData('xx', user.uid)
+      } else {
+        setAuthData('xx', null)
+      }
+    })
+  }, [authData, setAuthData])
   async function signIn(credentials) {
     let resolved
     let error
@@ -40,7 +47,9 @@ function AuthProvider({children}) {
 
   function signOut() {
     auth.signOut()
-    setAuthData(null)
+    setAuthData('xx', null)
+    window.localStorage.removeItem('xx')
+
     toast.success(`See You Soon`)
   }
 

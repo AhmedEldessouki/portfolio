@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {useQuery} from 'react-query'
 
-import {db} from '../../../Config/firebase'
+import {db} from '../../Utils/firebase'
 import MessageDetails from './MessageDetails'
 
 import MessagesSummary from './MessagesSummary'

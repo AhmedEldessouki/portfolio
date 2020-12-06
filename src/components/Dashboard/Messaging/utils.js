@@ -1,5 +1,5 @@
 import {toast} from 'react-toastify'
-import {db} from '../../../Config/firebase'
+import {db} from '../../Utils/firebase'
 
 async function deleteMessage(message) {
   let resolved
