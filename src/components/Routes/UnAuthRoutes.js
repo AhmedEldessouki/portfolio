@@ -1,8 +1,9 @@
 import React from 'react'
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import Home from '../Home/Home'
 import SignIn from '../Auth/SignIn'
+import PageNotFound from '../PageNotFound'
 
 function UnAuthRoutes() {
   return (
@@ -10,7 +11,7 @@ function UnAuthRoutes() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/signin" component={SignIn} />
-        <Redirect from="*" to="/" />
+        <Route from="*" to="/" component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   )

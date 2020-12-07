@@ -1,11 +1,12 @@
 import React from 'react'
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import Home from '../Home/Home'
 import Dashboard from '../Dashboard/Dashboard'
 import MessageDetails from '../Dashboard/Messaging/MessageDetails'
 import SignUp from '../Auth/SignUp'
 import CreateProject from '../Projects/CreateProject'
+import PageNotFound from '../PageNotFound'
 
 function AuthRoutes() {
   return (
@@ -17,7 +18,7 @@ function AuthRoutes() {
         <Route path="/signUp" component={SignUp} />
         <Route path="/create-project" component={CreateProject} />
         <Route path="/edit/:id" component={CreateProject} />
-        <Redirect from="*" to="/" />
+        <Route from="*" to="/" component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   )
