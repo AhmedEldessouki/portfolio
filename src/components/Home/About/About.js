@@ -107,11 +107,11 @@ const MyInfo = () => {
     const today = new Date()
     const todaysYear = today.getFullYear()
     const myBirthday = new Date('apr 4 1989')
-    const myBirthyear = myBirthday.getFullYear()
+    const myBirthYear = myBirthday.getFullYear()
     const myBirthdayThisYear = new Date(myBirthday)
     myBirthdayThisYear.setFullYear(todaysYear)
 
-    return todaysYear - myBirthyear - (today < myBirthdayThisYear ? 1 : 0)
+    return todaysYear - myBirthYear - (today < myBirthdayThisYear ? 1 : 0)
   }
 
   return (

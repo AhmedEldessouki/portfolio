@@ -38,11 +38,10 @@ function Messages() {
         .collection('contactedMe')
         .get()
         .then(querySnapshot => {
-          const r = querySnapshot.docs.map(doc => {
+          const res = querySnapshot.docs.map(doc => {
             return {...doc.data(), id: doc.id}
           })
-          console.log(querySnapshot.docs)
-          return r
+          return res
         }),
   })
 

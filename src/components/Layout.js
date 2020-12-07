@@ -5,7 +5,6 @@ import {ToastContainer} from 'react-toastify'
 import {globalStyles} from './Styles'
 
 import UnAuthNavlinks from './Navigation/UnAuthNavlinks'
-// import MyFooter from './MyFooter/MyFooter'
 import AuthNavlinks from './Navigation/AuthNavlinks'
 import {useAuth} from './Utils/AuthProvider'
 

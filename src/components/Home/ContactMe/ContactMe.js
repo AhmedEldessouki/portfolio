@@ -16,7 +16,7 @@ import {
   h1XL,
 } from '../../Styles'
 import Input from '../../Utils/Input'
-import {useAsync} from '../../Utils/Custom-hooks/Custom-hooks'
+import {useAsync} from '../../Utils/util'
 
 function ContactMe() {
   const [errPhoneNumber, setErrPhoneNumber] = React.useState(false)

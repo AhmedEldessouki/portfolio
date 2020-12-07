@@ -2,55 +2,21 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React from 'react'
 
 import Layout from '../Layout'
-import {
-  signWrapper,
-  spinner,
-  warning,
-  btnStyle,
-  signWrapperInput,
-  h1XL,
-  colors,
-} from '../Styles'
+import {signWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 import Input from '../Utils/Input'
+import {useAsync} from '../Utils/util'
 
 function SignUp() {
-  const {signUp} = useAuth()
-  const [authError, setAuthError] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [confirmPassword, setConfirmPassword] = React.useState('')
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
-
-  const [firstNameErr, setFirstNameErr] = React.useState('')
-  const [lastNameErr, setLastNameErr] = React.useState('')
-  const [emailErr, setEmailErr] = React.useState('')
-  const [passwordErr, setPasswordErr] = React.useState('')
-  const [confirmPasswordErr, setConfirmPasswordErr] = React.useState('')
-  const [passError, setPassError] = React.useState(false)
-
-  React.useEffect(() => {
-    if (
-      password.length >= 6 &&
-      confirmPassword.length >= 6 &&
-      password !== confirmPassword
-    ) {
-      setPassError(true)
-      setPasswordErr(colors.burgundyRed)
-      setConfirmPasswordErr(colors.burgundyRed)
-    }
-    return () => {
-      setPassError(false)
-      setConfirmPasswordErr('none')
-      setPasswordErr('none')
-    }
-  }, [password, confirmPassword])
+  const {useSignUp} = useAuth()
+  const [authError, signUp] = useSignUp()
+  const {status, dispatch} = useAsync()
 
   const handleSubmit = async e => {
     e.preventDefault()
-    setIsSubmitting(true)
+    dispatch({type: 'pending'})
     const {
       firstName,
       lastName,
@@ -65,15 +31,12 @@ function SignUp() {
       password: password.value,
       confirmPassword: confirmPassword.value,
     }
-    console.log(formData)
-    const {error, resolved} = await signUp(formData)
-    if (error) {
-      setAuthError(error)
-    }
-    if (resolved) {
+    await signUp(formData)
+
+    if (!authError) {
       e.currentTarget.reset()
     }
-    setIsSubmitting(false)
+    dispatch({type: 'resolved'})
   }
 
   return (
@@ -88,75 +51,39 @@ function SignUp() {
       >
         <form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
           <Input
-            onBlur={e =>
-              e.target.validity.valid
-                ? setFirstNameErr('none')
-                : setFirstNameErr(colors.burgundyRed)
-            }
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${firstNameErr};
-              `,
-            ]}
             name="firstName"
             placeholder="First Name"
             required
             minLength={3}
             maxLength={15}
+            cleanColor={status === 'resolved'}
           />
           <Input
-            onBlur={e =>
-              e.target.validity.valid
-                ? setLastNameErr('none')
-                : setLastNameErr(colors.burgundyRed)
-            }
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${lastNameErr};
-              `,
-            ]}
             name="lastName"
             required
             minLength={3}
             maxLength={15}
-            id="lastName"
             placeholder="Last Name"
+            cleanColor={status === 'resolved'}
           />
           <Input
-            onBlur={e =>
-              e.target.validity.valid
-                ? setEmailErr('none')
-                : setEmailErr(colors.burgundyRed)
-            }
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${emailErr};
-              `,
-            ]}
             name="email"
             autoComplete="username"
             type="email"
             required
             maxLength={50}
             placeholder="Email Address"
+            cleanColor={status === 'resolved'}
           />
 
           <Input
-            onBlur={e => {
-              setPassword(e.target.value)
-              e.target.validity.valid
-                ? setPasswordErr('none')
-                : setPasswordErr(colors.burgundyRed)
-            }}
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${passwordErr};
-              `,
-            ]}
+            cssNew={
+              status === 'rejected'
+                ? css`
+                    border-color: ${colors.burgundyRed};
+                  `
+                : void 0
+            }
             name="password"
             autoComplete="new-password"
             type="password"
@@ -164,29 +91,33 @@ function SignUp() {
             minLength={6}
             maxLength={20}
             required
+            cleanColor={status === 'resolved'}
           />
           <Input
             onBlur={e => {
-              setConfirmPassword(e.target.value)
-              e.target.validity.valid
-                ? setConfirmPasswordErr('none')
-                : setConfirmPasswordErr(colors.burgundyRed)
+              if (e.target.form[3].value !== e.target.value) {
+                dispatch({type: 'rejected'})
+              } else {
+                dispatch({type: 'idle'})
+              }
             }}
-            css={[
-              signWrapperInput,
-              css`
-                border-color: ${confirmPasswordErr};
-              `,
-            ]}
+            cssNew={
+              status === 'rejected'
+                ? css`
+                    border-color: ${colors.burgundyRed};
+                  `
+                : void 0
+            }
             autoComplete="new-password"
             name="confirmPassword"
             type="password"
-            placeholder="Re-Enter Password"
+            placeholder="Confirm Password"
             minLength={6}
             maxLength={20}
             required
+            cleanColor={status === 'resolved'}
           />
-          {passError ? (
+          {status === 'rejected' ? (
             <span css={warning}>Password Don&apos;t Match</span>
           ) : null}
           {authError ? (
@@ -195,7 +126,7 @@ function SignUp() {
             </div>
           ) : null}
 
-          {isSubmitting ? (
+          {status === 'pending' ? (
             <div
               css={css`
                 width: 100%;
@@ -206,7 +137,7 @@ function SignUp() {
           ) : (
             <button
               type="submit"
-              disabled={isSubmitting || passError}
+              disabled={status === 'pending' || 'rejected'}
               css={btnStyle}
             >
               Submit

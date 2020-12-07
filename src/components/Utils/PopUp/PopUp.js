@@ -6,7 +6,7 @@ import {Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
 
 import {colors, weights} from '../../Styles'
-import {useAsync} from '../Custom-hooks/Custom-hooks'
+import {useAsync} from '../util'
 
 function PopUp({title, fn}) {
   const popWrapper = css`

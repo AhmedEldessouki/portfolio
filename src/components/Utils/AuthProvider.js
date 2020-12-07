@@ -1,4 +1,5 @@
 import React from 'react'
+import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
 import {db, firebaseApp} from './firebase'
@@ -14,74 +15,79 @@ const AuthContext = React.createContext()
 AuthContext.displayName = 'AuthContext'
 
 function AuthProvider({children, auth}) {
-  const [authData, setAuthData] = useLocalStorageState()
+  const [authData, setAuthData] = useLocalStorageState('yy', null)
 
   const [project, setProject] = React.useState(null)
+
   React.useEffect(() => {
     firebaseApp.auth().onAuthStateChanged(user => {
       if (user && user.id !== authData) {
-        setAuthData('xx', user.uid)
-      } else {
-        setAuthData('xx', null)
+        setAuthData(user.uid)
       }
     })
   }, [authData, setAuthData])
-  async function signIn(credentials) {
-    let resolved
-    let error
-    await auth
-      .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(
-        res => {
-          toast.success(`LogIn Successful`)
-          setAuthData(res.user)
-          resolved = res.user
-        },
-        err => {
-          toast.error(`SignIn Failed "${err.message}"`)
-          error = err.message
-        },
-      )
-    return {resolved, error}
+
+  function useSignIn() {
+    const [authError, setAuthError] = React.useState('')
+
+    const signIn = React.useCallback(credentials => {
+      let error
+      auth
+        .signInWithEmailAndPassword(credentials.email, credentials.password)
+        .then(
+          res => {
+            toast.success(`LogIn Successful`)
+            setAuthData(res.user)
+          },
+          err => {
+            toast.error(`SignIn Failed "${err.message}"`)
+            setAuthError(err.message)
+          },
+        )
+      return {error}
+    }, [])
+    return [authError, signIn]
   }
 
   function signOut() {
     auth.signOut()
-    setAuthData('xx', null)
-    window.localStorage.removeItem('xx')
-
+    setAuthData(null)
     toast.success(`See You Soon`)
+    Redirect({to: '/'})
   }
 
-  async function signUp(newUser) {
-    let resolved
-    let error
-    await auth
-      .createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .then(
-        resp => {
-          db.collection('users')
-            .doc(resp.user.uid)
-            .set({
-              hstName: newUser.firstName,
-              lastName: newUser.lastName,
-              initials: newUser.firstName[0] + newUser.lastName[0],
-            })
-          resolved = newUser
-          toast.success(`Welcome "${newUser.email}" to The Club`)
-          console.log(resp)
-        },
-        err => {
-          error = err.message
-          toast.error(`SignUp Failed "${err.message}"`)
-        },
-      )
-    return {resolved, error}
+  function useSignUp() {
+    const [authError, setAuthError] = React.useState('')
+
+    const signUp = React.useCallback(
+      newUser =>
+        auth
+          .createUserWithEmailAndPassword(newUser.email, newUser.password)
+          .then(
+            resp => {
+              db.collection('users')
+                .doc(resp.user.uid)
+                .set({
+                  hstName: newUser.firstName,
+                  lastName: newUser.lastName,
+                  initials: newUser.firstName[0] + newUser.lastName[0],
+                })
+              setAuthData(newUser.uid)
+              toast.success(`Welcome "${newUser.email}" to The Club`)
+            },
+            err => {
+              setAuthError(err.message)
+              toast.error(`SignUp Failed "${err.message}"`)
+            },
+          ),
+      [],
+    )
+    return [authError, signUp]
   }
   const value = {
-    signIn,
+    useSignIn,
     signOut,
-    signUp,
+    useSignUp,
     authData,
     setAuthData,
     project,

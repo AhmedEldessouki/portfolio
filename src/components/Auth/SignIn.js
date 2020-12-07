@@ -2,47 +2,31 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React from 'react'
 
-import {
-  signWrapper,
-  signWrapperInput,
-  h1XL,
-  btnStyle,
-  colors,
-  warning,
-  spinner,
-} from '../Styles'
+import {signWrapper, h1XL, btnStyle, warning, spinner} from '../Styles'
 import {useAuth} from '../Utils/AuthProvider'
 import Layout from '../Layout'
 import Input from '../Utils/Input'
+import {useAsync} from '../Utils/util'
 
 const SignIn = () => {
-  const {signIn, setAuthData} = useAuth(null)
+  const {useSignIn} = useAuth(null)
+  const [authError, signIn] = useSignIn()
+  const {status, dispatch} = useAsync()
 
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
-  const [authError, setAuthError] = React.useState('')
-  const [emailErr, setEmailErr] = React.useState('')
-  const [passwordErr, setPasswordErr] = React.useState('')
-
-  const handleSubmit = async e => {
+  function handleSubmit(e) {
     e.preventDefault()
-    setIsSubmitting(true)
+    dispatch({type: 'pending'})
     const {email, password} = e.target.elements
     const formData = {
       email: email.value,
       password: password.value,
     }
 
-    const {error, resolved} = await signIn(formData)
+    signIn(formData)
+
+    dispatch({type: 'resolved'})
     e.target.reset()
-    setIsSubmitting(false)
-    if (error) {
-      setAuthError(error)
-    }
-    if (resolved) {
-      setAuthData(resolved)
-    }
   }
 
   return (
@@ -58,30 +42,14 @@ const SignIn = () => {
         <form onSubmit={handleSubmit} css={signWrapper}>
           <div className="field-container">
             <Input
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${emailErr};
-                `,
-              ]}
               type="email"
               autoComplete="email"
               placeholder="Email"
               name="email"
               required
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setEmailErr('inherit')
-                  : setEmailErr(colors.burgundyRed)
-              }
+              cleanColor={status === 'resolved'}
             />
             <Input
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${passwordErr};
-                `,
-              ]}
               type="password"
               name="password"
               autoComplete="password"
@@ -89,11 +57,7 @@ const SignIn = () => {
               maxLength={20}
               required
               placeholder="Password"
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setPasswordErr('inherit')
-                  : setPasswordErr(colors.burgundyRed)
-              }
+              cleanColor={status === 'resolved'}
             />
           </div>
           {authError ? (
@@ -101,7 +65,7 @@ const SignIn = () => {
               {authError}
             </div>
           ) : null}
-          {isSubmitting ? (
+          {status === 'pending' ? (
             <div
               css={css`
                 width: 100%;
@@ -110,7 +74,11 @@ const SignIn = () => {
               <div css={spinner} />
             </div>
           ) : (
-            <button type="submit" disabled={isSubmitting} css={btnStyle}>
+            <button
+              type="submit"
+              disabled={status === 'pending'}
+              css={btnStyle}
+            >
               Submit
             </button>
           )}

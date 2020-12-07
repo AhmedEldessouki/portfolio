@@ -11,10 +11,9 @@ const UnAuthRoutes = React.lazy(() =>
 
 function App() {
   const {authData} = useAuth()
-
   return (
     <React.Suspense fallback={'loading...'}>
-      {authData !== undefined ? <AuthRoutes /> : <UnAuthRoutes />}
+      {authData ? <AuthRoutes /> : <UnAuthRoutes />}
     </React.Suspense>
   )
 }
