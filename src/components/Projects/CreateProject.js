@@ -166,7 +166,7 @@ function CreateProjectX() {
               required
               minLength={3}
               maxLength={15}
-              cleanColor={status === 'pending' ? true : false}
+              cleanColor={status === 'pending'}
             />
             <ProjInput
               type="url"
@@ -174,7 +174,7 @@ function CreateProjectX() {
               project={projectLink}
               placeholder="Project Link"
               name="projectLink"
-              cleanColor={status === 'pending' ? true : false}
+              cleanColor={status === 'pending'}
             />
             <label htmlFor="description" css={labelWrapper}>
               <textarea
@@ -199,7 +199,7 @@ function CreateProjectX() {
                 required
               />
             </label>
-            <Button status={status} project={project ? true : false} />
+            <Button status={status} project={project} />
           </form>
         </div>
       </div>
