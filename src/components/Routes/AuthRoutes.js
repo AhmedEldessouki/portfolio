@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 
 import Home from '../Home/Home'
 import Dashboard from '../Dashboard/Dashboard'
@@ -18,6 +18,7 @@ function AuthRoutes() {
         <Route path="/signUp" component={SignUp} />
         <Route path="/create-project" component={CreateProject} />
         <Route path="/edit/:id" component={CreateProject} />
+        <Redirect from="/signin" to="/" />
         <Route from="*" to="/" component={PageNotFound} />
       </Switch>
     </BrowserRouter>

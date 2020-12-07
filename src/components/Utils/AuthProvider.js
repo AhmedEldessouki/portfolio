@@ -36,6 +36,7 @@ function AuthProvider({children, auth}) {
         .signInWithEmailAndPassword(credentials.email, credentials.password)
         .then(
           res => {
+            Redirect({to: '/'})
             toast.success(`LogIn Successful`)
             setAuthData(res.user)
           },
