@@ -22,7 +22,7 @@ function ErrorMessage({error, ...props}) {
           margin-bottom: -5;
         `}
       >
-        {error.message}
+        {error}
       </pre>
     </div>
   )

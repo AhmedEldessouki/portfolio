@@ -199,7 +199,7 @@ function CreateProjectX() {
                 required
               />
             </label>
-            <Button status={status} project={project ? true : false} />
+            <Button status={status} project={project} />
           </form>
         </div>
       </div>

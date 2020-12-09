@@ -8,6 +8,7 @@ import {toast} from 'react-toastify'
 import Dropzone from 'react-dropzone'
 import {Image} from 'cloudinary-react'
 
+// import {cloudinaryPRESET, cloudinaryURL, cloudinaryApiKey} from '../../config'
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
@@ -27,6 +28,7 @@ import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
 
 function createNewProject(project) {
+  console.log(project)
   db.collection('projects')
     .add({
       ...project,
@@ -37,7 +39,7 @@ function createNewProject(project) {
     })
     .catch(err => {
       toast.error(`Project Creation Failed ${err.message}`)
-      throw err
+      throw err.message
     })
 }
 
@@ -57,7 +59,7 @@ function updateProject(project) {
     })
     .catch(err => {
       toast.error(`Project Didn't Update ${err.message}`)
-      throw err
+      throw err.message
     })
 }
 
@@ -79,22 +81,18 @@ function uploadImage(image, project) {
   formData = new FormData()
   formData.set('file', image)
   formData.set('tags', [`${project}`, `image`])
-  formData.set('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-  formData.set('api_key', CLOUDINARY_API_KEY)
+  formData.set('upload_preset', `${CLOUDINARY_UPLOAD_PRESET}`)
+  formData.set('api_key', `${CLOUDINARY_API_KEY}`)
 
-  return axios
-    .post(CLOUDINARY_UPLOAD_URL, formData, {
-      headers: {'X-Requested-With': 'XMLHttpRequest'},
-    })
-    .then(
-      res => {
-        return res.data.secure_url
-      },
-      err => {
-        toast.error(`Upload of ${image.name}Failed!`)
-        return err
-      },
-    )
+  return axios.post(`${CLOUDINARY_UPLOAD_URL}`, formData).then(
+    res => {
+      return res.data.secure_url
+    },
+    err => {
+      toast.error(`Upload of ${image.name}Failed!`)
+      throw new Error(err.message)
+    },
+  )
 }
 
 function ImageDropZone({handleDrop}) {
@@ -294,12 +292,6 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
                   title="Image"
                   fn={() => handleClick('imagesDisplay', i)}
                 />
-                {/* <button
-                  type="button"
-                  onClick={() => handleClick('imagesDisplay', i)}
-                >
-                  X
-                </button> */}
                 <Image alt="" crop="lpad" width={100} src={file} />
               </div>
             ))}
@@ -313,12 +305,6 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
               oldImages.map((file, i) => (
                 <div key={file} css={div}>
                   <PopUp title="Image" fn={() => handleClick('oldImages', i)} />
-                  {/* <button
-                    type="button"
-                    onClick={() => handleClick('oldImages', i)}
-                  >
-                    X
-                  </button> */}
                   <Image alt="" crop="lpad" width={100} src={file} />
                 </div>
               ))}
@@ -329,7 +315,7 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
   )
 }
 
-function ProjInput({project, ...props}) {
+function ProjInputX({project, ...props}) {
   const [state, setState] = React.useState(project)
 
   if (project)
@@ -342,6 +328,8 @@ function ProjInput({project, ...props}) {
     )
   return <Input {...props} />
 }
+
+const ProjInput = React.memo(ProjInputX)
 
 export {
   ProjInput,
