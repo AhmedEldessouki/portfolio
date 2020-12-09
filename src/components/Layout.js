@@ -1,28 +1,32 @@
 import * as React from 'react'
 import {Global} from '@emotion/react'
+import {ToastContainer} from 'react-toastify'
 
-import {globalStyles} from '../Styles'
+import {globalStyles} from './Styles'
 
 import UnAuthNavlinks from './Navigation/UnAuthNavlinks'
-import MyFooter from './Home/MyFooter/MyFooter'
 import AuthNavlinks from './Navigation/AuthNavlinks'
+import {useAuth} from './Utils/AuthProvider'
 
-import '../Styles/layout.css'
+import './Styles/layout.css'
 
-function Layout({children}) {
-  const [links, setLinks] = React.useState(null)
-  React.useEffect(() => {
-    setLinks(false ? <AuthNavlinks /> : <UnAuthNavlinks />)
-  }, [])
+const MyFooter = React.lazy(() => import('./MyFooter/MyFooter'))
+
+function LayoutX({children}) {
+  const {authData} = useAuth()
 
   return (
     <>
-      <header>{links}</header>
+      {authData ? <AuthNavlinks /> : <UnAuthNavlinks />}
       <Global styles={globalStyles} />
-      <main>{children}</main>
-      <MyFooter />
+
+      <React.Suspense fallback={'loading...'}>{children}</React.Suspense>
+      <React.Suspense fallback={'loading...'}>
+        <MyFooter />
+      </React.Suspense>
+      <ToastContainer autoClose={2000} />
     </>
   )
 }
-
+const Layout = React.memo(LayoutX)
 export default Layout

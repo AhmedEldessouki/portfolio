@@ -1,14 +1,13 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import React from 'react'
 import {jsx, css} from '@emotion/react'
-import {NavLink} from 'react-router-dom'
+import {deleteMessage} from './utils'
 
-import {colors, h1XL} from '../../../Styles'
+import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
 
-function MessagesSummary({contact, to, id}) {
+function MessagesSummary({message, fn}) {
   const messagesSummary = css`
     overflow: auto;
     display: grid;
@@ -23,7 +22,9 @@ function MessagesSummary({contact, to, id}) {
       color: ${colors.aliceLightBlue};
     }
   `
+
   const childN = css`
+    border: 0;
     grid-row: 1;
     grid-column: 1 / span 2;
     place-self: baseline;
@@ -47,14 +48,14 @@ function MessagesSummary({contact, to, id}) {
   `
   return (
     <div css={messagesSummary}>
-      <NavLink css={childN} to={to} key={id}>
-        <h2 css={h1XL}>{contact.contactName}</h2>
-      </NavLink>
+      <button css={childN} onClick={fn}>
+        <h2 css={h1XL}>{message.contactName}</h2>
+      </button>
       <div css={childB}>
-        <PopUp contact={contact} title="Message" />
+        <PopUp title={message.contactName} fn={() => deleteMessage(message)} />
       </div>
-      <p css={childP}>{contact.description}</p>
-      <span css={childD}>{contact.sentAt.toDate().toDateString()}</span>
+      <p css={childP}>{message.description}</p>
+      <span css={childD}>{message.sentAt.toDate().toDateString()}</span>
     </div>
   )
 }

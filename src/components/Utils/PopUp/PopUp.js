@@ -2,15 +2,13 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import {useState, Fragment} from 'react'
+import {Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
 
-import {deleteProject} from '../../../Store/Actions/ProjectsActions'
-import {deleteMessage} from '../../../Store/Actions/ContactedMeActions'
-import {colors, weights} from '../../../Styles'
+import {colors, weights} from '../../Styles'
+import {useAsync} from '../util'
 
-// eslint-disable-next-line no-shadow
-function PopUp({project, contact, title}) {
+function PopUp({title, fn}) {
   const popWrapper = css`
     @keyframes fadeIn {
       from {
@@ -24,7 +22,7 @@ function PopUp({project, contact, title}) {
     display: flex;
     flex-direction: column;
     place-items: center;
-    position: absolute;
+    position: fixed;
     top: calc(50% - calc(288.3px / 2));
     left: calc(50% - calc(554.8px / 2));
     background-color: ${colors.independenceBlue};
@@ -70,35 +68,35 @@ function PopUp({project, contact, title}) {
       color: ${colors.burgundyRed};
     }
   `
-  const [show, setShow] = useState(true)
+  const {status, dispatch} = useAsync()
 
-  function handleDelete() {
-    if (project) {
-      deleteProject(project)
-      setShow(!show)
-    } else if (contact) {
-      deleteMessage(contact)
-      setShow(!show)
-    } else {
-      setShow({show: false})
-    }
+  async function handleDelete() {
+    await fn()
+    dispatch({type: 'idle'})
   }
+
   return (
     <Fragment>
-      <button css={btnTrash} type="button" onClick={() => setShow(!show)}>
-        <GoTrashcan />
-      </button>
-      {show ? null : (
+      {status === 'idle' ? (
+        <button
+          css={btnTrash}
+          type="button"
+          onClick={() => dispatch({type: 'pending'})}
+        >
+          <GoTrashcan />
+        </button>
+      ) : (
         <div css={popWrapper} id="popup">
           <header>
             <h1>Warning</h1>
           </header>
-          <h2>
-            Do you want to delete this
-            {title}
-          </h2>
+          <h2>Do you want to delete this {title}</h2>
           <footer>
-            <button type="button" css={btn} onClick={() => setShow(!show)}>
+            <button
+              type="button"
+              css={btn}
+              onClick={() => dispatch({type: 'idle'})}
+            >
               Nah!
             </button>
             <button

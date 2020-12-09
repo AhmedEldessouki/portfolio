@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {Image} from 'cloudinary-react'
 
-import {colors, mq} from '../../../Styles'
+import {colors, mq} from '../../Styles'
 
 function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = React.useState(0)

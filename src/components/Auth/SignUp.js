@@ -2,61 +2,41 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React from 'react'
 
 import Layout from '../Layout'
-import {
-  signWrapper,
-  labelWrapper,
-  spinner,
-  warning,
-  btnStyle,
-  signWrapperInput,
-  h1XL,
-  colors,
-} from '../../Styles'
-// import {signUp} from '../../Store/Actions/AuthActions'
+import {signWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
+import {useAuth} from '../Utils/AuthProvider'
+import Input from '../Utils/Input'
+import {useAsync} from '../Utils/util'
 
-// eslint-disable-next-line no-shadow
 function SignUp() {
-  const [firstName, setFirstName] = React.useState('')
-  const [lastName, setLastName] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [confirmPassword, setConfirmPassword] = React.useState('')
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
-
-  const [firstNameErr, setFirstNameErr] = React.useState('')
-  const [lastNameErr, setLastNameErr] = React.useState('')
-  const [emailErr, setEmailErr] = React.useState('')
-  const [passwordErr, setPasswordErr] = React.useState('')
-  const [confirmPasswordErr, setConfirmPasswordErr] = React.useState('')
-  const [passError, setPassError] = React.useState(false)
-
-  React.useEffect(() => {
-    if (
-      password.length >= 6 &&
-      confirmPassword.length >= 6 &&
-      password !== confirmPassword
-    ) {
-      setPassError(true)
-      setPasswordErr(colors.burgundyRed)
-      setConfirmPasswordErr(colors.burgundyRed)
-    }
-    return () => {
-      setPassError(false)
-      setConfirmPasswordErr('inherit')
-      setPasswordErr('inherit')
-    }
-  }, [password, confirmPassword])
+  const {useSignUp} = useAuth()
+  const [authError, signUp] = useSignUp()
+  const {status, dispatch} = useAsync()
 
   const handleSubmit = async e => {
     e.preventDefault()
-    setIsSubmitting(true)
-    const arr = {firstName, lastName, email, password, confirmPassword}
-    // await signUp(arr)
-    setIsSubmitting(false)
-    return arr
+    dispatch({type: 'pending'})
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+    } = e.target.elements
+    const formData = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value,
+    }
+    await signUp(formData)
+
+    if (!authError) {
+      e.currentTarget.reset()
+    }
+    dispatch({type: 'resolved'})
   }
 
   return (
@@ -70,130 +50,83 @@ function SignUp() {
         `}
       >
         <form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
-          <label htmlFor="firstName" css={labelWrapper}>
-            <input
-              onChange={e => setFirstName(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setFirstNameErr('inherit')
-                  : setFirstNameErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${firstNameErr};
-                `,
-              ]}
-              id="firstName"
-              name="firstName"
-              value={firstName}
-              placeholder="First Name"
-              required
-              minLength={3}
-              maxLength={15}
-            />
-          </label>
-          <label css={labelWrapper} htmlFor="lastName">
-            <input
-              onChange={e => setLastName(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setLastNameErr('inherit')
-                  : setLastNameErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${lastNameErr};
-                `,
-              ]}
-              name="lastName"
-              value={lastName}
-              required
-              minLength={3}
-              maxLength={15}
-              id="lastName"
-              placeholder="Last Name"
-            />
-          </label>
-          <label css={labelWrapper} htmlFor="email">
-            <input
-              onChange={e => setEmail(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setEmailErr('inherit')
-                  : setEmailErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${emailErr};
-                `,
-              ]}
-              name="email"
-              id="email"
-              type="email"
-              required
-              value={email}
-              maxLength={50}
-              placeholder="Email Address"
-            />
-          </label>
+          <Input
+            name="firstName"
+            placeholder="First Name"
+            required
+            minLength={3}
+            maxLength={15}
+            cleanColor={status === 'resolved'}
+          />
+          <Input
+            name="lastName"
+            required
+            minLength={3}
+            maxLength={15}
+            placeholder="Last Name"
+            cleanColor={status === 'resolved'}
+          />
+          <Input
+            name="email"
+            autoComplete="username"
+            type="email"
+            required
+            maxLength={50}
+            placeholder="Email Address"
+            cleanColor={status === 'resolved'}
+          />
 
-          <label css={labelWrapper} htmlFor="password">
-            <input
-              onChange={e => setPassword(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setPasswordErr('inherit')
-                  : setPasswordErr(colors.burgundyRed)
+          <Input
+            cssNew={
+              status === 'rejected'
+                ? css`
+                    border-color: ${colors.burgundyRed};
+                  `
+                : void 0
+            }
+            name="password"
+            autoComplete="new-password"
+            type="password"
+            placeholder="Enter Password"
+            minLength={6}
+            maxLength={20}
+            required
+            cleanColor={status === 'resolved'}
+          />
+          <Input
+            onBlur={e => {
+              if (e.target.form[3].value !== e.target.value) {
+                dispatch({type: 'rejected'})
+              } else {
+                dispatch({type: 'idle'})
               }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${passwordErr};
-                `,
-              ]}
-              name="password"
-              id="password"
-              type="password"
-              value={password}
-              placeholder="Enter Password"
-              minLength={6}
-              maxLength={20}
-              required
-            />
-          </label>
-          <label css={labelWrapper} htmlFor="confirmPassword">
-            <input
-              onChange={e => setConfirmPassword(e.target.value)}
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setConfirmPasswordErr('inherit')
-                  : setConfirmPasswordErr(colors.burgundyRed)
-              }
-              css={[
-                signWrapperInput,
-                css`
-                  border-color: ${confirmPasswordErr};
-                `,
-              ]}
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              placeholder="Re-Enter Password"
-              minLength={6}
-              maxLength={20}
-              required
-            />
-            {passError ? (
-              <span css={warning}>Password Don&apos;t Match</span>
-            ) : null}
-          </label>
-          {/* {authError ? <div css={warning}>{authError}</div> : null} */}
+            }}
+            cssNew={
+              status === 'rejected'
+                ? css`
+                    border-color: ${colors.burgundyRed};
+                  `
+                : void 0
+            }
+            autoComplete="new-password"
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            minLength={6}
+            maxLength={20}
+            required
+            cleanColor={status === 'resolved'}
+          />
+          {status === 'rejected' ? (
+            <span css={warning}>Password Don&apos;t Match</span>
+          ) : null}
+          {authError ? (
+            <div css={warning} type="alert">
+              {authError}
+            </div>
+          ) : null}
 
-          {isSubmitting ? (
+          {status === 'pending' ? (
             <div
               css={css`
                 width: 100%;
@@ -204,7 +137,7 @@ function SignUp() {
           ) : (
             <button
               type="submit"
-              disabled={isSubmitting || passError}
+              disabled={status === 'pending' || 'rejected'}
               css={btnStyle}
             >
               Submit

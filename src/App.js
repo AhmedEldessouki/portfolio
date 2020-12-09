@@ -1,44 +1,30 @@
 import * as React from 'react'
-import {Route, Switch, Redirect, BrowserRouter} from 'react-router-dom'
-import {ToastContainer} from 'react-toastify'
-
-import Home from './components/Home/Home'
-import Dashboard from './components/Dashboard/Dashboard'
-import MessageDetails from './components/Dashboard/Messaging/MessageDetails'
-import SignIn from './components/Auth/SignIn'
-import SignUp from './components/Auth/SignUp'
-import CreateProject from './components/Home/Projects/CreateProject'
+import {useAuth} from './components/Utils/AuthProvider'
 
 import 'react-toastify/dist/ReactToastify.css'
+import {config} from 'dotenv'
+const AuthRoutes = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './components/Routes/AuthRoutes'),
+)
+const UnAuthRoutes = React.lazy(() =>
+  import('./components/Routes/UnAuthRoutes'),
+)
+
+// const result = require('dotenv').config()
 
 function App() {
-  return (
-    <>
-      {false ? (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/message/:id" component={MessageDetails} />
-            <Route path="/signUp" component={SignUp} />
-            <Route path="/create-project" component={CreateProject} />
-            <Route path="/edit/:id" component={CreateProject} />
-            <Redirect from="*" to="/" />
-          </Switch>
-        </BrowserRouter>
-      ) : (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/signin" component={SignIn} />
-            <Redirect from="*" to="/" />
-          </Switch>
-        </BrowserRouter>
-      )}
+  const {authData} = useAuth()
+  config({debug: process.env.DEBUG})
 
-      <ToastContainer autoClose={2000} />
-    </>
+  // if (result.error) {
+  //   throw result.error
+  // }
+
+  // console.log(result.parsed)
+  return (
+    <React.Suspense fallback={'loading...'}>
+      {authData ? <AuthRoutes /> : <UnAuthRoutes />}
+    </React.Suspense>
   )
 }
 
