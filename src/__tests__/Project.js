@@ -10,14 +10,14 @@ test('Project Render', () => {
   waitForElementToBeRemoved(() => screen.getAllByText(/loading/i))
 
   expect(screen.getByText(/my projects/i)).toBeInTheDocument()
-  expect(screen.getAllByText(/Portfolio v2/i)).toBeTruthy()
+  expect(screen.getAllByText(/Portfolio/i)).toBeTruthy()
 })
 
 test('Project Details Render', () => {
   render(<Projects />)
   waitForElementToBeRemoved(() => screen.getAllByText(/loading/i))
 
-  userEvent.click(screen.getByText(/Portfolio v2/i))
+  userEvent.click(screen.getByText(/Portfolio/i))
 
-  expect(screen.getByText(/Portfolio v2/i)).toBeTruthy()
+  expect(screen.getByText(/Portfolio/i)).toBeTruthy()
 })
