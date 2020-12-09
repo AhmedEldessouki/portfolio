@@ -194,12 +194,12 @@ function CreateProjectX() {
                   e.target.validity.valid
                     ? setDescriptionErr(colors.lightGreen)
                     : setDescriptionErr(colors.burgundyRed)
-                  project ? handleDescription.cancel() : void 0
+                  handleDescription(e)
                 }}
                 required
               />
             </label>
-            <Button status={status} project={project} />
+            <Button status={status} project={project ? true : false} />
           </form>
         </div>
       </div>
