@@ -6,8 +6,10 @@ import {deleteMessage} from './utils'
 
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
+import {ErrorBoundary} from 'react-error-boundary'
+import {ErrorMessage} from '../../Utils/util'
 
-function MessagesSummary({message, fn}) {
+function MessagesSummaryComponent({message, fn}) {
   const messagesSummary = css`
     overflow: auto;
     display: grid;
@@ -55,8 +57,22 @@ function MessagesSummary({message, fn}) {
         <PopUp title={message.contactName} fn={() => deleteMessage(message)} />
       </div>
       <p css={childP}>{message.description}</p>
-      <span css={childD}>{message.sentAt.toDate().toDateString()}</span>
+      <span css={childD}>
+        {message.sentAt?.toDate().toDateString() ?? 11 - 11 - 1111}
+      </span>
     </div>
+  )
+}
+
+function MessagesSummary({message, ...props}) {
+  return (
+    <ErrorBoundary
+      fallback={<ErrorMessage />}
+      onReset={() => (props.message = null)}
+      resetKeys={[message]}
+    >
+      <MessagesSummaryComponent message={message} {...props} />
+    </ErrorBoundary>
   )
 }
 

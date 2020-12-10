@@ -3,27 +3,23 @@
 
 import React from 'react'
 import {jsx, css} from '@emotion/react'
-import {colors} from '../Styles'
+import {warning} from '../Styles'
 
-function ErrorMessage({error, ...props}) {
+function ErrorMessage({error, resetErrorBoundary, ...props}) {
+  console.log(error)
   return (
-    <div
-      role="alert"
-      css={css`
-        color: ${colors.burgundyRed};
-      `}
-      {...props}
-    >
+    <div role="alert" css={warning} {...props}>
       <span>There was an error: </span>
-      <pre
-        css={css`
-          whitespace: 'break-spaces';
-          margin: '0';
-          margin-bottom: -5;
-        `}
+
+      {error?.message ?? error}
+      <button
+        onClick={() => {
+          // resetComponentState()
+          resetErrorBoundary()
+        }}
       >
-        {error}
-      </pre>
+        Try again
+      </button>
     </div>
   )
 }

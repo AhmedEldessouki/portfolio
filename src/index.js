@@ -7,15 +7,20 @@ import {QueryCache, ReactQueryCacheProvider} from 'react-query'
 import App from './App'
 import {AuthProvider} from './components/Utils/AuthProvider'
 import {Profiler} from './components/profiler'
-import {auth} from './components/Utils/firebase'
 
-const queryCache = new QueryCache()
+const queryCache = new QueryCache({
+  defaultConfig: {
+    queries: {
+      suspense: true,
+    },
+  },
+})
 
 trace('initial render', performance.now(), () =>
   ReactDOM.render(
     <ReactQueryCacheProvider queryCache={queryCache}>
       <Profiler id="App Root" phases={['mount']}>
-        <AuthProvider auth={auth}>
+        <AuthProvider>
           <App />
         </AuthProvider>
       </Profiler>

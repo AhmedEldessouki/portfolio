@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-
+import React from 'react'
 import Layout from '../Layout'
 import {signWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
 import {useAuth} from '../Utils/AuthProvider'
@@ -13,7 +13,9 @@ function SignUp() {
   const {useSignUp} = useAuth()
   const [authError, signUp] = useSignUp()
   const {status, dispatch} = useAsync()
-
+  React.useEffect(() => {
+    console.log('status', status)
+  }, [status])
   const handleSubmit = async e => {
     e.preventDefault()
     dispatch({type: 'pending'})
@@ -92,6 +94,13 @@ function SignUp() {
             maxLength={20}
             required
             cleanColor={status === 'resolved'}
+            onBlur={e => {
+              if (e.target.form[4].value !== e.target.value) {
+                dispatch({type: 'rejected'})
+              } else {
+                dispatch({type: 'idle'})
+              }
+            }}
           />
           <Input
             onBlur={e => {
@@ -137,7 +146,7 @@ function SignUp() {
           ) : (
             <button
               type="submit"
-              disabled={status === 'pending' || 'rejected'}
+              disabled={status === 'rejected'}
               css={btnStyle}
             >
               Submit

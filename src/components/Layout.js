@@ -19,9 +19,8 @@ function LayoutX({children}) {
     <>
       {authData ? <AuthNavlinks /> : <UnAuthNavlinks />}
       <Global styles={globalStyles} />
-
-      <React.Suspense fallback={'loading...'}>{children}</React.Suspense>
-      <React.Suspense fallback={'loading...'}>
+      {children}
+      <React.Suspense fallback={<h1>'loading...'</h1>}>
         <MyFooter />
       </React.Suspense>
       <ToastContainer autoClose={2000} />

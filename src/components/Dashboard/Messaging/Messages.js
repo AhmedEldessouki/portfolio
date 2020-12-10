@@ -3,14 +3,16 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {useQuery} from 'react-query'
+import {ErrorBoundary} from 'react-error-boundary'
+import {useErrorResetBoundary, useQuery} from 'react-query'
+import {warning} from '../../Styles'
 
 import {db} from '../../Utils/firebase'
 import MessageDetails from './MessageDetails'
 
 import MessagesSummary from './MessagesSummary'
 
-function Messages() {
+function MessagesComponent() {
   const [messageSel, setMessageSel] = React.useReducer(
     (previousData, newData) => newData,
     null,
@@ -31,23 +33,39 @@ function Messages() {
     margin: 0;
     place-self: baseline;
   `
-  const {status, error, data: messagesData} = useQuery({
+  const {data: messagesData} = useQuery({
     queryKey: 'contactedMe',
     queryFn: async () =>
       await db
         .collection('contactedMe')
         .get()
-        .then(querySnapshot => {
-          const res = querySnapshot.docs.map(doc => {
-            return {...doc.data(), id: doc.id}
-          })
-          return res
-        }),
+        .then(
+          querySnapshot => {
+            const res = querySnapshot.docs.map(doc => {
+              return {...doc.data(), id: doc.id}
+            })
+            return res
+          },
+          err => {
+            throw err
+          },
+        ),
+    config: {
+      onError: err => {
+        throw err
+      },
+      placeholderData: [
+        {
+          email: 'XXXXX@XXXX.com',
+          id: 'xXXXXXXXXXXXXXx',
+          phoneNumber: 'XXXXXXXXX',
+          description: 'XXXXXXXXXXXXXXXXXXXX',
+          contactName: 'XXXXX XXXX',
+          // sentAt: {seconds: 1595062202, nanoseconds: 704000000},
+        },
+      ],
+    },
   })
-
-  if (status === 'loading') return 'loading'
-
-  if (error) throw error.message
 
   return (
     <React.Fragment>
@@ -64,7 +82,7 @@ function Messages() {
           {messagesData.map(message => {
             return (
               <MessagesSummary
-                key={message.sentAt}
+                key={message.id}
                 fn={() => setMessageSel(message)}
                 message={message}
               />
@@ -73,6 +91,25 @@ function Messages() {
         </div>
       )}
     </React.Fragment>
+  )
+}
+
+function Messages(props) {
+  const {reset} = useErrorResetBoundary()
+  return (
+    <ErrorBoundary
+      onReset={reset}
+      fallbackRender={({resetErrorBoundary}) => (
+        <div type="alert" css={warning}>
+          There was an error!
+          <button onClick={() => resetErrorBoundary()}>Try again</button>
+        </div>
+      )}
+    >
+      <React.Suspense fallback={'loading'} id={1}>
+        <MessagesComponent {...props} />
+      </React.Suspense>
+    </ErrorBoundary>
   )
 }
 
