@@ -8,7 +8,7 @@ import {GoTrashcan} from 'react-icons/go'
 import {colors, weights} from '../../Styles'
 import {useAsync} from '../util'
 
-function PopUp({title, fn}) {
+function PopUp({title, onClick}) {
   const popWrapper = css`
     @keyframes fadeIn {
       from {
@@ -71,7 +71,7 @@ function PopUp({title, fn}) {
   const {status, dispatch} = useAsync()
 
   async function handleDelete() {
-    await fn()
+    await onClick()
     dispatch({type: 'idle'})
   }
 

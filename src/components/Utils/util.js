@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import React from 'react'
-import {jsx, css} from '@emotion/react'
+import {jsx} from '@emotion/react'
 import {warning} from '../Styles'
 
 function ErrorMessage({error, resetErrorBoundary, ...props}) {

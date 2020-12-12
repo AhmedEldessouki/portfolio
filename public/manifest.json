@@ -21,6 +21,17 @@
       "src": "logo/a144x144.png",
       "sizes": "144x144",
       "type": "png"
+    },
+    {
+      "src": "logo/a256x256.png",
+      "sizes": "256x256",
+      "type": "png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo/a512x512.png",
+      "sizes": "512x512",
+      "type": "png"
     }
   ],
   "start_url": ".",

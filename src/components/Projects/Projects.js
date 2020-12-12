@@ -3,18 +3,15 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {FaPen} from 'react-icons/fa'
 import {ErrorBoundary} from 'react-error-boundary'
 import {useErrorResetBoundary, useQuery} from 'react-query'
 
-import PopUp from '../Utils/PopUp/PopUp'
 import {db} from '../Utils/firebase'
 import {useAuth} from '../Utils/AuthProvider'
 import {btnStyle, colors, h1XL, warning} from '../Styles'
 import ProjectDetails from './ProjectDetails'
-import ProjectsSummary from './ProjectsSummary'
-import {deleteProject} from './utils'
+import {Tags, Title} from './ProjectsSummary'
+import {EditAndDelete} from './utils'
 
 const ProjectComponent = () => {
   const {authData, setProject: setPorj} = useAuth()
@@ -74,7 +71,7 @@ const ProjectComponent = () => {
     grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
   `
 
-  return !project ? (
+  return (
     <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
       <div css={mWrapper}>
@@ -82,50 +79,29 @@ const ProjectComponent = () => {
           return (
             <div css={pWrapper} key={project.id}>
               {authData ? (
-                <div
-                  css={css`
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                  `}
-                >
-                  <Link
-                    to={`/edit/${project.id}`}
-                    onFocus={() => setPorj(project)}
-                  >
-                    <FaPen
-                      style={{color: colors.lightBlue, fontSize: '1.5rem'}}
-                    />
-                  </Link>
-                  <PopUp
-                    project={project}
-                    title="Project"
-                    fn={() => deleteProject(project)}
-                  />
-                </div>
+                <EditAndDelete
+                  project={project}
+                  onClick={() => setPorj(project)}
+                />
               ) : null}
-              <button
-                type="button"
+              <Title
+                name={project.projectName}
                 onClick={() => setProject(project)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  width: '100%',
-                }}
               >
-                <ProjectsSummary project={project} />
-              </button>
+                <Tags />
+              </Title>
             </div>
           )
         })}
       </div>
-    </React.Fragment>
-  ) : (
-    <React.Fragment>
-      <button css={btnStyle} onClick={() => setProject(null)} type="button">
-        Back
-      </button>
-      <ProjectDetails project={project} />
+      {project ? (
+        <React.Fragment>
+          <button css={btnStyle} onClick={() => setProject(null)} type="button">
+            Back
+          </button>
+          <ProjectDetails project={project} />
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   )
 }

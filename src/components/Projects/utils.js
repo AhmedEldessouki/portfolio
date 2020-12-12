@@ -26,6 +26,8 @@ import {
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
+import {FaPen} from 'react-icons/fa'
+import {Link} from 'react-router-dom'
 
 function createNewProject(project) {
   console.log(project)
@@ -331,6 +333,28 @@ function ProjInputX({project, ...props}) {
 
 const ProjInput = React.memo(ProjInputX)
 
+function EditAndDelete({project, onClick}) {
+  return (
+    <div
+      css={css`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      `}
+    >
+      <Link
+        to={`/edit/${project.id}`}
+        onFocus={() => {
+          onClick()
+        }}
+      >
+        <FaPen style={{color: colors.lightBlue, fontSize: '1.5rem'}} />
+      </Link>
+      <PopUp title="Project" onClick={() => deleteProject(project)} />
+    </div>
+  )
+}
+
 export {
   ProjInput,
   uploadImage,
@@ -342,4 +366,5 @@ export {
   createNewProject,
   Button,
   DisplayingImages,
+  EditAndDelete,
 }

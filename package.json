@@ -8,7 +8,7 @@
     "axios": "^0.21.0",
     "cloudinary-react": "^1.6.8",
     "debounce-fn": "^4.0.0",
-    "firebase": "^8.1.2",
+    "firebase": "^8.2.0",
     "is-ci": "^2.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -36,7 +36,7 @@
     "eslint-plugin-cypress": "^2.11.2",
     "husky": "^4.3.5",
     "lint-staged": "^10.5.3",
-    "msw": "^0.24.1",
+    "msw": "^0.24.2",
     "prettier": "^2.2.0",
     "pretty-quick": "^3.1.0"
   },
@@ -55,7 +55,8 @@
     "cy:open": " cypress open",
     "cy:run": " cypress run",
     "test:e2e": "start-server-and-test start http://localhost:3000 cy:run",
-    "test:coverage": "npm run test -- --coverage"
+    "test:coverage": "npm run test -- --coverage --watchAll=false",
+    "test:lint": "npm run test -- --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -70,5 +71,23 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/path/to/dir/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "coverageReporters": [
+      "text"
+    ]
   }
 }
