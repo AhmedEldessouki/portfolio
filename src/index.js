@@ -1,17 +1,31 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import {unstable_trace as trace} from 'scheduler/tracing'
+import {ReactQueryDevtools} from 'react-query-devtools'
+import {QueryCache, ReactQueryCacheProvider} from 'react-query'
 
-import * as serviceWorker from './serviceWorker'
 import App from './App'
+import {AuthProvider} from './components/Utils/AuthProvider'
+import {Profiler} from './components/profiler'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
+const queryCache = new QueryCache({
+  defaultConfig: {
+    queries: {
+      suspense: true,
+    },
+  },
+})
+
+trace('initial render', performance.now(), () =>
+  ReactDOM.render(
+    <ReactQueryCacheProvider queryCache={queryCache}>
+      <Profiler id="App Root" phases={['mount']}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </Profiler>
+      <ReactQueryDevtools />
+    </ReactQueryCacheProvider>,
+    document.getElementById('root'),
+  ),
 )
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister()
