@@ -1,20 +1,17 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import {jsx, css} from '@emotion/react'
+import {jsx} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 import {useErrorResetBoundary, useQuery} from 'react-query'
 
 import {db} from '../Utils/firebase'
-import {useAuth} from '../Utils/AuthProvider'
-import {btnStyle, colors, h1XL, warning} from '../Styles'
+import {h1XL, warning} from '../Styles'
 import ProjectDetails from './ProjectDetails'
-import {Tags, Title} from './ProjectsSummary'
-import {EditAndDelete} from './utils'
+import {Dialog, OnToggle} from './ProjectsSummary'
 
 const ProjectComponent = () => {
-  const {authData, setProject: setPorj} = useAuth()
   const [project, setProject] = React.useState(null)
   const {data: projectsData} = useQuery({
     queryKey: 'projects',
@@ -53,55 +50,16 @@ const ProjectComponent = () => {
     },
   })
 
-  const pWrapper = css`
-    border-bottom: 10px solid ${colors.darkBlue};
-    border-radius: 11%;
-    width: 100%;
-    :hover,
-    :focus {
-      border-bottom-color: ${colors.aliceLightBlue};
-    }
-  `
-  const mWrapper = css`
-    margin: 0 10px;
-    padding: 20px 10px;
-    display: grid;
-    grid-gap: 25px;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
-  `
-
   return (
     <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
-      <div css={mWrapper}>
-        {projectsData?.map(project => {
-          return (
-            <div css={pWrapper} key={project.id}>
-              {authData ? (
-                <EditAndDelete
-                  project={project}
-                  onClick={() => setPorj(project)}
-                />
-              ) : null}
-              <Title
-                name={project.projectName}
-                onClick={() => setProject(project)}
-              >
-                <Tags />
-              </Title>
-            </div>
-          )
-        })}
-      </div>
       {project ? (
-        <React.Fragment>
-          <button css={btnStyle} onClick={() => setProject(null)} type="button">
-            Back
-          </button>
+        <OnToggle items={projectsData} state={project} setState={setProject}>
           <ProjectDetails project={project} />
-        </React.Fragment>
-      ) : null}
+        </OnToggle>
+      ) : (
+        <Dialog items={projectsData} state={project} setState={setProject} />
+      )}
     </React.Fragment>
   )
 }
