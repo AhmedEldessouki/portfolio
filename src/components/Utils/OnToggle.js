@@ -45,10 +45,22 @@ function OnToggle({items, setState, children}) {
       return {min: 0, max: 3, range: 4}
     } else if (window.innerWidth >= 900) {
       return {min: 0, max: 2, range: 3}
-    } else if (window.innerWidth >= 480) {
+    } else {
       return {min: 0, max: 1, range: 2}
     }
   })
+
+  React.useLayoutEffect(() => {
+    if (!show) {
+      if (window.innerWidth >= 1220) {
+        setShow({min: 0, max: 3, range: 4})
+      } else if (window.innerWidth >= 900) {
+        setShow({min: 0, max: 2, range: 3})
+      } else {
+        setShow({min: 0, max: 1, range: 2})
+      }
+    }
+  }, [show])
 
   return (
     <div>
@@ -118,7 +130,7 @@ function OnToggle({items, setState, children}) {
                 key={item.id}
               >
                 <Title
-                  name={item.name}
+                  name={item.projectName}
                   onClick={() => {
                     setState(item)
                   }}
