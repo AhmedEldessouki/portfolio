@@ -21,8 +21,9 @@ const Title = ({name, onClick, children}) => {
     margin: 0;
     :hover,
     :focus {
-      color: ${colors.independenceBlue};
-      background: ${colors.aliceLightBlue};
+      font-weight: ${weights.black};
+      color: ${colors.darkBlue};
+      background: ${colors.kindaBlue};
     }
   `
 
@@ -72,7 +73,15 @@ function EditAndDelete({project, onClick}) {
           onClick()
         }}
       >
-        <FaPen style={{color: colors.lightBlue, fontSize: '1.5rem'}} />
+        <FaPen
+          css={css`
+            color: ${colors.lightBlue};
+            font-size: 1.5rem;
+            :hover {
+              color: ${colors.kindaBlue};
+            }
+          `}
+        />
       </Link>
       <PopUp title="Project" onClick={() => deleteProject(project)} />
     </div>
@@ -88,7 +97,7 @@ function Card({items, setState}) {
     width: 100%;
     :hover,
     :focus {
-      border-bottom-color: ${colors.aliceLightBlue};
+      border-bottom-color: ${colors.kindaBlue};
     }
   `
   const mWrapper = css`

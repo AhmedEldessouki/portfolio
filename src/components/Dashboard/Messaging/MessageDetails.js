@@ -2,10 +2,12 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import React from 'react'
 
 import {h1XL, colors, mq} from '../../Styles'
 
 function MessageDetails({message}) {
+  const [description, setDescription] = React.useState(message.description)
   const container = css`
     display: grid;
     place-content: center;
@@ -64,6 +66,10 @@ function MessageDetails({message}) {
       font-size: 117%;
     }
   `
+  React.useEffect(() => {
+    console.log(message.description.length)
+    if (description !== message.description) setDescription(message.description)
+  }, [description, message.description])
   return (
     <div css={container}>
       <h1 css={[h1XL, forH1]}>{message.name.toUpperCase()}</h1>
@@ -76,7 +82,28 @@ function MessageDetails({message}) {
           Email: <a href={`mailto:${message.email}`}>{message.email}</a>
         </h2>
       </div>
-      <p css={midWrapper}>{message.description}</p>
+      <textarea
+        disabled
+        rows="7"
+        wrap="hard"
+        maxLength={description.length}
+        css={[
+          css`
+            resize: none;
+            place-self: center;
+            padding: 10px 1%;
+            font-size: 1.45rem;
+            letter-spacing: 0.4px;
+            background: ${colors.independenceBlue};
+            color: ${colors.lightBlue};
+            border: 5px solid ${colors.darkBlue};
+            margin-bottom: 23.2px;
+            min-width: 80%;
+          `,
+          midWrapper,
+        ]}
+        value={description}
+      />
       <h3 css={lowerWrapper}>
         Msg Received: {message.date.toDate().toDateString()}
       </h3>
