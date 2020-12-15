@@ -8,14 +8,14 @@ async function contactedMe(contact) {
   await db
     .collection('contactedMe')
     .add({
-      contactName: contact.contactName,
+      name: contact.name,
       email: contact.email,
       phoneNumber: contact.phoneNumber,
       description: contact.description,
-      sentAt: new Date(),
+      date: new Date(),
     })
     .then(() => {
-      toast.success(`Thanks "${contact.contactName}" For Contacting Me`)
+      toast.success(`Thanks "${contact.name}" For Contacting Me`)
       resolved = true
     })
     .catch(err => {

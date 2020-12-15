@@ -66,7 +66,7 @@ function MessageDetails({message}) {
   `
   return (
     <div css={container}>
-      <h1 css={[h1XL, forH1]}>{message.contactName.toUpperCase()}</h1>
+      <h1 css={[h1XL, forH1]}>{message.name.toUpperCase()}</h1>
       <div css={phoneAndEmailWrapper}>
         <h2>
           Phone Number:
@@ -78,7 +78,7 @@ function MessageDetails({message}) {
       </div>
       <p css={midWrapper}>{message.description}</p>
       <h3 css={lowerWrapper}>
-        Msg Received: {message.sentAt.toDate().toDateString()}
+        Msg Received: {message.date.toDate().toDateString()}
       </h3>
     </div>
   )

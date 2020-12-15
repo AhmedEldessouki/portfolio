@@ -50,15 +50,27 @@ function MessagesSummaryComponent({message, fn}) {
   `
   return (
     <div css={messagesSummary}>
-      <button css={childN} onClick={fn}>
-        <h2 css={h1XL}>{message.contactName}</h2>
+      <button
+        css={[
+          childN,
+          css`
+            background: none;
+            color: ${colors.darkBlue};
+            :hover {
+              color: ${colors.kindaBlue};
+            }
+          `,
+        ]}
+        onClick={fn}
+      >
+        <h2 css={h1XL}>{message.name}</h2>
       </button>
       <div css={childB}>
-        <PopUp title={message.contactName} fn={() => deleteMessage(message)} />
+        <PopUp title={message.name} fn={() => deleteMessage(message)} />
       </div>
       <p css={childP}>{message.description}</p>
       <span css={childD}>
-        {message.sentAt?.toDate().toDateString() ?? 11 - 11 - 1111}
+        {message.date?.toDate().toDateString() ?? 11 - 11 - 1111}
       </span>
     </div>
   )

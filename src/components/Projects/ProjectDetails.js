@@ -10,7 +10,7 @@ import {colors, spinner} from '../Styles'
 const ProjectDetails = ({project}) => {
   return project ? (
     <React.Fragment>
-      <Carousel imgArray={project.projectLogo} imgAlt={project.projectName} />
+      <Carousel imgArray={project.projectLogo} imgAlt={project.name} />
       <div
         css={css`
           display: flex;
@@ -30,7 +30,7 @@ const ProjectDetails = ({project}) => {
             border-radius: 7.5%;
           `}
         >
-          <a href={project.projectLink}>{project.projectName}</a>
+          <a href={project.link}>{project.name}</a>
         </h1>
         <p
           css={css`
