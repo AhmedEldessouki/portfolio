@@ -52,18 +52,6 @@ function OnToggle({items, setState, children}) {
     }
   })
 
-  //   React.useLayoutEffect(() => {
-  //     if (!show) {
-  //       if (window.innerWidth >= 1220) {
-  //         setShow({min: 0, max: 3, range: 4})
-  //       } else if (window.innerWidth >= 900) {
-  //         setShow({min: 0, max: 2, range: 3})
-  //       } else {
-  //         setShow({min: 0, max: 1, range: 2})
-  //       }
-  //     }
-  //   }, [show])
-
   return (
     <div>
       <div
@@ -116,10 +104,12 @@ function OnToggle({items, setState, children}) {
             width: 25px;
             border-radius: 23px 0 0 24px;
             border: 5px solid ${colors.darkBlue};
-            :hover {
+            :hover,
+            :focus {
               background: ${colors.kindaDarkBlue};
             }
           `}
+          disabled={show.min === 0}
         />
         {items?.map((item, i) => {
           if (i >= show.min && i <= show.max) {
@@ -157,10 +147,12 @@ function OnToggle({items, setState, children}) {
             width: 25px;
             border-radius: 0 23px 24px 0;
             border: 5px solid ${colors.darkBlue};
-            :hover {
+            :hover,
+            :focus {
               background: ${colors.kindaDarkBlue};
             }
           `}
+          disabled={show.max === items.length - 1}
         />
       </div>
       {children}
