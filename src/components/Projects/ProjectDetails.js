@@ -57,6 +57,7 @@ function ProjectDetails({project}) {
             border: 5px solid ${colors.darkBlue};
             margin-bottom: 23.2px;
             min-width: 80%;
+            border-radius: 5%;
           `}
           value={description}
         />

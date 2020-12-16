@@ -15,7 +15,15 @@ function MessageDetails({message}) {
     grid-gap: 0px 17px;
     place-content: inherit;
     ${mq.phoneLarge} {
-      grid-gap: 0;
+      grid-gap: 15px;
+    }
+  `
+  const forH1 = css`
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    place-self: baseline;
+    ${mq.phoneLarge} {
+      grid-column: 1;
     }
   `
   const phoneAndEmailWrapper = css`
@@ -24,21 +32,20 @@ function MessageDetails({message}) {
     background-color: ${colors.darkBlue};
     padding: 30px 19px;
     margin-left: 17px;
+    border-radius: 5%;
 
     ${mq.phoneLarge} {
       width: 80%;
       margin-left: 0;
+      grid-column: 1;
+      grid-row: 2;
       padding: 20px 10px;
       & > h2 {
         font-size: 124%;
       }
     }
   `
-  const forH1 = css`
-    grid-column: 1 / span 3;
-    grid-row: 1;
-    place-self: baseline;
-  `
+
   const midWrapper = css`
     grid-column: 2;
     grid-row: 2;
@@ -99,6 +106,7 @@ function MessageDetails({message}) {
             border: 5px solid ${colors.darkBlue};
             margin-bottom: 23.2px;
             min-width: 80%;
+            border-radius: 4.2%;
           `,
           midWrapper,
         ]}

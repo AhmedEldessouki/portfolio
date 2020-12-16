@@ -14,7 +14,12 @@ function Carousel({imgArray, imgAlt}) {
     width: 100%;
     display: grid;
     place-items: center;
-    height: 440px;
+    gap: 10px;
+    background: #32374d;
+    padding: 11px 0;
+    border-top: 13px double ${colors.darkBlue};
+    border-bottom: 13px double ${colors.darkBlue};
+    border-radius: 22px;
     a {
       color: transparent;
       justify-self: center;
@@ -28,6 +33,14 @@ function Carousel({imgArray, imgAlt}) {
       a {
         grid-row: 1;
         grid-column: 1;
+      }
+    }
+    ${mq.s} {
+      a {
+        img {
+          width: 200px;
+          height: 200px;
+        }
       }
     }
   `
@@ -83,6 +96,7 @@ function Carousel({imgArray, imgAlt}) {
     background: ${colors.darkBlue};
     margin: 0 5px 10px;
     cursor: pointer;
+
     :hover,
     :focus {
       background: ${colors.whiteFaded};
@@ -116,6 +130,10 @@ function Carousel({imgArray, imgAlt}) {
           justify-self: center;
           grid-row: 5;
           grid-column: 2 / span 3;
+          display: flex;
+          flex-wrap: wrap;
+          width: 80%;
+          place-content: center;
           ${mq.phoneLarge} {
             grid-row: 2;
             grid-column: 1;
