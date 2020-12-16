@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import {unstable_trace as trace} from 'scheduler/tracing'
-import {ReactQueryDevtools} from 'react-query-devtools'
+import {ReactQueryDevtools} from 'react-query/devtools'
 import {QueryClient, QueryClientProvider} from 'react-query'
 
 import App from './App'
