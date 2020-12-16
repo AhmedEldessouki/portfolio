@@ -45,8 +45,10 @@ function OnToggle({items, setState, children}) {
       return {min: 0, max: 3, range: 4}
     } else if (window.innerWidth >= 900) {
       return {min: 0, max: 2, range: 3}
-    } else {
+    } else if (window.innerWidth >= 480) {
       return {min: 0, max: 1, range: 2}
+    } else {
+      return {min: 0, max: 0, range: 1}
     }
   })
 
