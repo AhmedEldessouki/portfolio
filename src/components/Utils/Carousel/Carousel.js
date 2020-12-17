@@ -5,15 +5,14 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {Image} from 'cloudinary-react'
 
-import {disableScroll, enableScroll} from '../wheelAndTouch'
 import {colors, mq} from '../../Styles'
 
 function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = React.useState(0)
-  const [touchStart, setTouchStart] = React.useState([])
+  const [touchStart, setTouchStart] = React.useState(0)
   // TODO handle swiping
   // const [touchMove, setTouchMove] = React.useState([])
-  const [touchEnd, setTouchEnd] = React.useState([])
+  const [touchEnd, setTouchEnd] = React.useState(0)
 
   React.useEffect(() => {
     setCurrentImage(0)
@@ -112,15 +111,29 @@ function Carousel({imgArray, imgAlt}) {
     }
   `
 
-  function handlePrevious() {
+  const handlePrevious = React.useCallback(() => {
     if (currentImage !== 0) setCurrentImage(currentImage - 1)
     return
-  }
+  }, [currentImage])
 
-  function handleNext() {
+  const handleNext = React.useCallback(() => {
     if (currentImage !== imgArray.length - 1) setCurrentImage(currentImage + 1)
     return
-  }
+  }, [currentImage, imgArray.length])
+
+  const handleTouch = React.useCallback(
+    (end, start) => {
+      if (end > start) {
+        console.log(end, start)
+        handlePrevious()
+      }
+      if (end < start) {
+        console.log(end, start)
+        handleNext()
+      }
+    },
+    [handleNext, handlePrevious],
+  )
 
   return (
     <div css={cWrapper}>
@@ -135,45 +148,39 @@ function Carousel({imgArray, imgAlt}) {
       >
         {'<'}
       </button>
-      <a
-        href={imgArray[currentImage]}
-        // onTouchMove={e => {
-        //   e.preventDefault()
-        // }}
-        onTouchStart={e => {
-          setTouchStart(e.changedTouches)
-        }}
-        onTouchEnd={e => {
-          setTouchEnd(e.changedTouches)
-          console.dir(touchEnd)
-          if (touchEnd.length === 1 && touchStart.length === 1) {
-            if (touchEnd[0].screenX > touchStart[0].screenX) {
-              handlePrevious()
-            }
-            if (touchEnd[0].screenX < touchStart[0].screenX) {
-              handleNext()
-            }
-          }
-        }}
-        onMouseEnter={() => disableScroll()}
-        onMouseLeave={() => enableScroll()}
-        onWheel={e => {
-          if (e.deltaY > 0) {
-            handleNext()
-          }
-          if (e.deltaY < 0) {
-            handlePrevious()
-          }
-        }}
-      >
+      <div>
         <Image
           width="450"
           height="400"
           alt={imgAlt}
+          onDoubleClick={() => window.open(imgArray[currentImage])}
+          onMouseDown={e => {
+            e.preventDefault()
+            setTouchStart(e.screenX)
+          }}
+          onMouseUp={e => {
+            setTouchEnd(e.screenX)
+            handleTouch(e.screenX, touchStart)
+          }}
+          onMouseMove={e => {
+            e.preventDefault()
+          }}
+          onTouchMove={e => {
+            e.preventDefault()
+          }}
+          onTouchStart={e => {
+            setTouchStart(e.changedTouches)
+          }}
+          onTouchEnd={e => {
+            setTouchEnd(e.changedTouches)
+            if (touchEnd.length === 1 && touchStart.length === 1) {
+              handleTouch(e.changedTouches[0].screenX, touchStart[0].screenX)
+            }
+          }}
           fit="contain"
           src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
         />
-      </a>
+      </div>
       <section
         css={css`
           justify-self: center;
