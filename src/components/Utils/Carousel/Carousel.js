@@ -5,10 +5,19 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {Image} from 'cloudinary-react'
 
+import {disableScroll, enableScroll} from '../wheelAndTouch'
 import {colors, mq} from '../../Styles'
 
 function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = React.useState(0)
+  const [touchStart, setTouchStart] = React.useState([])
+  // TODO handle swiping
+  // const [touchMove, setTouchMove] = React.useState([])
+  const [touchEnd, setTouchEnd] = React.useState([])
+
+  React.useEffect(() => {
+    setCurrentImage(0)
+  }, [imgArray])
 
   const cWrapper = css`
     width: 100%;
@@ -102,21 +111,61 @@ function Carousel({imgArray, imgAlt}) {
       background: ${colors.whiteFaded};
     }
   `
+
+  function handlePrevious() {
+    if (currentImage !== 0) setCurrentImage(currentImage - 1)
+    return
+  }
+
+  function handleNext() {
+    if (currentImage !== imgArray.length - 1) setCurrentImage(currentImage + 1)
+    return
+  }
+
   return (
     <div css={cWrapper}>
       <button
         type="button"
         css={[currentImage === 0 ? disabledBTN : btn, leftS]}
-        onClick={() =>
-          currentImage !== 0 ? setCurrentImage(currentImage - 1) : null
-        }
+        onClick={() => {
+          handlePrevious()
+        }}
         data-testid="previous"
         disabled={currentImage === 0}
       >
         {'<'}
       </button>
-
-      <a href={imgArray[currentImage]}>
+      <a
+        href={imgArray[currentImage]}
+        // onTouchMove={e => {
+        //   e.preventDefault()
+        // }}
+        onTouchStart={e => {
+          setTouchStart(e.changedTouches)
+        }}
+        onTouchEnd={e => {
+          setTouchEnd(e.changedTouches)
+          console.dir(touchEnd)
+          if (touchEnd.length === 1 && touchStart.length === 1) {
+            if (touchEnd[0].screenX > touchStart[0].screenX) {
+              handlePrevious()
+            }
+            if (touchEnd[0].screenX < touchStart[0].screenX) {
+              handleNext()
+            }
+          }
+        }}
+        onMouseEnter={() => disableScroll()}
+        onMouseLeave={() => enableScroll()}
+        onWheel={e => {
+          if (e.deltaY > 0) {
+            handleNext()
+          }
+          if (e.deltaY < 0) {
+            handlePrevious()
+          }
+        }}
+      >
         <Image
           width="450"
           height="400"
@@ -141,7 +190,6 @@ function Carousel({imgArray, imgAlt}) {
         `}
       >
         {imgArray.map((data, forKC) => (
-          // eslint-disable-next-line jsx-a11y/control-has-associated-label
           <button
             key={data}
             type="button"
@@ -163,11 +211,9 @@ function Carousel({imgArray, imgAlt}) {
         type="button"
         data-testid="next"
         css={[currentImage === imgArray.length - 1 ? disabledBTN : btn, rightS]}
-        onClick={() =>
-          currentImage !== imgArray.length
-            ? setCurrentImage(currentImage + 1)
-            : null
-        }
+        onClick={() => {
+          handleNext()
+        }}
         disabled={currentImage === imgArray.length - 1}
       >
         {'>'}

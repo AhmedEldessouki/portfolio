@@ -8,7 +8,8 @@ export const globalStyles = css`
   /*
 * Browsers CSS Reset
 */
-  html,
+  ${
+    '' /* html,
   body,
   div,
   span,
@@ -99,6 +100,7 @@ export const globalStyles = css`
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
+  } */
   }
 
   /*

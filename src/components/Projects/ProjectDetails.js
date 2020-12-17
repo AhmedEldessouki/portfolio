@@ -11,7 +11,6 @@ function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
 
   React.useEffect(() => {
-    console.log(project.description.length)
     if (description !== project.description) setDescription(project.description)
   }, [description, project.description])
 
