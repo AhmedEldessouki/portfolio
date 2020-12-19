@@ -10,7 +10,7 @@ async function deleteMessage(message) {
     .doc(`${message.id}`)
     .delete()
     .then(() => {
-      toast.success(`Message from "${message.contactName}" is no longer exits`)
+      toast.success(`Message from "${message.name}" is no longer exits`)
       resolved = true
     })
     .catch(err => {

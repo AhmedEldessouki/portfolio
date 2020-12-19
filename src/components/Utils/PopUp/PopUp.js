@@ -60,12 +60,12 @@ function PopUp({title, onClick}) {
     border: 0;
     margin: 0;
     padding: 0;
-    color: ${colors.aliceLightBlue};
+    color: ${colors.burgundyRed};
     font-size: 2rem;
     font-weight: ${weights.black};
     :hover,
     :focus {
-      color: ${colors.burgundyRed};
+      color: ${colors.kindaBlue};
     }
   `
   const {status, dispatch} = useAsync()

@@ -32,8 +32,8 @@ function CreateProjectX() {
   ] = React.useReducer(reducer, {
     status: 'idle',
     formData: {
-      projectName: project ? project.projectName : '',
-      projectLink: project ? project.projectLink : '',
+      name: project ? project.name : '',
+      link: project ? project.link : '',
       projectLogo: project ? [...project.projectLogo] : [],
       description: project ? project.description : '',
     },
@@ -89,7 +89,7 @@ function CreateProjectX() {
       Promise.allSettled(
         imagesFile.map(file => {
           dispatch({type: 'next'})
-          return uploadImage(file, formData.projectName)
+          return uploadImage(file, formData.name)
         }),
       )
         .then(results =>
@@ -105,7 +105,7 @@ function CreateProjectX() {
           toast.success('Images Uploaded')
           dispatch({type: 'images_uploaded'})
         }),
-    [dispatch, formData.projectName, imagesFile],
+    [dispatch, formData.name, imagesFile],
   )
 
   async function useSubmitImages() {
@@ -115,12 +115,12 @@ function CreateProjectX() {
   function useHandleSubmit(e) {
     e.preventDefault()
 
-    const {projectName, projectLink, description} = e.target.elements
+    const {name, link, description} = e.target.elements
     dispatch({
       type: 'submit_formData',
       payload: {
-        projectName: projectName.value,
-        projectLink: projectLink.value,
+        name: name.value,
+        link: link.value,
         description: description.value,
       },
     })
@@ -132,7 +132,7 @@ function CreateProjectX() {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
 
-  const {projectName, projectLink, description, projectLogo} = formData
+  const {name, link, description, projectLogo} = formData
 
   return (
     <Layout>
@@ -160,8 +160,8 @@ function CreateProjectX() {
           <form css={signWrapper} onSubmit={useHandleSubmit}>
             <ImageDropZone handleDrop={handleDrop} />
             <ProjInput
-              name="projectName"
-              project={projectName}
+              name="name"
+              project={name}
               placeholder="Name"
               required
               minLength={3}
@@ -171,9 +171,9 @@ function CreateProjectX() {
             <ProjInput
               type="url"
               required
-              project={projectLink}
+              project={link}
               placeholder="Project Link"
-              name="projectLink"
+              name="link"
               cleanColor={status === 'pending'}
             />
             <label htmlFor="description" css={labelWrapper}>

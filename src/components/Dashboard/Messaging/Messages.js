@@ -4,8 +4,9 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
-import {useErrorResetBoundary, useQuery} from 'react-query'
+import {useQueryErrorResetBoundary, useQuery} from 'react-query'
 import {warning} from '../../Styles'
+import OnToggle from '../../Utils/OnToggle'
 
 import {db} from '../../Utils/firebase'
 import MessageDetails from './MessageDetails'
@@ -25,14 +26,7 @@ function MessagesComponent() {
     justify-content: space-evenly;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
   `
-  const childN = css`
-    border: 0;
-    grid-row: 1;
-    grid-column: 1 / span 2;
-    place-self: baseline;
-    margin: 0;
-    place-self: baseline;
-  `
+
   const {data: messagesData} = useQuery({
     queryKey: 'contactedMe',
     queryFn: async () =>
@@ -41,10 +35,10 @@ function MessagesComponent() {
         .get()
         .then(
           querySnapshot => {
-            const res = querySnapshot.docs.map(doc => {
+            const data = querySnapshot.docs.map(doc => {
               return {...doc.data(), id: doc.id}
             })
-            return res
+            return data
           },
           err => {
             throw err
@@ -54,14 +48,15 @@ function MessagesComponent() {
       onError: err => {
         throw err
       },
+      suspense: true,
       placeholderData: [
         {
           email: 'XXXXX@XXXX.com',
           id: 'xXXXXXXXXXXXXXx',
           phoneNumber: 'XXXXXXXXX',
           description: 'XXXXXXXXXXXXXXXXXXXX',
-          contactName: 'XXXXX XXXX',
-          // sentAt: {seconds: 1595062202, nanoseconds: 704000000},
+          name: 'XXXXX XXXX',
+          // date: {seconds: 1595062202, nanoseconds: 704000000},
         },
       ],
     },
@@ -71,15 +66,16 @@ function MessagesComponent() {
     <React.Fragment>
       <h1>Messages</h1>
       {messageSel ? (
-        <React.Fragment>
-          <button css={childN} onClick={() => setMessageSel(null)}>
-            Back
-          </button>
+        <OnToggle
+          items={messagesData}
+          state={messageSel}
+          setState={setMessageSel}
+        >
           <MessageDetails message={messageSel} />
-        </React.Fragment>
+        </OnToggle>
       ) : (
         <div css={mWrapper}>
-          {messagesData.map(message => {
+          {messagesData?.map(message => {
             return (
               <MessagesSummary
                 key={message.id}
@@ -95,7 +91,7 @@ function MessagesComponent() {
 }
 
 function Messages(props) {
-  const {reset} = useErrorResetBoundary()
+  const {reset} = useQueryErrorResetBoundary()
   return (
     <ErrorBoundary
       onReset={reset}

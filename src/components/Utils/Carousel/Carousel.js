@@ -9,15 +9,26 @@ import {colors, mq} from '../../Styles'
 
 function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = React.useState(0)
+  const [touchStart, setTouchStart] = React.useState(0)
+  // TODO handle swiping
+  // const [touchMove, setTouchMove] = React.useState([])
+  const [touchEnd, setTouchEnd] = React.useState(0)
+
+  React.useEffect(() => {
+    setCurrentImage(0)
+  }, [imgArray])
 
   const cWrapper = css`
     width: 100%;
     display: grid;
     place-items: center;
-    height: 440px;
-    a {
-      color: transparent;
-      justify-self: center;
+    gap: 10px;
+    background: #32374d;
+    padding: 11px 0;
+    border-top: 13px double ${colors.darkBlue};
+    border-bottom: 13px double ${colors.darkBlue};
+    border-radius: 22px;
+    div {
       grid-row: 1 / span 4;
       grid-column: 2 / span 3;
       img {
@@ -28,6 +39,14 @@ function Carousel({imgArray, imgAlt}) {
       a {
         grid-row: 1;
         grid-column: 1;
+      }
+    }
+    ${mq.s} {
+      a {
+        img {
+          width: 200px;
+          height: 200px;
+        }
       }
     }
   `
@@ -83,39 +102,92 @@ function Carousel({imgArray, imgAlt}) {
     background: ${colors.darkBlue};
     margin: 0 5px 10px;
     cursor: pointer;
+
     :hover,
     :focus {
       background: ${colors.whiteFaded};
     }
   `
+
+  const handlePrevious = React.useCallback(() => {
+    if (currentImage !== 0) setCurrentImage(currentImage - 1)
+    return
+  }, [currentImage])
+
+  const handleNext = React.useCallback(() => {
+    if (currentImage !== imgArray.length - 1) setCurrentImage(currentImage + 1)
+    return
+  }, [currentImage, imgArray.length])
+
+  const handleTouch = React.useCallback(
+    (end, start) => {
+      if (end > start) {
+        console.log(end, start)
+        handlePrevious()
+      }
+      if (end < start) {
+        console.log(end, start)
+        handleNext()
+      }
+    },
+    [handleNext, handlePrevious],
+  )
+
   return (
     <div css={cWrapper}>
       <button
         type="button"
         css={[currentImage === 0 ? disabledBTN : btn, leftS]}
-        onClick={() =>
-          currentImage !== 0 ? setCurrentImage(currentImage - 1) : null
-        }
+        onClick={() => {
+          handlePrevious()
+        }}
         data-testid="previous"
         disabled={currentImage === 0}
       >
         {'<'}
       </button>
-
-      <a href={imgArray[currentImage]}>
+      <div>
         <Image
           width="450"
           height="400"
           alt={imgAlt}
+          onDoubleClick={() => window.open(imgArray[currentImage])}
+          onMouseDown={e => {
+            e.preventDefault()
+            setTouchStart(e.screenX)
+          }}
+          onMouseUp={e => {
+            setTouchEnd(e.screenX)
+            handleTouch(e.screenX, touchStart)
+          }}
+          onMouseMove={e => {
+            e.preventDefault()
+          }}
+          onTouchMove={e => {
+            e.preventDefault()
+          }}
+          onTouchStart={e => {
+            setTouchStart(e.changedTouches)
+          }}
+          onTouchEnd={e => {
+            setTouchEnd(e.changedTouches)
+            if (touchEnd.length === 1 && touchStart.length === 1) {
+              handleTouch(e.changedTouches[0].screenX, touchStart[0].screenX)
+            }
+          }}
           fit="contain"
           src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
         />
-      </a>
+      </div>
       <section
         css={css`
           justify-self: center;
           grid-row: 5;
           grid-column: 2 / span 3;
+          display: flex;
+          flex-wrap: wrap;
+          width: 80%;
+          place-content: center;
           ${mq.phoneLarge} {
             grid-row: 2;
             grid-column: 1;
@@ -123,7 +195,6 @@ function Carousel({imgArray, imgAlt}) {
         `}
       >
         {imgArray.map((data, forKC) => (
-          // eslint-disable-next-line jsx-a11y/control-has-associated-label
           <button
             key={data}
             type="button"
@@ -145,11 +216,9 @@ function Carousel({imgArray, imgAlt}) {
         type="button"
         data-testid="next"
         css={[currentImage === imgArray.length - 1 ? disabledBTN : btn, rightS]}
-        onClick={() =>
-          currentImage !== imgArray.length
-            ? setCurrentImage(currentImage + 1)
-            : null
-        }
+        onClick={() => {
+          handleNext()
+        }}
         disabled={currentImage === imgArray.length - 1}
       >
         {'>'}

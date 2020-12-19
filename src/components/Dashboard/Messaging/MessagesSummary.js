@@ -11,55 +11,45 @@ import {ErrorMessage} from '../../Utils/util'
 
 function MessagesSummaryComponent({message, fn}) {
   const messagesSummary = css`
-    overflow: auto;
-    display: grid;
+    display: flex;
     background-color: ${colors.independenceBlue};
-    grid-gap: 5px;
-    height: 220px;
-    place-items: center;
+    place-content: space-between;
     border: 6px solid ${colors.darkBlue};
     border-radius: 10px;
     font-family: 'Merienda One', cursive;
+    padding: 20px 18px;
+    width: 300px;
     & > a {
       color: ${colors.aliceLightBlue};
     }
   `
 
-  const childN = css`
+  const btn = css`
     border: 0;
-    grid-row: 1;
-    grid-column: 1 / span 2;
-    place-self: baseline;
     margin: 0;
-    place-self: baseline;
+    background: none;
+    color: ${colors.darkBlue};
+    :hover {
+      color: ${colors.kindaBlue};
+    }
   `
-  const childP = css`
-    grid-row: 2;
-    grid-column: 1 / span 3;
-    padding: 0 4%;
-    height: 98px;
-    overflow: hidden;
-  `
-  const childD = css`
-    grid-row: 3;
-    grid-column: 1 / span 3;
-  `
-  const childB = css`
-    grid-column: 3;
-    padding-right: 11px;
-  `
+
   return (
     <div css={messagesSummary}>
-      <button css={childN} onClick={fn}>
-        <h2 css={h1XL}>{message.contactName}</h2>
+      <button css={btn} onClick={fn}>
+        <h2
+          css={[
+            h1XL,
+            css`
+              padding: 0;
+              margin: 0;
+            `,
+          ]}
+        >
+          {message.name}
+        </h2>
       </button>
-      <div css={childB}>
-        <PopUp title={message.contactName} fn={() => deleteMessage(message)} />
-      </div>
-      <p css={childP}>{message.description}</p>
-      <span css={childD}>
-        {message.sentAt?.toDate().toDateString() ?? 11 - 11 - 1111}
-      </span>
+      <PopUp title={message.name} fn={() => deleteMessage(message)} />
     </div>
   )
 }

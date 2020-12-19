@@ -29,9 +29,9 @@ function ContactMe() {
     e.preventDefault()
     dispatch({type: 'pending'})
 
-    const {contactName, email, phoneNumber, description} = e.target.elements
+    const {name, email, phoneNumber, description} = e.target.elements
     const formData = {
-      contactName: contactName.value,
+      name: name.value,
       email: email.value,
       phoneNumber: phoneNumber.value,
       description: description.value,
@@ -51,7 +51,7 @@ function ContactMe() {
       <form id="ContactMe" onSubmit={handleSubmit} css={wrapper}>
         <section>
           <Input
-            name="contactName"
+            name="name"
             pattern="[^\(\)0-9]*"
             placeholder="Name"
             required

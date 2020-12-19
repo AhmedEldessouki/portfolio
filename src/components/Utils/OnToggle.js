@@ -3,13 +3,8 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {FaPen} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
 
 import {colors, weights} from '../Styles'
-import {useAuth} from '../Utils/AuthProvider'
-import PopUp from '../Utils/PopUp/PopUp'
-import {deleteProject} from './utils'
 
 const Title = ({name, onClick, children}) => {
   const title = css`
@@ -44,84 +39,6 @@ const Title = ({name, onClick, children}) => {
   )
 }
 
-function Tags({tags}) {
-  return (
-    <span
-      css={css`
-        padding: 10px 20px;
-        font-size: 108%;
-        color: ${colors.aliceLightBlue};
-      `}
-    >
-      Add Tags
-    </span>
-  )
-}
-
-function EditAndDelete({project, onClick}) {
-  return (
-    <div
-      css={css`
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      `}
-    >
-      <Link
-        to={`/edit/${project.id}`}
-        onFocus={() => {
-          onClick()
-        }}
-      >
-        <FaPen style={{color: colors.lightBlue, fontSize: '1.5rem'}} />
-      </Link>
-      <PopUp title="Project" onClick={() => deleteProject(project)} />
-    </div>
-  )
-}
-
-function Dialog({items, setState}) {
-  const {authData, setProject: setPorj} = useAuth()
-
-  const pWrapper = css`
-    border-bottom: 10px solid ${colors.darkBlue};
-    border-radius: 11%;
-    width: 100%;
-    :hover,
-    :focus {
-      border-bottom-color: ${colors.aliceLightBlue};
-    }
-  `
-  const mWrapper = css`
-    margin: 0 10px;
-    padding: 20px 10px;
-    display: grid;
-    grid-gap: 25px;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
-  `
-  return (
-    <div css={mWrapper}>
-      {items?.map(item => {
-        return (
-          <div css={pWrapper} key={item.id}>
-            {authData ? (
-              <EditAndDelete project={item} onClick={() => setPorj(item)} />
-            ) : null}
-            <Title
-              name={item.projectName}
-              onClick={() => {
-                setState(item)
-              }}
-            />
-            <Tags />
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
 function OnToggle({items, setState, children}) {
   const [show, setShow] = React.useState(() => {
     if (window.innerWidth >= 1220) {
@@ -130,6 +47,8 @@ function OnToggle({items, setState, children}) {
       return {min: 0, max: 2, range: 3}
     } else if (window.innerWidth >= 480) {
       return {min: 0, max: 1, range: 2}
+    } else {
+      return {min: 0, max: 0, range: 1}
     }
   })
 
@@ -185,10 +104,12 @@ function OnToggle({items, setState, children}) {
             width: 25px;
             border-radius: 23px 0 0 24px;
             border: 5px solid ${colors.darkBlue};
-            :hover {
+            :hover,
+            :focus {
               background: ${colors.kindaDarkBlue};
             }
           `}
+          disabled={show.min === 0}
         />
         {items?.map((item, i) => {
           if (i >= show.min && i <= show.max) {
@@ -201,7 +122,7 @@ function OnToggle({items, setState, children}) {
                 key={item.id}
               >
                 <Title
-                  name={item.projectName}
+                  name={item.name}
                   onClick={() => {
                     setState(item)
                   }}
@@ -226,10 +147,12 @@ function OnToggle({items, setState, children}) {
             width: 25px;
             border-radius: 0 23px 24px 0;
             border: 5px solid ${colors.darkBlue};
-            :hover {
+            :hover,
+            :focus {
               background: ${colors.kindaDarkBlue};
             }
           `}
+          disabled={show.max === items.length - 1}
         />
       </div>
       {children}
@@ -237,4 +160,4 @@ function OnToggle({items, setState, children}) {
   )
 }
 
-export {Title, Tags, Dialog, OnToggle}
+export default OnToggle

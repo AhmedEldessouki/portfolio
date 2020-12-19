@@ -4,12 +4,13 @@
 import {jsx} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
-import {useErrorResetBoundary, useQuery} from 'react-query'
+import {useQueryErrorResetBoundary, useQuery} from 'react-query'
 
 import {db} from '../Utils/firebase'
 import {h1XL, warning} from '../Styles'
 import ProjectDetails from './ProjectDetails'
-import {Dialog, OnToggle} from './ProjectsSummary'
+import Card from './Card'
+import OnToggle from '../Utils/OnToggle'
 
 const ProjectComponent = () => {
   const [project, setProject] = React.useState(null)
@@ -37,11 +38,11 @@ const ProjectComponent = () => {
       placeholderData: [
         {
           id: 'RXKmlQIDg7TFPyNmejMB',
-          projectName: 'XXXXXXX',
-          projectLink: 'https://XXXX-XXX.XXX.XXX/',
+          name: 'XXXXXXX',
+          link: 'https://XXXX-XXX.XXX.XXX/',
           description: 'XXXXXXXXXXXXXXXXXXXX',
           projectLogo: [],
-          createdAt: {
+          date: {
             seconds: 1599235638,
             nanoseconds: 137000000,
           },
@@ -58,28 +59,28 @@ const ProjectComponent = () => {
           <ProjectDetails project={project} />
         </OnToggle>
       ) : (
-        <Dialog items={projectsData} state={project} setState={setProject} />
+        <Card items={projectsData} state={project} setState={setProject} />
       )}
     </React.Fragment>
   )
 }
 
 function Projects(props) {
-  const {reset} = useErrorResetBoundary()
+  const {reset} = useQueryErrorResetBoundary()
   return (
-    <React.Suspense fallback={'loading'} id={1}>
-      <ErrorBoundary
-        onReset={reset}
-        fallbackRender={({resetErrorBoundary}) => (
-          <div type="alert" css={warning}>
-            There was an error!
-            <button onClick={() => resetErrorBoundary()}>Try again</button>
-          </div>
-        )}
-      >
+    <ErrorBoundary
+      onReset={reset}
+      fallbackRender={({resetErrorBoundary}) => (
+        <div type="alert" css={warning}>
+          There was an error!
+          <button onClick={() => resetErrorBoundary()}>Try again</button>
+        </div>
+      )}
+    >
+      <React.Suspense fallback={'loading'} id={1}>
         <ProjectComponent {...props} />
-      </ErrorBoundary>
-    </React.Suspense>
+      </React.Suspense>
+    </ErrorBoundary>
   )
 }
 export default Projects

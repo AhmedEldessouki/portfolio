@@ -7,10 +7,18 @@ import * as React from 'react'
 import Carousel from '../Utils/Carousel/Carousel'
 import {colors, spinner} from '../Styles'
 
-const ProjectDetails = ({project}) => {
+function ProjectDetails({project}) {
+  const [description, setDescription] = React.useState(project.description)
+
+  React.useEffect(() => {
+    if (description !== project.description) setDescription(project.description)
+  }, [description, project.description])
+
   return project ? (
     <React.Fragment>
-      <Carousel imgArray={project.projectLogo} imgAlt={project.projectName} />
+      {project.projectLogo.length !== 0 ? (
+        <Carousel imgArray={project.projectLogo} imgAlt={project.name} />
+      ) : null}
       <div
         css={css`
           display: flex;
@@ -30,17 +38,28 @@ const ProjectDetails = ({project}) => {
             border-radius: 7.5%;
           `}
         >
-          <a href={project.projectLink}>{project.projectName}</a>
+          <a href={project.link}>{project.name}</a>
         </h1>
-        <p
+        <textarea
+          disabled
+          rows="5"
+          wrap="hard"
+          maxLength={description.length}
           css={css`
-            padding: 0 5%;
+            resize: none;
+            place-self: center;
+            padding: 10px 1%;
             font-size: 1.45rem;
-            letter-spacing: 2.4px;
+            letter-spacing: 0.4px;
+            background: ${colors.independenceBlue};
+            color: ${colors.lightBlue};
+            border: 5px solid ${colors.darkBlue};
+            margin-bottom: 23.2px;
+            min-width: 80%;
+            border-radius: 5%;
           `}
-        >
-          {project.description}
-        </p>
+          value={description}
+        />
         <div
           css={css`
             display: flex;
@@ -50,12 +69,14 @@ const ProjectDetails = ({project}) => {
             font-variant: all-petite-caps;
           `}
         >
-          <span>
-            Author: {project.authorFirstName} {project.authorLastName}
-          </span>
+          {project.updatedOn ? (
+            <span>
+              Last Update: {project.updatedOn?.toDate().toDateString()}
+            </span>
+          ) : null}
           <span>
             {/* // ToDo: get date from github */}
-            Created At: April 2020
+            Added On: {project.date?.toDate().toDateString()}
           </span>
         </div>
       </div>

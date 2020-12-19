@@ -32,10 +32,10 @@ function createNewProject(project) {
   db.collection('projects')
     .add({
       ...project,
-      createdAt: new Date(),
+      date: new Date(),
     })
     .then(() => {
-      toast.success(`Project "${project.projectName}" Created`)
+      toast.success(`Project "${project.name}" Created`)
     })
     .catch(err => {
       toast.error(`Project Creation Failed ${err.message}`)
@@ -44,18 +44,18 @@ function createNewProject(project) {
 }
 
 function updateProject(project) {
-  const {id, projectName, projectLink, projectLogo, description} = project
+  const {id, name, link, projectLogo, description} = project
   db.collection('projects')
     .doc(`${id}`)
     .update({
-      projectName,
-      projectLink,
+      name,
+      link,
       projectLogo,
       description,
       updatedOn: new Date(),
     })
     .then(() => {
-      toast.success(`Project "${projectName}" Updated`)
+      toast.success(`Project "${name}" Updated`)
     })
     .catch(err => {
       toast.error(`Project Didn't Update ${err.message}`)
@@ -68,7 +68,7 @@ function deleteProject(project) {
     .doc(`${project.id}`)
     .delete()
     .then(() => {
-      toast.success(`Project "${project.projectName}" deleted`)
+      toast.success(`Project "${project.name}" deleted`)
     })
     .catch(err => {
       toast.error(`Project Deletion Failed ${err.message}`)
@@ -180,8 +180,8 @@ const reducer = (state, {type, payload}) => {
       if (array === 'imagesDisplay') imagesDisplay.splice(index, 1)
       return {...state}
     case 'submit_formData':
-      formData.projectName = payload.projectName
-      formData.projectLink = payload.projectLink
+      formData.name = payload.name
+      formData.link = payload.link
       formData.description = payload.description
       return {
         ...state,
@@ -208,8 +208,8 @@ const reducer = (state, {type, payload}) => {
       }
 
     case 'clean_up':
-      formData.projectName = ''
-      formData.projectLink = ''
+      formData.name = ''
+      formData.link = ''
       formData.description = ''
       formData.projectLogo = []
       imagesFile.length = 0

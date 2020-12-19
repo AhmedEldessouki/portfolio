@@ -24,6 +24,20 @@ function ErrorMessage({error, resetErrorBoundary, ...props}) {
   )
 }
 
+function useSafeDispatch(dispatch) {
+  const mounted = React.useRef(false)
+
+  React.useLayoutEffect(() => {
+    mounted.current = true
+    return () => (mounted.current = false)
+  }, [])
+
+  return React.useCallback(
+    (...args) => (mounted.current ? dispatch(...args) : void 0),
+    [dispatch],
+  )
+}
+
 /**
  *
  * @param {String} key The key to set in localStorage for this value
@@ -56,19 +70,6 @@ function useLocalStorageState(
   }, [key, state, serialize])
 
   return [state, setState]
-}
-function useSafeDispatch(dispatch) {
-  const mounted = React.useRef(false)
-
-  React.useLayoutEffect(() => {
-    mounted.current = true
-    return () => (mounted.current = false)
-  }, [])
-
-  return React.useCallback(
-    (...args) => (mounted.current ? dispatch(...args) : void 0),
-    [dispatch],
-  )
 }
 
 function asyncReducer(state, action) {
@@ -105,4 +106,4 @@ function useAsync(initialState) {
   }
 }
 
-export {ErrorMessage, useLocalStorageState, useAsync}
+export {ErrorMessage, useSafeDispatch, useLocalStorageState, useAsync}

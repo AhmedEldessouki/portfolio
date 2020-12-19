@@ -134,7 +134,7 @@ export const labelWrapper = css`
     font-size: 1.345rem;
   }
   ${mq.s} {
-    width: 356px;
+    width: 332px;
   }
 `
 
