@@ -28,9 +28,7 @@ function Carousel({imgArray, imgAlt}) {
     border-top: 13px double ${colors.darkBlue};
     border-bottom: 13px double ${colors.darkBlue};
     border-radius: 22px;
-    a {
-      color: transparent;
-      justify-self: center;
+    div {
       grid-row: 1 / span 4;
       grid-column: 2 / span 3;
       img {
