@@ -46,15 +46,15 @@ const Title = ({name, onClick, children}) => {
 
 function Tags({tags}) {
   return (
-    <span
+    <img
       css={css`
         padding: 10px 20px;
         font-size: 108%;
         color: ${colors.aliceLightBlue};
       `}
-    >
-      Add Tags
-    </span>
+      src={tags.url}
+      alt={tags.name}
+    />
   )
 }
 
@@ -122,7 +122,7 @@ function Card({items, setState}) {
                 setState(item)
               }}
             />
-            <Tags />
+            <Tags tags={item.tags} />
           </div>
         )
       })}

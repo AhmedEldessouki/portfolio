@@ -28,7 +28,6 @@ import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
 
 function createNewProject(project) {
-  console.log(project)
   db.collection('projects')
     .add({
       ...project,

@@ -170,3 +170,16 @@ export const h1XL = css`
     padding-top: 15px;
   }
 `
+export const h2XL = css`
+  font-size: 170%;
+  width: 100%;
+  font-family: serif;
+  font-weight: ${weights.bold};
+  padding-left: 28px;
+  padding-top: 15px;
+  font-style: italic;
+  ${mq.s} {
+    padding-left: 18px;
+    padding-top: 10px;
+  }
+`
