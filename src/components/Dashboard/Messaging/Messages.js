@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 import {useQueryErrorResetBoundary, useQuery} from 'react-query'
-import {warning} from '../../Styles'
+import {h1XL, warning} from '../../Styles'
 import OnToggle from '../../Utils/OnToggle'
 
 import {db} from '../../Utils/firebase'
@@ -64,7 +64,7 @@ function MessagesComponent() {
 
   return (
     <React.Fragment>
-      <h1>Messages</h1>
+      <h1 css={h1XL}>Messages</h1>
       {messageSel ? (
         <OnToggle
           items={messagesData}
