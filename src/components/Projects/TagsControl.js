@@ -11,33 +11,13 @@ import {btnStyle, h1XL, h2XL, signWrapper, spinner, warning} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/util'
+import {useTags} from './utils'
 
 function TagsControl() {
   const {status, dispatch} = useAsync()
-  const {data} = useQuery({
-    queryKey: 'projects',
-    queryFn: async () =>
-      await db
-        .collection('tags')
-        .get()
-        .then(
-          querySnapshot => {
-            const data = querySnapshot.docs.map(doc => {
-              return {...doc.data(), id: doc.id}
-            })
-            return data
-          },
-          err => {
-            throw err
-          },
-        ),
-    config: {
-      onError: err => {
-        throw err
-      },
-      suspense: true,
-    },
-  })
+
+  const {data} = useTags()
+
   function createNewTag(tag) {
     console.log(tag)
     db.collection('tags')
@@ -82,6 +62,7 @@ function TagsControl() {
         throw err
       })
   }
+
   function handleSubmit(e) {
     e.preventDefault()
     dispatch({type: 'pending'})
@@ -96,6 +77,7 @@ function TagsControl() {
     dispatch({type: 'resolved'})
     e.target.reset()
   }
+
   return (
     <Layout>
       <h1 css={h1XL}>Tags Control</h1>
@@ -146,9 +128,8 @@ function TagsControl() {
       </div>
       <React.Suspense fallback={'loading'}>
         <h2 css={h2XL}>Tags Control</h2>
-
         {data?.map(tag => (
-          <img src={tag.url} alt={tag.name} width="30" />
+          <img key={tag.id} src={tag.url} alt={tag.name} width="30" />
         ))}
       </React.Suspense>
     </Layout>

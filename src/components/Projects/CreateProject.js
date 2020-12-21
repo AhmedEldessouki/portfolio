@@ -20,6 +20,7 @@ import {
   Button,
   DisplayingImages,
   ProjInput,
+  TagsCheckBox,
 } from './utils'
 import {ErrorMessage} from '../Utils/util'
 
@@ -35,6 +36,7 @@ function CreateProjectX() {
       name: project ? project.name : '',
       link: project ? project.link : '',
       projectLogo: project ? [...project.projectLogo] : [],
+      tag: project ? project.tag ?? [] : [],
       description: project ? project.description : '',
     },
     error: null,
@@ -48,6 +50,7 @@ function CreateProjectX() {
 
   if (status === 'images_uploaded') {
     if (project) {
+      console.log({...formData, id: project.id})
       updateProject({...formData, id: project.id})
     }
     if (!project) {
@@ -71,13 +74,12 @@ function CreateProjectX() {
         imagesFile.push(file)
         imagesDisplay.push(URL.createObjectURL(file))
       }
-
-      if (rejectedFiles && rejectedFiles.length > 0) {
-        if (rejectedFiles[0].Size > 8000000) {
-          toast.error('This File is too big')
-        }
-      }
     })
+    if (rejectedFiles && rejectedFiles.length > 0) {
+      if (rejectedFiles[0].Size > 8000000) {
+        toast.error('This Img is too big')
+      }
+    }
     dispatch({
       type: 'images',
       payload: {file: imagesFile, src: imagesDisplay},
@@ -115,6 +117,7 @@ function CreateProjectX() {
   function useHandleSubmit(e) {
     e.preventDefault()
 
+    // const formData = e.target.elements
     const {name, link, description} = e.target.elements
     dispatch({
       type: 'submit_formData',
@@ -131,9 +134,8 @@ function CreateProjectX() {
   function handleDescription(e) {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
-
-  const {name, link, description, projectLogo} = formData
-
+  const {name, link, description, projectLogo, tags} = formData
+  console.log(formData)
   return (
     <Layout>
       <div>
@@ -176,6 +178,33 @@ function CreateProjectX() {
               name="link"
               cleanColor={status === 'pending'}
             />
+            <React.Suspense
+              fallback={
+                <div
+                  css={css`
+                    width: 30px;
+                    height: 30px;
+                    background: ${colors.kindaDarkBlue};
+                  `}
+                />
+              }
+            >
+              <TagsCheckBox
+                handleClick={e => {
+                  if (e.target.checked) {
+                    dispatch({
+                      type: 'add_tag',
+                      payload: e.target.id,
+                    })
+                  } else {
+                    dispatch({
+                      type: 'remove_tag',
+                      payload: e.target.id,
+                    })
+                  }
+                }}
+              />
+            </React.Suspense>
             <label htmlFor="description" css={labelWrapper}>
               <textarea
                 css={[

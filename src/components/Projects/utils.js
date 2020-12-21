@@ -26,8 +26,10 @@ import {
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
+import {useQuery} from 'react-query'
 
 function createNewProject(project) {
+  console.log(project)
   db.collection('projects')
     .add({
       ...project,
@@ -192,6 +194,17 @@ const reducer = (state, {type, payload}) => {
         ...state,
         formData: {...formData, description: payload},
       }
+    case 'add_tag':
+      formData.tag.push(payload)
+      return {
+        ...state,
+      }
+    case 'remove_tag':
+      const i = formData.tag.indexOf(payload)
+      formData.tag.splice(i, 1)
+      return {
+        ...state,
+      }
 
     case 'idle':
       return {...state, status: 'idle'}
@@ -211,6 +224,7 @@ const reducer = (state, {type, payload}) => {
       formData.link = ''
       formData.description = ''
       formData.projectLogo = []
+      formData.tags = []
       imagesFile.length = 0
       imagesDisplay.length = 0
       return {
@@ -314,6 +328,87 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
   )
 }
 
+function useTags(params) {
+  const tags = useQuery({
+    queryKey: 'tags',
+    queryFn: async () =>
+      await db
+        .collection('tags')
+        .get()
+        .then(
+          querySnapshot => {
+            const data = querySnapshot.docs.map(doc => {
+              return {...doc.data(), id: doc.id}
+            })
+            return data
+          },
+          err => {
+            throw err
+          },
+        ),
+    config: {
+      onError: err => {
+        throw err
+      },
+      suspense: true,
+    },
+  })
+  return tags
+}
+
+function TagsCheckBox({handleClick}) {
+  const {status, data} = useTags()
+  if (status === 'loading') return 'loading'
+  return (
+    <div
+      css={css`
+        display: flex;
+        place-content: space-evenly;
+        width: 94%;
+        margin: 10px 0;
+        border: 10px dashed ${colors.darkBlue};
+        border-radius: 31px;
+        padding: 9px 0;
+        margin-left: 3px;
+      `}
+    >
+      {data?.map((tag, i) => {
+        return (
+          <label
+            key={tag.id}
+            css={css`
+              display: grid;
+              grid-gap: 4px;
+              grid-auto-flow: column;
+              & input {
+              }
+            `}
+          >
+            <input
+              name="tags"
+              id={tag.url}
+              color={colors.independenceBlue}
+              type="checkbox"
+              alt={tag.name}
+              onChange={e => {
+                handleClick(e)
+              }}
+            />
+            <img
+              css={css`
+                margin: 0;
+              `}
+              src={tag.url}
+              alt={tag.name}
+              width="30"
+            />
+          </label>
+        )
+      })}
+    </div>
+  )
+}
+
 function ProjInputX({project, ...props}) {
   const [state, setState] = React.useState(project)
 
@@ -341,4 +436,6 @@ export {
   createNewProject,
   Button,
   DisplayingImages,
+  useTags,
+  TagsCheckBox,
 }

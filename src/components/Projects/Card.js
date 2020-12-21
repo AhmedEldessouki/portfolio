@@ -44,16 +44,17 @@ const Title = ({name, onClick, children}) => {
   )
 }
 
-function Tags({tags}) {
+function Tag({tags, ...props}) {
   return (
     <img
       css={css`
         padding: 10px 20px;
         font-size: 108%;
-        color: ${colors.aliceLightBlue};
+        margin: 0;
       `}
-      src={tags.url}
-      alt={tags.name}
+      src={tags}
+      alt="tag"
+      {...props}
     />
   )
 }
@@ -88,7 +89,7 @@ function EditAndDelete({project, onClick}) {
   )
 }
 
-function Card({items, setState}) {
+function Card({items = [], setState}) {
   const {authData, setProject: setPorj} = useAuth()
 
   const pWrapper = css`
@@ -110,7 +111,7 @@ function Card({items, setState}) {
   `
   return (
     <div css={mWrapper}>
-      {items?.map(item => {
+      {items.map(item => {
         return (
           <div css={pWrapper} key={item.id}>
             {authData ? (
@@ -122,7 +123,7 @@ function Card({items, setState}) {
                 setState(item)
               }}
             />
-            <Tags tags={item.tags} />
+            {item.tag && item.tag.map(tag => <Tag src={tag} width="30" />)}
           </div>
         )
       })}

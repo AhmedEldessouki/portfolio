@@ -100,7 +100,7 @@ export const signWrapperInput = css`
   height: 30px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
-  border: 4.5px solid ${colors.aliceLightBlue};
+  border: 5.5px solid ${colors.darkBlue};
   border-radius: 7%;
   letter-spacing: 2.2px;
 
@@ -145,7 +145,7 @@ export const textArea = css`
   padding: 8px;
   padding-bottom: 0;
   color: ${colors.aliceLightBlue};
-  border: 5px solid ${colors.whiteFaded};
+  border: 5px solid ${colors.darkBlue};
   border-radius: 7%;
   background-color: transparent;
   margin-left: 10px;

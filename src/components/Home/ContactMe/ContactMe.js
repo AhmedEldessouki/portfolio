@@ -42,7 +42,7 @@ function ContactMe() {
     if (error) {
       setContError(error)
     }
-    setDescriptionErr(colors.aliceLightBlue)
+    setDescriptionErr(colors.darkBlue)
     dispatch({type: 'idle'})
   }
   return (

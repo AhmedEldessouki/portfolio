@@ -13,11 +13,11 @@ function Input({
   name,
   ...props
 }) {
-  const [state, setState] = React.useState(colors.aliceLightBlue)
+  const [state, setState] = React.useState(colors.darkBlue)
 
   React.useEffect(() => {
     if (cleanColor) {
-      setState(colors.aliceLightBlue)
+      setState(colors.darkBlue)
     }
   }, [cleanColor])
 
