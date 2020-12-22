@@ -176,34 +176,22 @@ function CreateProjectX() {
               name="link"
               cleanColor={status === 'pending'}
             />
-            <React.Suspense
-              fallback={
-                <div
-                  css={css`
-                    width: 30px;
-                    height: 30px;
-                    background: ${colors.kindaDarkBlue};
-                  `}
-                />
-              }
-            >
-              <TagsCheckBox
-                handleClick={e => {
-                  if (e.target.checked) {
-                    dispatch({
-                      type: 'add_tag',
-                      payload: e.target.id,
-                    })
-                  } else {
-                    dispatch({
-                      type: 'remove_tag',
-                      payload: e.target.id,
-                    })
-                  }
-                }}
-                projectTag={tag}
-              />
-            </React.Suspense>
+            <TagsCheckBox
+              handleClick={e => {
+                if (e.target.checked) {
+                  dispatch({
+                    type: 'add_tag',
+                    payload: e.target.id,
+                  })
+                } else {
+                  dispatch({
+                    type: 'remove_tag',
+                    payload: e.target.id,
+                  })
+                }
+              }}
+              projectTag={tag}
+            />
             <label htmlFor="description" css={labelWrapper}>
               <textarea
                 css={[
