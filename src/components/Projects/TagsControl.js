@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import {toast} from 'react-toastify'
 
 import Layout from '../Layout'
-import {btnStyle, h1XL, h2XL, signWrapper, spinner, warning} from '../Styles'
+import {btnStyle, h1XL, h2XL, signWrapper, spinner} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
