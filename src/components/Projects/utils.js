@@ -14,15 +14,7 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../Config/CloudInary'
-import {
-  btnStyle,
-  colors,
-  h1XL,
-  labelWrapper,
-  mq,
-  spinner,
-  textArea,
-} from '../Styles'
+import {btnStyle, colors, h1XL, mq, spinner, textArea} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
@@ -98,25 +90,26 @@ function ImageDropZone({handleDrop}) {
       {({getRootProps, getInputProps}) => (
         <label
           htmlFor="dropZone"
-          css={[
-            labelWrapper,
-            css`
-              border: 10px dashed ${colors.darkBlue};
-              width: 87%;
-              height: 200px;
-              text-align: center;
-              cursor: pointer;
-              margin-bottom: 20px;
-              margin-right: 0;
-              align-self: flex-end;
-            `,
-          ]}
+          css={css`
+            display: flex;
+            place-items: center;
+            place-content: center;
+            border: 10px dashed ${colors.darkBlue};
+            width: 95%;
+            height: 200px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            padding: 0;
+            margin-right: 0;
+          `}
           {...getRootProps()}
         >
           <span
             css={[
               h1XL,
               css`
+                padding: 0;
                 color: ${colors.aliceLightBlue};
               `,
             ]}
@@ -354,7 +347,6 @@ function useTags() {
 
 function TagsCheckBox({handleClick, projectTag = [], ...props}) {
   const {status, data} = useTags()
-  if (status === 'loading') return 'loading'
   return (
     <div
       css={css`
@@ -363,48 +355,52 @@ function TagsCheckBox({handleClick, projectTag = [], ...props}) {
         width: 94%;
         margin: 10px 0;
         border: 10px dashed ${colors.darkBlue};
-        border-radius: 31px;
         padding: 9px 0;
-        margin-left: 3px;
         place-items: center;
       `}
     >
-      {data?.map(tag => {
-        return (
-          <label
-            key={tag.id}
-            css={css`
-              display: grid;
-              grid-gap: 4px;
-              place-items: center;
-              grid-auto-flow: column;
-              & input {
-              }
-            `}
-          >
-            <input
-              name="tags"
-              id={tag.url}
-              color={colors.independenceBlue}
-              type="checkbox"
-              alt={tag.name}
-              onChange={e => {
-                handleClick(e)
-              }}
-              checked={projectTag.find(item => item.trim() === tag.url.trim())}
-              {...props}
-            />
-            <img
+      {status === 'loading' ? (
+        <span>Loading...</span>
+      ) : (
+        data?.map(tag => {
+          return (
+            <label
+              key={tag.id}
               css={css`
-                margin: 0;
+                display: grid;
+                grid-gap: 4px;
+                place-items: center;
+                grid-auto-flow: column;
+                & input {
+                }
               `}
-              src={tag.url}
-              alt={tag.name}
-              width="30"
-            />
-          </label>
-        )
-      })}
+            >
+              <input
+                name="tags"
+                id={tag.url}
+                color={colors.independenceBlue}
+                type="checkbox"
+                alt={tag.name}
+                onChange={e => {
+                  handleClick(e)
+                }}
+                checked={projectTag.find(
+                  item => item.trim() === tag.url.trim(),
+                )}
+                {...props}
+              />
+              <img
+                css={css`
+                  margin: 0;
+                `}
+                src={tag.url}
+                alt={tag.name}
+                width="30"
+              />
+            </label>
+          )
+        })
+      )}
     </div>
   )
 }

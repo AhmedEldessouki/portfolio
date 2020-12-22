@@ -122,7 +122,7 @@ export const labelWrapper = css`
   display: block;
   width: calc(550px - 50px);
   padding: 2px;
-  margin-right: 19px;
+  padding-right: 25px;
   font-size: 1.4rem;
 
   ${mq.desktop} {
