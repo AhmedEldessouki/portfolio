@@ -50,7 +50,6 @@ function CreateProjectX() {
 
   if (status === 'images_uploaded') {
     if (project) {
-      console.log({...formData, id: project.id})
       updateProject({...formData, id: project.id})
     }
     if (!project) {
@@ -134,8 +133,7 @@ function CreateProjectX() {
   function handleDescription(e) {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
-  const {name, link, description, projectLogo, tags} = formData
-  console.log(formData)
+  const {name, link, description, projectLogo, tag} = formData
   return (
     <Layout>
       <div>
@@ -203,6 +201,7 @@ function CreateProjectX() {
                     })
                   }
                 }}
+                projectTag={tag}
               />
             </React.Suspense>
             <label htmlFor="description" css={labelWrapper}>

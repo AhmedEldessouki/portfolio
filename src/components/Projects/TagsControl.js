@@ -2,24 +2,35 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React from 'react'
-import {useQuery} from 'react-query'
 import {toast} from 'react-toastify'
 
 import Layout from '../Layout'
 import {btnStyle, h1XL, h2XL, signWrapper, spinner, warning} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
+import PopUp from '../Utils/PopUp/PopUp'
 import {useAsync} from '../Utils/util'
 import {useTags} from './utils'
+
+function Spinner() {
+  return (
+    <div
+      css={css`
+        width: 100%;
+        margin-top: 38px;
+      `}
+    >
+      <div css={spinner} />
+    </div>
+  )
+}
 
 function TagsControl() {
   const {status, dispatch} = useAsync()
 
-  const {data} = useTags()
+  const {status: statusTag, data} = useTags()
 
   function createNewTag(tag) {
-    console.log(tag)
     db.collection('tags')
       .add({
         ...tag,
@@ -33,22 +44,22 @@ function TagsControl() {
       })
   }
 
-  function updateTag(tag) {
-    const {id, name, link} = tag
-    db.collection('tags')
-      .doc(`${id}`)
-      .update({
-        name,
-        link,
-      })
-      .then(() => {
-        toast.success(`tag "${name}" Updated`)
-      })
-      .catch(err => {
-        toast.error(`tag Didn't Update ${err.message}`)
-        throw err.message
-      })
-  }
+  // function updateTag(tag) {
+  //   const {id, name, link} = tag
+  //   db.collection('tags')
+  //     .doc(`${id}`)
+  //     .update({
+  //       name,
+  //       link,
+  //     })
+  //     .then(() => {
+  //       toast.success(`tag "${name}" Updated`)
+  //     })
+  //     .catch(err => {
+  //       toast.error(`tag Didn't Update ${err.message}`)
+  //       throw err.message
+  //     })
+  // }
 
   function deleteTag(tag) {
     db.collection('tags')
@@ -108,13 +119,7 @@ function TagsControl() {
             />
           </div>
           {status === 'pending' ? (
-            <div
-              css={css`
-                width: 100%;
-              `}
-            >
-              <div css={spinner} />
-            </div>
+            <Spinner />
           ) : (
             <button
               type="submit"
@@ -126,12 +131,34 @@ function TagsControl() {
           )}
         </form>
       </div>
-      <React.Suspense fallback={'loading'}>
-        <h2 css={h2XL}>Tags Control</h2>
-        {data?.map(tag => (
-          <img key={tag.id} src={tag.url} alt={tag.name} width="30" />
-        ))}
-      </React.Suspense>
+      <h2 css={h2XL}>Tags Control</h2>
+      {statusTag === 'loading' ? (
+        <Spinner />
+      ) : (
+        <div
+          css={css`
+            display: flex;
+            place-content: space-around;
+            flex-wrap: wrap;
+            margin-button: 20px;
+          `}
+        >
+          {data?.map(tag => (
+            <div
+              key={tag.id}
+              css={css`
+                display: flex;
+                place-items: flex-start;
+                flex-direction: row-reverse;
+                margin: 0 10px;
+              `}
+            >
+              <PopUp title={`${tag.name} Tag`} onClick={() => deleteTag(tag)} />
+              <img src={tag.url} alt={tag.name} width="50" />
+            </div>
+          ))}
+        </div>
+      )}
     </Layout>
   )
 }

@@ -29,7 +29,6 @@ import PopUp from '../Utils/PopUp/PopUp'
 import {useQuery} from 'react-query'
 
 function createNewProject(project) {
-  console.log(project)
   db.collection('projects')
     .add({
       ...project,
@@ -45,14 +44,11 @@ function createNewProject(project) {
 }
 
 function updateProject(project) {
-  const {id, name, link, projectLogo, description} = project
+  const {id, name} = project
   db.collection('projects')
     .doc(`${id}`)
     .update({
-      name,
-      link,
-      projectLogo,
-      description,
+      ...project,
       updatedOn: new Date(),
     })
     .then(() => {
@@ -328,7 +324,7 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
   )
 }
 
-function useTags(params) {
+function useTags() {
   const tags = useQuery({
     queryKey: 'tags',
     queryFn: async () =>
@@ -356,7 +352,7 @@ function useTags(params) {
   return tags
 }
 
-function TagsCheckBox({handleClick}) {
+function TagsCheckBox({handleClick, projectTag = [], ...props}) {
   const {status, data} = useTags()
   if (status === 'loading') return 'loading'
   return (
@@ -370,15 +366,17 @@ function TagsCheckBox({handleClick}) {
         border-radius: 31px;
         padding: 9px 0;
         margin-left: 3px;
+        place-items: center;
       `}
     >
-      {data?.map((tag, i) => {
+      {data?.map(tag => {
         return (
           <label
             key={tag.id}
             css={css`
               display: grid;
               grid-gap: 4px;
+              place-items: center;
               grid-auto-flow: column;
               & input {
               }
@@ -393,6 +391,8 @@ function TagsCheckBox({handleClick}) {
               onChange={e => {
                 handleClick(e)
               }}
+              checked={projectTag.find(item => item.trim() === tag.url.trim())}
+              {...props}
             />
             <img
               css={css`

@@ -172,7 +172,8 @@ export const h1XL = css`
 `
 export const h2XL = css`
   font-size: 170%;
-  width: 100%;
+  width: 96%;
+  text-align: center;
   font-family: serif;
   font-weight: ${weights.bold};
   padding-left: 28px;

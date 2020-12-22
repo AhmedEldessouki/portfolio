@@ -123,7 +123,17 @@ function Card({items = [], setState}) {
                 setState(item)
               }}
             />
-            {item.tag && item.tag.map(tag => <Tag src={tag} width="30" />)}
+            <div
+              css={css`
+                display: flex;
+                place-content: center;
+                place-items: center;
+                min-height: 50px;
+              `}
+            >
+              {item.tag &&
+                item.tag.map(tag => <Tag key={tag} src={tag} width="30" />)}
+            </div>
           </div>
         )
       })}
