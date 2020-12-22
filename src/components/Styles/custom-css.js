@@ -100,7 +100,7 @@ export const signWrapperInput = css`
   height: 30px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
-  border: 4.5px solid ${colors.aliceLightBlue};
+  border: 5.5px solid ${colors.darkBlue};
   border-radius: 7%;
   letter-spacing: 2.2px;
 
@@ -145,7 +145,7 @@ export const textArea = css`
   padding: 8px;
   padding-bottom: 0;
   color: ${colors.aliceLightBlue};
-  border: 5px solid ${colors.whiteFaded};
+  border: 5px solid ${colors.darkBlue};
   border-radius: 7%;
   background-color: transparent;
   margin-left: 10px;
@@ -168,5 +168,19 @@ export const h1XL = css`
   ${mq.s} {
     padding-left: 15px;
     padding-top: 15px;
+  }
+`
+export const h2XL = css`
+  font-size: 170%;
+  width: 96%;
+  text-align: center;
+  font-family: serif;
+  font-weight: ${weights.bold};
+  padding-left: 28px;
+  padding-top: 15px;
+  font-style: italic;
+  ${mq.s} {
+    padding-left: 18px;
+    padding-top: 10px;
   }
 `

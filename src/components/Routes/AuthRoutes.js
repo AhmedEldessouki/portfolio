@@ -7,6 +7,7 @@ import MessageDetails from '../Dashboard/Messaging/MessageDetails'
 import SignUp from '../Auth/SignUp'
 import CreateProject from '../Projects/CreateProject'
 import PageNotFound from '../PageNotFound'
+import TagsControl from '../Projects/TagsControl'
 
 function AuthRoutes() {
   return (
@@ -17,6 +18,7 @@ function AuthRoutes() {
         <Route path="/message/:id" component={MessageDetails} />
         <Route path="/signUp" component={SignUp} />
         <Route path="/create-project" component={CreateProject} />
+        <Route path="/tags" component={TagsControl} />
         <Route path="/edit/:id" component={CreateProject} />
         <Redirect from="/signin" to="/" />
         <Route from="*" to="/" component={PageNotFound} />

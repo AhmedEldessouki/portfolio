@@ -82,6 +82,16 @@ const AuthNavlinksX = () => {
         Create Project
       </NavLink>
       <NavLink
+        to="/tags"
+        exact
+        activeStyle={{
+          backgroundColor: colors.independenceBlue,
+          padding: `1% 2%`,
+        }}
+      >
+        Tags
+      </NavLink>
+      <NavLink
         to="/signup"
         exact
         activeStyle={{

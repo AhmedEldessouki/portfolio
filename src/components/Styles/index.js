@@ -10,4 +10,5 @@ export {
   labelWrapper,
   textArea,
   h1XL,
+  h2XL,
 } from './custom-css'
