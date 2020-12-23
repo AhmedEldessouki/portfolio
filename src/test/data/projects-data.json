@@ -1,0 +1,136 @@
+[
+  {
+    "id": "jHvH1uybIu24wgKia3ru",
+    "description": "If You're Wondering About What i Have Been Doing. Then Check This Is The Staging App for My Coming Soon Portfolio.",
+    "link": "https://ahmedeldessouki.herokuapp.com/",
+    "name": "Portfolio V2",
+    "date": {
+      "seconds": 1600255260,
+      "nanoseconds": 74000000
+    },
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1600255119/giedcmmhut9yqspub5vx.png"
+    ]
+  },
+  {
+    "id": "RXKmlQIDg7TFPyNmejMB",
+    "name": "Tic Tac Teo",
+    "link": "https://tictacteo-jsx.web.app/",
+    "description": "Made Using React, emotion and deployed on firebase. Tested using Jest and React- testing-library",
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1599235621/zxlpwrjozjowzkisrenz.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1599235627/diy2mj8ifj1gwkccsoxe.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1599235627/sx3edhyyamja8djibaro.png"
+    ],
+    "date": {
+      "seconds": 1599235638,
+      "nanoseconds": 137000000
+    }
+  },
+  {
+    "id": "a3q9ug9u8peXdjhBKhk2",
+    "link": "https://booklist-mine.web.app",
+    "description": "This App was created using Javascript and HTML. Import style  \"Bootswatch\". Deployed on Firebase",
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594920071/jxo7ef10wpgvhlyythkj.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594920076/adl6oaht5afgxxloamwt.png"
+    ],
+    "name": "My Book List",
+    "date": {
+      "seconds": 1594920203,
+      "nanoseconds": 632000000
+    }
+  },
+  {
+    "id": "daQH47oMtRPkdoZE4hm7",
+    "description": "This App was Created using Angular, Bulma, and Angular Material.",
+    "link": "https://calculatemybudget.web.app/",
+    "name": "Budget Calculator",
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594824366/fekaaqgvede7tsdduru5.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594824382/s3cmndixiytwpuhdlru6.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594824385/rtpwg3ntaz1nuqndxhgm.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594824391/yzojrhxns4cdgcnd9uqc.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594824395/o3hox2me5ywymwdaftdb.png"
+    ],
+    "date": {
+      "seconds": 1594824731,
+      "nanoseconds": 757000000
+    }
+  },
+  {
+    "id": "HZJDVgJ6GABkA3MXfTRA",
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594295228/k5c6f69vknmhsnhrm3iy.jpg",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594295233/zvfcjrxx9dgkmwncliq0.png"
+    ],
+    "description": "This App was developed using React.js",
+    "link": "https://weather-api-1.web.app/",
+    "name": "Weather ",
+    "date": {
+      "seconds": 1594294928,
+      "nanoseconds": 562000000
+    }
+  },
+  {
+    "id": "TthoQeOFbAeGedn9jxBq",
+    "name": "Covid-19 ",
+    "date": {
+      "seconds": 1594293129,
+      "nanoseconds": 762000000
+    },
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594295006/ysjdmhpz0l3vnxlpt1yo.jpg",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594295018/jj6n2lbo3e77kla3e5fy.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594295022/qziqwzglpimltq0qn3nj.png"
+    ],
+    "description": "This App was created using React.js\n\nDeployed on Firebase.",
+    "link": "https://covid-19-123.web.app/"
+  },
+  {
+    "id": "fm01I8awLE3QVpKrpDlT",
+    "description": "I created this project using React.js. I used Axios for API calls and Redux for data holding and data upload or modify. I also used Formik for creating forms.\n\nThe UI is my design. I hope I didn't break a lot of UI/UX rules.\n\nIf you would like access to my GitHub/portfolio, please ask.",
+    "name": "Portfolio V1",
+    "date": {
+      "seconds": 1594273811,
+      "nanoseconds": 851000000
+    },
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594297573/zf6x7grwxwwx423kmiz9.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594297610/tphlk2tzckdob4d8ake3.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594297616/c1cqdncod7szilmobytq.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594297629/glpgebjhvatqjzodowoh.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594297650/nubebb2as6vwupn6irxx.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594297662/iwirimrpoxphmzrmo3nz.png"
+    ],
+    "link": "https://github.com/AhmedEldessouki/Portfolio"
+  },
+  {
+    "id": "m04BIHNg0xh8HefnxQiv",
+    "date": {
+      "seconds": 1594212518,
+      "nanoseconds": 908000000
+    },
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1594212473/mmu5xyu1hipn5oqiumyo.jpg"
+    ],
+    "link": "https://tic-tac-teo-3b62b.web.app/",
+    "description": "This App was created using Angular.js and Deployed on Firebase.",
+    "name": "Tic Tac Toe"
+  },
+  {
+    "id": "ve822ZRikca5sTROR8y6",
+    "projectLogo": [
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1550847377/tkok9uh93ls7o6kjmdke.jpg",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1550753974/gtnvfw1ovpktqkx9pgbe.png",
+      "https://res.cloudinary.com/ahmedeldessouki/image/upload/v1547127466/mbfdemixeivjnzb3cyoo.png"
+    ],
+    "date": {
+      "seconds": 1550754267,
+      "nanoseconds": 76000000
+    },
+    "link": "https://www.renoom.com/",
+    "name": "Room Me",
+    "description": "This App has been took down by the owner. The Link above is the last known link."
+  }
+]

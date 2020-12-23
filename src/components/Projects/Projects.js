@@ -12,6 +12,8 @@ import ProjectDetails from './ProjectDetails'
 import Card from './Card'
 import OnToggle from '../Utils/OnToggle'
 
+// TODO: add "import {matchSorter} from 'match-sorter'" to sort projects by name, data, or....
+
 const ProjectComponent = () => {
   const [project, setProject] = React.useState(null)
   const {data: projectsData} = useQuery({

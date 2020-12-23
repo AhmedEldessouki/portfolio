@@ -5,8 +5,8 @@ import {ReactQueryDevtools} from 'react-query/devtools'
 import {QueryClient, QueryClientProvider} from 'react-query'
 
 import App from './App'
-import {AuthProvider} from './components/Utils/AuthProvider'
-import {Profiler} from './components/profiler'
+import {Profiler} from './profiler'
+import {AuthProvider} from './context/AuthProvider'
 
 const queryClient = new QueryClient()
 

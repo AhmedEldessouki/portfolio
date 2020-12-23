@@ -4,9 +4,9 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {NavLink} from 'react-router-dom'
+import {useAuth} from '../../context/AuthProvider'
 
 import {colors, weights, mq} from '../Styles'
-import {useAuth} from '../Utils/AuthProvider'
 
 const AuthNavlinksX = () => {
   const {signOut} = useAuth()
@@ -16,9 +16,8 @@ const AuthNavlinksX = () => {
     place-content: space-evenly;
     background: black;
     background-color: ${colors.darkBlue};
-    font-size: 124%;
+    padding: 8px 6px 0;
     & > a {
-      font-weight: ${weights.black};
       letter-spacing: 0.145rem;
       padding: 0 2%;
       align-self: center;
@@ -26,6 +25,27 @@ const AuthNavlinksX = () => {
       &:hover,
       &:focus {
         background-color: ${colors.independenceBlue};
+      }
+      h1 {
+        width: 100%;
+        font-size: 2rem;
+        padding: 5px 0;
+        color: #61dafb;
+        letter-spacing: 1.6px;
+        font-variant-caps: petite-caps;
+        margin: 0;
+        ${mq.s} {
+          font-size: 1.2rem;
+          letter-spacing: 2.5px;
+        }
+      }
+      h2 {
+        font-weight: ${weights.black};
+        padding: 3px 0;
+        ${mq.s} {
+          letter-spacing: 2.5px;
+          font-size: 1rem;
+        }
       }
     }
     ${mq.phoneLarge} {
@@ -48,18 +68,7 @@ const AuthNavlinksX = () => {
           padding: `1% 2%`,
         }}
       >
-        <span
-          style={{
-            width: '100%',
-            fontSize: '2rem',
-            padding: '5px 0',
-            color: '#61dafb',
-            letterSpacing: '1.6px',
-            fontVariantCaps: 'petite-caps',
-          }}
-        >
-          Ahmed ElDessouki
-        </span>
+        <h1>Ahmed ElDessouki</h1>
       </NavLink>
       <NavLink
         to="/dashboard"
@@ -69,7 +78,7 @@ const AuthNavlinksX = () => {
           padding: `1% 2%`,
         }}
       >
-        DashBoard
+        <h2>DashBoard</h2>
       </NavLink>
       <NavLink
         to="/create-project"
@@ -79,7 +88,7 @@ const AuthNavlinksX = () => {
           padding: `1% 2%`,
         }}
       >
-        Create Project
+        <h2>Create Project</h2>
       </NavLink>
       <NavLink
         to="/tags"
@@ -89,7 +98,7 @@ const AuthNavlinksX = () => {
           padding: `1% 2%`,
         }}
       >
-        Tags
+        <h2>Tags</h2>
       </NavLink>
       <NavLink
         to="/signup"
@@ -99,10 +108,10 @@ const AuthNavlinksX = () => {
           padding: `1% 2%`,
         }}
       >
-        SignUp
+        <h2>SignUp</h2>
       </NavLink>
       <NavLink onClick={signOut} to="/">
-        SignOut
+        <h2>SignOut</h2>
       </NavLink>
     </div>
   )

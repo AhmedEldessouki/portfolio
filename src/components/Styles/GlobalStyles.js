@@ -168,10 +168,15 @@ export const globalStyles = css`
     font-size: 2.25rem;
     font-weight: ${weights.black};
     color: ${colors.aliceLightBlue};
+    font-variant-caps: petite-caps;
+    letter-spacing: 1.2px;
   }
 
   h2 {
     font-size: 1.62671rem;
+    margin: 0;
+    font-variant-caps: petite-caps;
+    letter-spacing: 1.2px;
   }
 
   h3 {
