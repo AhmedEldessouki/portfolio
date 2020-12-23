@@ -119,7 +119,7 @@ const MyInfo = () => {
       <img src={AhmedEldessouki} alt="profilePicture" />
       <p>
         Welcome! I`m Ahmed Eldessouki. I`m {calcMyAge()} years old from Cairo,
-        Egypt currently living in Istanbul, Turkey. I looking for a new
+        Egypt currently living in Istanbul, Turkey. I`m looking for a new
         opportunity as a Front-End Developer. I graduated from University Of
         Wales. I worked at RoomMe as an entry level Front-End Developer. I`m a
         very passionate about Front-End Developer. Always developing myself. A

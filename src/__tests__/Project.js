@@ -1,24 +1,26 @@
 import * as React from 'react'
 import userEvent from '@testing-library/user-event'
-import {screen, waitForElementToBeRemoved} from '@testing-library/react'
+import {screen} from '@testing-library/react'
 
-import {render} from '../utils/utils'
+import {render} from '../test/app-test-utils'
+import {projects} from '../test/data/projects'
 import Projects from '../components/Projects/Projects'
+import {colors} from '../components/Styles'
 
-// These Values are from the PlaceHolder of React-Query
-test('Project Render', () => {
-  render(<Projects />)
-  waitForElementToBeRemoved(() => screen.getAllByText(/loading/i))
-
+test('Project Render', async () => {
+  render(<Projects projectsData={projects} />)
   expect(screen.getByText(/projects/i)).toBeInTheDocument()
-  expect(screen.getAllByText(/XXXXXXX/i)).toBeTruthy()
+  expect(screen.getByText(/Portfolio/i)).toBeInTheDocument()
+
+  userEvent.hover(screen.getByText(/Portfolio v1/i))
+  expect(screen.getByText(/Portfolio v1/i)).toHaveStyle(
+    `background: ${colors.kindaBlue}, color: ${colors.darkBlue};`,
+  )
 })
 
 test('Project Details Render', () => {
-  render(<Projects />)
-  waitForElementToBeRemoved(() => screen.getAllByText(/loading/i))
+  render(<Projects projectsData={projects} />)
+  userEvent.click(screen.getByText(/Portfolio v1/i))
 
-  userEvent.click(screen.getByText(/XXXXXXX/i))
-
-  expect(screen.getAllByText(/XXXXXXX/i)).toBeTruthy()
+  screen.debug()
 })

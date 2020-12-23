@@ -1,13 +1,12 @@
 import * as React from 'react'
 import userEvent from '@testing-library/user-event'
-import {screen, waitForElementToBeRemoved} from '@testing-library/react'
+import {screen} from '@testing-library/react'
 
-import {render} from '../utils/utils'
 import ContactMe from '../components/Home/ContactMe/ContactMe'
+import {render} from '../test/app-test-utils'
 
 test('Contact Form Test', () => {
   render(<ContactMe />)
-  waitForElementToBeRemoved(() => screen.getAllByText(/loading/i))
   userEvent.type(screen.getByPlaceholderText(/name/i), 'Jest Testing')
 
   userEvent.type(

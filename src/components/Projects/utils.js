@@ -329,6 +329,7 @@ function useTags() {
             const data = querySnapshot.docs.map(doc => {
               return {...doc.data(), id: doc.id}
             })
+            console.log('tags :>> ', tags)
             return data
           },
           err => {

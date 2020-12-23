@@ -18,4 +18,4 @@ async function remove(project) {
   delete projects[i]
 }
 
-export {create, update, remove}
+export {create, update, remove, projects}

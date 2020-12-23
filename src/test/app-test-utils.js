@@ -4,14 +4,22 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import * as auth from 'auth-provider'
-import {buildUser} from 'test/generate'
-import * as usersDB from 'test/data/users'
-import {AuthProvider} from '../context/AuthProvider'
+// import {QueryClient, QueryClientProvider} from 'react-query'
 
-async function render(ui, {route = '/list', user, ...renderOptions} = {}) {
+// import * as auth from 'auth-provider'
+// import {buildUser} from 'test/generate'
+// import * as usersDB from 'test/data/users'
+import {AuthProvider} from '../context/AuthProvider'
+// const queryCache = new QueryClient()
+// const NewProvidor = ({children}) => (
+//   <QueryClientProvider queryCache={queryCache}>
+//     <AuthProvider>{children && children}</AuthProvider>
+//   </QueryClientProvider>
+// )
+
+async function render(ui, {route = '/', user, ...renderOptions} = {}) {
   // if you want to render the app unauthenticated then pass "null" as the user
-  user = typeof user === 'undefined' ? await loginAsUser() : user
+  //   user = typeof user === 'undefined' ? await loginAsUser() : user
   window.history.pushState({}, 'Test page', route)
 
   const returnValue = {
@@ -28,13 +36,13 @@ async function render(ui, {route = '/list', user, ...renderOptions} = {}) {
   return returnValue
 }
 
-async function loginAsUser(userProperties) {
-  const user = buildUser(userProperties)
-  await usersDB.create(user)
-  const authUser = await usersDB.authenticate(user)
-  window.localStorage.setItem(auth.localStorageKey, authUser.token)
-  return authUser
-}
+// async function loginAsUser(userProperties) {
+//   const user = buildUser(userProperties)
+//   await usersDB.create(user)
+//   const authUser = await usersDB.authenticate(user)
+//   window.localStorage.setItem(auth.localStorageKey, authUser.token)
+//   return authUser
+// }
 
 const waitForLoadingToFinish = () =>
   waitForElementToBeRemoved(
@@ -46,4 +54,5 @@ const waitForLoadingToFinish = () =>
   )
 
 export * from '@testing-library/react'
-export {render, userEvent, loginAsUser, waitForLoadingToFinish}
+// export {render, userEvent, loginAsUser, waitForLoadingToFinish}
+export {render, userEvent, waitForLoadingToFinish}

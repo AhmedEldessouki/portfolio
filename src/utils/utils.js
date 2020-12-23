@@ -7,9 +7,9 @@ import {ErrorMessage} from '../components/Utils/util'
 
 const AllTheProviders = ({children}) => {
   return (
-    <ErrorBoundary fallback={ErrorMessage}>
-      <AuthProvider>{children}</AuthProvider>
-    </ErrorBoundary>
+    <AuthProvider>
+      <ErrorBoundary fallback={ErrorMessage}>{children}</ErrorBoundary>
+    </AuthProvider>
   )
 }
 

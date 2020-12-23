@@ -71,12 +71,12 @@ function ProjectDetails({project}) {
         >
           {project.updatedOn ? (
             <span>
-              Last Update: {project.updatedOn?.toDate().toDateString()}
+              Last Update: {project.updatedOn.toDate().toDateString()}
             </span>
           ) : null}
           <span>
             {/* // ToDo: get date from github */}
-            Added On: {project.date?.toDate().toDateString()}
+            Added On: {project.date.toDate().toDateString()}
           </span>
         </div>
       </div>

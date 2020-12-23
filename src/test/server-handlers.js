@@ -4,23 +4,23 @@
 
 import {rest} from 'msw' // msw supports graphql too!
 
-import * as users from './users'
+// import * as users from './users'
 
 const handlers = [
-  rest.get('/login', async (req, res, ctx) => {
-    const user = await users.login(JSON.parse(req.body))
+  // rest.get('/login', async (req, res, ctx) => {
+  //   const user = await users.login(JSON.parse(req.body))
 
-    return res(ctx.json({user}))
-  }),
+  //   return res(ctx.json({user}))
+  // }),
 
-  rest.post('/checkout', async (req, res, ctx) => {
-    const user = await users.login(JSON.parse(req.body))
+  rest.post('/projects', async (req, res, ctx) => {
+    // const user = await users.login(JSON.parse(req.body))
 
-    const isAuthorized = user.authorize(req.headers.Authorization)
+    // const isAuthorized = user.authorize(req.headers.Authorization)
 
-    if (!isAuthorized) {
-      return res(ctx.status(401), ctx.json({message: 'Not authorized'}))
-    }
+    // if (!isAuthorized) {
+    //   return res(ctx.status(401), ctx.json({message: 'Not authorized'}))
+    // }
 
     const shoppingCart = JSON.parse(req.body)
 

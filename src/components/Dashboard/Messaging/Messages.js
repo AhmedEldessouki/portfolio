@@ -13,7 +13,7 @@ import MessageDetails from './MessageDetails'
 
 import MessagesSummary from './MessagesSummary'
 
-function MessagesComponent() {
+function MessagesComponent({testingData}) {
   const [messageSel, setMessageSel] = React.useReducer(
     (previousData, newData) => newData,
     null,
@@ -27,7 +27,7 @@ function MessagesComponent() {
     grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
   `
 
-  const {data: messagesData} = useQuery({
+  const {data} = useQuery({
     queryKey: 'contactedMe',
     queryFn: async () =>
       await db
@@ -61,6 +61,7 @@ function MessagesComponent() {
       ],
     },
   })
+  const messagesData = data ?? testingData
 
   return (
     <React.Fragment>
@@ -90,7 +91,7 @@ function MessagesComponent() {
   )
 }
 
-function Messages(props) {
+function Messages({testingData, ...props}) {
   const {reset} = useQueryErrorResetBoundary()
   return (
     <ErrorBoundary
@@ -103,7 +104,7 @@ function Messages(props) {
       )}
     >
       <React.Suspense fallback={'loading'} id={1}>
-        <MessagesComponent {...props} />
+        <MessagesComponent testingData={testingData} {...props} />
       </React.Suspense>
     </ErrorBoundary>
   )
