@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import {colors, weights} from '../Styles'
+import {colors, mq, weights} from '../Styles'
 
 const Title = ({name, onClick, children}) => {
   const title = css`
@@ -19,6 +19,9 @@ const Title = ({name, onClick, children}) => {
     :focus {
       color: ${colors.independenceBlue};
       background: ${colors.aliceLightBlue};
+    }
+    ${mq.s} {
+      font-size: 1.2rem;
     }
   `
 
