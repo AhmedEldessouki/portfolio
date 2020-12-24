@@ -2,11 +2,10 @@ import * as React from 'react'
 import {Global} from '@emotion/react'
 import {ToastContainer} from 'react-toastify'
 
-import {globalStyles} from './Styles'
-
+import {useAuth} from '../context/AuthProvider'
 import UnAuthNavlinks from './Navigation/UnAuthNavlinks'
 import AuthNavlinks from './Navigation/AuthNavlinks'
-import {useAuth} from './Utils/AuthProvider'
+import {globalStyles} from './Styles'
 
 import './Styles/layout.css'
 

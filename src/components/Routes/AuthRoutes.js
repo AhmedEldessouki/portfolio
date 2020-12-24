@@ -7,7 +7,7 @@ import MessageDetails from '../Dashboard/Messaging/MessageDetails'
 import SignUp from '../Auth/SignUp'
 import CreateProject from '../Projects/CreateProject'
 import PageNotFound from '../PageNotFound'
-import TagsControl from '../Projects/TagsControl'
+import TagsControl from '../Tags/TagsControl'
 
 function AuthRoutes() {
   return (

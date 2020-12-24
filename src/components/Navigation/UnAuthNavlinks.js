@@ -27,7 +27,7 @@ const UnAuthNavlinks = () => {
       background: ${colors.kindaDarkBlue};
     }
     ${mq.s} {
-      font-size: 1.6rem;
+      font-size: 1.2rem;
     }
   `
 

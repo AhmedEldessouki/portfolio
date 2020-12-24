@@ -6,10 +6,10 @@ import React from 'react'
 import {toast} from 'react-toastify'
 import {ErrorBoundary} from 'react-error-boundary'
 
+import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
 import {colors, labelWrapper, mq, signWrapper, textArea} from '../Styles'
-
-import {useAuth} from '../Utils/AuthProvider'
+import {ErrorMessage} from '../Utils/util'
 import {
   uploadImage,
   ImageDropZone,
@@ -22,7 +22,6 @@ import {
   ProjInput,
   TagsCheckBox,
 } from './utils'
-import {ErrorMessage} from '../Utils/util'
 
 function CreateProjectX() {
   const {project, setProject} = useAuth()

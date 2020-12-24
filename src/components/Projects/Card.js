@@ -4,9 +4,9 @@
 import {jsx, css} from '@emotion/react'
 import {FaPen} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
+import {useAuth} from '../../context/AuthProvider'
 
 import {colors, weights} from '../Styles'
-import {useAuth} from '../Utils/AuthProvider'
 import PopUp from '../Utils/PopUp/PopUp'
 import {deleteProject} from './utils'
 
@@ -132,7 +132,9 @@ function Card({items = [], setState}) {
               `}
             >
               {item.tag &&
-                item.tag.map(tag => <Tag key={tag} src={tag} width="30" />)}
+                item.tag.map((tag, i) => (
+                  <Tag key={`${tag}_${i}`} src={tag} width="30" />
+                ))}
             </div>
           </div>
         )

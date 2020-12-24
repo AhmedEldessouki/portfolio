@@ -23,11 +23,7 @@ function Carousel({imgArray, imgAlt}) {
     display: grid;
     place-items: center;
     gap: 10px;
-    background: #32374d;
-    padding: 11px 0;
-    border-top: 13px double ${colors.darkBlue};
-    border-bottom: 13px double ${colors.darkBlue};
-    border-radius: 22px;
+
     div {
       grid-row: 1 / span 4;
       grid-column: 2 / span 3;
@@ -36,17 +32,10 @@ function Carousel({imgArray, imgAlt}) {
       }
     }
     ${mq.phoneLarge} {
-      a {
+      grid-gap: 0;
+      div {
         grid-row: 1;
         grid-column: 1;
-      }
-    }
-    ${mq.s} {
-      a {
-        img {
-          width: 200px;
-          height: 200px;
-        }
       }
     }
   `
@@ -62,6 +51,9 @@ function Carousel({imgArray, imgAlt}) {
     cursor: pointer;
     :hover {
       background: ${colors.whiteFaded};
+    }
+    ${mq.phoneLarge} {
+      display: none;
     }
   `
   const leftS = css`
@@ -134,52 +126,83 @@ function Carousel({imgArray, imgAlt}) {
   )
 
   return (
-    <div css={cWrapper}>
-      <button
-        type="button"
-        css={[currentImage === 0 ? disabledBTN : btn, leftS]}
-        onClick={() => {
-          handlePrevious()
-        }}
-        data-testid="previous"
-        disabled={currentImage === 0}
-      >
-        {'<'}
-      </button>
-      <div>
-        <Image
-          width="450"
-          height="400"
-          alt={imgAlt}
-          onDoubleClick={() => window.open(imgArray[currentImage])}
-          onMouseDown={e => {
-            e.preventDefault()
-            setTouchStart(e.screenX)
+    <div
+      css={css`
+        background: #32374d;
+        padding: 11px 0;
+        border-top: 13px double ${colors.darkBlue};
+        border-bottom: 13px double ${colors.darkBlue};
+        border-radius: 22px;
+        display: flex;
+        flex-direction: column;
+        place-items: center;
+      `}
+    >
+      <div css={cWrapper}>
+        <button
+          type="button"
+          css={[currentImage === 0 ? disabledBTN : btn, leftS]}
+          onClick={() => {
+            handlePrevious()
           }}
-          onMouseUp={e => {
-            setTouchEnd(e.screenX)
-            handleTouch(e.screenX, touchStart)
+          data-testid="previous"
+          disabled={currentImage === 0}
+        >
+          {'<'}
+        </button>
+        <div>
+          <Image
+            width="330"
+            alt={imgAlt}
+            onDoubleClick={() => window.open(imgArray[currentImage])}
+            onMouseDown={e => {
+              e.preventDefault()
+              setTouchStart(e.screenX)
+            }}
+            onMouseUp={e => {
+              setTouchEnd(e.screenX)
+              handleTouch(e.screenX, touchStart)
+            }}
+            onMouseMove={e => {
+              e.preventDefault()
+            }}
+            onTouchStart={e => {
+              setTouchStart(e.changedTouches)
+            }}
+            onTouchMove={e => {
+              e.preventDefault()
+            }}
+            onTouchEnd={e => {
+              setTouchEnd(e.changedTouches)
+              if (touchEnd.length === 1 && touchStart.length === 1) {
+                if (e.changedTouches[0].screenY - touchStart[0].screenY < 3) {
+                  handleTouch(
+                    e.changedTouches[0].screenX,
+                    touchStart[0].screenX,
+                  )
+                }
+              }
+            }}
+            fit="contain"
+            src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
+          />
+        </div>
+        <button
+          type="button"
+          data-testid="next"
+          css={[
+            currentImage === imgArray.length - 1 ? disabledBTN : btn,
+            rightS,
+          ]}
+          onClick={() => {
+            handleNext()
           }}
-          onMouseMove={e => {
-            e.preventDefault()
-          }}
-          onTouchMove={e => {
-            e.preventDefault()
-          }}
-          onTouchStart={e => {
-            setTouchStart(e.changedTouches)
-          }}
-          onTouchEnd={e => {
-            setTouchEnd(e.changedTouches)
-            if (touchEnd.length === 1 && touchStart.length === 1) {
-              handleTouch(e.changedTouches[0].screenX, touchStart[0].screenX)
-            }
-          }}
-          fit="contain"
-          src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
-        />
+          disabled={currentImage === imgArray.length - 1}
+        >
+          {'>'}
+        </button>
       </div>
-      <section
+      <div
         css={css`
           justify-self: center;
           grid-row: 5;
@@ -188,6 +211,7 @@ function Carousel({imgArray, imgAlt}) {
           flex-wrap: wrap;
           width: 80%;
           place-content: center;
+          margin-top: 10px;
           ${mq.phoneLarge} {
             grid-row: 2;
             grid-column: 1;
@@ -211,18 +235,7 @@ function Carousel({imgArray, imgAlt}) {
             ]}
           />
         ))}
-      </section>
-      <button
-        type="button"
-        data-testid="next"
-        css={[currentImage === imgArray.length - 1 ? disabledBTN : btn, rightS]}
-        onClick={() => {
-          handleNext()
-        }}
-        disabled={currentImage === imgArray.length - 1}
-      >
-        {'>'}
-      </button>
+      </div>
     </div>
   )
 }

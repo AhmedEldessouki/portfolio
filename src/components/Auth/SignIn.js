@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 
 import {signWrapper, h1XL, btnStyle, warning, spinner} from '../Styles'
-import {useAuth} from '../Utils/AuthProvider'
+import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/util'

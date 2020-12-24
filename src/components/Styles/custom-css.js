@@ -179,6 +179,7 @@ export const h2XL = css`
   padding-left: 28px;
   padding-top: 15px;
   font-style: italic;
+  margin-bottom: 10px;
   ${mq.s} {
     padding-left: 18px;
     padding-top: 10px;

@@ -1,12 +1,6 @@
-import '@testing-library/jest-dom/extend-expect'
-import {server} from './test/server'
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
-}
-global.localStorage = localStorageMock
+// add this to your setupFilesAfterEnv config in jest so it's imported for every test file
+
+import {server} from './server.js'
 
 beforeAll(() => server.listen())
 // if you need to add a handler after calling setupServer for some specific test

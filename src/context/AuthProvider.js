@@ -2,14 +2,17 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
-import {auth, db, firebaseApp} from './firebase'
-import {useLocalStorageState} from './util'
+import {auth, db, firebaseApp} from '../components/Utils/firebase'
+import {useLocalStorageState} from '../components/Utils/util'
 
 const AuthContext = React.createContext()
 AuthContext.displayName = 'AuthContext'
 
 function AuthProvider({children}) {
-  const [authData, setAuthData] = useLocalStorageState('yy', null)
+  const [authData, setAuthData] = useLocalStorageState(
+    '__portfolio_user__',
+    null,
+  )
 
   const [project, setProject] = React.useState(null)
 

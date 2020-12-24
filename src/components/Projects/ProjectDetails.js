@@ -71,7 +71,7 @@ function ProjectDetails({project}) {
         >
           {project.updatedOn ? (
             <span>
-              Last Update: {project.updatedOn?.toDate().toDateString()}
+              Last Update: {project.updatedOn.toDate().toDateString()}
             </span>
           ) : null}
           <span>

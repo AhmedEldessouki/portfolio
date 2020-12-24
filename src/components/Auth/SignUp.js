@@ -3,9 +3,10 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
+
+import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
 import {signWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
-import {useAuth} from '../Utils/AuthProvider'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/util'
 
@@ -13,9 +14,11 @@ function SignUp() {
   const {useSignUp} = useAuth()
   const [authError, signUp] = useSignUp()
   const {status, dispatch} = useAsync()
+
   React.useEffect(() => {
     console.log('status', status)
   }, [status])
+
   const handleSubmit = async e => {
     e.preventDefault()
     dispatch({type: 'pending'})

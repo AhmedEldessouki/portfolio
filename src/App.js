@@ -1,11 +1,11 @@
 import * as React from 'react'
-import {useAuth} from './components/Utils/AuthProvider'
+import {config} from 'dotenv'
+
+import {useAuth} from './context/AuthProvider'
+import AuthRoutes from './components/Routes/AuthRoutes'
+import UnAuthRoutes from './components/Routes/UnAuthRoutes'
 
 import 'react-toastify/dist/ReactToastify.css'
-import {config} from 'dotenv'
-import AuthRoutes from './components/Routes/AuthRoutes'
-
-import UnAuthRoutes from './components/Routes/UnAuthRoutes'
 
 function App() {
   const {authData} = useAuth()
