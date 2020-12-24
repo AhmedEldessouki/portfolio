@@ -119,12 +119,11 @@ const MyInfo = () => {
       <img src={AhmedEldessouki} alt="profilePicture" />
       <p>
         Welcome! I`m Ahmed Eldessouki. I`m {calcMyAge()} years old from Cairo,
-        Egypt currently living in Istanbul, Turkey. I`m looking for a new
-        opportunity as a Front-End Developer. I graduated from University Of
-        Wales. I worked at RoomMe as an entry level Front-End Developer. I`m a
-        very passionate about Front-End Developer. Always developing myself. A
-        strength of mine, is my ability to be observant of small details and to
-        stay up-to-date with the newest technologies and techniques.
+        Egypt. I am an independent contractor. I graduated from University Of
+        Wales with Bachelor of Computer Science. I started as an entry level
+        Front-End Developer on a project called RoomMe. I`m a very passionate
+        about React.js and learning. A strength of mine, is my ability to be
+        observant of small details.
       </p>
       <ul css={ulContainer}>
         <li>Ahmed ElDessouki</li>

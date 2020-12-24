@@ -4,14 +4,12 @@
 import {jsx, css} from '@emotion/react'
 import {toast} from 'react-toastify'
 
-import Layout from './Layout'
-import {btnStyle, h1XL, h2XL, signWrapper, spinner} from './Styles'
-import {db} from './Utils/firebase'
-import Input from './Utils/Input'
-import PopUp from './Utils/PopUp/PopUp'
-import {ErrorMessage, useAsync} from './Utils/util'
-import {ErrorBoundary} from 'react-error-boundary'
-import {useClientFetch} from '../utils/apis'
+import Layout from '../Layout'
+import {btnStyle, h1XL, h2XL, signWrapper, spinner} from '../Styles'
+import {db} from '../Utils/firebase'
+import Input from '../Utils/Input'
+import PopUp from '../Utils/PopUp/PopUp'
+import {useAsync} from '../Utils/util'
 
 function Spinner() {
   return (
@@ -131,7 +129,6 @@ function Tags({TagsData}) {
         </form>
       </div>
       <h2 css={h2XL}>Tags Control</h2>
-
       <div
         css={css`
           display: flex;
@@ -159,13 +156,4 @@ function Tags({TagsData}) {
   )
 }
 
-function TagsControl() {
-  const TagsData = useClientFetch({collection: 'tags'})
-
-  return (
-    <ErrorBoundary resetKeys={[TagsData]} fallback={<ErrorMessage />}>
-      <Tags TagsData={TagsData} />
-    </ErrorBoundary>
-  )
-}
-export default TagsControl
+export default Tags

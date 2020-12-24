@@ -18,7 +18,6 @@ import {btnStyle, colors, h1XL, mq, spinner, textArea} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
-import {useQuery} from 'react-query'
 import {useClientFetch} from '../../utils/apis'
 
 function createNewProject(project) {
