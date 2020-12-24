@@ -4,12 +4,12 @@
 import {jsx} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
-import {useQueryErrorResetBoundary} from 'react-query'
 
-import {h1XL, warning} from '../Styles'
+import {h1XL} from '../Styles'
 import ProjectDetails from './ProjectDetails'
 import Card from './Card'
 import OnToggle from '../Utils/OnToggle'
+import {ErrorMessage} from '../Utils/util'
 
 // TODO: add "import {matchSorter} from 'match-sorter'" to sort projects by name, data, or....
 
@@ -29,22 +29,10 @@ const ProjectComponent = ({projectsData}) => {
   )
 }
 
-function Projects({projectsData, ...props}) {
-  const {reset} = useQueryErrorResetBoundary()
+function Projects({projectsData}) {
   return (
-    <ErrorBoundary
-      onReset={reset}
-      resetKeys={[projectsData]}
-      fallbackRender={({resetErrorBoundary}) => (
-        <div type="alert" css={warning}>
-          There was an error!
-          <button onClick={() => resetErrorBoundary()}>Try again</button>
-        </div>
-      )}
-    >
-      <React.Suspense fallback={'loading'} id={1}>
-        <ProjectComponent projectsData={projectsData} {...props} />
-      </React.Suspense>
+    <ErrorBoundary resetKeys={[projectsData]} fallback={<ErrorMessage />}>
+      <ProjectComponent projectsData={projectsData} />
     </ErrorBoundary>
   )
 }

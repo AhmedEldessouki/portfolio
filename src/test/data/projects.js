@@ -1,4 +1,4 @@
-import projectsData from './projects-data.json'
+import {projectsData} from './projects-data'
 
 let projects = [...projectsData]
 

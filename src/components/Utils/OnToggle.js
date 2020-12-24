@@ -75,6 +75,7 @@ function OnToggle({items, setState, children}) {
               color: ${colors.darkBlue};
             }
           `}
+          data-testid="close-toggler"
           onClick={() => setState(null)}
         >
           X

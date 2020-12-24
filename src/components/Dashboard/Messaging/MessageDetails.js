@@ -74,9 +74,9 @@ function MessageDetails({message}) {
     }
   `
   React.useEffect(() => {
-    console.log(message.description.length)
     if (description !== message.description) setDescription(message.description)
   }, [description, message.description])
+
   return (
     <div css={container}>
       <h1 css={[h1XL, forH1]}>{message.name.toUpperCase()}</h1>
@@ -113,7 +113,7 @@ function MessageDetails({message}) {
         value={description}
       />
       <h3 css={lowerWrapper}>
-        Msg Received: {message.date.toDate().toDateString()}
+        Msg Received: {message.date?.toDate().toDateString()}
       </h3>
     </div>
   )

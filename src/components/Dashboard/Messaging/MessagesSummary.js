@@ -2,12 +2,12 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import {deleteMessage} from './utils'
+import {ErrorBoundary} from 'react-error-boundary'
 
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
-import {ErrorBoundary} from 'react-error-boundary'
 import {ErrorMessage} from '../../Utils/util'
+import {deleteMessage} from './utils'
 
 function MessagesSummaryComponent({message, fn}) {
   const messagesSummary = css`
@@ -17,11 +17,9 @@ function MessagesSummaryComponent({message, fn}) {
     border: 6px solid ${colors.darkBlue};
     border-radius: 10px;
     font-family: 'Merienda One', cursive;
-    padding: 20px 18px;
-    width: 300px;
-    & > a {
-      color: ${colors.aliceLightBlue};
-    }
+    padding: 5px 18px;
+    width: 250px;
+    place-items: flex-start;
   `
 
   const btn = css`
@@ -56,11 +54,7 @@ function MessagesSummaryComponent({message, fn}) {
 
 function MessagesSummary({message, ...props}) {
   return (
-    <ErrorBoundary
-      fallback={<ErrorMessage />}
-      onReset={() => (props.message = null)}
-      resetKeys={[message]}
-    >
+    <ErrorBoundary fallback={<ErrorMessage />} resetKeys={[message]}>
       <MessagesSummaryComponent message={message} {...props} />
     </ErrorBoundary>
   )

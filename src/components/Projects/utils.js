@@ -19,6 +19,7 @@ import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
 import {useQuery} from 'react-query'
+import {useClientFetch} from '../../utils/apis'
 
 function createNewProject(project) {
   db.collection('projects')
@@ -317,37 +318,9 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
   )
 }
 
-function useTags() {
-  const tags = useQuery({
-    queryKey: 'tags',
-    queryFn: async () =>
-      await db
-        .collection('tags')
-        .get()
-        .then(
-          querySnapshot => {
-            const data = querySnapshot.docs.map(doc => {
-              return {...doc.data(), id: doc.id}
-            })
-            console.log('tags :>> ', tags)
-            return data
-          },
-          err => {
-            throw err
-          },
-        ),
-    config: {
-      onError: err => {
-        throw err
-      },
-      suspense: true,
-    },
-  })
-  return tags
-}
-
 function TagsCheckBox({handleClick, projectTag = [], ...props}) {
-  const {status, data} = useTags()
+  const TagsData = useClientFetch({collection: 'tags'})
+
   return (
     <div
       css={css`
@@ -360,48 +333,42 @@ function TagsCheckBox({handleClick, projectTag = [], ...props}) {
         place-items: center;
       `}
     >
-      {status === 'loading' ? (
-        <span>Loading...</span>
-      ) : (
-        data?.map(tag => {
-          return (
-            <label
-              key={tag.id}
+      {TagsData?.map(tag => {
+        return (
+          <label
+            key={tag.id}
+            css={css`
+              display: grid;
+              grid-gap: 4px;
+              place-items: center;
+              grid-auto-flow: column;
+              & input {
+              }
+            `}
+          >
+            <input
+              name="tags"
+              id={tag.url}
+              color={colors.independenceBlue}
+              type="checkbox"
+              alt={tag.name}
+              onChange={e => {
+                handleClick(e)
+              }}
+              checked={projectTag.find(item => item.trim() === tag.url.trim())}
+              {...props}
+            />
+            <img
               css={css`
-                display: grid;
-                grid-gap: 4px;
-                place-items: center;
-                grid-auto-flow: column;
-                & input {
-                }
+                margin: 0;
               `}
-            >
-              <input
-                name="tags"
-                id={tag.url}
-                color={colors.independenceBlue}
-                type="checkbox"
-                alt={tag.name}
-                onChange={e => {
-                  handleClick(e)
-                }}
-                checked={projectTag.find(
-                  item => item.trim() === tag.url.trim(),
-                )}
-                {...props}
-              />
-              <img
-                css={css`
-                  margin: 0;
-                `}
-                src={tag.url}
-                alt={tag.name}
-                width="30"
-              />
-            </label>
-          )
-        })
-      )}
+              src={tag.url}
+              alt={tag.name}
+              width="30"
+            />
+          </label>
+        )
+      })}
     </div>
   )
 }
@@ -433,6 +400,5 @@ export {
   createNewProject,
   Button,
   DisplayingImages,
-  useTags,
   TagsCheckBox,
 }

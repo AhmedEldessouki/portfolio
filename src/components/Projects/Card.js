@@ -132,7 +132,9 @@ function Card({items = [], setState}) {
               `}
             >
               {item.tag &&
-                item.tag.map(tag => <Tag key={tag} src={tag} width="30" />)}
+                item.tag.map((tag, i) => (
+                  <Tag key={`${tag}_${i}`} src={tag} width="30" />
+                ))}
             </div>
           </div>
         )

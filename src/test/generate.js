@@ -24,7 +24,7 @@ function buildProject(overrides) {
     projectLogo: [faker.image.imageUrl(), faker.image.imageUrl()],
     tag: [faker.image.imageUrl(), faker.image.imageUrl()],
     name: faker.company.companyName(),
-    date: faker.date.past(),
+    // date: faker.date.past(),
     ...overrides,
   }
 }
@@ -34,8 +34,8 @@ function buildMessage(overrides = {}) {
     id: faker.random.uuid(),
     email: faker.internet.email(),
     name: faker.company.companyName(),
-    phoneNumber: faker.phone.phoneNumber(),
-    date: faker.date.past(),
+    phoneNumber: faker.phone.phoneNumberFormat(),
+    // date: faker.date.past(),
     description: faker.lorem.paragraph(),
     ...overrides,
   }

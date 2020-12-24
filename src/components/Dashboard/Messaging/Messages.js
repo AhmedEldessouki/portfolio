@@ -4,16 +4,15 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
-import {useQueryErrorResetBoundary, useQuery} from 'react-query'
-import {h1XL, warning} from '../../Styles'
+
+import {h1XL} from '../../Styles'
 import OnToggle from '../../Utils/OnToggle'
+import {ErrorMessage} from '../../Utils/util'
 
-import {db} from '../../Utils/firebase'
 import MessageDetails from './MessageDetails'
-
 import MessagesSummary from './MessagesSummary'
 
-function MessagesComponent({testingData}) {
+function MessagesComponent({messagesData}) {
   const [messageSel, setMessageSel] = React.useReducer(
     (previousData, newData) => newData,
     null,
@@ -26,42 +25,6 @@ function MessagesComponent({testingData}) {
     justify-content: space-evenly;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
   `
-
-  const {data} = useQuery({
-    queryKey: 'contactedMe',
-    queryFn: async () =>
-      await db
-        .collection('contactedMe')
-        .get()
-        .then(
-          querySnapshot => {
-            const data = querySnapshot.docs.map(doc => {
-              return {...doc.data(), id: doc.id}
-            })
-            return data
-          },
-          err => {
-            throw err
-          },
-        ),
-    config: {
-      onError: err => {
-        throw err
-      },
-      suspense: true,
-      placeholderData: [
-        {
-          email: 'XXXXX@XXXX.com',
-          id: 'xXXXXXXXXXXXXXx',
-          phoneNumber: 'XXXXXXXXX',
-          description: 'XXXXXXXXXXXXXXXXXXXX',
-          name: 'XXXXX XXXX',
-          // date: {seconds: 1595062202, nanoseconds: 704000000},
-        },
-      ],
-    },
-  })
-  const messagesData = data ?? testingData
 
   return (
     <React.Fragment>
@@ -91,21 +54,10 @@ function MessagesComponent({testingData}) {
   )
 }
 
-function Messages({testingData, ...props}) {
-  const {reset} = useQueryErrorResetBoundary()
+function Messages({messagesData}) {
   return (
-    <ErrorBoundary
-      onReset={reset}
-      fallbackRender={({resetErrorBoundary}) => (
-        <div type="alert" css={warning}>
-          There was an error!
-          <button onClick={() => resetErrorBoundary()}>Try again</button>
-        </div>
-      )}
-    >
-      <React.Suspense fallback={'loading'} id={1}>
-        <MessagesComponent testingData={testingData} {...props} />
-      </React.Suspense>
+    <ErrorBoundary resetKeys={[messagesData]} fallback={<ErrorMessage />}>
+      <MessagesComponent messagesData={messagesData} />
     </ErrorBoundary>
   )
 }

@@ -3,10 +3,13 @@ import {db} from '../components/Utils/firebase'
 
 const placeholderData = [
   {
-    id: 'RXKmlQIDg7TFPyNmejMB',
+    email: 'XXXXX@XXXX.com',
+    id: 'xXXXXXXXXXXXXXx',
+    phoneNumber: 'XXXXXXXXX',
+    description: 'XXXXXXXXXXXXXXXXXXXX',
     name: 'XXXXXXX',
     link: 'https://XXXX-XXX.XXX.XXX/',
-    description: 'XXXXXXXXXXXXXXXXXXXX',
+    url: 'https://XXXX-XXX.XXX.XXX/XXX.png',
     projectLogo: [],
     date: {
       seconds: 1599235638,
@@ -15,12 +18,12 @@ const placeholderData = [
   },
 ]
 
-function useProjects({onSuccess, ...options} = {}) {
-  const {data: projectsData} = useQuery({
-    queryKey: 'projects',
+function useClientFetch({collection, onSuccess, ...options} = {}) {
+  const {data: fetchedData} = useQuery({
+    queryKey: collection,
     queryFn: async () =>
       await db
-        .collection('projects')
+        .collection(collection)
         .get()
         .then(querySnapshot => {
           const data = querySnapshot.docs.map(doc => {
@@ -31,12 +34,11 @@ function useProjects({onSuccess, ...options} = {}) {
     config: {
       staleTime: 1000 * 60 * 60,
       cacheTime: 1000 * 60 * 60,
-      suspense: true,
       ...options,
     },
   })
 
-  return projectsData ?? placeholderData
+  return fetchedData ?? placeholderData
 }
 
-export {useProjects}
+export {useClientFetch}

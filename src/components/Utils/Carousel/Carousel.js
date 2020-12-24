@@ -34,8 +34,8 @@ function Carousel({imgArray, imgAlt}) {
     ${mq.phoneLarge} {
       grid-gap: 0;
       div {
-        grid-row: 0;
-        grid-column: 0;
+        grid-row: 1;
+        grid-column: 1;
       }
     }
   `
@@ -62,8 +62,6 @@ function Carousel({imgArray, imgAlt}) {
     justify-self: start;
     ${mq.phoneLarge} {
       display: none;
-      grid-row: 0;
-      grid-column: 0;
     }
   `
 
@@ -72,8 +70,6 @@ function Carousel({imgArray, imgAlt}) {
     grid-column: 5;
     justify-self: end;
     ${mq.phoneLarge} {
-      grid-row: 0;
-      grid-column: 0;
       display: none;
     }
   `

@@ -1,17 +1,18 @@
 import React from 'react'
 
-import {useProjects} from '../../utils/project-api'
+import {useClientFetch} from '../../utils/apis'
 import Projects from '../Projects/Projects'
 import Layout from '../Layout'
 
 import Messages from './Messaging/Messages'
 
 const Dashboard = () => {
-  const projectsData = useProjects()
+  const projectsData = useClientFetch({collection: 'projects'})
+  const messagesData = useClientFetch({collection: 'contactedMe'})
   return (
     <Layout>
       <Projects projectsData={projectsData} />
-      <Messages />
+      <Messages messagesData={messagesData} />
     </Layout>
   )
 }

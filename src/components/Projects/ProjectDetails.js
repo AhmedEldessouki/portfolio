@@ -76,7 +76,7 @@ function ProjectDetails({project}) {
           ) : null}
           <span>
             {/* // ToDo: get date from github */}
-            Added On: {project.date.toDate().toDateString()}
+            Added On: {project.date?.toDate().toDateString()}
           </span>
         </div>
       </div>
