@@ -28,6 +28,8 @@ const MyInfo = () => {
       grid-column: 2 / span 3;
       grid-row: 1;
       letter-spacing: 0.1rem;
+      text-justify: distribute;
+      text-align: justify;
     }
     ${mq.desktop} {
       p {
