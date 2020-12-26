@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React from 'react'
+
 import {btnStyle, h2XL, signWrapper, spinner} from '../Styles'
 import Input from '../Utils/Input'
 
