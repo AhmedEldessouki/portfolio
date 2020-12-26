@@ -2,6 +2,7 @@ import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
 import {useClientFetch} from '../../utils/apis'
+import Layout from '../Layout'
 import {ErrorMessage} from '../Utils/util'
 import Tags from './Tags'
 
@@ -10,7 +11,9 @@ function TagsControl() {
 
   return (
     <ErrorBoundary resetKeys={[TagsData]} fallback={<ErrorMessage />}>
-      <Tags TagsData={TagsData} />
+      <Layout>
+        <Tags TagsData={TagsData} />
+      </Layout>
     </ErrorBoundary>
   )
 }

@@ -47,15 +47,15 @@ function MessagesSummaryComponent({message, fn}) {
           {message.name}
         </h2>
       </button>
-      <PopUp title={message.name} fn={() => deleteMessage(message)} />
+      <PopUp title={message.name} onClick={() => deleteMessage(message)} />
     </div>
   )
 }
 
-function MessagesSummary({message, ...props}) {
+function MessagesSummary({message, fn}) {
   return (
     <ErrorBoundary fallback={<ErrorMessage />} resetKeys={[message]}>
-      <MessagesSummaryComponent message={message} {...props} />
+      <MessagesSummaryComponent message={message} fn={fn} />
     </ErrorBoundary>
   )
 }
