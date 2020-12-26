@@ -7,6 +7,7 @@ import {QueryClient, QueryClientProvider} from 'react-query'
 import App from './App'
 import {Profiler} from './profiler'
 import {AuthProvider} from './context/AuthProvider'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 const queryClient = new QueryClient()
 
@@ -23,3 +24,4 @@ trace('initial render', performance.now(), () =>
     document.getElementById('root'),
   ),
 )
+serviceWorkerRegistration.register()
