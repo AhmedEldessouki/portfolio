@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import {Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
 
-import {colors, weights} from '../../Styles'
+import {colors, mq, weights} from '../../Styles'
 import {useAsync} from '../util'
 
 function PopUp({title, onClick}) {
@@ -31,11 +31,17 @@ function PopUp({title, onClick}) {
     padding: 3% 7%;
     border-radius: 29%;
     width: 323px;
-    height: 178px;
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.5s ease-in-out;
     box-shadow: 0 0 140px 100px ${colors.kindaDarkBlue};
+    ${mq.phoneLarge} {
+      width: 255px;
+      left: 21vw;
+    }
+    ${mq.s} {
+      left: 8vw;
+    }
   `
   const btn = css`
     :before {
@@ -52,6 +58,9 @@ function PopUp({title, onClick}) {
     :focus {
       color: ${colors.aliceLightBlue};
       background-color: ${colors.darkBlue};
+    }
+    ${mq.s} {
+      font-size: 100%;
     }
   `
   const btnTrash = css`
@@ -91,7 +100,7 @@ function PopUp({title, onClick}) {
             <h1>Warning</h1>
           </header>
           <h2>Do you want to delete this {title}</h2>
-          <footer>
+          <div css={{marginTop: '28px', display: 'flex', marginBottom: '10px'}}>
             <button
               type="button"
               css={btn}
@@ -113,7 +122,7 @@ function PopUp({title, onClick}) {
             >
               Yup!
             </button>
-          </footer>
+          </div>
         </div>
       )}
     </Fragment>
