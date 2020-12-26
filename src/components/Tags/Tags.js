@@ -2,27 +2,14 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import React from 'react'
 import {toast} from 'react-toastify'
 
-import Layout from '../Layout'
-import {btnStyle, h1XL, h2XL, signWrapper, spinner} from '../Styles'
+import {h1XL, h2XL} from '../Styles'
 import {db} from '../Utils/firebase'
-import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
 import {useAsync} from '../Utils/util'
-
-function Spinner() {
-  return (
-    <div
-      css={css`
-        width: 100%;
-        margin-top: 38px;
-      `}
-    >
-      <div css={spinner} />
-    </div>
-  )
-}
+import TagForm from './TagForm'
 
 function Tags({TagsData}) {
   const {status, dispatch} = useAsync()
@@ -87,47 +74,9 @@ function Tags({TagsData}) {
   }
 
   return (
-    <Layout>
+    <React.Fragment>
       <h1 css={h1XL}>Tags Control</h1>
-      <div
-        css={css`
-          width: 100%;
-          display: flex;
-          place-content: center;
-          flex-wrap: wrap;
-        `}
-      >
-        <h2 css={h2XL}>Create Tag</h2>
-        <form onSubmit={handleSubmit} css={signWrapper}>
-          <div className="field-container">
-            <Input
-              type="text"
-              placeholder="Enter Tag's Name"
-              name="name"
-              required
-              cleanColor={status === 'resolved'}
-            />
-            <Input
-              type="url"
-              name="url"
-              required
-              placeholder="Enter Tag's Link"
-              cleanColor={status === 'resolved'}
-            />
-          </div>
-          {status === 'pending' ? (
-            <Spinner />
-          ) : (
-            <button
-              type="submit"
-              disabled={status === 'pending'}
-              css={btnStyle}
-            >
-              Create Tag
-            </button>
-          )}
-        </form>
-      </div>
+      <TagForm status={status} handleSubmit={handleSubmit} />
       <h2 css={h2XL}>Tags Control</h2>
       <div
         css={css`
@@ -152,7 +101,7 @@ function Tags({TagsData}) {
           </div>
         ))}
       </div>
-    </Layout>
+    </React.Fragment>
   )
 }
 

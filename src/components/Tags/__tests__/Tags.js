@@ -2,9 +2,9 @@ import * as React from 'react'
 import userEvent from '@testing-library/user-event'
 import {screen} from '@testing-library/react'
 
-import {render} from '../test/app-test-utils'
-import {buildTag} from '../test/generate'
-import Tags from '../components/Tags/Tags'
+import {render} from '../../../test/app-test-utils'
+import {buildTag} from '../../../test/generate'
+import Tags from '../Tags'
 
 test('Tag Render', async () => {
   render(<Tags tagsData={[buildTag(), buildTag()]} />)
