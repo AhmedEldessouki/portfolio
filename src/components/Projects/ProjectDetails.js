@@ -3,6 +3,7 @@
 
 import {jsx, css} from '@emotion/react'
 import * as React from 'react'
+import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 
 import Carousel from '../Utils/Carousel/Carousel'
 import {colors, spinner} from '../Styles'
@@ -29,17 +30,25 @@ function ProjectDetails({project}) {
           border-bottom: 24px solid ${colors.darkBlue};
         `}
       >
-        <h1
-          css={css`
-            font-size: 2.75rem;
-            font-weight: 900;
-            color: #e9f1f7;
-            padding-left: 0;
-            border-radius: 7.5%;
-          `}
-        >
-          <a href={project.link}>{project.name}</a>
-        </h1>
+        <div>
+          <h1
+            css={css`
+              font-size: 2.75rem;
+              font-weight: 900;
+              color: #e9f1f7;
+              padding-left: 0;
+              border-radius: 7.5%;
+            `}
+          >
+            {project.name}
+          </h1>
+          <a href={project.link}>
+            <FaExternalLinkAlt />
+          </a>
+          <a href={project.repoLink ?? null}>
+            <FaGithub />
+          </a>
+        </div>
         <textarea
           disabled
           rows="5"
