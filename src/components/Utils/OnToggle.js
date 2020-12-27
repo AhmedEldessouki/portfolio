@@ -191,5 +191,5 @@ const OnToggle = React.forwardRef(function OnToggle(
     </div>
   )
 })
-// eslint-disable-next-line no-func-assign
+
 export default OnToggle
