@@ -13,13 +13,23 @@ import {ErrorMessage} from '../Utils/util'
 
 // TODO: add "import {matchSorter} from 'match-sorter'" to sort projects by name, data, or....
 
-const ProjectComponent = ({projectsData}) => {
+function ProjectComponent({projectsData}) {
   const [project, setProject] = React.useState(null)
+  const selectedRef = React.useRef()
+  const moveFocus = () => selectedRef.current?.moveFocus()
+  React.useEffect(() => {
+    moveFocus()
+  }, [project])
   return (
     <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
       {project ? (
-        <OnToggle items={projectsData} state={project} setState={setProject}>
+        <OnToggle
+          items={projectsData}
+          selected={project}
+          setSelected={setProject}
+          ref={selectedRef}
+        >
           <ProjectDetails project={project} />
         </OnToggle>
       ) : (

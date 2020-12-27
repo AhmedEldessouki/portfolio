@@ -6,24 +6,32 @@ import React from 'react'
 
 import {colors, mq, weights} from '../Styles'
 
-const Title = ({name, onClick, children}) => {
-  const title = css`
-    color: white;
-    background-color: ${colors.darkBlue};
-    padding: 8% 5%;
-    letter-spacing: 1.4px;
-    font-size: 1.82rem;
-    font-weight: ${weights.medium};
-    margin: 0;
-    :hover,
-    :focus {
-      color: ${colors.independenceBlue};
-      background: ${colors.aliceLightBlue};
-    }
-    ${mq.s} {
-      font-size: 1.2rem;
-    }
-  `
+function Title({name, onClick, highlight}) {
+  const title = [
+    css`
+      color: white;
+      background-color: ${colors.darkBlue};
+      padding: 15px 10px;
+      letter-spacing: 1.4px;
+      font-size: 1.82rem;
+      font-weight: ${weights.medium};
+      margin: 0;
+      :hover,
+      :focus {
+        color: ${colors.independenceBlue};
+        background: ${colors.aliceLightBlue};
+      }
+      ${mq.s} {
+        font-size: 1.2rem;
+      }
+    `,
+    highlight
+      ? css`
+          color: ${colors.independenceBlue};
+          background: ${colors.aliceLightBlue};
+        `
+      : null,
+  ]
 
   return (
     <button
@@ -42,16 +50,31 @@ const Title = ({name, onClick, children}) => {
   )
 }
 
-function OnToggle({items, setState, children}) {
+const OnToggle = React.forwardRef(function OnToggle(
+  {items, setSelected, children, selected},
+  ref,
+) {
+  const containerRef = React.useRef()
+  function moveFocus() {
+    containerRef.current.focus()
+  }
+  React.useImperativeHandle(ref, () => ({
+    moveFocus,
+  }))
+
   const [show, setShow] = React.useState(() => {
+    const i = items.findIndex(item => item.name === selected.name)
     if (window.innerWidth >= 1220) {
-      return {min: 0, max: 3, range: 4}
+      if (i === items.length - 1) return {min: i - 3, max: i, range: 4}
+      return {min: i - 1, max: i + 2, range: 4}
     } else if (window.innerWidth >= 900) {
-      return {min: 0, max: 2, range: 3}
+      if (i === items.length - 1) return {min: i - 2, max: i, range: 3}
+      return {min: i, max: i + 2, range: 3}
     } else if (window.innerWidth >= 480) {
-      return {min: 0, max: 1, range: 2}
+      if (i === items.length - 1) return {min: i - 1, max: i, range: 2}
+      return {min: i, max: i + 1, range: 2}
     } else {
-      return {min: 0, max: 0, range: 1}
+      return {min: i, max: i, range: 1}
     }
   })
 
@@ -75,8 +98,9 @@ function OnToggle({items, setState, children}) {
               color: ${colors.darkBlue};
             }
           `}
+          ref={containerRef}
           data-testid="close-toggler"
-          onClick={() => setState(null)}
+          onClick={() => setSelected(null)}
         >
           X
         </button>
@@ -97,7 +121,7 @@ function OnToggle({items, setState, children}) {
       >
         <button
           onClick={() => {
-            if (show.min !== 0) {
+            if (show.min > 0) {
               setShow({...show, min: show.min - 1, max: show.max - 1})
             }
           }}
@@ -124,12 +148,14 @@ function OnToggle({items, setState, children}) {
                   margin-bottom: 0;
                 `}
                 key={item.id}
+                role="log"
               >
                 <Title
                   name={item.name}
                   onClick={() => {
-                    setState(item)
+                    setSelected(item)
                   }}
+                  highlight={selected.name === item.name}
                 />
               </div>
             )
@@ -139,7 +165,7 @@ function OnToggle({items, setState, children}) {
         })}
         <button
           onClick={() => {
-            if (show.max !== items.length - 1) {
+            if (show.max <= items.length - 1) {
               console.log(show, items.length)
               setShow({...show, max: show.max + 1, min: show.min + 1})
             }
@@ -156,12 +182,12 @@ function OnToggle({items, setState, children}) {
               background: ${colors.kindaDarkBlue};
             }
           `}
-          disabled={show.max === items.length - 1}
+          disabled={show.max >= items.length - 1}
         />
       </div>
       {children}
     </div>
   )
-}
-
+})
+// eslint-disable-next-line no-func-assign
 export default OnToggle
