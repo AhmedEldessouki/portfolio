@@ -29,7 +29,6 @@ test('Project Details Render', () => {
   expect(screen.getByRole('img')).toHaveAttribute('alt', project.name)
   expect(screen.getByText(/added on/i)).toBeInTheDocument()
   expect(screen.getByText(project.description)).toBeInTheDocument()
-  screen.debug()
 })
 
 test('Project mount and unmount', () => {

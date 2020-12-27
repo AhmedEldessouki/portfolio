@@ -4,8 +4,8 @@
 import {jsx, css} from '@emotion/react'
 import {FaPen} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
-import {useAuth} from '../../context/AuthProvider'
 
+import {useAuth} from '../../context/AuthProvider'
 import {colors, weights} from '../Styles'
 import PopUp from '../Utils/PopUp/PopUp'
 import {deleteProject} from './utils'
