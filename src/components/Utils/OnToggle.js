@@ -20,6 +20,7 @@ function Title({name, onClick, highlight}) {
       :focus {
         color: ${colors.independenceBlue};
         background: ${colors.aliceLightBlue};
+        font-family: sans-serif;
       }
       ${mq.s} {
         font-size: 1.2rem;
@@ -29,6 +30,7 @@ function Title({name, onClick, highlight}) {
       ? css`
           color: ${colors.independenceBlue};
           background: ${colors.aliceLightBlue};
+          font-family: sans-serif;
         `
       : null,
   ]
