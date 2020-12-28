@@ -17,14 +17,14 @@ describe('Router check', () => {
         expect(ls.getItem('__portfolio_user__')).to.be.null
       })
 
-      cy.visit('https://ahmedeldessouki.netlify.app/')
+      cy.visit('/')
       cy.contains('Github').should('exist')
       cy.contains('Ahmed ElDessouki').should('exist')
       cy.contains(/projects/i).should('exist')
       cy.get('a')
         .contains(/2019 Ahmed ElDessouki/i)
         .click()
-      // cy.get(/2019 Ahmed ElDessouki/i).click()
+
       cy.contains(/sign-in/i).should('exist')
       cy.get('form').within(() => {
         cy.get('#email')
@@ -62,11 +62,16 @@ describe('Router check', () => {
       cy.get('a')
         .contains(/signup/i)
         .click()
+      cy.wait(1000)
       cy.contains(/sign up/i).should('exist')
 
       cy.get('a')
         .contains(/signout/i)
         .click()
+      cy.visit('/404')
+      cy.wait(1000)
+
+      cy.get('a').contains(/home/i).click()
     },
   )
 })

@@ -2,7 +2,8 @@
 /** @jsx jsx */
 
 import {jsx, css, Global} from '@emotion/react'
-import {globalStyles, h1XL} from './Styles'
+import {NavLink} from 'react-router-dom'
+import {colors, globalStyles, h1XL} from './Styles'
 
 function PageNotFound() {
   return (
@@ -39,6 +40,9 @@ function PageNotFound() {
       >
         Page Not Found
       </h2>
+      <NavLink to="/">
+        <h1 css={h1XL}>Home</h1>
+      </NavLink>
     </div>
   )
 }
