@@ -3,7 +3,7 @@
 
 import {jsx, css, Global} from '@emotion/react'
 import {NavLink} from 'react-router-dom'
-import {colors, globalStyles, h1XL} from './Styles'
+import {globalStyles, h1XL} from './Styles'
 
 function PageNotFound() {
   return (
