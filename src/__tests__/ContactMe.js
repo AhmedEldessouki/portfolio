@@ -1,9 +1,8 @@
 import * as React from 'react'
-import userEvent from '@testing-library/user-event'
 import {screen} from '@testing-library/react'
 
 import ContactMe from '../components/Home/ContactMe/ContactMe'
-import {render} from '../test/app-test-utils'
+import {render, userEvent} from '../test/app-test-utils'
 
 test('Contact Form Test', () => {
   render(<ContactMe />)

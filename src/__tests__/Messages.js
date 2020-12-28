@@ -1,25 +1,21 @@
 import * as React from 'react'
-import userEvent from '@testing-library/user-event'
 import {render, screen} from '@testing-library/react'
 
 import Messages from '../components/Dashboard/Messaging/Messages'
-// import {render} from '../test/app-test-utils'
+import {userEvent} from '../test/app-test-utils'
 import {colors} from '../components/Styles'
 import {buildMessage} from '../test/generate'
 
 let messages = []
 beforeAll(() => {
   messages.push(buildMessage())
-  window.localStorage.setItem('__portfolio_user__', 'ascasasfasfasd')
-})
-
-afterAll(() => {
-  window.localStorage.setItem('__portfolio_user__', null)
 })
 
 test('message Render', async () => {
   render(<Messages messagesData={messages} />)
   expect(screen.getByText(messages[0].name)).toBeInTheDocument()
+
+  expect(screen.queryByTestId(/delete-button/i)).toBeInTheDocument()
 
   userEvent.hover(screen.getByText(messages[0].name))
   expect(screen.getByText(messages[0].name)).toHaveStyle(
@@ -30,6 +26,8 @@ test('message Render', async () => {
 test('message Details Render', () => {
   render(<Messages messagesData={messages} />)
   userEvent.click(screen.getByText(messages[0].name))
+
+  expect(screen.queryByTestId(/delete-button/i)).not.toBeInTheDocument()
 
   expect(screen.getByText(messages[0].name)).toBeInTheDocument()
   expect(screen.getByText(messages[0].name.toUpperCase())).toBeInTheDocument()

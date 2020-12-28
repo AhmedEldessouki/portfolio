@@ -90,6 +90,7 @@ function PopUp({title, onClick}) {
         <button
           css={btnTrash}
           type="button"
+          data-testid="delete-button"
           onClick={() => dispatch({type: 'pending'})}
         >
           <GoTrashcan />

@@ -70,6 +70,7 @@ function EditAndDelete({project, onClick}) {
     >
       <Link
         to={`/edit/${project.id}`}
+        data-testid="edit-project"
         onFocus={() => {
           onClick()
         }}
