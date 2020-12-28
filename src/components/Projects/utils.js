@@ -172,6 +172,7 @@ const reducer = (state, {type, payload}) => {
     case 'submit_formData':
       formData.name = payload.name
       formData.link = payload.link
+      formData.repoLink = payload.repoLink
       formData.description = payload.description
       return {
         ...state,

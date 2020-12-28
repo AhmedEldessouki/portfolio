@@ -34,6 +34,7 @@ function CreateProjectX() {
     formData: {
       name: project ? project.name : '',
       link: project ? project.link : '',
+      repoLink: project ? project.repoLink : '',
       projectLogo: project ? [...project.projectLogo] : [],
       tag: project ? project.tag ?? [] : [],
       description: project ? project.description : '',
@@ -102,26 +103,31 @@ function CreateProjectX() {
           }),
         )
         .then(() => {
-          toast.success('Images Uploaded')
           dispatch({type: 'images_uploaded'})
         }),
     [dispatch, formData.name, imagesFile],
   )
 
   async function useSubmitImages() {
-    await gradualUpload()
+    if (imagesFile.length > -1) {
+      await gradualUpload()
+      toast.success('Images Uploaded')
+      return
+    }
+    dispatch({type: 'images_uploaded'})
   }
 
   function useHandleSubmit(e) {
     e.preventDefault()
 
     // const formData = e.target.elements
-    const {name, link, description} = e.target.elements
+    const {name, link, repoLink, description} = e.target.elements
     dispatch({
       type: 'submit_formData',
       payload: {
         name: name.value,
         link: link.value,
+        repoLink: repoLink.value,
         description: description.value,
       },
     })
@@ -132,7 +138,7 @@ function CreateProjectX() {
   function handleDescription(e) {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
-  const {name, link, description, projectLogo, tag} = formData
+  const {name, link, repoLink, description, projectLogo, tag} = formData
   return (
     <Layout>
       <div>
@@ -173,6 +179,14 @@ function CreateProjectX() {
               project={link}
               placeholder="Project Link"
               name="link"
+              cleanColor={status === 'pending'}
+            />
+            <ProjInput
+              type="url"
+              required
+              project={repoLink}
+              placeholder="Repo Link"
+              name="repoLink"
               cleanColor={status === 'pending'}
             />
             <TagsCheckBox
