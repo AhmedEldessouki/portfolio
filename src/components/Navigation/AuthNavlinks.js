@@ -42,6 +42,7 @@ const AuthNavlinksX = () => {
       h2 {
         font-weight: ${weights.black};
         padding: 3px 0;
+        tex-align: center;
         ${mq.s} {
           letter-spacing: 2.5px;
           font-size: 1rem;

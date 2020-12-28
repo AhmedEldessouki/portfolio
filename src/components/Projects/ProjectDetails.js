@@ -3,9 +3,10 @@
 
 import {jsx, css} from '@emotion/react'
 import * as React from 'react'
+import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 
 import Carousel from '../Utils/Carousel/Carousel'
-import {colors, spinner} from '../Styles'
+import {colors, mq, spinner} from '../Styles'
 
 function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
@@ -13,6 +14,16 @@ function ProjectDetails({project}) {
   React.useEffect(() => {
     if (description !== project.description) setDescription(project.description)
   }, [description, project.description])
+
+  const anc = css`
+    color: ${colors.darkBlue};
+    text-align: center;
+    font-size: 2rem;
+    :hover,
+    :focus {
+      color: ${colors.whiteFaded};
+    }
+  `
 
   return project ? (
     <React.Fragment>
@@ -27,19 +38,69 @@ function ProjectDetails({project}) {
           place-content: center;
           min-height: 241px;
           border-bottom: 24px solid ${colors.darkBlue};
+          ${mq.s} {
+            padding: 10px;
+          }
         `}
       >
-        <h1
+        <div
           css={css`
-            font-size: 2.75rem;
-            font-weight: 900;
-            color: #e9f1f7;
-            padding-left: 0;
-            border-radius: 7.5%;
+            display: flex;
+            place-items: baseline;
+            gap: 10px;
+            font-size: 2rem;
+            flex-wrap: wrap;
+            place-content: center;
+            margin-bottom: 5px;
+            a {
+            }
           `}
         >
-          <a href={project.link}>{project.name}</a>
-        </h1>
+          <h1
+            css={css`
+              font-size: 2.75rem;
+              font-weight: 900;
+              color: #e9f1f7;
+              padding-left: 0;
+              border-radius: 7.5%;
+              ${mq.s} {
+                width: 100%;
+                text-align: center;
+                font-size: 1.75rem;
+                margin: 0;
+              }
+            `}
+          >
+            {project.name}
+          </h1>
+          <a
+            css={anc}
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaExternalLinkAlt />
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={project.repoLink ?? null}
+            css={[
+              anc,
+              project.repoLink
+                ? null
+                : css`
+                    cursor: not-allowed;
+                    :hover,
+                    :focus {
+                      color: ${colors.darkBlue};
+                    }
+                  `,
+            ]}
+          >
+            <FaGithub />
+          </a>
+        </div>
         <textarea
           disabled
           rows="5"

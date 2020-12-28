@@ -140,7 +140,11 @@ const MyInfo = () => {
             }
           `}
         >
-          <a href="www.github.com/ahmedeldessouki" css={css``}>
+          <a
+            href="www.github.com/ahmedeldessouki"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <GoMarkGithub /> Github Account
           </a>
         </li>

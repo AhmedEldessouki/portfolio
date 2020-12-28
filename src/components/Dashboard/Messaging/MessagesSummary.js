@@ -47,7 +47,10 @@ function MessagesSummaryComponent({message, fn}) {
           {message.name}
         </h2>
       </button>
-      <PopUp title={message.name} onClick={() => deleteMessage(message)} />
+      <PopUp
+        title={`this message from ${message.name}`}
+        onClick={() => deleteMessage(message)}
+      />
     </div>
   )
 }

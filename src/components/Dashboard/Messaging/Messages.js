@@ -13,10 +13,14 @@ import MessageDetails from './MessageDetails'
 import MessagesSummary from './MessagesSummary'
 
 function MessagesComponent({messagesData}) {
-  const [messageSel, setMessageSel] = React.useReducer(
-    (previousData, newData) => newData,
-    null,
-  )
+  const [messageSel, setMessageSel] = React.useState(null)
+  const selectedRef = React.useRef()
+  const moveFocus = () => selectedRef.current?.moveFocus()
+
+  React.useEffect(() => {
+    moveFocus()
+  }, [messageSel])
+
   const mWrapper = css`
     margin: 0 10px;
     padding: 20px 10px;
@@ -32,8 +36,9 @@ function MessagesComponent({messagesData}) {
       {messageSel ? (
         <OnToggle
           items={messagesData}
-          state={messageSel}
-          setState={setMessageSel}
+          selected={messageSel}
+          setSelected={setMessageSel}
+          ref={selectedRef}
         >
           <MessageDetails message={messageSel} />
         </OnToggle>
