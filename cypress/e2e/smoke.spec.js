@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
 describe('my portfolio', () => {
+  beforeEach(() => {
+    cy.clearLocalStorage()
+  })
   it('passes smoke tests', () => {
     cy.visit('/')
     cy.contains('Github').should('exist')
