@@ -114,11 +114,9 @@ function Carousel({imgArray, imgAlt}) {
   const handleTouch = React.useCallback(
     (end, start) => {
       if (end > start) {
-        console.log(end, start)
         handlePrevious()
       }
       if (end < start) {
-        console.log(end, start)
         handleNext()
       }
     },
