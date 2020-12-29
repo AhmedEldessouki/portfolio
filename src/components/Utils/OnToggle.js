@@ -6,7 +6,7 @@ import React from 'react'
 
 import {colors, mq, weights} from '../Styles'
 
-function Title({name, onClick, highlight}) {
+function Title({name, onClick, highlight, testId}) {
   const title = [
     css`
       color: white;
@@ -47,7 +47,9 @@ function Title({name, onClick, highlight}) {
         width: 100%;
       `}
     >
-      <h1 css={title}>{name}</h1>
+      <h1 css={title} data-testid={testId}>
+        {name}
+      </h1>
     </button>
   )
 }
@@ -128,6 +130,7 @@ const OnToggle = React.forwardRef(function OnToggle(
             }
           }}
           type="button"
+          data-testid="before-toggle"
           css={css`
             background: ${colors.darkBlue};
             height: 50px;
@@ -150,13 +153,13 @@ const OnToggle = React.forwardRef(function OnToggle(
                   margin-bottom: 0;
                 `}
                 key={item.id}
-                role="log"
               >
                 <Title
                   name={item.name}
                   onClick={() => {
                     setSelected(item)
                   }}
+                  testId={`${i}-title`}
                   highlight={selected.name === item.name}
                 />
               </div>
@@ -168,10 +171,10 @@ const OnToggle = React.forwardRef(function OnToggle(
         <button
           onClick={() => {
             if (show.max <= items.length - 1) {
-              console.log(show, items.length)
               setShow({...show, max: show.max + 1, min: show.min + 1})
             }
           }}
+          data-testid="next-toggle"
           type="button"
           css={css`
             background: ${colors.darkBlue};
