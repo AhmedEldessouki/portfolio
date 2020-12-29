@@ -160,8 +160,7 @@ const OnToggle = React.forwardRef(function OnToggle(
             width: 25px;
             border-radius: 23px 0 0 24px;
             border: 5px solid ${colors.darkBlue};
-            :hover,
-            :focus {
+            :hover {
               background: ${colors.kindaDarkBlue};
             }
           `}
@@ -233,8 +232,7 @@ const OnToggle = React.forwardRef(function OnToggle(
             width: 25px;
             border-radius: 0 23px 24px 0;
             border: 5px solid ${colors.darkBlue};
-            :hover,
-            :focus {
+            :hover {
               background: ${colors.kindaDarkBlue};
             }
           `}
