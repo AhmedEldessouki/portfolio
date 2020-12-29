@@ -2,7 +2,7 @@
 
 describe('onToggle desktop', () => {
   beforeEach(() => {
-    cy.viewport('macbook-16')
+    cy.viewport(1280, 720)
   })
   it('select a project and check its position in the DOM', () => {
     cy.visit('/')

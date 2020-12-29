@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/cypress/videos
 
 # webstorm
 .idea
@@ -23,14 +24,13 @@
 .env.production.local
 .env.production
 
+# Log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+debug.log*
 
 .eslintcache
 
 # Local Netlify folder
 .netlify
-
-# Log
-.log

@@ -1,8 +1,14 @@
 /* eslint-disable no-unused-expressions */
 /// <reference types="cypress" />
+
 describe('Router check', () => {
   beforeEach(() => {
     cy.clearLocalStorage('__portfolio_user__')
+    window.indexedDB.deleteDatabase('firebaseLocalStorageDb')
+  })
+  beforeEach(() => {
+    cy.clearLocalStorage('__portfolio_user__')
+    window.indexedDB.deleteDatabase('firebaseLocalStorageDb')
   })
   it(
     'Router Test',
@@ -18,6 +24,7 @@ describe('Router check', () => {
       })
 
       cy.visit('/')
+
       cy.contains('Github').should('exist')
       cy.contains('Ahmed ElDessouki').should('exist')
       cy.contains(/projects/i).should('exist')
@@ -33,8 +40,8 @@ describe('Router check', () => {
         cy.get('#password')
           .type(`${Cypress.env('password')}`)
           .should('have.value', `${Cypress.env('password')}`)
+        cy.wait(3000)
         cy.get('button').click()
-        cy.wait(1000)
       })
       cy.wait(1000)
       cy.contains(/contact me/i).should('exist')
