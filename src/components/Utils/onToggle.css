@@ -1,8 +1,35 @@
-.example-appear {
-  opacity: 0.01;
+.fade-enter .btn {
+  opacity: 0;
+}
+.fade-enter-active .btn {
+  opacity: 1;
+}
+.fade-exit .btn {
+  opacity: 1;
+}
+.fade-exit-active .btn {
+  opacity: 0;
+}
+.fade-enter-active .btn,
+.fade-exit-active .btn {
+  transition: opacity 500ms;
 }
 
-.example-appear.example-appear-active {
-  opacity: 1;
-  transition: opacity 0.5s ease-in;
+.remove-btn {
+  margin-right: 0.5rem;
 }
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+/* .item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+} */

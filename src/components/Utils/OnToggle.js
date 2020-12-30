@@ -3,7 +3,7 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {CSSTransitionGroup} from 'react-transition-group'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 
 import {colors, mq, weights} from '../Styles'
 import './onToggle.css'
@@ -77,7 +77,7 @@ const OnToggle = React.forwardRef(function OnToggle(
     const i = items.findIndex(item => item.name === selected.name)
     if (window.innerWidth >= 1220) {
       if (i === items.length - 1) return {min: i - 3, max: i, range: 4}
-      return {min: i - 1, max: i + 2, range: 4}
+      return {min: i, max: i + 3, range: 4}
     } else if (window.innerWidth >= 900) {
       if (i === items.length - 1) return {min: i - 2, max: i, range: 3}
       return {min: i, max: i + 2, range: 3}
@@ -164,21 +164,23 @@ const OnToggle = React.forwardRef(function OnToggle(
             width: 25px;
             border-radius: 23px 0 0 24px;
             border: 5px solid ${colors.darkBlue};
-            ${
-              '' /* :hover {
-              cursor: pointer;backgrou
-              nd: ${colors.kindaDarkBlue};
-            } */
+            $:hover {
+              cursor: pointer;
+              background: ${colors.kindaDarkBlue};
             }
           `}
           disabled={show.min === 0}
         />
         <div
-          css={{
-            display: 'flex',
-            width: '100%',
-            placeContent: 'space-evenly',
-          }}
+          css={css`
+         
+              width: 100%;
+            div {
+              display: flex;
+              ${'' /* width: 100%; */}
+              place-Content: space-evenly;
+            },
+          `}
           onMouseDown={e => {
             e.preventDefault()
             setTouchStart(e.screenX)
@@ -205,30 +207,42 @@ const OnToggle = React.forwardRef(function OnToggle(
             }
           }}
         >
-          {items?.map((item, i) => {
-            if (i >= show.min && i <= show.max) {
-              return (
-                <CSSTransitionGroup
-                  transitionName="example"
-                  transitionEnterTimeout={300}
-                  transitionLeaveTimeout={300}
-                >
-                  <div key={item.id}>
+          <TransitionGroup>
+            {items?.map((item, i) => {
+              if (i >= show.min && i <= show.max) {
+                return (
+                  <CSSTransition timeout={200} classNames="item">
                     <Title
+                      key={`${item}-${i * 2}`}
                       name={item.name}
+                      csx={css`
+                        @keyframes example {
+                          from {
+                            opacity: 0;
+                          }
+                          to {
+                            opacity: 1;
+                          }
+                          button {
+                            opacity: 1;
+                            animation-name: example;
+                            animation-duration: 4s;
+                          }
+                        }
+                      `}
                       onClick={() => {
                         setSelected(item)
                       }}
                       testId={`${i}-title`}
                       highlight={selected.name === item.name}
                     />
-                  </div>
-                </CSSTransitionGroup>
-              )
-            } else {
-              return null
-            }
-          })}
+                  </CSSTransition>
+                )
+              } else {
+                return null
+              }
+            })}
+          </TransitionGroup>
         </div>
         <button
           onClick={handleNext}
