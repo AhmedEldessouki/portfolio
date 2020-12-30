@@ -3,7 +3,6 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {Image} from 'cloudinary-react'
 
 import {colors, mq} from '../../Styles'
 
@@ -50,7 +49,7 @@ function Carousel({imgArray, imgAlt}) {
     font-size: 4rem;
     cursor: pointer;
     :hover {
-      background: ${colors.whiteFaded};
+      background: ${colors.blueFont};
     }
     ${mq.phoneLarge} {
       display: none;
@@ -77,7 +76,7 @@ function Carousel({imgArray, imgAlt}) {
   const disabledBTN = css`
     border: 0 solid;
     background: ${colors.burgundyRed};
-    color: ${colors.whiteFaded};
+    color: ${colors.blueFont};
     font-weight: 900;
     padding: 0 47px;
     opacity: 0.6;
@@ -97,7 +96,7 @@ function Carousel({imgArray, imgAlt}) {
 
     :hover,
     :focus {
-      background: ${colors.whiteFaded};
+      background: ${colors.blueFont};
     }
   `
 
@@ -149,7 +148,7 @@ function Carousel({imgArray, imgAlt}) {
           {'<'}
         </button>
         <div>
-          <Image
+          <img
             width="330"
             alt={imgAlt}
             onDoubleClick={() => window.open(imgArray[currentImage])}
@@ -226,7 +225,7 @@ function Carousel({imgArray, imgAlt}) {
               carouselNav,
               currentImage === forKC
                 ? css`
-                    background: ${colors.whiteFaded};
+                    background: ${colors.blueFont};
                     outline: none;
                   `
                 : null,

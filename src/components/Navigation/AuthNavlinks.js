@@ -30,7 +30,7 @@ const AuthNavlinksX = () => {
         width: 100%;
         font-size: 2rem;
         padding: 5px 0;
-        color: #61dafb;
+        color: ${colors.blueFont};
         letter-spacing: 1.6px;
         font-variant-caps: petite-caps;
         margin: 0;

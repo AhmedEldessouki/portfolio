@@ -132,7 +132,8 @@ export const globalStyles = css`
     -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-    color: ${colors.aliceLightBlue};
+    color: ${colors.blueFont};
+
     background: ${colors.independenceBlue};
     scrollbar-width: thin;
   }
@@ -167,7 +168,8 @@ export const globalStyles = css`
   h1 {
     font-size: 2.25rem;
     font-weight: ${weights.black};
-    color: ${colors.aliceLightBlue};
+    color: ${colors.blueFont};
+
     font-variant-caps: petite-caps;
     letter-spacing: 1.2px;
   }
@@ -221,7 +223,7 @@ export const globalStyles = css`
     &:hover,
     &:focus {
       outline-width: 0;
-      color: ${colors.whiteFaded};
+      color: ${colors.blueFont};
     }
   }
 

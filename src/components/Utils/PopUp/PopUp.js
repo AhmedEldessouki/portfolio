@@ -47,7 +47,7 @@ function PopUp({title, onClick}) {
     :before {
       width: 100%;
     }
-    background-color: ${colors.whiteFaded};
+    background-color: ${colors.blueFont};
     color: ${colors.independenceBlue};
     border-radius: 14%;
     border: 0px;

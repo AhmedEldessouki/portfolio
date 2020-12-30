@@ -21,7 +21,7 @@ function ProjectDetails({project}) {
     font-size: 2rem;
     :hover,
     :focus {
-      color: ${colors.whiteFaded};
+      color: ${colors.blueFont};
     }
   `
 
@@ -60,7 +60,6 @@ function ProjectDetails({project}) {
             css={css`
               font-size: 2.75rem;
               font-weight: 900;
-              color: #e9f1f7;
               padding-left: 0;
               border-radius: 7.5%;
               ${mq.s} {

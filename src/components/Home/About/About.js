@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import {GoMarkGithub} from 'react-icons/go'
 
 import {colors, weights, mq} from '../../Styles'
-import AhmedEldessouki from '../../../assets/Layer-1@0,25x.png'
+import AhmedEldessouki from '../../../assets/pic.png'
 
 const MyInfo = () => {
   const container = css`
@@ -75,7 +75,7 @@ const MyInfo = () => {
       font-size: 124%;
       margin: 0 15px;
       padding: 15px 25px;
-      background-color: ${colors.whiteFaded};
+      background-color: ${colors.blueFont};
       color: ${colors.independenceBlue};
       border: 4.5px solid ${colors.independenceBlue};
       font-weight: ${weights.bold};
@@ -83,7 +83,7 @@ const MyInfo = () => {
       &:last-child &:hover,
       &:last-child &:focus {
         background-color: ${colors.independenceBlue};
-        color: ${colors.whiteFaded};
+        color: ${colors.blueFont};
       }
     }
     ${mq.phoneLarge} {
@@ -136,7 +136,7 @@ const MyInfo = () => {
             &:hover,
             &:focus {
               background-color: ${colors.independenceBlue};
-              color: ${colors.whiteFaded};
+              color: ${colors.blueFont};
             }
           `}
         >

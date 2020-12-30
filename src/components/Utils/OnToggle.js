@@ -3,23 +3,26 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
+import {CSSTransitionGroup} from 'react-transition-group'
 
 import {colors, mq, weights} from '../Styles'
+import './onToggle.css'
 
-function Title({name, onClick, highlight, testId}) {
+function Title({name, onClick, highlight, testId, csx}) {
   const title = [
     css`
-      color: white;
       background-color: ${colors.darkBlue};
       padding: 15px 10px;
       letter-spacing: 1.4px;
       font-size: 1.82rem;
       font-weight: ${weights.medium};
       margin: 0;
-      :hover,
-      :focus {
-        color: ${colors.independenceBlue};
-        background: ${colors.aliceLightBlue};
+      transition: ease-in-out 0.5s infinite;
+      color: ${colors.blueFont};
+
+      :hover {
+        cursor: pointer;
+        color: ${colors.blueFont};
         font-family: sans-serif;
       }
       ${mq.s} {
@@ -28,8 +31,8 @@ function Title({name, onClick, highlight, testId}) {
     `,
     highlight
       ? css`
-          color: ${colors.independenceBlue};
-          background: ${colors.aliceLightBlue};
+          color: ${colors.blueFont};
+          background: ${colors.kindaDarkBlue};
           font-family: sans-serif;
         `
       : null,
@@ -47,7 +50,7 @@ function Title({name, onClick, highlight, testId}) {
         width: 100%;
       `}
     >
-      <h1 css={title} data-testid={testId}>
+      <h1 css={[title, csx]} data-testid={testId} key={testId}>
         {name}
       </h1>
     </button>
@@ -126,6 +129,7 @@ const OnToggle = React.forwardRef(function OnToggle(
             font-size: 1.2rem;
             font-weight: bolder;
             :hover {
+              cursor: pointer;
               background: ${colors.kindaDarkBlue};
               color: ${colors.darkBlue};
             }
@@ -160,8 +164,11 @@ const OnToggle = React.forwardRef(function OnToggle(
             width: 25px;
             border-radius: 23px 0 0 24px;
             border: 5px solid ${colors.darkBlue};
-            :hover {
-              background: ${colors.kindaDarkBlue};
+            ${
+              '' /* :hover {
+              cursor: pointer;backgrou
+              nd: ${colors.kindaDarkBlue};
+            } */
             }
           `}
           disabled={show.min === 0}
@@ -201,21 +208,22 @@ const OnToggle = React.forwardRef(function OnToggle(
           {items?.map((item, i) => {
             if (i >= show.min && i <= show.max) {
               return (
-                <div
-                  css={css`
-                    margin-bottom: 0;
-                  `}
-                  key={item.id}
+                <CSSTransitionGroup
+                  transitionName="example"
+                  transitionEnterTimeout={300}
+                  transitionLeaveTimeout={300}
                 >
-                  <Title
-                    name={item.name}
-                    onClick={() => {
-                      setSelected(item)
-                    }}
-                    testId={`${i}-title`}
-                    highlight={selected.name === item.name}
-                  />
-                </div>
+                  <div key={item.id}>
+                    <Title
+                      name={item.name}
+                      onClick={() => {
+                        setSelected(item)
+                      }}
+                      testId={`${i}-title`}
+                      highlight={selected.name === item.name}
+                    />
+                  </div>
+                </CSSTransitionGroup>
               )
             } else {
               return null
@@ -233,6 +241,7 @@ const OnToggle = React.forwardRef(function OnToggle(
             border-radius: 0 23px 24px 0;
             border: 5px solid ${colors.darkBlue};
             :hover {
+              cursor: pointer;
               background: ${colors.kindaDarkBlue};
             }
           `}

@@ -116,7 +116,7 @@ const MyFooter = () => {
           rel="noopener noreferrer"
           href="https://reactjs.org/"
         >
-          <GrReactjs />
+          <GrReactjs color={colors.blueFont} />
         </a>
       </div>
       <div css={copyWrite}>
