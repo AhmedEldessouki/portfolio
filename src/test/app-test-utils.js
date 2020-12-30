@@ -6,16 +6,9 @@ import {
 import userEvent from '@testing-library/user-event'
 // import {QueryClient, QueryClientProvider} from 'react-query'
 
-// import * as auth from 'auth-provider'
 // import {buildUser} from 'test/generate'
 // import * as usersDB from 'test/data/users'
 import {AuthProvider} from '../context/AuthProvider'
-// const queryCache = new QueryClient()
-// const NewProvidor = ({children}) => (
-//   <QueryClientProvider queryCache={queryCache}>
-//     <AuthProvider>{children && children}</AuthProvider>
-//   </QueryClientProvider>
-// )
 
 async function render(ui, {route = '/', user, ...renderOptions} = {}) {
   // if you want to render the app unauthenticated then pass "null" as the user

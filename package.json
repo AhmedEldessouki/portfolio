@@ -46,6 +46,7 @@
     "msw": "^0.24.3",
     "prettier": "^2.2.0",
     "pretty-quick": "^3.1.0",
+    "start-server-and-test": "^1.11.7",
     "workbox-build": "^6.0.2"
   },
   "engines": {
@@ -53,19 +54,19 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "start": "npm run build && serve -s build",
+    "start": "set PORT=5000 && react-scripts start",
     "dev": "react-scripts start",
     "setup": "npm install && npm run validate",
-    "validate": "npm run build",
+    "validate": "npm run build && npm run test:coverage",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|yml|yaml|html)\"",
     "lint": "eslint . --cache-location node_modules/.cache/eslint",
     "test": "jest --watch=false --findRelatedTests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --watch=false --coverage",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --watch --runInBand",
-    "cy:open": " cypress open",
-    "cy:run": " cypress run",
-    "test:e2e": "start-server-and-test start http://localhost:3000 cy:run"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:e2e": "start-server-and-test start http://localhost:5000 cy:run"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -22,8 +22,6 @@ const handlers = [
     //   return res(ctx.status(401), ctx.json({message: 'Not authorized'}))
     // }
 
-    const shoppingCart = JSON.parse(req.body)
-
     // do whatever other things you need to do with this shopping cart
 
     return res(ctx.json({success: true}))

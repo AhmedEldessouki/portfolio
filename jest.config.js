@@ -9,8 +9,6 @@ require('react-scripts/config/env')
 
 module.exports = {
   roots: ['<rootDir>/src'],
-  // verbose: true,
-  // testMatch: ['**/__tests__/*.js'],
   testEnvironment: resolve.sync('jest-environment-jsdom', {
     basedir: require.resolve('jest'),
   }),
