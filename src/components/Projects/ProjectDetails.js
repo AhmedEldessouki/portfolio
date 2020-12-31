@@ -10,7 +10,18 @@ import {colors, mq, spinner} from '../Styles'
 
 function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
-
+  // console.dir(description.length)
+  const setRows = React.useCallback(() => {
+    const textField = document.getElementById('textArea')
+    if (textField.clientHeight < textField.scrollHeight) {
+      textField.style.height = textField.scrollHeight + 'px'
+      if (textField.clientHeight < textField.scrollHeight) {
+        textField.style.height =
+          textField.scrollHeight * 2 - textField.clientHeight + 'px'
+      }
+    }
+    return document.getElementById('textArea').scrollHeight / 15
+  }, [])
   React.useEffect(() => {
     if (description !== project.description) setDescription(project.description)
   }, [description, project.description])
@@ -24,6 +35,7 @@ function ProjectDetails({project}) {
       color: ${colors.blueFont};
     }
   `
+  // console.dir(document.getElementById('textArea').scrollHeight)
 
   return project ? (
     <React.Fragment>
@@ -102,9 +114,13 @@ function ProjectDetails({project}) {
         </div>
         <textarea
           disabled
-          rows="5"
+          onWaiting={e => {
+            console.log(e)
+          }}
+          id="textArea"
+          // rows={Math.round(description.length / 20)}
+          rows={setRows}
           wrap="hard"
-          maxLength={description.length}
           css={css`
             resize: none;
             place-self: center;
@@ -112,8 +128,8 @@ function ProjectDetails({project}) {
             font-size: 1.45rem;
             letter-spacing: 0.4px;
             background: ${colors.independenceBlue};
-            color: ${colors.lightBlue};
-            border: 5px solid ${colors.darkBlue};
+            color: ${colors.blueFont};
+            border: none;
             margin-bottom: 23.2px;
             min-width: 80%;
             border-radius: 5%;

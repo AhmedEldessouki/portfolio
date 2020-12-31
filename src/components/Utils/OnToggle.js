@@ -3,7 +3,6 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
 
 import {colors, mq, weights} from '../Styles'
 import './onToggle.css'
@@ -11,31 +10,25 @@ import './onToggle.css'
 function Title({name, onClick, highlight, testId, csx}) {
   const title = [
     css`
-      background-color: ${colors.darkBlue};
       padding: 15px 10px;
       letter-spacing: 1.4px;
       font-size: 1.82rem;
       font-weight: ${weights.medium};
       margin: 0;
-      transition: ease-in-out 0.5s infinite;
+      transition: cubic-bezier(1, 0, 0, 1) 0.5s;
       color: ${colors.blueFont};
-
       :hover {
         cursor: pointer;
-        color: ${colors.blueFont};
         font-family: sans-serif;
       }
       ${mq.s} {
         font-size: 1.2rem;
       }
     `,
-    highlight
-      ? css`
-          color: ${colors.blueFont};
-          background: ${colors.kindaDarkBlue};
-          font-family: sans-serif;
-        `
-      : null,
+    {
+      background: highlight ? '#063878' : colors.darkBlue,
+      fontFamily: highlight ? 'sans-serif' : 'inherit',
+    },
   ]
 
   return (
@@ -173,13 +166,9 @@ const OnToggle = React.forwardRef(function OnToggle(
         />
         <div
           css={css`
-         
-              width: 100%;
-            div {
-              display: flex;
-              ${'' /* width: 100%; */}
-              place-Content: space-evenly;
-            },
+            width: 100%;
+            display: flex;
+            place-content: space-evenly;
           `}
           onMouseDown={e => {
             e.preventDefault()
@@ -207,42 +196,35 @@ const OnToggle = React.forwardRef(function OnToggle(
             }
           }}
         >
-          <TransitionGroup>
-            {items?.map((item, i) => {
-              if (i >= show.min && i <= show.max) {
-                return (
-                  <CSSTransition timeout={200} classNames="item">
-                    <Title
-                      key={`${item}-${i * 2}`}
-                      name={item.name}
-                      csx={css`
-                        @keyframes example {
-                          from {
-                            opacity: 0;
-                          }
-                          to {
-                            opacity: 1;
-                          }
-                          button {
-                            opacity: 1;
-                            animation-name: example;
-                            animation-duration: 4s;
-                          }
-                        }
-                      `}
-                      onClick={() => {
-                        setSelected(item)
-                      }}
-                      testId={`${i}-title`}
-                      highlight={selected.name === item.name}
-                    />
-                  </CSSTransition>
-                )
-              } else {
-                return null
-              }
-            })}
-          </TransitionGroup>
+          {items?.map((item, i) => {
+            if (i >= show.min && i <= show.max) {
+              return (
+                <Title
+                  key={`${item}-${i * 2}`}
+                  name={item.name}
+                  csx={css`
+                    @keyframes example {
+                      from {
+                        opacity: 0.4;
+                      }
+                      to {
+                        opacity: 1;
+                      }
+                    }
+                    opacity: 1;
+                    animation-name: example;
+                    animation-duration: 3s;
+                  `}
+                  onClick={() => {
+                    setSelected(item)
+                  }}
+                  testId={`${i}-title`}
+                  highlight={selected.name === item.name}
+                />
+              )
+            }
+            return null
+          })}
         </div>
         <button
           onClick={handleNext}

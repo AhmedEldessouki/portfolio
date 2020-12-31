@@ -46,7 +46,6 @@ export const spinner = css`
 `
 
 export const btnStyle = css`
-  outline: none;
   place-self: center;
   background-color: ${colors.blueFont};
   color: ${colors.independenceBlue};
@@ -94,7 +93,6 @@ export const signWrapper = css`
 `
 
 export const signWrapperInput = css`
-  outline: none;
   padding: 8px;
   width: 100%;
   height: 30px;
@@ -139,7 +137,6 @@ export const labelWrapper = css`
 `
 
 export const textArea = css`
-  outline: none;
   width: inherit;
   height: calc(100% - 14px);
   padding: 8px;

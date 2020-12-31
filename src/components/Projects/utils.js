@@ -292,7 +292,7 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
               <div key={file} css={div}>
                 <PopUp
                   title="Image"
-                  fn={() => handleClick('imagesDisplay', i)}
+                  onClick={() => handleClick('imagesDisplay', i)}
                 />
                 <img alt="" width={100} src={file} />
               </div>
@@ -306,7 +306,10 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
             {oldImages &&
               oldImages.map((file, i) => (
                 <div key={file} css={div}>
-                  <PopUp title="Image" fn={() => handleClick('oldImages', i)} />
+                  <PopUp
+                    title="Image"
+                    onClick={() => handleClick('oldImages', i)}
+                  />
                   <img alt="" width={100} src={file} />
                 </div>
               ))}

@@ -249,7 +249,6 @@ export const globalStyles = css`
   textarea {
     margin: 0;
     font: inherit;
-    outline: none;
   }
 
   optgroup {
