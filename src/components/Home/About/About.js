@@ -11,7 +11,6 @@ const MyInfo = () => {
   const container = css`
     display: grid;
     place-items: center;
-    margin-bottom: 3%;
     background: #31354a;
     gap: 36px;
     padding: 3% 7.5%;
@@ -62,12 +61,13 @@ const MyInfo = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 9px solid ${colors.whiteFaded};
+    border: 9px solid ${colors.independenceBlue};
     border-radius: 20%;
     padding: 20px 55px;
     margin: 0;
     gap: 10px;
     background-color: ${colors.darkBlue};
+    opacity: 0.8;
     & li {
       font-size: 124%;
       margin: 0 15px;
@@ -82,7 +82,7 @@ const MyInfo = () => {
     }
     :hover,
     :focus {
-      border-color: ${colors.independenceBlue};
+      opacity: 1;
     }
     ${mq.phoneLarge} {
       flex-direction: column;

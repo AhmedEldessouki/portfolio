@@ -52,7 +52,11 @@ function ContactMe() {
       }}
     >
       <h1 css={h1XL}>Contact Me</h1>
-      <form id="ContactMe" onSubmit={handleSubmit} css={wrapper}>
+      <form
+        id="ContactMe"
+        onSubmit={handleSubmit}
+        css={[wrapper, {marginBottom: 0}]}
+      >
         <section>
           <Input
             name="name"
