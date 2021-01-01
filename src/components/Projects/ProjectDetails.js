@@ -10,7 +10,6 @@ import {colors, mq, spinner} from '../Styles'
 
 function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
-  // console.dir(description.length)
   const [heightT, setHeightT] = React.useState(3)
 
   React.useEffect(() => {
@@ -119,17 +118,15 @@ function ProjectDetails({project}) {
             console.log(e)
           }}
           id="textArea"
-          // rows={Math.round(description.length / 20)}
-          // rows={setRows}
           wrap="hard"
           css={css`
             resize: none;
             place-self: center;
             padding: 10px 1%;
             font-size: 1.45rem;
-            letter-spacing: 0.4px;
+            letter-spacing: 1px;
             background: ${colors.independenceBlue};
-            color: ${colors.blueFont};
+            color: inherit;
             border: none;
             height: ${heightT};
             margin-bottom: 23.2px;

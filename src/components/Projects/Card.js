@@ -19,6 +19,7 @@ const Title = ({name, onClick, children}) => {
     margin: 0;
     transition: ease-in 500ms;
     font-family: sans;
+    border-radius: 11%;
     :hover {
       font-family: sans-serif;
       cursor: pointer;

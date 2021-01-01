@@ -11,12 +11,11 @@ function Title({name, onClick, highlight, testId, csx}) {
   const title = [
     css`
       padding: 15px 10px;
-      letter-spacing: 1.4px;
-      font-size: 1.82rem;
+      font-size: 1.62rem;
       font-weight: ${weights.medium};
+      border-radius: 13%;
       margin: 0;
       transition: cubic-bezier(1, 0, 0, 1) 0.5s;
-      color: ${colors.blueFont};
       :hover {
         cursor: pointer;
         font-family: sans-serif;
@@ -27,7 +26,7 @@ function Title({name, onClick, highlight, testId, csx}) {
     `,
     {
       background: highlight ? '#063878' : colors.darkBlue,
-      fontFamily: highlight ? 'sans-serif' : 'inherit',
+      fontFamily: highlight ? 'sans-serif' : 'sans',
     },
   ]
 
@@ -145,6 +144,7 @@ const OnToggle = React.forwardRef(function OnToggle(
           border-bottom: 22px solid ${colors.darkBlue};
           place-items: center;
           place-content: space-between;
+          gap: 10px;
           margin-bottom: 16px;
         `}
       >
