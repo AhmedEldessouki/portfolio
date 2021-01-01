@@ -8,7 +8,7 @@ import {ErrorBoundary} from 'react-error-boundary'
 
 import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
-import {colors, labelWrapper, mq, signWrapper, textArea} from '../Styles'
+import {colors, h1XL, labelWrapper, mq, signWrapper, textArea} from '../Styles'
 import {ErrorMessage} from '../Utils/util'
 import {
   uploadImage,
@@ -142,7 +142,7 @@ function CreateProjectX() {
   return (
     <Layout>
       <div>
-        <h1>{project ? `Edit` : `Create`} Project</h1>
+        <h1 css={h1XL}>{project ? `Edit` : `Create`} Project</h1>
         <div
           css={css`
             display: flex;

@@ -10,20 +10,32 @@ import {colors, mq, spinner} from '../Styles'
 
 function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
+  const [heightT, setHeightT] = React.useState(3)
 
   React.useEffect(() => {
     if (description !== project.description) setDescription(project.description)
   }, [description, project.description])
 
+  React.useLayoutEffect(() => {
+    const textField = document.getElementById('textArea')
+
+    if (textField.clientHeight < textField.scrollHeight) {
+      setHeightT(textField.scrollHeight + 'px')
+      if (textField.clientHeight < textField.scrollHeight) {
+        setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
+      }
+    }
+  }, [project])
   const anc = css`
     color: ${colors.darkBlue};
     text-align: center;
     font-size: 2rem;
     :hover,
     :focus {
-      color: ${colors.whiteFaded};
+      color: ${colors.blueFont};
     }
   `
+  // console.dir(document.getElementById('textArea').scrollHeight)
 
   return project ? (
     <React.Fragment>
@@ -60,7 +72,6 @@ function ProjectDetails({project}) {
             css={css`
               font-size: 2.75rem;
               font-weight: 900;
-              color: #e9f1f7;
               padding-left: 0;
               border-radius: 7.5%;
               ${mq.s} {
@@ -103,18 +114,21 @@ function ProjectDetails({project}) {
         </div>
         <textarea
           disabled
-          rows="5"
+          onWaiting={e => {
+            console.log(e)
+          }}
+          id="textArea"
           wrap="hard"
-          maxLength={description.length}
           css={css`
             resize: none;
             place-self: center;
             padding: 10px 1%;
             font-size: 1.45rem;
-            letter-spacing: 0.4px;
+            letter-spacing: 1px;
             background: ${colors.independenceBlue};
-            color: ${colors.lightBlue};
-            border: 5px solid ${colors.darkBlue};
+            color: inherit;
+            border: none;
+            height: ${heightT};
             margin-bottom: 23.2px;
             min-width: 80%;
             border-radius: 5%;
@@ -125,9 +139,7 @@ function ProjectDetails({project}) {
           css={css`
             display: flex;
             place-content: space-between;
-            font-size: 1.1rem;
             letter-spacing: 1.2px;
-            font-variant: all-petite-caps;
           `}
         >
           {project.updatedOn ? (

@@ -5,34 +5,29 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 
 import {colors, mq, weights} from '../Styles'
+import './onToggle.css'
 
-function Title({name, onClick, highlight, testId}) {
+function Title({name, onClick, highlight, testId, csx}) {
   const title = [
     css`
-      color: white;
-      background-color: ${colors.darkBlue};
       padding: 15px 10px;
-      letter-spacing: 1.4px;
-      font-size: 1.82rem;
+      font-size: 1.62rem;
       font-weight: ${weights.medium};
+      border-radius: 13%;
       margin: 0;
-      :hover,
-      :focus {
-        color: ${colors.independenceBlue};
-        background: ${colors.aliceLightBlue};
+      transition: cubic-bezier(1, 0, 0, 1) 0.5s;
+      :hover {
+        cursor: pointer;
         font-family: sans-serif;
       }
       ${mq.s} {
         font-size: 1.2rem;
       }
     `,
-    highlight
-      ? css`
-          color: ${colors.independenceBlue};
-          background: ${colors.aliceLightBlue};
-          font-family: sans-serif;
-        `
-      : null,
+    {
+      background: highlight ? '#063878' : colors.darkBlue,
+      fontFamily: highlight ? 'sans-serif' : 'sans',
+    },
   ]
 
   return (
@@ -47,7 +42,7 @@ function Title({name, onClick, highlight, testId}) {
         width: 100%;
       `}
     >
-      <h1 css={title} data-testid={testId}>
+      <h1 css={[title, csx]} data-testid={testId} key={testId}>
         {name}
       </h1>
     </button>
@@ -74,7 +69,7 @@ const OnToggle = React.forwardRef(function OnToggle(
     const i = items.findIndex(item => item.name === selected.name)
     if (window.innerWidth >= 1220) {
       if (i === items.length - 1) return {min: i - 3, max: i, range: 4}
-      return {min: i - 1, max: i + 2, range: 4}
+      return {min: i, max: i + 3, range: 4}
     } else if (window.innerWidth >= 900) {
       if (i === items.length - 1) return {min: i - 2, max: i, range: 3}
       return {min: i, max: i + 2, range: 3}
@@ -115,7 +110,8 @@ const OnToggle = React.forwardRef(function OnToggle(
       <div
         css={css`
           display: flex;
-          place-content: end;
+          place-content: flex-end;
+          margin-right: 5px;
         `}
       >
         <button
@@ -123,11 +119,12 @@ const OnToggle = React.forwardRef(function OnToggle(
             background: ${colors.darkBlue};
             color: ${colors.aliceLightBlue};
             border: 5px solid ${colors.darkBlue};
-            font-size: 1.2rem;
             font-weight: bolder;
+            border-radius: 32%;
+            padding: 0px 10px;
             :hover {
-              background: ${colors.kindaDarkBlue};
-              color: ${colors.darkBlue};
+              cursor: pointer;
+              opacity: 0.8;
             }
           `}
           ref={containerRef}
@@ -147,6 +144,7 @@ const OnToggle = React.forwardRef(function OnToggle(
           border-bottom: 22px solid ${colors.darkBlue};
           place-items: center;
           place-content: space-between;
+          gap: 10px;
           margin-bottom: 16px;
         `}
       >
@@ -154,24 +152,27 @@ const OnToggle = React.forwardRef(function OnToggle(
           onClick={handlePrevious}
           type="button"
           data-testid="before-toggle"
-          css={css`
-            background: ${colors.darkBlue};
-            height: 50px;
-            width: 25px;
-            border-radius: 23px 0 0 24px;
-            border: 5px solid ${colors.darkBlue};
-            :hover {
-              background: ${colors.kindaDarkBlue};
-            }
-          `}
+          css={[
+            css`
+              border: 5px solid ${colors.darkBlue};
+              border-radius: 23px 0 0 24px;
+              height: 50px;
+              width: 25px;
+              :hover {
+                cursor: pointer;
+                background: ${colors.kindaDarkBlue};
+              }
+            `,
+            {background: show.min === 0 ? colors.burgundyRed : colors.darkBlue},
+          ]}
           disabled={show.min === 0}
         />
         <div
-          css={{
-            display: 'flex',
-            width: '100%',
-            placeContent: 'space-evenly',
-          }}
+          css={css`
+            width: 100%;
+            display: flex;
+            place-content: space-evenly;
+          `}
           onMouseDown={e => {
             e.preventDefault()
             setTouchStart(e.screenX)
@@ -201,41 +202,55 @@ const OnToggle = React.forwardRef(function OnToggle(
           {items?.map((item, i) => {
             if (i >= show.min && i <= show.max) {
               return (
-                <div
-                  css={css`
-                    margin-bottom: 0;
+                <Title
+                  key={`${item}-${i * 2}`}
+                  name={item.name}
+                  csx={css`
+                    @keyframes example {
+                      from {
+                        opacity: 0.4;
+                      }
+                      to {
+                        opacity: 1;
+                      }
+                    }
+                    opacity: 1;
+                    animation-name: example;
+                    animation-duration: 3s;
                   `}
-                  key={item.id}
-                >
-                  <Title
-                    name={item.name}
-                    onClick={() => {
-                      setSelected(item)
-                    }}
-                    testId={`${i}-title`}
-                    highlight={selected.name === item.name}
-                  />
-                </div>
+                  onClick={() => {
+                    setSelected(item)
+                  }}
+                  testId={`${i}-title`}
+                  highlight={selected.name === item.name}
+                />
               )
-            } else {
-              return null
             }
+            return null
           })}
         </div>
         <button
           onClick={handleNext}
           data-testid="next-toggle"
           type="button"
-          css={css`
-            background: ${colors.darkBlue};
-            height: 50px;
-            width: 25px;
-            border-radius: 0 23px 24px 0;
-            border: 5px solid ${colors.darkBlue};
-            :hover {
-              background: ${colors.kindaDarkBlue};
-            }
-          `}
+          css={[
+            css`
+              border-radius: 0 23px 24px 0;
+              border: 5px solid ${colors.darkBlue};
+              height: 50px;
+              width: 25px;
+              :hover {
+                cursor: pointer;
+                background: ${colors.kindaDarkBlue};
+              }
+            `,
+            {
+              background:
+                show.max >= items.length - 1
+                  ? colors.burgundyRed
+                  : colors.darkBlue,
+            },
+          ]}
           disabled={show.max >= items.length - 1}
         />
       </div>

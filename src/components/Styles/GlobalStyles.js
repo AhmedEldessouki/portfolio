@@ -121,7 +121,7 @@ export const globalStyles = css`
 
   body {
     margin: 0;
-    font-family: serif;
+    font-family: sans-serif;
     line-height: 1.45;
     word-wrap: break-word;
     font-kerning: normal;
@@ -132,7 +132,7 @@ export const globalStyles = css`
     -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-    color: ${colors.aliceLightBlue};
+    color: #ffffffbd;
     background: ${colors.independenceBlue};
     scrollbar-width: thin;
   }
@@ -167,7 +167,8 @@ export const globalStyles = css`
   h1 {
     font-size: 2.25rem;
     font-weight: ${weights.black};
-    color: ${colors.aliceLightBlue};
+    color: #ffffffbd;
+
     font-variant-caps: petite-caps;
     letter-spacing: 1.2px;
   }
@@ -197,11 +198,11 @@ export const globalStyles = css`
 
   p {
     margin-bottom: 27px;
-    font-family: sans;
+    font-family: sans-serif;
     font-size: 16px;
     letter-spacing: 0.2;
     line-height: 1.7;
-
+    font-family: sans-serif;
     ${mq.phoneLarge} {
       margin-bottom: 30px;
     }
@@ -221,7 +222,6 @@ export const globalStyles = css`
     &:hover,
     &:focus {
       outline-width: 0;
-      color: ${colors.whiteFaded};
     }
   }
 
@@ -246,8 +246,8 @@ export const globalStyles = css`
   select,
   textarea {
     margin: 0;
+    font-family: sans-serif;
     font: inherit;
-    outline: none;
   }
 
   optgroup {

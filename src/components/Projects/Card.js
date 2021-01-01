@@ -12,18 +12,17 @@ import {deleteProject} from './utils'
 
 const Title = ({name, onClick, children}) => {
   const title = css`
-    color: white;
     background-color: ${colors.darkBlue};
     padding: 8% 5%;
-    letter-spacing: 1.4px;
     font-size: 1.82rem;
     font-weight: ${weights.medium};
     margin: 0;
-    :hover,
-    :focus {
-      font-weight: ${weights.black};
-      color: ${colors.darkBlue};
-      background: ${colors.kindaBlue};
+    transition: ease-in 500ms;
+    font-family: sans;
+    border-radius: 11%;
+    :hover {
+      font-family: sans-serif;
+      cursor: pointer;
     }
   `
 
@@ -77,7 +76,7 @@ function EditAndDelete({project, onClick}) {
       >
         <FaPen
           css={css`
-            color: ${colors.lightBlue};
+            color: ${colors.blueFont};
             font-size: 1.5rem;
             :hover {
               color: ${colors.kindaBlue};
@@ -99,7 +98,7 @@ function Card({items = [], setState}) {
     width: 100%;
     :hover,
     :focus {
-      border-bottom-color: ${colors.kindaBlue};
+      border-bottom-color: ${colors.blueFont};
     }
   `
   const mWrapper = css`

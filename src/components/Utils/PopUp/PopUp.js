@@ -2,11 +2,12 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import {Fragment} from 'react'
+import React, {Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
 
 import {colors, mq, weights} from '../../Styles'
 import {useAsync} from '../util'
+import '../onToggle.css'
 
 function PopUp({title, onClick}) {
   const popWrapper = css`
@@ -18,46 +19,26 @@ function PopUp({title, onClick}) {
         opacity: 1;
       }
     }
-
     display: flex;
     flex-direction: column;
     place-items: center;
-    position: fixed;
-    top: calc(50% - calc(288.3px / 2));
-    left: calc(50% - calc(554.8px / 2));
     background-color: ${colors.independenceBlue};
     opacity: 94.7%;
     border: 10px solid ${colors.darkBlue};
-    padding: 3% 7%;
+    padding: 10px 20px;
     border-radius: 29%;
-    width: 323px;
+    width: 300px;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.5s ease-in-out;
-    box-shadow: 0 0 140px 100px ${colors.kindaDarkBlue};
-    ${mq.phoneLarge} {
-      width: 255px;
-      left: 21vw;
-    }
-    ${mq.s} {
-      left: 8vw;
-    }
   `
   const btn = css`
-    :before {
-      width: 100%;
-    }
-    background-color: ${colors.whiteFaded};
+    background-color: ${colors.blueFont};
     color: ${colors.independenceBlue};
     border-radius: 14%;
     border: 0px;
     font-size: 140%;
-    padding: 4px 36px;
-    margin: 0 15px;
-    :hover,
-    :focus {
-      color: ${colors.aliceLightBlue};
-      background-color: ${colors.darkBlue};
+    :hover {
+      opacity: 0.8;
     }
     ${mq.s} {
       font-size: 100%;
@@ -79,6 +60,21 @@ function PopUp({title, onClick}) {
   `
   const {status, dispatch} = useAsync()
 
+  // onClick outside PopUp Component close PopUp
+  const ref = React.useRef(null)
+
+  React.useEffect(() => {
+    const handleClickOutside = event => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        dispatch({type: 'idle'})
+      }
+    }
+    document.addEventListener('click', handleClickOutside, true)
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true)
+    }
+  }, [dispatch])
+
   async function handleDelete() {
     await onClick()
     dispatch({type: 'idle'})
@@ -86,43 +82,60 @@ function PopUp({title, onClick}) {
 
   return (
     <Fragment>
-      {status === 'idle' ? (
-        <button
-          css={btnTrash}
-          type="button"
-          data-testid="delete-button"
-          onClick={() => dispatch({type: 'pending'})}
+      <button
+        css={btnTrash}
+        type="button"
+        data-testid="delete-button"
+        onClick={() => dispatch({type: 'pending'})}
+      >
+        <GoTrashcan />
+      </button>
+      {status === 'pending' && (
+        <div
+          id="popup"
+          css={{
+            position: 'fixed',
+            width: '362px',
+            height: '161px',
+            top: '50%',
+            left: '50%',
+            marginTop: '-84px',
+            marginLeft: '-188px',
+          }}
         >
-          <GoTrashcan />
-        </button>
-      ) : (
-        <div css={popWrapper} id="popup">
-          <header>
-            <h1>Warning</h1>
-          </header>
-          <h2>Do you want to delete this {title}</h2>
-          <div css={{marginTop: '28px', display: 'flex', marginBottom: '10px'}}>
-            <button
-              type="button"
-              css={btn}
-              onClick={() => dispatch({type: 'idle'})}
+          <div css={popWrapper} ref={ref}>
+            <header>
+              <h1 css={{marginBottom: '10px'}}>Warning</h1>
+            </header>
+            <p css={{margin: 0}}>Do you want to delete this {title}</p>
+            <div
+              css={{
+                marginTop: '10px',
+                display: 'flex',
+                placeContent: 'space-evenly',
+                width: '100%',
+              }}
             >
-              Nah!
-            </button>
-            <button
-              type="button"
-              css={[
-                btn,
-                css`
-                  :hover {
+              <button
+                type="button"
+                css={btn}
+                onClick={() => dispatch({type: 'idle'})}
+              >
+                Nah!
+              </button>
+              <button
+                type="button"
+                css={[
+                  btn,
+                  css`
                     background-color: ${colors.burgundyRed};
-                  }
-                `,
-              ]}
-              onClick={handleDelete}
-            >
-              Yup!
-            </button>
+                  `,
+                ]}
+                onClick={handleDelete}
+              >
+                Yup!
+              </button>
+            </div>
           </div>
         </div>
       )}

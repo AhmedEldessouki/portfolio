@@ -3,9 +3,38 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {Image} from 'cloudinary-react'
 
 import {colors, mq} from '../../Styles'
+
+function Img({imgAlt, onDoubleClick, src, ...props}) {
+  return (
+    <img
+      alt={imgAlt}
+      onClick={() => {
+        onDoubleClick()
+      }}
+      css={css`
+        @keyframes in {
+          from {
+            opacity: 0;
+            filter: grayscale(100%);
+          }
+          to {
+            filter: grayscale(0);
+            opacity: 1;
+          }
+        }
+        filter: grayscale(0);
+        margin: 0;
+        animation-name: in;
+        animation-duration: 3s;
+      `}
+      fit="contain"
+      src={src}
+      {...props}
+    />
+  )
+}
 
 function Carousel({imgArray, imgAlt}) {
   const [currentImage, setCurrentImage] = React.useState(0)
@@ -23,13 +52,12 @@ function Carousel({imgArray, imgAlt}) {
     display: grid;
     place-items: center;
     gap: 10px;
-
     div {
       grid-row: 1 / span 4;
       grid-column: 2 / span 3;
-      img {
-        margin: 0;
-      }
+      opacity: 1;
+      transition: cubic-bezier(0.65, 0.05, 0.36, 1) 2s;
+      margin: 0;
     }
     ${mq.phoneLarge} {
       grid-gap: 0;
@@ -39,18 +67,19 @@ function Carousel({imgArray, imgAlt}) {
       }
     }
   `
-
   const btn = css`
-    border: 0 solid;
-    background: ${colors.darkBlue};
+    border: none;
+    background: rgb(0, 153, 255, 0.9);
     color: ${colors.kindaDarkBlue};
     font-weight: 900;
-    padding: 0 47px;
     opacity: 0.6;
     font-size: 4rem;
     cursor: pointer;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
     :hover {
-      background: ${colors.whiteFaded};
+      background: ${colors.blueFont};
     }
     ${mq.phoneLarge} {
       display: none;
@@ -59,45 +88,27 @@ function Carousel({imgArray, imgAlt}) {
   const leftS = css`
     grid-row: 1 / span 5;
     grid-column: 1;
-    justify-self: start;
-    ${mq.phoneLarge} {
-      display: none;
-    }
   `
-
   const rightS = css`
     grid-row: 1 / span 5;
     grid-column: 5;
-    justify-self: end;
-    ${mq.phoneLarge} {
-      display: none;
-    }
   `
-
   const disabledBTN = css`
-    border: 0 solid;
     background: ${colors.burgundyRed};
-    color: ${colors.whiteFaded};
-    font-weight: 900;
-    padding: 0 47px;
-    opacity: 0.6;
-    font-size: 4rem;
-    ${mq.phoneLarge} {
-      display: none;
+    :hover {
+      background: ${colors.burgundyRed};
     }
   `
   const carouselNav = css`
-    border: 0 solid ${colors.darkBlue};
+    border: none;
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
-    background: ${colors.darkBlue};
     margin: 0 5px 10px;
     cursor: pointer;
 
-    :hover,
-    :focus {
-      background: ${colors.whiteFaded};
+    :hover {
+      background: ${colors.blueFont};
     }
   `
 
@@ -136,10 +147,37 @@ function Carousel({imgArray, imgAlt}) {
         place-items: center;
       `}
     >
-      <div css={cWrapper}>
+      <div
+        css={cWrapper}
+        onMouseDown={e => {
+          e.preventDefault()
+          setTouchStart(e.screenX)
+        }}
+        onMouseUp={e => {
+          setTouchEnd(e.screenX)
+          handleTouch(e.screenX, touchStart)
+        }}
+        onMouseMove={e => {
+          e.preventDefault()
+        }}
+        onTouchStart={e => {
+          setTouchStart(e.changedTouches)
+        }}
+        onTouchMove={e => {
+          e.preventDefault()
+        }}
+        onTouchEnd={e => {
+          setTouchEnd(e.changedTouches)
+          if (touchEnd.length === 1 && touchStart.length === 1) {
+            if (e.changedTouches[0].screenY - touchStart[0].screenY < 3) {
+              handleTouch(e.changedTouches[0].screenX, touchStart[0].screenX)
+            }
+          }
+        }}
+      >
         <button
           type="button"
-          css={[currentImage === 0 ? disabledBTN : btn, leftS]}
+          css={[btn, leftS, currentImage === 0 ? disabledBTN : null]}
           onClick={() => {
             handlePrevious()
           }}
@@ -149,48 +187,21 @@ function Carousel({imgArray, imgAlt}) {
           {'<'}
         </button>
         <div>
-          <Image
+          <Img
             width="330"
-            alt={imgAlt}
-            onDoubleClick={() => window.open(imgArray[currentImage])}
-            onMouseDown={e => {
-              e.preventDefault()
-              setTouchStart(e.screenX)
-            }}
-            onMouseUp={e => {
-              setTouchEnd(e.screenX)
-              handleTouch(e.screenX, touchStart)
-            }}
-            onMouseMove={e => {
-              e.preventDefault()
-            }}
-            onTouchStart={e => {
-              setTouchStart(e.changedTouches)
-            }}
-            onTouchMove={e => {
-              e.preventDefault()
-            }}
-            onTouchEnd={e => {
-              setTouchEnd(e.changedTouches)
-              if (touchEnd.length === 1 && touchStart.length === 1) {
-                if (e.changedTouches[0].screenY - touchStart[0].screenY < 3) {
-                  handleTouch(
-                    e.changedTouches[0].screenX,
-                    touchStart[0].screenX,
-                  )
-                }
-              }
-            }}
+            imgAlt={imgAlt}
             fit="contain"
-            src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=380&fit=contain`}
+            src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=350&fit=contain`}
+            onDoubleClick={() => window.open(imgArray[currentImage])}
           />
         </div>
         <button
           type="button"
           data-testid="next"
           css={[
-            currentImage === imgArray.length - 1 ? disabledBTN : btn,
+            btn,
             rightS,
+            currentImage === imgArray.length - 1 ? disabledBTN : null,
           ]}
           onClick={() => {
             handleNext()
@@ -216,23 +227,23 @@ function Carousel({imgArray, imgAlt}) {
           }
         `}
       >
-        {imgArray.map((data, forKC) => (
-          <button
-            key={data}
-            type="button"
-            onClick={() => setCurrentImage(forKC)}
-            data-testid={`btn${forKC}`}
-            css={[
-              carouselNav,
-              currentImage === forKC
-                ? css`
-                    background: ${colors.whiteFaded};
-                    outline: none;
-                  `
-                : null,
-            ]}
-          />
-        ))}
+        {imgArray.map((image, i) => {
+          return (
+            <button
+              key={image}
+              type="button"
+              onClick={() => setCurrentImage(i)}
+              data-testid={`btn${i}`}
+              css={[
+                carouselNav,
+                {
+                  background:
+                    currentImage === i ? colors.blueFont : colors.darkBlue,
+                },
+              ]}
+            />
+          )
+        })}
       </div>
     </div>
   )

@@ -18,10 +18,10 @@ test('Carousel Render and btn functionality', async () => {
   )
   expect(screen.getByTestId(/previous/i)).toBeDisabled()
   expect(screen.getByTestId(/btn0/i)).toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.queryByTestId(/btn1/i)).not.toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.getByTestId(/btn0/i)).toBeTruthy()
   expect(screen.getByTestId(/btn2/i)).toBeTruthy()
@@ -29,26 +29,26 @@ test('Carousel Render and btn functionality', async () => {
 
   userEvent.click(screen.getByTestId(/next/i))
   expect(screen.queryByTestId(/btn0/i)).not.toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.getByTestId(/btn1/i)).toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.getByTestId(/previous/i)).toBeEnabled()
 
   userEvent.click(screen.getByTestId(/previous/i))
   expect(screen.getByTestId(/btn0/i)).toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.getByTestId(/previous/i)).toBeDisabled()
 
   userEvent.click(screen.getByTestId(/next/i))
   expect(screen.getByTestId(/btn1/i)).toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   userEvent.click(screen.getByTestId(/next/i))
   expect(screen.getByTestId(/btn2/i)).toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.getByTestId(/next/i)).toBeDisabled()
 
@@ -57,13 +57,13 @@ test('Carousel Render and btn functionality', async () => {
 
   userEvent.click(screen.getByTestId(/btn0/i))
   expect(screen.getByTestId(/btn0/i)).toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.getByTestId(/previous/i)).toBeDisabled()
 
   userEvent.click(screen.getByTestId(/btn2/i))
   expect(screen.getByTestId(/btn2/i)).toHaveStyle(
-    `background: ${colors.whiteFaded}`,
+    `background: ${colors.blueFont}`,
   )
   expect(screen.getByTestId(/next/i)).toBeDisabled()
 })

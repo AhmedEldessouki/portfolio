@@ -46,11 +46,9 @@ export const spinner = css`
 `
 
 export const btnStyle = css`
-  outline: none;
   place-self: center;
   background-color: ${colors.whiteFaded};
   color: ${colors.independenceBlue};
-  font-family: serif;
   font-weight: ${weights.black};
   font-size: 174%;
   width: 300px;
@@ -61,8 +59,12 @@ export const btnStyle = css`
   transition: background-color, color 0.4s steps;
   :hover,
   :focus {
-    color: ${colors.whiteFaded};
-    background-color: ${colors.darkBlue};
+    ${
+      '' /* color: ${colors.blueFont};
+    background-color: ${colors.darkBlue}; */
+    }
+    transform: scale(92%);
+    opacity: 0.09;
   }
   ${mq.phoneLarge} {
     transform: scale(0.9);
@@ -94,7 +96,6 @@ export const signWrapper = css`
 `
 
 export const signWrapperInput = css`
-  outline: none;
   padding: 8px;
   width: 100%;
   height: 30px;
@@ -139,7 +140,6 @@ export const labelWrapper = css`
 `
 
 export const textArea = css`
-  outline: none;
   width: inherit;
   height: calc(100% - 14px);
   padding: 8px;

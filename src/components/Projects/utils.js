@@ -6,9 +6,7 @@ import * as React from 'react'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 import Dropzone from 'react-dropzone'
-import {Image} from 'cloudinary-react'
 
-// import {cloudinaryPRESET, cloudinaryURL, cloudinaryApiKey} from '../../config'
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
@@ -293,9 +291,9 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
               <div key={file} css={div}>
                 <PopUp
                   title="Image"
-                  fn={() => handleClick('imagesDisplay', i)}
+                  onClick={() => handleClick('imagesDisplay', i)}
                 />
-                <Image alt="" crop="lpad" width={100} src={file} />
+                <img alt="" width={100} src={file} />
               </div>
             ))}
         </div>
@@ -307,8 +305,11 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
             {oldImages &&
               oldImages.map((file, i) => (
                 <div key={file} css={div}>
-                  <PopUp title="Image" fn={() => handleClick('oldImages', i)} />
-                  <Image alt="" crop="lpad" width={100} src={file} />
+                  <PopUp
+                    title="Image"
+                    onClick={() => handleClick('oldImages', i)}
+                  />
+                  <img alt="" width={100} src={file} />
                 </div>
               ))}
           </div>
