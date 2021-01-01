@@ -20,11 +20,11 @@ const MyFooter = () => {
     padding-top: 10px;
     place-content: space-between;
     flex-wrap: wrap;
-
+    background: ${colors.darkBlue};
     div {
-      line-height: 50px;
+      line-height: 38px;
     }
-    ${mq.s} {
+    ${mq.phoneLarge} {
       div {
         width: 100%;
         display: flex;
@@ -35,7 +35,7 @@ const MyFooter = () => {
   const whereToFindMe = css`
     padding-left: 20px;
     font-size: 219%;
-    color: ${colors.darkBlue};
+    color: ${colors.independenceBlue};
     & > * {
       padding-right: 5px;
       :hover {
@@ -51,11 +51,8 @@ const MyFooter = () => {
   `
   const copyWrite = css`
     padding-right: 20px;
-    color: ${colors.darkBlue};
-    font-size: 137%;
-    font-weight: ${weights.black};
-    ${mq.phoneLarge} {
-    }
+    color: ${colors.independenceBlue};
+    font-weight: ${weights.light};
   `
   return (
     <footer css={fWrapper}>

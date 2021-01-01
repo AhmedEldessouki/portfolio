@@ -198,7 +198,6 @@ export const globalStyles = css`
 
   p {
     margin-bottom: 27px;
-    font-family: sans-serif;
     font-size: 16px;
     letter-spacing: 0.2;
     line-height: 1.7;
