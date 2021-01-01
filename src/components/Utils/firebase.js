@@ -7,7 +7,7 @@ import {
   storageBucket,
   storage,
   messagingSenderId,
-} from '../../Config'
+} from '../../config'
 
 const firebaseApp = firebase.initializeApp({
   apiKey: apiKey,

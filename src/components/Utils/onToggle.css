@@ -1,22 +1,18 @@
-.fade-enter .btn {
+.fade-enter {
   opacity: 0;
 }
-.fade-enter-active .btn {
+.fade-enter-active {
   opacity: 1;
 }
-.fade-exit .btn {
+.fade-exit {
   opacity: 1;
 }
-.fade-exit-active .btn {
+.fade-exit-active {
   opacity: 0;
 }
-.fade-enter-active .btn,
-.fade-exit-active .btn {
+.fade-enter-active,
+.fade-exit-active {
   transition: opacity 500ms;
-}
-
-.remove-btn {
-  margin-right: 0.5rem;
 }
 
 .item-enter {
@@ -26,10 +22,10 @@
   opacity: 1;
   transition: opacity 500ms ease-in;
 }
-/* .item-exit {
+.item-exit {
   opacity: 1;
 }
 .item-exit-active {
   opacity: 0;
   transition: opacity 500ms ease-in;
-} */
+}
