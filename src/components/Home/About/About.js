@@ -66,10 +66,11 @@ const MyInfo = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 9px solid ${colors.kindaDarkBlue};
+    border: 9px solid;
     border-radius: 20%;
     padding: 20px 55px;
     margin: 0;
+    gap: 10px;
     background-color: ${colors.darkBlue};
     & li {
       font-size: 124%;
