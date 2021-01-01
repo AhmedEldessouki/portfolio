@@ -54,7 +54,7 @@ export const btnStyle = css`
   margin: 10px 50px;
   height: 50px;
   border-radius: 14%;
-  border: 0px;
+  border: none;
   transition: background-color, color 0.4s steps;
   :hover,
   :focus {
