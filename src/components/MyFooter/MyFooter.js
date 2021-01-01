@@ -55,7 +55,7 @@ const MyFooter = () => {
     font-weight: ${weights.light};
   `
   return (
-    <footer css={fWrapper}>
+    <div css={fWrapper}>
       <div css={whereToFindMe}>
         <a
           target="_blank"
@@ -122,7 +122,7 @@ const MyFooter = () => {
           <span>© 2019 Ahmed ElDessouki</span>
         </Link>
       </div>
-    </footer>
+    </div>
   )
 }
 export default MyFooter

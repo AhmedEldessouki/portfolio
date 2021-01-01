@@ -17,7 +17,6 @@ function ProjectDetails({project}) {
     if (description !== project.description) {
       setDescription(project.description)
     }
-    console.log(textField)
     if (textField.clientHeight < textField.scrollHeight) {
       setHeightT(textField.scrollHeight + 'px')
     } else if (textField.clientHeight > textField.scrollHeight) {
@@ -113,9 +112,6 @@ function ProjectDetails({project}) {
         </div>
         <textarea
           disabled
-          onWaiting={e => {
-            console.log(e)
-          }}
           id="textArea"
           wrap="hard"
           css={css`

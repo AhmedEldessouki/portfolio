@@ -2,7 +2,6 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React from 'react'
 
 import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
@@ -14,10 +13,6 @@ function SignUp() {
   const {useSignUp} = useAuth()
   const [authError, signUp] = useSignUp()
   const {status, dispatch} = useAsync()
-
-  React.useEffect(() => {
-    console.log('status', status)
-  }, [status])
 
   const handleSubmit = async e => {
     e.preventDefault()
