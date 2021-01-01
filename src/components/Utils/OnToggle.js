@@ -111,7 +111,8 @@ const OnToggle = React.forwardRef(function OnToggle(
       <div
         css={css`
           display: flex;
-          place-content: end;
+          place-content: flex-end;
+          margin-right: 5px;
         `}
       >
         <button
@@ -121,10 +122,10 @@ const OnToggle = React.forwardRef(function OnToggle(
             border: 5px solid ${colors.darkBlue};
             font-size: 1.2rem;
             font-weight: bolder;
+            border-radius: 13px;
             :hover {
               cursor: pointer;
-              background: ${colors.kindaDarkBlue};
-              color: ${colors.darkBlue};
+              opacity: 0.8;
             }
           `}
           ref={containerRef}

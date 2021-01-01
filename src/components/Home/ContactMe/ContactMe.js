@@ -46,7 +46,11 @@ function ContactMe() {
     dispatch({type: 'idle'})
   }
   return (
-    <React.Fragment>
+    <div
+      css={{
+        background: '#31354a',
+      }}
+    >
       <h1 css={h1XL}>Contact Me</h1>
       <form id="ContactMe" onSubmit={handleSubmit} css={wrapper}>
         <section>
@@ -133,7 +137,7 @@ function ContactMe() {
           </span>
         ) : null}
       </form>
-    </React.Fragment>
+    </div>
   )
 }
 

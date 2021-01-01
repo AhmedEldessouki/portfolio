@@ -49,7 +49,6 @@ export const btnStyle = css`
   place-self: center;
   background-color: ${colors.blueFont};
   color: ${colors.independenceBlue};
-  font-family: serif;
   font-weight: ${weights.black};
   font-size: 174%;
   width: 300px;

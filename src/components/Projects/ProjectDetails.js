@@ -142,9 +142,7 @@ function ProjectDetails({project}) {
           css={css`
             display: flex;
             place-content: space-between;
-            font-size: 1.1rem;
             letter-spacing: 1.2px;
-            font-variant: all-petite-caps;
           `}
         >
           {project.updatedOn ? (

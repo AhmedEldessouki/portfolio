@@ -14,14 +14,11 @@ const Title = ({name, onClick, children}) => {
   const title = css`
     background-color: ${colors.darkBlue};
     padding: 8% 5%;
-    letter-spacing: 1.4px;
     font-size: 1.82rem;
     font-weight: ${weights.medium};
     margin: 0;
-    color: ${colors.blueFont};
-
-    transition: ease-in-out 0.5s;
-
+    transition: ease-in 500ms;
+    font-family: sans;
     :hover {
       font-family: sans-serif;
       cursor: pointer;

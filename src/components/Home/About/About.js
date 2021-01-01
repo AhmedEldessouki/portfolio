@@ -12,9 +12,7 @@ const MyInfo = () => {
     display: grid;
     place-items: center;
     margin-bottom: 3%;
-    border-top: 22.5px solid ${colors.darkBlue};
-    border-bottom: 22.5px solid ${colors.darkBlue};
-    border-radius: 19%;
+    background: #31354a;
     gap: 36px;
     padding: 3% 7.5%;
     img {
@@ -40,7 +38,6 @@ const MyInfo = () => {
     ${mq.phoneLarge} {
       gap: 0;
       padding: 7% 1.5%;
-      border-radius: 6%;
       img {
         grid-row: 1;
         grid-column: 1;
@@ -62,11 +59,10 @@ const MyInfo = () => {
   const ulContainer = css`
     grid-row: 2;
     grid-column: 1 / span 4;
-
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 9px solid;
+    border: 9px solid ${colors.blueFont};
     border-radius: 20%;
     padding: 20px 55px;
     margin: 0;
@@ -76,10 +72,8 @@ const MyInfo = () => {
       font-size: 124%;
       margin: 0 15px;
       padding: 15px 25px;
-      background-color: ${colors.blueFont};
-      color: ${colors.independenceBlue};
       border: 4.5px solid ${colors.independenceBlue};
-      font-weight: ${weights.bold};
+      font-weight: ${weights.light};
       border-radius: 20%;
       &:last-child &:hover,
       &:last-child &:focus {
@@ -96,7 +90,6 @@ const MyInfo = () => {
         font-size: 108%;
         width: 10rem;
         text-align: center;
-        letter-spacing: 1.2px;
       }
     }
     ${mq.s} {
