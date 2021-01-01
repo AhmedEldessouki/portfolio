@@ -25,7 +25,8 @@ function Title({name, onClick, highlight, testId, csx}) {
       }
     `,
     {
-      background: highlight ? '#063878' : colors.darkBlue,
+      background: highlight ? colors.whiteFaded : colors.darkBlue,
+      color: highlight ? colors.darkBlue : colors.whiteFaded,
       fontFamily: highlight ? 'sans-serif' : 'sans',
     },
   ]
