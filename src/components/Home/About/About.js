@@ -62,7 +62,7 @@ const MyInfo = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 9px solid ${colors.blueFont};
+    border: 9px solid ${colors.whiteFaded};
     border-radius: 20%;
     padding: 20px 55px;
     margin: 0;
@@ -78,8 +78,11 @@ const MyInfo = () => {
       &:last-child &:hover,
       &:last-child &:focus {
         background-color: ${colors.independenceBlue};
-        color: ${colors.blueFont};
       }
+    }
+    :hover,
+    :focus {
+      border-color: ${colors.independenceBlue};
     }
     ${mq.phoneLarge} {
       flex-direction: column;

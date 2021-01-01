@@ -47,7 +47,7 @@ export const spinner = css`
 
 export const btnStyle = css`
   place-self: center;
-  background-color: ${colors.blueFont};
+  background-color: ${colors.whiteFaded};
   color: ${colors.independenceBlue};
   font-weight: ${weights.black};
   font-size: 174%;
@@ -59,8 +59,12 @@ export const btnStyle = css`
   transition: background-color, color 0.4s steps;
   :hover,
   :focus {
-    color: ${colors.blueFont};
-    background-color: ${colors.darkBlue};
+    ${
+      '' /* color: ${colors.blueFont};
+    background-color: ${colors.darkBlue}; */
+    }
+    transform: scale(92%);
+    opacity: 0.09;
   }
   ${mq.phoneLarge} {
     transform: scale(0.9);

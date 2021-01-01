@@ -119,9 +119,9 @@ const OnToggle = React.forwardRef(function OnToggle(
             background: ${colors.darkBlue};
             color: ${colors.aliceLightBlue};
             border: 5px solid ${colors.darkBlue};
-            font-size: 1.2rem;
             font-weight: bolder;
-            border-radius: 13px;
+            border-radius: 32%;
+            padding: 0px 10px;
             :hover {
               cursor: pointer;
               opacity: 0.8;
@@ -152,17 +152,19 @@ const OnToggle = React.forwardRef(function OnToggle(
           onClick={handlePrevious}
           type="button"
           data-testid="before-toggle"
-          css={css`
-            background: ${colors.darkBlue};
-            height: 50px;
-            width: 25px;
-            border-radius: 23px 0 0 24px;
-            border: 5px solid ${colors.darkBlue};
-            $:hover {
-              cursor: pointer;
-              background: ${colors.kindaDarkBlue};
-            }
-          `}
+          css={[
+            css`
+              border: 5px solid ${colors.darkBlue};
+              border-radius: 23px 0 0 24px;
+              height: 50px;
+              width: 25px;
+              :hover {
+                cursor: pointer;
+                background: ${colors.kindaDarkBlue};
+              }
+            `,
+            {background: show.min === 0 ? colors.burgundyRed : colors.darkBlue},
+          ]}
           disabled={show.min === 0}
         />
         <div
@@ -231,17 +233,24 @@ const OnToggle = React.forwardRef(function OnToggle(
           onClick={handleNext}
           data-testid="next-toggle"
           type="button"
-          css={css`
-            background: ${colors.darkBlue};
-            height: 50px;
-            width: 25px;
-            border-radius: 0 23px 24px 0;
-            border: 5px solid ${colors.darkBlue};
-            :hover {
-              cursor: pointer;
-              background: ${colors.kindaDarkBlue};
-            }
-          `}
+          css={[
+            css`
+              border-radius: 0 23px 24px 0;
+              border: 5px solid ${colors.darkBlue};
+              height: 50px;
+              width: 25px;
+              :hover {
+                cursor: pointer;
+                background: ${colors.kindaDarkBlue};
+              }
+            `,
+            {
+              background:
+                show.max >= items.length - 1
+                  ? colors.burgundyRed
+                  : colors.darkBlue,
+            },
+          ]}
           disabled={show.max >= items.length - 1}
         />
       </div>
