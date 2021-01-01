@@ -11,7 +11,8 @@ import {clientsClaim} from 'workbox-core'
 import {ExpirationPlugin} from 'workbox-expiration'
 import {precacheAndRoute, createHandlerBoundToURL} from 'workbox-precaching'
 import {registerRoute} from 'workbox-routing'
-import {CacheFirst, StaleWhileRevalidate} from 'workbox-strategies'
+import {StaleWhileRevalidate} from 'workbox-strategies'
+import {staticResourceCache} from 'workbox-recipes'
 
 clientsClaim()
 
@@ -51,19 +52,18 @@ registerRoute(
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({request}) => request.destination === 'image',
-  new CacheFirst({
-    cacheName: 'images',
-    plugins: [new ExpirationPlugin({maxEntries: 50})],
-  }),
+
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
       // least-recently used images are removed.
-      new ExpirationPlugin({maxEntries: 50}),
+      new ExpirationPlugin({maxAgeSeconds: 7 * 24 * 60 * 60, maxEntries: 50}),
     ],
   }),
 )
+
+staticResourceCache()
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
