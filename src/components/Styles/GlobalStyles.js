@@ -135,6 +135,7 @@ export const globalStyles = css`
     color: rgba(255, 255, 255, 0.74);
     background: ${colors.independenceBlue};
     scrollbar-width: thin;
+    height: 100vh;
   }
 
   footer,
