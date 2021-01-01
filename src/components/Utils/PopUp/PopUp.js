@@ -60,17 +60,20 @@ function PopUp({title, onClick}) {
   `
   const {status, dispatch} = useAsync()
 
+  // onClick outside PopUp Component close PopUp
+  const ref = React.useRef(null)
+
   React.useEffect(() => {
-    if (status === 'pending') {
-      document.getElementById('popup').addEventListener(
-        'mousedown',
-        e => {
-          console.log(e)
-        },
-        false,
-      )
+    const handleClickOutside = event => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        dispatch({type: 'idle'})
+      }
     }
-  }, [status])
+    document.addEventListener('click', handleClickOutside, true)
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true)
+    }
+  }, [dispatch])
 
   async function handleDelete() {
     await onClick()
@@ -96,11 +99,11 @@ function PopUp({title, onClick}) {
             height: '161px',
             top: '50%',
             left: '50%',
-            marginTop: '-84px' /* Negative half of height. */,
+            marginTop: '-84px',
             marginLeft: '-188px',
           }}
         >
-          <div css={popWrapper}>
+          <div css={popWrapper} ref={ref}>
             <header>
               <h1 css={{marginBottom: '10px'}}>Warning</h1>
             </header>
