@@ -13,19 +13,18 @@ function ProjectDetails({project}) {
   const [heightT, setHeightT] = React.useState(3)
 
   React.useEffect(() => {
-    if (description !== project.description) setDescription(project.description)
-  }, [description, project.description])
-
-  React.useLayoutEffect(() => {
     const textField = document.getElementById('textArea')
-
+    if (description !== project.description) {
+      setDescription(project.description)
+    }
+    console.log(textField)
     if (textField.clientHeight < textField.scrollHeight) {
       setHeightT(textField.scrollHeight + 'px')
-      if (textField.clientHeight < textField.scrollHeight) {
-        setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
-      }
+    } else if (textField.clientHeight > textField.scrollHeight) {
+      setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
     }
-  }, [project])
+  }, [description, project.description])
+
   const anc = css`
     color: ${colors.darkBlue};
     text-align: center;
@@ -35,7 +34,6 @@ function ProjectDetails({project}) {
       color: ${colors.blueFont};
     }
   `
-  // console.dir(document.getElementById('textArea').scrollHeight)
 
   return project ? (
     <React.Fragment>
@@ -59,6 +57,7 @@ function ProjectDetails({project}) {
           css={css`
             display: flex;
             place-items: baseline;
+            margin-top: 10px;
             gap: 10px;
             font-size: 2rem;
             flex-wrap: wrap;
@@ -139,6 +138,8 @@ function ProjectDetails({project}) {
           css={css`
             display: flex;
             place-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
           `}
         >
           {project.updatedOn ? (

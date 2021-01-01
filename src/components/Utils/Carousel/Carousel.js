@@ -157,14 +157,8 @@ function Carousel({imgArray, imgAlt}) {
           setTouchEnd(e.screenX)
           handleTouch(e.screenX, touchStart)
         }}
-        onMouseMove={e => {
-          e.preventDefault()
-        }}
         onTouchStart={e => {
           setTouchStart(e.changedTouches)
-        }}
-        onTouchMove={e => {
-          e.preventDefault()
         }}
         onTouchEnd={e => {
           setTouchEnd(e.changedTouches)
