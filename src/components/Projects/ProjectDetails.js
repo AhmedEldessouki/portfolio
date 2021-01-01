@@ -11,21 +11,22 @@ import {colors, mq, spinner} from '../Styles'
 function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
   // console.dir(description.length)
-  const setRows = React.useCallback(() => {
-    const textField = document.getElementById('textArea')
-    if (textField.clientHeight < textField.scrollHeight) {
-      textField.style.height = textField.scrollHeight + 'px'
-      if (textField.clientHeight < textField.scrollHeight) {
-        textField.style.height =
-          textField.scrollHeight * 2 - textField.clientHeight + 'px'
-      }
-    }
-    return document.getElementById('textArea').scrollHeight / 15
-  }, [])
+  const [heightT, setHeightT] = React.useState(3)
+
   React.useEffect(() => {
     if (description !== project.description) setDescription(project.description)
   }, [description, project.description])
 
+  React.useLayoutEffect(() => {
+    const textField = document.getElementById('textArea')
+
+    if (textField.clientHeight < textField.scrollHeight) {
+      setHeightT(textField.scrollHeight + 'px')
+      if (textField.clientHeight < textField.scrollHeight) {
+        setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
+      }
+    }
+  }, [project])
   const anc = css`
     color: ${colors.darkBlue};
     text-align: center;
@@ -119,7 +120,7 @@ function ProjectDetails({project}) {
           }}
           id="textArea"
           // rows={Math.round(description.length / 20)}
-          rows={setRows}
+          // rows={setRows}
           wrap="hard"
           css={css`
             resize: none;
@@ -130,6 +131,7 @@ function ProjectDetails({project}) {
             background: ${colors.independenceBlue};
             color: ${colors.blueFont};
             border: none;
+            height: ${heightT};
             margin-bottom: 23.2px;
             min-width: 80%;
             border-radius: 5%;

@@ -7,12 +7,11 @@ import axios from 'axios'
 import {toast} from 'react-toastify'
 import Dropzone from 'react-dropzone'
 
-// import {cloudinaryPRESET, cloudinaryURL, cloudinaryApiKey} from '../../config'
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
-} from '../../config/cloudInary'
+} from '../../Config/CloudInary'
 import {btnStyle, colors, h1XL, mq, spinner, textArea} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'

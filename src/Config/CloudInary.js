@@ -1,4 +1,4 @@
-import {cloudinaryApiKey} from '../config'
+import {cloudinaryApiKey} from '../Config'
 
 export const CLOUDINARY_UPLOAD_PRESET = 'obaxyyex'
 export const CLOUDINARY_API_KEY = cloudinaryApiKey
