@@ -11,21 +11,20 @@ import {colors, mq, spinner} from '../Styles'
 function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
   const [heightT, setHeightT] = React.useState(3)
+  const date = new Date(project.date)
 
   React.useEffect(() => {
-    if (description !== project.description) setDescription(project.description)
-  }, [description, project.description])
-
-  React.useLayoutEffect(() => {
     const textField = document.getElementById('textArea')
-
+    if (description !== project.description) {
+      setDescription(project.description)
+    }
     if (textField.clientHeight < textField.scrollHeight) {
       setHeightT(textField.scrollHeight + 'px')
-      if (textField.clientHeight < textField.scrollHeight) {
-        setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
-      }
+    } else if (textField.clientHeight > textField.scrollHeight) {
+      setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
     }
-  }, [project])
+  }, [description, project.description])
+
   const anc = css`
     color: ${colors.darkBlue};
     text-align: center;
@@ -35,7 +34,6 @@ function ProjectDetails({project}) {
       color: ${colors.blueFont};
     }
   `
-  // console.dir(document.getElementById('textArea').scrollHeight)
 
   return project ? (
     <React.Fragment>
@@ -59,6 +57,7 @@ function ProjectDetails({project}) {
           css={css`
             display: flex;
             place-items: baseline;
+            margin-top: 10px;
             gap: 10px;
             font-size: 2rem;
             flex-wrap: wrap;
@@ -114,10 +113,8 @@ function ProjectDetails({project}) {
         </div>
         <textarea
           disabled
-          onWaiting={e => {
-            console.log(e)
-          }}
           id="textArea"
+          aria-label="textArea"
           wrap="hard"
           css={css`
             resize: none;
@@ -135,23 +132,7 @@ function ProjectDetails({project}) {
           `}
           value={description}
         />
-        <div
-          css={css`
-            display: flex;
-            place-content: space-between;
-            letter-spacing: 1.2px;
-          `}
-        >
-          {project.updatedOn ? (
-            <span>
-              Last Update: {project.updatedOn.toDate().toDateString()}
-            </span>
-          ) : null}
-          <span>
-            {/* // ToDo: get date from github */}
-            Added On: {project.date?.toDate().toDateString()}
-          </span>
-        </div>
+        <span>Added On: {date.toDateString()}</span>
       </div>
     </React.Fragment>
   ) : (

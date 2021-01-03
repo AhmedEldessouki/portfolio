@@ -132,9 +132,10 @@ export const globalStyles = css`
     -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     text-rendering: optimizeLegibility;
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-    color: #ffffffbd;
+    color: rgba(255, 255, 255, 0.74);
     background: ${colors.independenceBlue};
     scrollbar-width: thin;
+    min-height: 100vh;
   }
 
   footer,
@@ -167,7 +168,7 @@ export const globalStyles = css`
   h1 {
     font-size: 2.25rem;
     font-weight: ${weights.black};
-    color: #ffffffbd;
+    color: rgba(255, 255, 255, 0.74);
 
     font-variant-caps: petite-caps;
     letter-spacing: 1.2px;
@@ -198,7 +199,6 @@ export const globalStyles = css`
 
   p {
     margin-bottom: 27px;
-    font-family: sans-serif;
     font-size: 16px;
     letter-spacing: 0.2;
     line-height: 1.7;

@@ -8,8 +8,7 @@ export const wrapper = css`
   flex-wrap: wrap;
   place-content: center;
   min-height: 267px;
-  margin: 1% auto;
-  padding: 50px 100px;
+  padding: 5px 100px 25px;
   ${mq.desktop} {
     flex-direction: column;
     flex-wrap: nowrap;
@@ -55,16 +54,12 @@ export const btnStyle = css`
   margin: 10px 50px;
   height: 50px;
   border-radius: 14%;
-  border: 0px;
+  border: none;
   transition: background-color, color 0.4s steps;
   :hover,
   :focus {
-    ${
-      '' /* color: ${colors.blueFont};
-    background-color: ${colors.darkBlue}; */
-    }
-    transform: scale(92%);
-    opacity: 0.09;
+    transform: scale(98%);
+    opacity: 0.9;
   }
   ${mq.phoneLarge} {
     transform: scale(0.9);
@@ -97,7 +92,7 @@ export const signWrapper = css`
 
 export const signWrapperInput = css`
   padding: 8px;
-  width: 100%;
+  width: 98%;
   height: 30px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
@@ -135,12 +130,12 @@ export const labelWrapper = css`
     font-size: 1.345rem;
   }
   ${mq.s} {
-    width: 332px;
+    width: 91%;
   }
 `
 
 export const textArea = css`
-  width: inherit;
+  width: 98%;
   height: calc(100% - 14px);
   padding: 8px;
   padding-bottom: 0;

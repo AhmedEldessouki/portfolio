@@ -120,7 +120,6 @@ function CreateProjectX() {
   function useHandleSubmit(e) {
     e.preventDefault()
 
-    // const formData = e.target.elements
     const {name, link, repoLink, description} = e.target.elements
     dispatch({
       type: 'submit_formData',
@@ -214,6 +213,8 @@ function CreateProjectX() {
                     border-color: ${descriptionErr};
                   `,
                 ]}
+                id="description"
+                aria-label="description"
                 placeholder="Project Description"
                 name="description"
                 value={project ? description : void 0}

@@ -30,7 +30,7 @@ const SignIn = () => {
   }
 
   return (
-    <Layout>
+    <Layout height="74.5vmin">
       <h1 css={h1XL}>Sign-in</h1>
       <div
         css={css`

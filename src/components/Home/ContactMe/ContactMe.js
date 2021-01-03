@@ -48,11 +48,15 @@ function ContactMe() {
   return (
     <div
       css={{
-        background: '#31354a',
+        background: colors.backgroundShade,
       }}
     >
       <h1 css={h1XL}>Contact Me</h1>
-      <form id="ContactMe" onSubmit={handleSubmit} css={wrapper}>
+      <form
+        id="ContactMe"
+        onSubmit={handleSubmit}
+        css={[wrapper, {marginBottom: 0}]}
+      >
         <section>
           <Input
             name="name"
@@ -94,6 +98,8 @@ function ContactMe() {
         <label css={labelWrapper} htmlFor="description">
           <textarea
             name="description"
+            id="description"
+            aria-label="description"
             onBlur={e =>
               e.target.validity.valid
                 ? setDescriptionErr(colors.lightGreen)

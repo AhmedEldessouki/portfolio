@@ -25,7 +25,8 @@ function Title({name, onClick, highlight, testId, csx}) {
       }
     `,
     {
-      background: highlight ? '#063878' : colors.darkBlue,
+      background: highlight ? colors.whiteFaded : colors.darkBlue,
+      color: highlight ? colors.darkBlue : colors.whiteFaded,
       fontFamily: highlight ? 'sans-serif' : 'sans',
     },
   ]
@@ -181,14 +182,8 @@ const OnToggle = React.forwardRef(function OnToggle(
             setTouchEnd(e.screenX)
             handleTouch(e.screenX, touchStart)
           }}
-          onMouseMove={e => {
-            e.preventDefault()
-          }}
           onTouchStart={e => {
             setTouchStart(e.changedTouches)
-          }}
-          onTouchMove={e => {
-            e.preventDefault()
           }}
           onTouchEnd={e => {
             setTouchEnd(e.changedTouches)

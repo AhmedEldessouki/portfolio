@@ -8,12 +8,13 @@ export const mq = breakpoints.reduce((acc, bp, i) => {
 
 export const colors = {
   blueFont: ` rgb(0, 153, 255)`,
-  whiteFaded: `#ffffffbd`,
+  whiteFaded: `rgba(255, 255, 255, 0.74)`,
   aliceLightBlue: `#E9F1F7`,
   lightBlue: `#a5e6ec`,
   kindaBlue: `#337ab7`,
   kindaDarkBlue: `#23527c`,
   independenceBlue: `#3A405A`,
+  backgroundShade: ` #31354a`,
   darkBlue: `#282c34`,
   red: `tomato`,
   burgundyRed: '#890620',

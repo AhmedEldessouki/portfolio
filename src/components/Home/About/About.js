@@ -11,7 +11,6 @@ const MyInfo = () => {
   const container = css`
     display: grid;
     place-items: center;
-    margin-bottom: 3%;
     background: #31354a;
     gap: 36px;
     padding: 3% 7.5%;
@@ -26,8 +25,8 @@ const MyInfo = () => {
       grid-column: 2 / span 3;
       grid-row: 1;
       letter-spacing: 0.1rem;
-      text-justify: distribute;
       text-align: justify;
+      text-justify: distribute;
     }
     ${mq.desktop} {
       p {
@@ -62,12 +61,13 @@ const MyInfo = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 9px solid ${colors.whiteFaded};
+    border: 9px solid ${colors.independenceBlue};
     border-radius: 20%;
     padding: 20px 55px;
     margin: 0;
     gap: 10px;
     background-color: ${colors.darkBlue};
+    opacity: 0.8;
     & li {
       font-size: 124%;
       margin: 0 15px;
@@ -82,7 +82,7 @@ const MyInfo = () => {
     }
     :hover,
     :focus {
-      border-color: ${colors.independenceBlue};
+      opacity: 1;
     }
     ${mq.phoneLarge} {
       flex-direction: column;
@@ -117,12 +117,14 @@ const MyInfo = () => {
     <div css={container}>
       <img src={AhmedEldessouki} alt="profilePicture" />
       <p>
-        Welcome! I`m Ahmed Eldessouki. I`m {calcMyAge()} years old from Cairo,
-        Egypt. I am an independent contractor. I graduated from University Of
-        Wales with Bachelor of Computer Science. I started as an entry level
-        Front-End Developer on a project called RoomMe. I`m a very passionate
-        about React.js and learning. A strength of mine, is my ability to be
-        observant of small details.
+        Welcome! I`m Ahmed Eldessouki. I`m {calcMyAge()} years old. A native of
+        Cairo, I moved to Istanbul in 2017 to continue my studies and gain
+        professional experience. Currently, I am pursuing opportunities to
+        relocate.
+        <br />
+        <br />A former professional swimmer, I am a skilled and disciplined
+        worker. My passions are learning, professional growth, and physical
+        activity.
       </p>
       <ul css={ulContainer}>
         <li>Ahmed ElDessouki</li>

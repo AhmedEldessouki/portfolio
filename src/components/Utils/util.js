@@ -6,12 +6,11 @@ import {jsx} from '@emotion/react'
 import {warning} from '../Styles'
 
 function ErrorMessage({error, resetErrorBoundary, ...props}) {
-  console.log(error)
   return (
     <div role="alert" css={warning} {...props}>
       <span>There was an error: </span>
 
-      {error?.message ?? error}
+      {error.message ?? error}
       <button
         onClick={() => {
           // resetComponentState()

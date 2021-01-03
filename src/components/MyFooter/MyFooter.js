@@ -16,56 +16,46 @@ import {colors, mq, weights} from '../Styles'
 
 const MyFooter = () => {
   const fWrapper = css`
-    display: grid;
-    border-top: 13px solid ${colors.darkBlue};
-    border-radius: 17%;
-    padding-top: 30px;
-  `
-  const whereToFindMe = css`
-    grid-row: 1;
-    grid-column: 1 / span 2;
-    place-self: start;
-    padding-left: 20px;
-    font-size: 219%;
-    color: ${colors.darkBlue};
-    & > * {
-      padding-right: 5px;
+    display: flex;
+    padding-top: 10px;
+    place-content: space-between;
+    flex-wrap: wrap;
+    background: ${colors.darkBlue};
+    div {
+      line-height: 38px;
     }
     ${mq.phoneLarge} {
-      grid-column: 1;
-      grid-row: 1;
-      place-self: center;
+      div {
+        width: 100%;
+        display: flex;
+        place-content: center;
+      }
+    }
+  `
+  const whereToFindMe = css`
+    padding-left: 20px;
+    font-size: 219%;
+    color: ${colors.independenceBlue};
+    & > * {
+      padding-right: 5px;
+      :hover {
+        color: ${colors.whiteFaded};
+      }
+    }
+    ${mq.phoneLarge} {
     }
   `
   const reactIcon = css`
-    grid-row: 1;
-    grid-column: 3;
-    place-self: center;
     font-size: 219%;
-    color: #61dafb;
-    ${mq.phoneLarge} {
-      grid-column: 1;
-      grid-row: 2;
-      place-self: center;
-    }
+    color: ${colors.blueFont};
   `
   const copyWrite = css`
-    grid-row: 1;
-    grid-column: 4 / span 2;
-    place-self: end;
     padding-right: 20px;
-    padding-bottom: 30px;
-    color: ${colors.darkBlue};
-    font-size: 137%;
-    font-weight: ${weights.black};
-    ${mq.phoneLarge} {
-      grid-column: 1;
-      grid-row: 3;
-      place-self: center;
-    }
+    color: ${colors.independenceBlue};
+    font-weight: ${weights.light};
   `
   return (
-    <footer css={fWrapper}>
+    <div css={fWrapper}>
       <div css={whereToFindMe}>
         <a
           target="_blank"
@@ -132,7 +122,7 @@ const MyFooter = () => {
           <span>© 2019 Ahmed ElDessouki</span>
         </Link>
       </div>
-    </footer>
+    </div>
   )
 }
 export default MyFooter

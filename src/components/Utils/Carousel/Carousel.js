@@ -73,11 +73,11 @@ function Carousel({imgArray, imgAlt}) {
     color: ${colors.kindaDarkBlue};
     font-weight: 900;
     opacity: 0.6;
-    font-size: 4rem;
+    font-size: 2rem;
     cursor: pointer;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    border-radius: 11.5px;
+    width: 78px;
+    height: 60px;
     :hover {
       background: ${colors.blueFont};
     }
@@ -157,14 +157,8 @@ function Carousel({imgArray, imgAlt}) {
           setTouchEnd(e.screenX)
           handleTouch(e.screenX, touchStart)
         }}
-        onMouseMove={e => {
-          e.preventDefault()
-        }}
         onTouchStart={e => {
           setTouchStart(e.changedTouches)
-        }}
-        onTouchMove={e => {
-          e.preventDefault()
         }}
         onTouchEnd={e => {
           setTouchEnd(e.changedTouches)

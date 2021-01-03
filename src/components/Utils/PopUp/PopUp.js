@@ -35,7 +35,8 @@ function PopUp({title, onClick}) {
     background-color: ${colors.blueFont};
     color: ${colors.independenceBlue};
     border-radius: 14%;
-    border: 0px;
+    border: none;
+
     font-size: 140%;
     :hover {
       opacity: 0.8;

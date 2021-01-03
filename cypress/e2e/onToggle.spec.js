@@ -16,7 +16,7 @@ describe('onToggle desktop', () => {
     let pos1
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         pos1 = Cypress.dom.getElementCoordinatesByPosition($el)
       })
@@ -24,7 +24,7 @@ describe('onToggle desktop', () => {
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
           Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
@@ -33,7 +33,7 @@ describe('onToggle desktop', () => {
     cy.get('[data-testid=next-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
           Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
@@ -58,17 +58,17 @@ describe('onToggle desktop', () => {
 
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('button')
-      .contains(/covid/i)
+      .contains(/portfolio v2/i)
       .click()
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('not.have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()
   })
@@ -89,7 +89,7 @@ describe('onToggle phoneLarge', () => {
     let pos1
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         pos1 = Cypress.dom.getElementCoordinatesByPosition($el)
       })
@@ -97,7 +97,7 @@ describe('onToggle phoneLarge', () => {
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
           Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
@@ -106,7 +106,7 @@ describe('onToggle phoneLarge', () => {
     cy.get('[data-testid=next-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
           Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
@@ -130,17 +130,17 @@ describe('onToggle phoneLarge', () => {
 
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('button')
-      .contains(/covid/i)
+      .contains(/portfolio v2/i)
       .click()
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('not.have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()
   })
@@ -161,7 +161,7 @@ describe('onToggle ipad', () => {
     let pos1
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         pos1 = Cypress.dom.getElementCoordinatesByPosition($el)
       })
@@ -169,7 +169,7 @@ describe('onToggle ipad', () => {
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
           Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
@@ -178,7 +178,7 @@ describe('onToggle ipad', () => {
     cy.get('[data-testid=next-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
           Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
@@ -202,17 +202,17 @@ describe('onToggle ipad', () => {
 
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('button')
-      .contains(/covid/i)
+      .contains(/portfolio v2/i)
       .click()
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('not.have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()
   })
@@ -232,7 +232,7 @@ describe('onToggle iphone', () => {
 
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
@@ -262,19 +262,19 @@ describe('onToggle iphone', () => {
 
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=next-toggle]').click()
 
     cy.get('button')
-      .contains(/covid/i)
+      .contains(/portfolio v2/i)
       .click()
-      .should('have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
       .contains(/portfolio v1/i)
-      .should('not.have.css', 'background-color', 'rgb(233, 241, 247)')
+      .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()
   })
