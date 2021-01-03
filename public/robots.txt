@@ -1,5 +1,5 @@
 # https://www.robotstxt.org/robotstxt.html
-User-agent: Googlebot
+User-agent: Google
 Disallow:
 
 User-agent: *
