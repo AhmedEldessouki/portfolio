@@ -8,8 +8,8 @@ const placeholderData = [
     phoneNumber: 'XXXXXXXXX',
     description: 'XXXXXXXXXXXXXXXXXXXX',
     name: 'XXXXXXX',
-    link: 'https://XXXX-XXX.XXX.XXX/',
-    url: 'https://XXXX-XXX.XXX.XXX/XXX.png',
+    link: '',
+    url: '',
     projectLogo: [],
     date: {
       seconds: 1599235638,
