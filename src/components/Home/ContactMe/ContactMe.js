@@ -98,6 +98,7 @@ function ContactMe() {
         <label css={labelWrapper} htmlFor="description">
           <textarea
             name="description"
+            id="description"
             onBlur={e =>
               e.target.validity.valid
                 ? setDescriptionErr(colors.lightGreen)
