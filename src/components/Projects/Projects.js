@@ -5,12 +5,11 @@ import {jsx} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {btnStyle, colors, h1XL, weights} from '../Styles'
+import {colors, h1XL, weights} from '../Styles'
 import ProjectDetails from './ProjectDetails'
 import Card from './Card'
 import OnToggle from '../Utils/OnToggle'
 import {ErrorMessage} from '../Utils/util'
-// TODO: add "import {matchSorter} from 'match-sorter'" to sort projects by name, data, or....
 
 function ProjectComponent({projectsData}) {
   const [project, setProject] = React.useState(null)
