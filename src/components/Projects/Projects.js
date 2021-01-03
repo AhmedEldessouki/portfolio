@@ -75,7 +75,7 @@ function ProjectComponent({projectsData}) {
   }
 
   return (
-    <>
+    <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
       {project ? (
         <OnToggle
@@ -87,7 +87,7 @@ function ProjectComponent({projectsData}) {
           <ProjectDetails project={project} />
         </OnToggle>
       ) : (
-        <>
+        <React.Fragment>
           <div
             css={{
               display: 'flex',
@@ -183,9 +183,9 @@ function ProjectComponent({projectsData}) {
             state={project}
             setState={setProject}
           />
-        </>
+        </React.Fragment>
       )}
-    </>
+    </React.Fragment>
   )
 }
 
