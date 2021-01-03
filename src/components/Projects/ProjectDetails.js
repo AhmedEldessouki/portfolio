@@ -11,6 +11,7 @@ import {colors, mq, spinner} from '../Styles'
 function ProjectDetails({project}) {
   const [description, setDescription] = React.useState(project.description)
   const [heightT, setHeightT] = React.useState(3)
+  const date = new Date(project.date)
 
   React.useEffect(() => {
     const textField = document.getElementById('textArea')
@@ -130,24 +131,7 @@ function ProjectDetails({project}) {
           `}
           value={description}
         />
-        <div
-          css={css`
-            display: flex;
-            place-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-          `}
-        >
-          {project.updatedOn ? (
-            <span>
-              Last Update: {project.updatedOn.toDate().toDateString()}
-            </span>
-          ) : null}
-          <span>
-            {/* // ToDo: get date from github */}
-            Added On: {project.date?.toDate().toDateString()}
-          </span>
-        </div>
+        <span>Added On: {date.toDateString()}</span>
       </div>
     </React.Fragment>
   ) : (

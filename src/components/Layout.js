@@ -13,7 +13,6 @@ const MyFooter = React.lazy(() => import('./MyFooter/MyFooter'))
 
 function LayoutX({children, height = '82vh'}) {
   const {authData} = useAuth()
-  console.log(children)
   return (
     <>
       {authData ? <AuthNavlinks /> : <UnAuthNavlinks />}

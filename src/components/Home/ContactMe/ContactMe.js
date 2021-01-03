@@ -48,7 +48,7 @@ function ContactMe() {
   return (
     <div
       css={{
-        background: '#31354a',
+        background: colors.backgroundShade,
       }}
     >
       <h1 css={h1XL}>Contact Me</h1>
