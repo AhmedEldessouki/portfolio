@@ -114,6 +114,7 @@ function ProjectDetails({project}) {
         <textarea
           disabled
           id="textArea"
+          aria-label="textArea"
           wrap="hard"
           css={css`
             resize: none;

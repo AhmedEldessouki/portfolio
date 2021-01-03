@@ -99,6 +99,7 @@ function ContactMe() {
           <textarea
             name="description"
             id="description"
+            aria-label="description"
             onBlur={e =>
               e.target.validity.valid
                 ? setDescriptionErr(colors.lightGreen)
