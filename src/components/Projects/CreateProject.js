@@ -7,9 +7,9 @@ import {toast} from 'react-toastify'
 import {ErrorBoundary} from 'react-error-boundary'
 
 import {useAuth} from '../../context/AuthProvider'
+import {ErrorMessageFallback} from '../Utils/util'
 import Layout from '../Layout'
 import {colors, h1XL, labelWrapper, mq, signWrapper, textArea} from '../Styles'
-import {ErrorMessageFallback} from '../Utils/util'
 import {
   uploadImage,
   ImageDropZone,
@@ -203,7 +203,7 @@ function CreateProjectX() {
                     })
                   }
                 }}
-                projectTag={tag}
+                projectTags={project ? tag : undefined}
               />
               <label htmlFor="description" css={labelWrapper}>
                 <textarea

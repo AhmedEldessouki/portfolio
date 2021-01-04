@@ -1,10 +1,15 @@
+import React from 'react'
 import {
   render as rtlRender,
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-// import {QueryClient, QueryClientProvider} from 'react-query'
+import {ErrorBoundary} from 'react-error-boundary'
+import {BrowserRouter} from 'react-router-dom'
+
+import {ErrorMessageFallback} from '../components/Utils/util'
+import {QueryClient, QueryClientProvider} from 'react-query'
 
 // import {buildUser} from 'test/generate'
 // import * as usersDB from 'test/data/users'
@@ -29,6 +34,28 @@ async function render(ui, {route = '/', user, ...renderOptions} = {}) {
   return returnValue
 }
 
+const queryClient = new QueryClient()
+
+function AllProviders(children) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AuthProvider>
+          <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
+            {children}
+          </ErrorBoundary>
+        </AuthProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  )
+}
+
+const renderWithAllProviders = (ui, {route = '/', ...renderOptions} = {}) => {
+  window.history.pushState({}, 'Test page', route)
+
+  return render(ui, {wrapper: AllProviders, ...renderOptions})
+}
+
 // async function loginAsUser(userProperties) {
 //   const user = buildUser(userProperties)
 //   await usersDB.create(user)
@@ -48,4 +75,4 @@ const waitForLoadingToFinish = () =>
 
 export * from '@testing-library/react'
 // export {render, userEvent, loginAsUser, waitForLoadingToFinish}
-export {render, userEvent, waitForLoadingToFinish}
+export {render, userEvent, waitForLoadingToFinish, renderWithAllProviders}

@@ -44,6 +44,13 @@ test('Projects OnToggle mount and unmount', () => {
 
   expect(screen.getAllByText(projects[0].name)).toHaveLength(2)
 
+  expect(screen.getByTestId('before-toggle')).toBeDisabled()
+
+  userEvent.click(screen.getByTestId('next-toggle'))
+  expect(screen.getByTestId('before-toggle')).toBeEnabled()
+
+  userEvent.click(screen.getByTestId('before-toggle'))
+
   userEvent.click(screen.getByTestId('close-toggler'))
 
   expect(tags[0]).not.toBeInTheDocument()

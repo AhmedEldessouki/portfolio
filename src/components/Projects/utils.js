@@ -319,7 +319,7 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
   )
 }
 
-function TagsCheckBox({handleClick, projectTag = [], ...props}) {
+function TagsCheckBox({handleClick, projectTags, ...props}) {
   const TagsData = useClientFetch({collection: 'tags'})
 
   return (
@@ -334,7 +334,7 @@ function TagsCheckBox({handleClick, projectTag = [], ...props}) {
         place-items: center;
       `}
     >
-      {TagsData?.map(tag => {
+      {TagsData?.map((tag, i) => {
         return (
           <label
             key={tag.id}
@@ -346,17 +346,22 @@ function TagsCheckBox({handleClick, projectTag = [], ...props}) {
               & input {
               }
             `}
+            htmlFor={tag.name}
           >
             <input
               name="tags"
+              aria-label={`tag-${i}`}
               id={tag.url}
+              data-testid={`tag[${i}]`}
               color={colors.independenceBlue}
               type="checkbox"
               alt={tag.name}
               onChange={e => {
                 handleClick(e)
               }}
-              checked={projectTag.find(item => item.trim() === tag.url.trim())}
+              checked={projectTags?.find(
+                item => item.trim() === tag.url.trim(),
+              )}
               {...props}
             />
             <img

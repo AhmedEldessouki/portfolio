@@ -21,10 +21,11 @@ function buildProject(overrides) {
     id: faker.random.uuid(),
     description: faker.lorem.paragraph(),
     link: faker.internet.url(),
+    repoLink: faker.internet.url(),
     projectLogo: [faker.image.imageUrl(), faker.image.imageUrl()],
     tag: [faker.image.imageUrl(), faker.image.imageUrl()],
     name: faker.company.companyName(),
-    // date: faker.date.past(),
+    date: faker.date.past(),
     ...overrides,
   }
 }
@@ -34,7 +35,7 @@ function buildMessage(overrides = {}) {
     id: faker.random.uuid(),
     email: faker.internet.email(),
     name: faker.company.companyName(),
-    phoneNumber: faker.phone.phoneNumberFormat(),
+    phoneNumber: faker.phone.phoneNumberFormat().replace(/[^0-9]/gi, ''),
     // date: faker.date.past(),
     description: faker.lorem.paragraph(),
     ...overrides,
