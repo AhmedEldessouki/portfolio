@@ -58,7 +58,7 @@ test('Projects OnToggle mount and unmount', () => {
   expect(screen.queryByText(projects[0].description)).not.toBeInTheDocument()
 })
 
-test('Projects Sorting buttons', () => {
+test('Projects Sorting buttons check', () => {
   render(<Projects projectsData={projects} />)
 
   userEvent.click(screen.getByTestId(/sort_by_name/i))
@@ -69,4 +69,37 @@ test('Projects Sorting buttons', () => {
 
   userEvent.click(screen.getByTestId(/sort_by_date_reverse/i))
   expect(screen.getByTestId(/sort_by_date_reverse/i)).toBeDisabled()
+})
+
+test('Projects Sorting Integration', () => {
+  render(<Projects projectsData={projects} />)
+
+  userEvent.click(screen.getByTestId(/sort_by_name/i))
+  expect(screen.getByTestId(/sort_by_name/i)).toBeDisabled()
+
+  const sortedByName = projects.sort((a, b) => a.name.localeCompare(b.name))
+  expect(projects).toEqual(sortedByName)
+  sortedByName.map((project, i) =>
+    expect(screen.getByTestId(`project[${i}]`)).toHaveTextContent(project.name),
+  )
+
+  userEvent.click(screen.getByTestId('sort_by_date'))
+  expect(screen.getByTestId('sort_by_date')).toBeDisabled()
+
+  const sortedByDate = projects.sort(function (a, b) {
+    let x = new Date(a.date),
+      y = new Date(b.date)
+    return x - y
+  })
+  sortedByDate.map((project, i) =>
+    expect(screen.getByTestId(`project[${i}]`)).toHaveTextContent(project.name),
+  )
+
+  userEvent.click(screen.getByTestId(/sort_by_date_reverse/i))
+  expect(screen.getByTestId(/sort_by_date_reverse/i)).toBeDisabled()
+
+  const sortedByDateReversed = sortedByDate.reverse()
+  sortedByDateReversed.map((project, i) =>
+    expect(screen.getByTestId(`project[${i}]`)).toHaveTextContent(project.name),
+  )
 })

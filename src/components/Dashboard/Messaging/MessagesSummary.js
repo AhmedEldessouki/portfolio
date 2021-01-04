@@ -6,7 +6,7 @@ import {ErrorBoundary} from 'react-error-boundary'
 
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
-import {ErrorMessage} from '../../Utils/util'
+import {ErrorMessageFallback} from '../../Utils/util'
 import {deleteMessage} from './utils'
 
 function MessagesSummaryComponent({message, fn}) {
@@ -57,7 +57,10 @@ function MessagesSummaryComponent({message, fn}) {
 
 function MessagesSummary({message, fn}) {
   return (
-    <ErrorBoundary fallback={<ErrorMessage />} resetKeys={[message]}>
+    <ErrorBoundary
+      fallbackComponent={ErrorMessageFallback}
+      resetKeys={[message]}
+    >
       <MessagesSummaryComponent message={message} fn={fn} />
     </ErrorBoundary>
   )

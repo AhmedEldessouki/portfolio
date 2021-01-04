@@ -9,7 +9,7 @@ import {colors, h1XL, weights} from '../Styles'
 import ProjectDetails from './ProjectDetails'
 import Card from './Card'
 import OnToggle from '../Utils/OnToggle'
-import {ErrorMessage} from '../Utils/util'
+import {ErrorMessageFallback} from '../Utils/util'
 
 function ProjectComponent({projectsData}) {
   const [project, setProject] = React.useState(null)
@@ -194,7 +194,10 @@ function ProjectComponent({projectsData}) {
 
 function Projects({projectsData}) {
   return (
-    <ErrorBoundary resetKeys={[projectsData]} fallback={<ErrorMessage />}>
+    <ErrorBoundary
+      fallbackComponent={ErrorMessageFallback}
+      resetKeys={[projectsData]}
+    >
       <ProjectComponent projectsData={projectsData} />
     </ErrorBoundary>
   )

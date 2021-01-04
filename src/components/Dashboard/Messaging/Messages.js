@@ -7,7 +7,7 @@ import {ErrorBoundary} from 'react-error-boundary'
 
 import {h1XL} from '../../Styles'
 import OnToggle from '../../Utils/OnToggle'
-import {ErrorMessage} from '../../Utils/util'
+import {ErrorMessageFallback} from '../../Utils/util'
 
 import MessageDetails from './MessageDetails'
 import MessagesSummary from './MessagesSummary'
@@ -61,7 +61,10 @@ function MessagesComponent({messagesData}) {
 
 function Messages({messagesData}) {
   return (
-    <ErrorBoundary resetKeys={[messagesData]} fallback={<ErrorMessage />}>
+    <ErrorBoundary
+      resetKeys={[messagesData]}
+      fallbackComponent={ErrorMessageFallback}
+    >
       <MessagesComponent messagesData={messagesData} />
     </ErrorBoundary>
   )

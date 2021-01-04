@@ -3,14 +3,14 @@
 
 import React from 'react'
 import {jsx} from '@emotion/react'
-import {warning} from '../Styles'
+import {colors, warning} from '../Styles'
 
-function ErrorMessage({error, resetErrorBoundary, ...props}) {
+function ErrorMessageFallback({error, resetErrorBoundary}) {
+  console.log(error)
   return (
-    <div role="alert" css={warning} {...props}>
-      <span>There was an error: </span>
-
-      {error.message ?? error}
+    <div role="alert" css={[warning, {background: colors.independenceBlue}]}>
+      <p>There was an error: </p>
+      <pre>{error.message}</pre>
       <button
         onClick={() => {
           // resetComponentState()
@@ -105,4 +105,4 @@ function useAsync(initialState) {
   }
 }
 
-export {ErrorMessage, useSafeDispatch, useLocalStorageState, useAsync}
+export {ErrorMessageFallback, useSafeDispatch, useLocalStorageState, useAsync}

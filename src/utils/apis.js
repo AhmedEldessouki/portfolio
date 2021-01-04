@@ -19,7 +19,7 @@ const placeholderData = [
 ]
 
 function useClientFetch({collection, onSuccess, ...options} = {}) {
-  const {data: fetchedData} = useQuery({
+  const {data: fetchedData, error} = useQuery({
     queryKey: collection,
     queryFn: async () =>
       await db
@@ -30,6 +30,9 @@ function useClientFetch({collection, onSuccess, ...options} = {}) {
             return {...doc.data(), id: doc.id}
           })
           return data
+        })
+        .catch(err => {
+          throw Error(err)
         }),
     config: {
       staleTime: 1000 * 60 * 60,
@@ -37,6 +40,8 @@ function useClientFetch({collection, onSuccess, ...options} = {}) {
       ...options,
     },
   })
+
+  if (error) throw Error(error)
 
   return fetchedData ?? placeholderData
 }

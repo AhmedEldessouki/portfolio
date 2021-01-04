@@ -5,7 +5,6 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 
 import {colors, mq, weights} from '../Styles'
-import './onToggle.css'
 
 function Title({name, onClick, highlight, testId, csx}) {
   const title = [

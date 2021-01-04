@@ -10,7 +10,7 @@ import {colors, weights} from '../Styles'
 import PopUp from '../Utils/PopUp/PopUp'
 import {deleteProject} from './utils'
 
-const Title = ({name, onClick, children}) => {
+const Title = ({name, onClick, children, testId}) => {
   const title = css`
     background-color: ${colors.darkBlue};
     padding: 8% 5%;
@@ -29,6 +29,7 @@ const Title = ({name, onClick, children}) => {
   return (
     <button
       type="button"
+      data-testid={testId}
       onClick={() => {
         onClick()
       }}
@@ -111,7 +112,7 @@ function Card({items = [], setState}) {
   `
   return (
     <div css={mWrapper}>
-      {items.map(item => {
+      {items.map((item, i) => {
         return (
           <div css={pWrapper} key={item.id}>
             {authData ? (
@@ -122,6 +123,7 @@ function Card({items = [], setState}) {
               onClick={() => {
                 setState(item)
               }}
+              testId={`project[${i}]`}
             />
             <div
               css={css`

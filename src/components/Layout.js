@@ -18,7 +18,7 @@ function LayoutX({children, height = '82vh'}) {
       {authData ? <AuthNavlinks /> : <UnAuthNavlinks />}
       <Global styles={globalStyles} />
       <div style={{minHeight: height}}>{children}</div>
-      <React.Suspense fallback={<h1>'loading...'</h1>}>
+      <React.Suspense fallback={<h1>Loading Footer...</h1>}>
         <MyFooter />
       </React.Suspense>
       <ToastContainer autoClose={2000} />
