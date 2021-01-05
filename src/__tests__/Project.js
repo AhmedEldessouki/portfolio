@@ -7,7 +7,7 @@ import Projects from '../components/Projects/Projects'
 import {colors} from '../components/Styles'
 
 test('Project Render', () => {
-  render(<Projects projectsData={projects} />)
+  render(<Projects projectsData={projects} />, {user: null})
   expect(screen.getByText(/projects/i)).toBeInTheDocument()
   expect(screen.getByText(/Portfolio/i)).toBeInTheDocument()
 
@@ -25,7 +25,7 @@ test('Project Render', () => {
 })
 
 test('Project Details Render', () => {
-  render(<Projects projectsData={projects} />)
+  render(<Projects projectsData={projects} />, {user: null})
 
   userEvent.click(screen.getByText(projects[0].name))
 
@@ -36,7 +36,7 @@ test('Project Details Render', () => {
 })
 
 test('Projects OnToggle mount and unmount', () => {
-  render(<Projects projectsData={projects} />)
+  render(<Projects projectsData={projects} />, {user: null})
 
   const tags = screen.queryAllByRole('img')
 
@@ -66,7 +66,7 @@ test('Projects OnToggle mount and unmount', () => {
 })
 
 test('Projects Sorting buttons check', () => {
-  render(<Projects projectsData={projects} />)
+  render(<Projects projectsData={projects} />, {user: null})
 
   userEvent.click(screen.getByTestId(/sort_by_name/i))
   expect(screen.getByTestId(/sort_by_name/i)).toBeDisabled()
@@ -79,7 +79,7 @@ test('Projects Sorting buttons check', () => {
 })
 
 test('Projects Sorting Integration', () => {
-  render(<Projects projectsData={projects} />)
+  render(<Projects projectsData={projects} />, {user: null})
 
   userEvent.click(screen.getByTestId(/sort_by_name/i))
   expect(screen.getByTestId(/sort_by_name/i)).toBeDisabled()

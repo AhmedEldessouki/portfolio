@@ -8,6 +8,7 @@ const ContactMe = React.lazy(() => import('./ContactMe/ContactMe'))
 
 function Home() {
   const projectsData = useClientFetch({collection: 'projects'})
+
   return (
     <Layout>
       <About />

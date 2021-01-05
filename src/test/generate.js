@@ -3,6 +3,7 @@ import faker from 'faker'
 function buildUser(overrides) {
   return {
     uid: faker.random.uuid(),
+    token: faker.random.uuid(),
     username: faker.internet.userName(),
     password: faker.internet.password(),
     ...overrides,
@@ -10,6 +11,8 @@ function buildUser(overrides) {
 }
 function buildUserLogin(overrides) {
   return {
+    uid: faker.random.uuid(),
+    token: faker.random.uuid(),
     username: faker.internet.userName(),
     password: faker.internet.password(),
     ...overrides,

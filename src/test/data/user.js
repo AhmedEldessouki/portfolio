@@ -1,4 +1,5 @@
 const usersKey = '__portfolio_user__'
+
 let users = {}
 const persist = () =>
   window.localStorage.setItem(usersKey, JSON.stringify(users))
@@ -110,4 +111,4 @@ async function reset() {
   persist()
 }
 
-export {authenticate, create, read, update, remove, reset}
+export {authenticate, create, read, update, remove, reset, usersKey}

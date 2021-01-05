@@ -5,19 +5,17 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {ErrorBoundary} from 'react-error-boundary'
 import {BrowserRouter} from 'react-router-dom'
 
-import {ErrorMessageFallback} from '../components/Utils/util'
 import {QueryClient, QueryClientProvider} from 'react-query'
+import {buildUser} from 'test/generate'
+import * as usersDB from 'test/data/user'
 
-// import {buildUser} from 'test/generate'
-// import * as usersDB from 'test/data/users'
 import {AuthProvider} from '../context/AuthProvider'
 
 async function render(ui, {route = '/', user, ...renderOptions} = {}) {
   // if you want to render the app unauthenticated then pass "null" as the user
-  //   user = typeof user === 'undefined' ? await loginAsUser() : user
+  user = typeof user === 'undefined' ? await loginAsUser() : user
   window.history.pushState({}, 'Test page', route)
 
   const returnValue = {
@@ -34,17 +32,21 @@ async function render(ui, {route = '/', user, ...renderOptions} = {}) {
   return returnValue
 }
 
+async function loginAsUser(userProperties) {
+  const user = buildUser(userProperties)
+  await usersDB.create(user)
+  const authUser = await usersDB.authenticate(user)
+  window.localStorage.setItem(usersDB.usersKey, JSON.stringify(authUser.token))
+  return authUser
+}
+
 const queryClient = new QueryClient()
 
-function AllProviders(children) {
+function AllProviders({children}) {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <AuthProvider>
-          <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
-            {children}
-          </ErrorBoundary>
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>
   )
@@ -56,14 +58,6 @@ const renderWithAllProviders = (ui, {route = '/', ...renderOptions} = {}) => {
   return render(ui, {wrapper: AllProviders, ...renderOptions})
 }
 
-// async function loginAsUser(userProperties) {
-//   const user = buildUser(userProperties)
-//   await usersDB.create(user)
-//   const authUser = await usersDB.authenticate(user)
-//   window.localStorage.setItem(auth.localStorageKey, authUser.token)
-//   return authUser
-// }
-
 const waitForLoadingToFinish = () =>
   waitForElementToBeRemoved(
     () => [
@@ -74,5 +68,10 @@ const waitForLoadingToFinish = () =>
   )
 
 export * from '@testing-library/react'
-// export {render, userEvent, loginAsUser, waitForLoadingToFinish}
-export {render, userEvent, waitForLoadingToFinish, renderWithAllProviders}
+export {
+  render,
+  userEvent,
+  waitForLoadingToFinish,
+  renderWithAllProviders,
+  loginAsUser,
+}

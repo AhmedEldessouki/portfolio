@@ -61,7 +61,7 @@ const SignIn = () => {
             />
           </div>
           {authError ? (
-            <div type="alert" css={warning}>
+            <div role="alert" css={warning}>
               {authError}
             </div>
           ) : null}

@@ -15,6 +15,7 @@ test('Carousel Render and btn functionality', async () => {
       ]}
       imgAlt="project name"
     />,
+    {user: null},
   )
   expect(screen.getByTestId(/previous/i)).toBeDisabled()
   expect(screen.getByTestId(/btn0/i)).toHaveStyle(

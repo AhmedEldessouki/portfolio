@@ -1,6 +1,6 @@
 // add this to your setupFilesAfterEnv config in jest so it's imported for every test file
 
-import {server} from './server.js'
+import {server} from './test-server.js'
 
 beforeAll(() => server.listen())
 // if you need to add a handler after calling setupServer for some specific test

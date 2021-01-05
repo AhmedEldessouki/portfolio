@@ -23,7 +23,6 @@ function ContactMe() {
   const [errPhoneNumber, setErrPhoneNumber] = React.useState(false)
   const [descriptionErr, setDescriptionErr] = React.useState('')
   const [contError, setContError] = React.useState('')
-
   const {status, dispatch} = useAsync()
 
   async function handleSubmit(e) {
@@ -38,6 +37,7 @@ function ContactMe() {
       description: description.value,
     }
     e.currentTarget.reset()
+
     const {error} = await contactedMe(formData)
 
     if (error) {
@@ -97,7 +97,9 @@ function ContactMe() {
               cleanColor={status === 'pending' ? true : false}
             />
             {errPhoneNumber ? (
-              <span css={warning}>Invalid Phone Number</span>
+              <span css={warning} role="alert">
+                Invalid Phone Number
+              </span>
             ) : null}
           </section>
           <label css={labelWrapper} htmlFor="description">
@@ -143,7 +145,7 @@ function ContactMe() {
             </button>
           )}
           {contError ? (
-            <span css={warning} type="alert">
+            <span css={warning} role="alert">
               {contError}
             </span>
           ) : null}

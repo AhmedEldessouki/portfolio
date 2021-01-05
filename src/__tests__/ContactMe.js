@@ -7,7 +7,7 @@ import {buildMessage} from '../test/generate'
 
 const message = buildMessage()
 test('Contact Form Test', () => {
-  render(<ContactMe />)
+  render(<ContactMe />, {user: null})
   userEvent.type(screen.getByPlaceholderText(/name/i), message.name)
 
   userEvent.type(screen.getByPlaceholderText(/email address/i), message.email)
