@@ -91,7 +91,6 @@ const MyInfo = () => {
 
       li {
         font-size: 108%;
-        width: 10rem;
         text-align: center;
       }
     }

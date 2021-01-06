@@ -15,7 +15,7 @@ const UnAuthNavlinks = () => {
   `
   const h1a = css`
     padding: 23px 40px 24px;
-    color: ${colors.blueFont};
+    text-decoration: none;
     font-size: 2.6rem;
     background: ${colors.independenceBlue};
     margin: 16px 0;
@@ -32,7 +32,7 @@ const UnAuthNavlinks = () => {
 
   return (
     <div css={container}>
-      <NavLink to="/">
+      <NavLink to="/" style={{textDecoration: 'none'}}>
         <h1 css={h1a}>Ahmed Eldessouki</h1>
       </NavLink>
     </div>

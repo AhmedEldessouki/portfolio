@@ -6,7 +6,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {useAuth} from '../../context/AuthProvider'
 
-import {colors, weights, mq} from '../Styles'
+import {colors, mq} from '../Styles'
 
 const AuthNavlinksX = () => {
   const {signOut} = useAuth()
@@ -16,21 +16,25 @@ const AuthNavlinksX = () => {
     place-content: space-evenly;
     background: black;
     background-color: ${colors.darkBlue};
-    padding: 8px 6px 0;
+    padding: 18px 6px;
     & > a {
+      text-decoration: none;
+      border: none;
+      border-radius: 11%;
       letter-spacing: 0.145rem;
       padding: 0 2%;
       align-self: center;
       flex-grow: 1;
       &:hover,
       &:focus {
+        padding: 5px 10px;
         background-color: ${colors.independenceBlue};
+        color: inherit;
       }
       h1 {
         width: 100%;
         font-size: 2rem;
         padding: 5px 0;
-        color: ${colors.blueFont};
         letter-spacing: 1.6px;
         font-variant-caps: petite-caps;
         margin: 0;
@@ -40,9 +44,9 @@ const AuthNavlinksX = () => {
         }
       }
       h2 {
-        font-weight: ${weights.black};
         padding: 3px 0;
-        tex-align: center;
+        text-align: center;
+        font-size: 1.3rem;
         ${mq.s} {
           letter-spacing: 2.5px;
           font-size: 1rem;

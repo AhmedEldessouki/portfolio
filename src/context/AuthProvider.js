@@ -96,12 +96,38 @@ function AuthProvider({children}) {
 }
 
 function useAuth() {
-  const context = React.useContext(AuthContext)
+  const {
+    useSignIn,
+    signOut,
+    useSignUp,
+    authData,
+    setAuthData,
+    project,
+    setProject,
+  } = React.useContext(AuthContext)
 
-  if (!context)
+  if (
+    !{
+      useSignIn,
+      signOut,
+      useSignUp,
+      authData,
+      setAuthData,
+      project,
+      setProject,
+    }
+  )
     throw new Error('"useAuth" should be used inside "AuthProvider"')
 
-  return context
+  return {
+    useSignIn,
+    signOut,
+    useSignUp,
+    authData,
+    setAuthData,
+    project,
+    setProject,
+  }
 }
 
 export {AuthProvider, useAuth}

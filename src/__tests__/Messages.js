@@ -12,7 +12,7 @@ beforeAll(() => {
 })
 
 test('message Render', async () => {
-  render(<Messages messagesData={messages} />)
+  render(<Messages messagesData={messages} />, {user: null})
   expect(screen.getByText(messages[0].name)).toBeInTheDocument()
 
   expect(screen.queryByTestId(/delete-button/i)).toBeInTheDocument()

@@ -8,14 +8,16 @@ async function create(project) {
 }
 
 async function update(project) {
-  const i = projects.findIndex(proj => proj.id === project.id)
+  const i = projects.findIndex(proj => proj.uid === project.id)
   projects.splice(i, 1, project)
   return project
 }
 
-async function remove(project) {
-  const i = projects.findIndex(proj => proj.name === project.name)
+async function remove(projectId) {
+  const i = projects.findIndex(project => project.uid === projectId)
   delete projects[i]
 }
-
-export {create, update, remove, projects}
+async function read(projectId) {
+  return projects.find(project => project.uid === projectId)
+}
+export {create, update, remove, projects, read}

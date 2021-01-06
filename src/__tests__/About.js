@@ -1,10 +1,10 @@
 import * as React from 'react'
-import {render} from '../utils/utils'
 import {screen} from '@testing-library/react'
 import About from '../components/Home/About/About'
+import {render} from '../test/app-test-utils'
 
 test('App Rendered', () => {
-  render(<About />)
+  render(<About />, {user: null})
 
   expect(screen.getByAltText(/profilePicture/i)).toBeInTheDocument()
   expect(screen.getAllByText(/Ahmed eldessouki/i)).toBeTruthy()

@@ -1,5 +1,5 @@
 import {useQuery} from 'react-query'
-import {db} from '../components/Utils/firebase'
+import {db} from './firebase'
 
 const placeholderData = [
   {
@@ -18,27 +18,34 @@ const placeholderData = [
   },
 ]
 
-function useClientFetch({collection, onSuccess, ...options} = {}) {
-  const {data: fetchedData} = useQuery({
+const useClientFetch = ({collection, onSuccess, ...options} = {}) => {
+  const {data} = useQuery({
     queryKey: collection,
     queryFn: async () =>
       await db
         .collection(collection)
         .get()
-        .then(querySnapshot => {
-          const data = querySnapshot.docs.map(doc => {
-            return {...doc.data(), id: doc.id}
-          })
-          return data
+        .then(
+          querySnapshot => {
+            const data = querySnapshot.docs.map(doc => {
+              return {...doc.data(), id: doc.id}
+            })
+            return data
+          },
+          err => console.log(err),
+        )
+        .catch(err => {
+          Promise.reject(err)
         }),
     config: {
       staleTime: 1000 * 60 * 60,
       cacheTime: 1000 * 60 * 60,
+      onError: err => Promise.reject(err),
       ...options,
     },
   })
 
-  return fetchedData ?? placeholderData
+  return data ?? placeholderData
 }
 
 export {useClientFetch}

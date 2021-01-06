@@ -9,7 +9,7 @@ import {colors, h1XL, weights} from '../Styles'
 import ProjectDetails from './ProjectDetails'
 import Card from './Card'
 import OnToggle from '../Utils/OnToggle'
-import {ErrorMessage} from '../Utils/util'
+import {ErrorMessageFallback} from '../Utils/util'
 
 function ProjectComponent({projectsData}) {
   const [project, setProject] = React.useState(null)
@@ -110,6 +110,7 @@ function ProjectComponent({projectsData}) {
             </span>
             <button
               type="button"
+              data-testid="sort_by_name"
               css={[
                 btn,
                 sorted === 'alphabet'
@@ -124,7 +125,7 @@ function ProjectComponent({projectsData}) {
                       },
                     },
               ]}
-              disable={sorted === 'alphabet'}
+              disabled={sorted === 'alphabet'}
               onClick={() => {
                 dispatch('alphabet')
               }}
@@ -133,6 +134,7 @@ function ProjectComponent({projectsData}) {
             </button>
             <button
               type="button"
+              data-testid="sort_by_date"
               css={[
                 btn,
                 sorted === 'date'
@@ -147,7 +149,7 @@ function ProjectComponent({projectsData}) {
                       },
                     },
               ]}
-              disable={sorted === 'date'}
+              disabled={sorted === 'date'}
               onClick={() => {
                 dispatch('date')
               }}
@@ -156,6 +158,7 @@ function ProjectComponent({projectsData}) {
             </button>
             <button
               type="button"
+              data-testid="sort_by_date_reverse"
               css={[
                 btn,
                 sorted === 'reverse_date'
@@ -170,7 +173,7 @@ function ProjectComponent({projectsData}) {
                       },
                     },
               ]}
-              disable={sorted === 'reverse_date'}
+              disabled={sorted === 'reverse_date'}
               onClick={() => {
                 dispatch('reverse_date')
               }}
@@ -191,7 +194,10 @@ function ProjectComponent({projectsData}) {
 
 function Projects({projectsData}) {
   return (
-    <ErrorBoundary resetKeys={[projectsData]} fallback={<ErrorMessage />}>
+    <ErrorBoundary
+      fallbackComponent={ErrorMessageFallback}
+      resetKeys={[projectsData]}
+    >
       <ProjectComponent projectsData={projectsData} />
     </ErrorBoundary>
   )

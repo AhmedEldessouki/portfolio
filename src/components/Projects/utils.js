@@ -16,7 +16,7 @@ import {btnStyle, colors, h1XL, mq, spinner, textArea} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
-import {useClientFetch} from '../../utils/apis'
+import {useClientFetch} from '../Utils/apis'
 
 function createNewProject(project) {
   db.collection('projects')
@@ -237,7 +237,11 @@ function Button({status, project}) {
       <div css={spinner} />
     </div>
   ) : (
-    <button type="submit" css={btnStyle} disabled={status !== 'idle'}>
+    <button
+      type="submit"
+      css={[btnStyle, {fontSize: '126%'}]}
+      disabled={status !== 'idle'}
+    >
       {project ? 'Edit' : 'Create'} Project
     </button>
   )
@@ -319,7 +323,7 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
   )
 }
 
-function TagsCheckBox({handleClick, projectTag = [], ...props}) {
+function TagsCheckBox({handleClick, projectTags, ...props}) {
   const TagsData = useClientFetch({collection: 'tags'})
 
   return (
@@ -332,9 +336,10 @@ function TagsCheckBox({handleClick, projectTag = [], ...props}) {
         border: 10px dashed ${colors.darkBlue};
         padding: 9px 0;
         place-items: center;
+        flex-wrap: wrap;
       `}
     >
-      {TagsData?.map(tag => {
+      {TagsData?.map((tag, i) => {
         return (
           <label
             key={tag.id}
@@ -346,17 +351,22 @@ function TagsCheckBox({handleClick, projectTag = [], ...props}) {
               & input {
               }
             `}
+            htmlFor={tag.name}
           >
             <input
               name="tags"
+              aria-label={`tag-${i}`}
               id={tag.url}
+              data-testid={`tag[${i}]`}
               color={colors.independenceBlue}
               type="checkbox"
               alt={tag.name}
               onChange={e => {
                 handleClick(e)
               }}
-              checked={projectTag.find(item => item.trim() === tag.url.trim())}
+              checked={projectTags?.find(
+                item => item.trim() === tag.url.trim(),
+              )}
               {...props}
             />
             <img

@@ -3,19 +3,23 @@ import {screen} from '@testing-library/react'
 
 import ContactMe from '../components/Home/ContactMe/ContactMe'
 import {render, userEvent} from '../test/app-test-utils'
+import {buildMessage} from '../test/generate'
 
+const message = buildMessage()
 test('Contact Form Test', () => {
-  render(<ContactMe />)
-  userEvent.type(screen.getByPlaceholderText(/name/i), 'Jest Testing')
+  render(<ContactMe />, {user: null})
+  userEvent.type(screen.getByLabelText(/name/i), message.name)
 
-  userEvent.type(
-    screen.getByPlaceholderText(/email address/i),
-    'Jest@Testing.js',
+  userEvent.type(screen.getByLabelText(/email/i), message.email)
+  userEvent.type(screen.getByLabelText(/phoneNumber/i), message.phoneNumber)
+  userEvent.type(screen.getByLabelText(/description/i), message.description)
+  expect(screen.getByLabelText(/name/i)).toHaveDisplayValue(message.name)
+  expect(screen.getByLabelText(/email/i)).toHaveDisplayValue(message.email)
+  expect(screen.getByLabelText(/phoneNumber/i)).toHaveDisplayValue(
+    message.phoneNumber,
   )
-  userEvent.type(screen.getByPlaceholderText(/phone number/i), '64456412355')
-  userEvent.type(
-    screen.getByPlaceholderText(/description/i),
-    'If you see this it means that the text was a success',
+  expect(screen.getByLabelText(/description/i)).toHaveDisplayValue(
+    message.description,
   )
   userEvent.click(screen.getByTestId('submit'))
 })

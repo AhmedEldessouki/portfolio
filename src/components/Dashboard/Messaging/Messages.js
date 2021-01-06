@@ -7,7 +7,7 @@ import {ErrorBoundary} from 'react-error-boundary'
 
 import {h1XL} from '../../Styles'
 import OnToggle from '../../Utils/OnToggle'
-import {ErrorMessage} from '../../Utils/util'
+import {ErrorMessageFallback} from '../../Utils/util'
 
 import MessageDetails from './MessageDetails'
 import MessagesSummary from './MessagesSummary'
@@ -26,8 +26,9 @@ function MessagesComponent({messagesData}) {
     padding: 20px 10px;
     display: grid;
     grid-gap: 25px;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
+    place-items: center;
+    place-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
   `
 
   return (
@@ -61,7 +62,10 @@ function MessagesComponent({messagesData}) {
 
 function Messages({messagesData}) {
   return (
-    <ErrorBoundary resetKeys={[messagesData]} fallback={<ErrorMessage />}>
+    <ErrorBoundary
+      resetKeys={[messagesData]}
+      fallbackComponent={ErrorMessageFallback}
+    >
       <MessagesComponent messagesData={messagesData} />
     </ErrorBoundary>
   )

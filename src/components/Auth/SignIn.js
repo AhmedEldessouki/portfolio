@@ -40,7 +40,7 @@ const SignIn = () => {
         `}
       >
         <form onSubmit={handleSubmit} css={signWrapper}>
-          <div className="field-container">
+          <div css={{width: '89%'}}>
             <Input
               type="email"
               autoComplete="email"
@@ -61,7 +61,7 @@ const SignIn = () => {
             />
           </div>
           {authError ? (
-            <div type="alert" css={warning}>
+            <div role="alert" css={warning}>
               {authError}
             </div>
           ) : null}

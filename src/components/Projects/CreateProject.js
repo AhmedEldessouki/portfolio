@@ -7,9 +7,9 @@ import {toast} from 'react-toastify'
 import {ErrorBoundary} from 'react-error-boundary'
 
 import {useAuth} from '../../context/AuthProvider'
+import {ErrorMessageFallback} from '../Utils/util'
 import Layout from '../Layout'
 import {colors, h1XL, labelWrapper, mq, signWrapper, textArea} from '../Styles'
-import {ErrorMessage} from '../Utils/util'
 import {
   uploadImage,
   ImageDropZone,
@@ -145,12 +145,10 @@ function CreateProjectX() {
         <div
           css={css`
             display: flex;
-            width: 98vw;
             place-content: space-around;
             flex-wrap: wrap-reverse;
             ${mq.s} {
               place-content: center;
-              grid-template: none;
             }
           `}
         >
@@ -161,92 +159,84 @@ function CreateProjectX() {
               dispatch({type: 'remove_image', payload: {array, index}})
             }
           />
-          <form css={signWrapper} onSubmit={useHandleSubmit}>
-            <ImageDropZone handleDrop={handleDrop} />
-            <ProjInput
-              name="name"
-              project={name}
-              placeholder="Name"
-              required
-              minLength={3}
-              maxLength={15}
-              cleanColor={status === 'pending'}
-            />
-            <ProjInput
-              type="url"
-              required
-              project={link}
-              placeholder="Project Link"
-              name="link"
-              cleanColor={status === 'pending'}
-            />
-            <ProjInput
-              type="url"
-              required
-              project={repoLink}
-              placeholder="Repo Link"
-              name="repoLink"
-              cleanColor={status === 'pending'}
-            />
-            <TagsCheckBox
-              handleClick={e => {
-                if (e.target.checked) {
-                  dispatch({
-                    type: 'add_tag',
-                    payload: e.target.id,
-                  })
-                } else {
-                  dispatch({
-                    type: 'remove_tag',
-                    payload: e.target.id,
-                  })
-                }
-              }}
-              projectTag={tag}
-            />
-            <label htmlFor="description" css={labelWrapper}>
-              <textarea
-                css={[
-                  textArea,
-                  css`
-                    margin: 0;
-                    border-color: ${descriptionErr};
-                  `,
-                ]}
-                id="description"
-                aria-label="description"
-                placeholder="Project Description"
-                name="description"
-                value={project ? description : void 0}
-                minLength={10}
-                onChange={project ? e => handleDescription(e) : void 0}
-                onBlur={e => {
-                  e.target.validity.valid
-                    ? setDescriptionErr(colors.lightGreen)
-                    : setDescriptionErr(colors.burgundyRed)
-                  handleDescription(e)
-                }}
+          <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
+            <form css={signWrapper} onSubmit={useHandleSubmit}>
+              <ImageDropZone handleDrop={handleDrop} />
+              <ProjInput
+                name="name"
+                project={name}
+                placeholder="Name"
                 required
+                minLength={3}
+                maxLength={15}
+                cleanColor={status === 'pending'}
               />
-            </label>
-            <Button status={status} project={project} />
-          </form>
+              <ProjInput
+                type="url"
+                required
+                project={link}
+                placeholder="Project Link"
+                name="link"
+                cleanColor={status === 'pending'}
+              />
+              <ProjInput
+                type="url"
+                required
+                project={repoLink}
+                placeholder="Repo Link"
+                name="repoLink"
+                cleanColor={status === 'pending'}
+              />
+              <TagsCheckBox
+                handleClick={e => {
+                  if (e.target.checked) {
+                    dispatch({
+                      type: 'add_tag',
+                      payload: e.target.id,
+                    })
+                  } else {
+                    dispatch({
+                      type: 'remove_tag',
+                      payload: e.target.id,
+                    })
+                  }
+                }}
+                projectTags={project ? tag : undefined}
+              />
+              <label htmlFor="description" css={labelWrapper}>
+                <textarea
+                  css={[
+                    textArea,
+                    css`
+                      margin: 0;
+                      border-color: ${descriptionErr};
+                    `,
+                  ]}
+                  id="description"
+                  aria-label="description"
+                  placeholder="Project Description"
+                  name="description"
+                  value={project ? description : void 0}
+                  minLength={10}
+                  onChange={project ? e => handleDescription(e) : void 0}
+                  onBlur={e => {
+                    e.target.validity.valid
+                      ? setDescriptionErr(colors.lightGreen)
+                      : setDescriptionErr(colors.burgundyRed)
+                    handleDescription(e)
+                  }}
+                  required
+                />
+              </label>
+              <Button status={status} project={project} />
+            </form>
+          </ErrorBoundary>
         </div>
       </div>
     </Layout>
   )
 }
 
-function FallBackComp({error}) {
-  return <ErrorMessage error={error} />
-}
+const CreateProject = React.memo(CreateProjectX)
 
-const CreateProjectY = React.memo(CreateProjectX)
-function CreateProject() {
-  return (
-    <ErrorBoundary fallback={<FallBackComp />}>
-      <CreateProjectY />
-    </ErrorBoundary>
-  )
-}
 export default CreateProject

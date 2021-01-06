@@ -10,7 +10,7 @@ import {colors, weights} from '../Styles'
 import PopUp from '../Utils/PopUp/PopUp'
 import {deleteProject} from './utils'
 
-const Title = ({name, onClick, children}) => {
+const Title = ({name, onClick, children, testId}) => {
   const title = css`
     background-color: ${colors.darkBlue};
     padding: 8% 5%;
@@ -29,6 +29,7 @@ const Title = ({name, onClick, children}) => {
   return (
     <button
       type="button"
+      data-testid={testId}
       onClick={() => {
         onClick()
       }}
@@ -47,7 +48,6 @@ function Tag({tags, ...props}) {
   return (
     <img
       css={css`
-        padding: 10px 20px;
         font-size: 108%;
         margin: 0;
       `}
@@ -111,7 +111,7 @@ function Card({items = [], setState}) {
   `
   return (
     <div css={mWrapper}>
-      {items.map(item => {
+      {items.map((item, i) => {
         return (
           <div css={pWrapper} key={item.id}>
             {authData ? (
@@ -122,6 +122,7 @@ function Card({items = [], setState}) {
               onClick={() => {
                 setState(item)
               }}
+              testId={`project[${i}]`}
             />
             <div
               css={css`
@@ -129,6 +130,7 @@ function Card({items = [], setState}) {
                 place-content: center;
                 place-items: center;
                 min-height: 50px;
+                gap: 15px;
               `}
             >
               {item.tag &&

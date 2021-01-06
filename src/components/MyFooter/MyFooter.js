@@ -7,6 +7,7 @@ import {
   FaFacebookSquare,
   FaInstagram,
   FaGooglePlusSquare,
+  FaGoodreads,
 } from 'react-icons/fa'
 import {VscTwitter, VscGithub} from 'react-icons/vsc'
 import {GrReactjs} from 'react-icons/gr'
@@ -17,7 +18,7 @@ import {colors, mq, weights} from '../Styles'
 const MyFooter = () => {
   const fWrapper = css`
     display: flex;
-    padding-top: 10px;
+    padding: 10px;
     place-content: space-between;
     flex-wrap: wrap;
     background: ${colors.darkBlue};
@@ -99,6 +100,13 @@ const MyFooter = () => {
         >
           <VscTwitter />
         </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.goodreads.com/review/list/18907056?ref=nav_mybooks"
+        >
+          <FaGoodreads />
+        </a>
       </div>
       <div css={reactIcon}>
         <a
@@ -112,12 +120,13 @@ const MyFooter = () => {
       <div css={copyWrite}>
         <Link
           to="/signin"
-          css={css`
-            :hover {
-              color: inherit;
-              cursor: context-menu;
-            }
-          `}
+          css={{
+            ':hover': {
+              textDecoration: 'none',
+              color: 'inherit',
+              cursor: 'context-menu',
+            },
+          }}
         >
           <span>© 2019 Ahmed ElDessouki</span>
         </Link>

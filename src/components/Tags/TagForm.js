@@ -2,9 +2,11 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import {ErrorBoundary} from 'react-error-boundary'
 
 import {btnStyle, h2XL, signWrapper, spinner} from '../Styles'
 import Input from '../Utils/Input'
+import {ErrorMessageFallback} from '../Utils/util'
 
 function Spinner() {
   return (
@@ -30,31 +32,37 @@ function TagForm({status, handleSubmit}) {
       `}
     >
       <h2 css={h2XL}>Create Tag</h2>
-      <form onSubmit={e => handleSubmit(e)} css={signWrapper}>
-        <div className="field-container">
-          <Input
-            type="text"
-            placeholder="Enter Tag's Name"
-            name="name"
-            required
-            cleanColor={status === 'resolved'}
-          />
-          <Input
-            type="url"
-            name="url"
-            required
-            placeholder="Enter Tag's Link"
-            cleanColor={status === 'resolved'}
-          />
-        </div>
-        {status === 'pending' ? (
-          <Spinner />
-        ) : (
-          <button type="submit" disabled={status === 'pending'} css={btnStyle}>
-            Create Tag
-          </button>
-        )}
-      </form>
+      <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
+        <form onSubmit={e => handleSubmit(e)} css={signWrapper}>
+          <div className="field-container">
+            <Input
+              type="text"
+              placeholder="Enter Tag's Name"
+              name="name"
+              required
+              cleanColor={status === 'resolved'}
+            />
+            <Input
+              type="url"
+              name="url"
+              required
+              placeholder="Enter Tag's Link"
+              cleanColor={status === 'resolved'}
+            />
+          </div>
+          {status === 'pending' ? (
+            <Spinner />
+          ) : (
+            <button
+              type="submit"
+              disabled={status === 'pending'}
+              css={btnStyle}
+            >
+              Create Tag
+            </button>
+          )}
+        </form>
+      </ErrorBoundary>
     </div>
   )
 }

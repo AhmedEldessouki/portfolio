@@ -128,7 +128,7 @@ function SignUp() {
             <span css={warning}>Password Don&apos;t Match</span>
           ) : null}
           {authError ? (
-            <div css={warning} type="alert">
+            <div css={warning} role="alert">
               {authError}
             </div>
           ) : null}

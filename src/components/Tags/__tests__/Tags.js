@@ -6,7 +6,7 @@ import {buildTag} from '../../../test/generate'
 import Tags from '../Tags'
 
 test('Tag Render', async () => {
-  render(<Tags tagsData={[buildTag(), buildTag()]} />)
+  render(<Tags tagsData={[buildTag(), buildTag()]} />, {user: null})
 
   expect(screen.getByPlaceholderText(/name/i)).toBeInTheDocument()
   expect(screen.getByPlaceholderText(/link/i)).toBeInTheDocument()

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {useClientFetch} from '../../utils/apis'
+import {useClientFetch} from '../Utils/apis'
 import Projects from '../Projects/Projects'
 import Layout from '../Layout'
 
