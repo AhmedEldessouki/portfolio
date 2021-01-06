@@ -6,7 +6,7 @@ import Carousel from '../components/Utils/Carousel/Carousel'
 import {colors} from '../components/Styles'
 
 test('Carousel Render and btn functionality', async () => {
-  render(
+  await render(
     <Carousel
       imgArray={[
         'https://res.cloudinary.com/ahmedeldessouki/image/upload/v1599235621/zxlpwrjozjowzkisrenz.png',
