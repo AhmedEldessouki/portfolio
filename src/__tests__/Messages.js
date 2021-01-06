@@ -12,7 +12,7 @@ beforeAll(() => {
 })
 
 test('message Render', async () => {
-  render(<Messages messagesData={messages} />, {user: null})
+  await render(<Messages messagesData={messages} />, {user: null})
   expect(screen.getByText(messages[0].name)).toBeInTheDocument()
 
   expect(screen.queryByTestId(/delete-button/i)).toBeInTheDocument()
@@ -23,8 +23,8 @@ test('message Render', async () => {
   )
 })
 
-test('message Details Render', () => {
-  render(<Messages messagesData={messages} />)
+test('message Details Render', async () => {
+  await render(<Messages messagesData={messages} />)
   userEvent.click(screen.getByText(messages[0].name))
 
   expect(screen.queryByTestId(/delete-button/i)).not.toBeInTheDocument()
@@ -37,8 +37,8 @@ test('message Details Render', () => {
   )
   expect(screen.getByText(messages[0].description)).toBeInTheDocument()
 })
-test('message mount and unmount', () => {
-  render(<Messages messagesData={messages} />)
+test('message mount and unmount', async () => {
+  await render(<Messages messagesData={messages} />)
   userEvent.click(screen.getByText(messages[0].name))
 
   userEvent.click(screen.getByTestId('close-toggler'))

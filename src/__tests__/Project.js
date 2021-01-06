@@ -6,8 +6,11 @@ import {projects} from '../test/data/projects'
 import Projects from '../components/Projects/Projects'
 import {colors} from '../components/Styles'
 
-test('Project Render', () => {
-  render(<Projects projectsData={projects} />, {user: null})
+test('Project Render', async () => {
+  await render(<Projects projectsData={projects} />, {
+    user: null,
+    doWait: false,
+  })
   expect(screen.getByText(/projects/i)).toBeInTheDocument()
   expect(screen.getByText(/Portfolio/i)).toBeInTheDocument()
 
@@ -24,8 +27,11 @@ test('Project Render', () => {
   )
 })
 
-test('Project Details Render', () => {
-  render(<Projects projectsData={projects} />, {user: null})
+test('Project Details Render', async () => {
+  await render(<Projects projectsData={projects} />, {
+    user: null,
+    doWait: false,
+  })
 
   userEvent.click(screen.getByText(projects[0].name))
 
@@ -35,8 +41,11 @@ test('Project Details Render', () => {
   expect(screen.getByText(projects[0].description)).toBeInTheDocument()
 })
 
-test('Projects OnToggle mount and unmount', () => {
-  render(<Projects projectsData={projects} />, {user: null})
+test('Projects OnToggle mount and unmount', async () => {
+  await render(<Projects projectsData={projects} />, {
+    user: null,
+    doWait: false,
+  })
 
   const tags = screen.queryAllByRole('img')
 
@@ -65,8 +74,11 @@ test('Projects OnToggle mount and unmount', () => {
   expect(screen.queryByText(projects[0].description)).not.toBeInTheDocument()
 })
 
-test('Projects Sorting buttons check', () => {
-  render(<Projects projectsData={projects} />, {user: null})
+test('Projects Sorting buttons check', async () => {
+  await render(<Projects projectsData={projects} />, {
+    user: null,
+    doWait: false,
+  })
 
   userEvent.click(screen.getByTestId(/sort_by_name/i))
   expect(screen.getByTestId(/sort_by_name/i)).toBeDisabled()
@@ -78,8 +90,11 @@ test('Projects Sorting buttons check', () => {
   expect(screen.getByTestId(/sort_by_date_reverse/i)).toBeDisabled()
 })
 
-test('Projects Sorting Integration', () => {
-  render(<Projects projectsData={projects} />, {user: null})
+test('Projects Sorting Integration', async () => {
+  await render(<Projects projectsData={projects} />, {
+    user: null,
+    doWait: false,
+  })
 
   userEvent.click(screen.getByTestId(/sort_by_name/i))
   expect(screen.getByTestId(/sort_by_name/i)).toBeDisabled()

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import App from '../App'
-import {buildMessage, buildProject, buildTag} from '../test/generate'
+import {buildMessage, buildProject, buildTag, buildUser} from '../test/generate'
 import {
   render,
   userEvent,
@@ -13,6 +13,7 @@ import {server, rest} from '../test/server/test-server'
 import * as projectsDB from '../test/data/projects'
 import * as messagesDB from '../test/data/messages'
 import * as tagsDB from '../test/data/tags'
+import * as usersDB from '../test/data/user'
 
 async function renderAppScreen({user, doWait, project, message, tag} = {}) {
   if (user === undefined) {
@@ -40,7 +41,7 @@ async function renderAppScreen({user, doWait, project, message, tag} = {}) {
   }
 }
 
-describe('App: Forms Check', () => {
+describe('App: Should Check Forms', () => {
   beforeAll(() => {
     jest.mock('react-query', () => ({
       useQuery: () => ({isLoading: false, error: {}, data: []}),
@@ -90,7 +91,7 @@ describe('App: Forms Check', () => {
   })
 
   test('Create Project Form', async () => {
-    const {project} = await renderAppScreen({
+    const {project, utils: container} = await renderAppScreen({
       doWait: false,
       message: null,
       tag: null,
@@ -98,6 +99,8 @@ describe('App: Forms Check', () => {
 
     userEvent.click(screen.getByText(/create project/i))
 
+    // TODO: find a way to test the this dropZone
+    // userEvent.upload(container.querySelector('#root > div:nth-child(2) > div > div > form > label:nth-child(1)')), project.imagesFiles)
     userEvent.type(screen.getByLabelText(/name/i), project.name)
     userEvent.type(screen.getByLabelText('link'), project.link)
     userEvent.type(screen.getByLabelText(/repoLink/i), project.repoLink)
@@ -189,5 +192,28 @@ describe('App: Forms Check', () => {
       user.password,
     )
     expect(screen.getByLabelText('email')).toHaveDisplayValue(user.email)
+  })
+
+  test('Sign-In Form', async () => {
+    const user = buildUser()
+    window.localStorage.setItem(usersDB.usersKey, null)
+    await renderAppScreen({
+      doWait: false,
+      message: null,
+      user: null,
+      tag: null,
+      project: null,
+    })
+
+    expect(
+      await screen.findByText(/© 2019 Ahmed ElDessouki/i),
+    ).toBeInTheDocument()
+    userEvent.click(screen.getByText('© 2019 Ahmed ElDessouki'))
+
+    userEvent.type(screen.getByLabelText(/email/i), user.email)
+    userEvent.type(screen.getByLabelText('password'), user.password)
+
+    expect(screen.getByLabelText('email')).toHaveDisplayValue(user.email)
+    expect(screen.getByLabelText('password')).toHaveDisplayValue(user.password)
   })
 })

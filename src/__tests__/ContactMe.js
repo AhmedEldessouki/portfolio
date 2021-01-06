@@ -6,8 +6,8 @@ import {render, userEvent} from '../test/app-test-utils'
 import {buildMessage} from '../test/generate'
 
 const message = buildMessage()
-test('Contact Form Test', () => {
-  render(<ContactMe />, {user: null})
+test('Contact Form Test', async () => {
+  await render(<ContactMe />, {user: null, doWait: false})
   userEvent.type(screen.getByLabelText(/name/i), message.name)
 
   userEvent.type(screen.getByLabelText(/email/i), message.email)
