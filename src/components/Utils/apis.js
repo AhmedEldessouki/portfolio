@@ -1,5 +1,5 @@
 import {useQuery} from 'react-query'
-import {db} from '../components/Utils/firebase'
+import {db} from './firebase'
 
 const placeholderData = [
   {

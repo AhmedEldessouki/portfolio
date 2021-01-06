@@ -9,6 +9,8 @@ import {Profiler} from './profiler'
 import {AuthProvider} from './context/AuthProvider'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
+import 'bootstrap/dist/css/bootstrap-reboot.css'
+
 const queryClient = new QueryClient()
 
 trace('initial render', performance.now(), () =>

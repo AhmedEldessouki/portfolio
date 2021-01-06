@@ -17,7 +17,7 @@ import {colors, mq, weights} from '../Styles'
 const MyFooter = () => {
   const fWrapper = css`
     display: flex;
-    padding-top: 10px;
+    padding: 10px;
     place-content: space-between;
     flex-wrap: wrap;
     background: ${colors.darkBlue};
@@ -112,12 +112,12 @@ const MyFooter = () => {
       <div css={copyWrite}>
         <Link
           to="/signin"
-          css={css`
-            :hover {
-              color: inherit;
-              cursor: context-menu;
-            }
-          `}
+          style={{
+            textDecoration: 'none',
+            ':hover': {
+              cursor: 'context-menu',
+            },
+          }}
         >
           <span>© 2019 Ahmed ElDessouki</span>
         </Link>

@@ -16,7 +16,7 @@ import {btnStyle, colors, h1XL, mq, spinner, textArea} from '../Styles'
 import {db} from '../Utils/firebase'
 import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
-import {useClientFetch} from '../../utils/apis'
+import {useClientFetch} from '../Utils/apis'
 
 function createNewProject(project) {
   db.collection('projects')
@@ -237,7 +237,11 @@ function Button({status, project}) {
       <div css={spinner} />
     </div>
   ) : (
-    <button type="submit" css={btnStyle} disabled={status !== 'idle'}>
+    <button
+      type="submit"
+      css={[btnStyle, {fontSize: '126%'}]}
+      disabled={status !== 'idle'}
+    >
       {project ? 'Edit' : 'Create'} Project
     </button>
   )
@@ -332,6 +336,7 @@ function TagsCheckBox({handleClick, projectTags, ...props}) {
         border: 10px dashed ${colors.darkBlue};
         padding: 9px 0;
         place-items: center;
+        flex-wrap: wrap;
       `}
     >
       {TagsData?.map((tag, i) => {

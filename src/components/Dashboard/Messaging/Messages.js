@@ -26,8 +26,9 @@ function MessagesComponent({messagesData}) {
     padding: 20px 10px;
     display: grid;
     grid-gap: 25px;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1.5fr));
+    place-items: center;
+    place-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
   `
 
   return (

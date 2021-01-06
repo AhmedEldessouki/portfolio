@@ -7,8 +7,8 @@ export const wrapper = css`
   flex-direction: row;
   flex-wrap: wrap;
   place-content: center;
+  gap: 10px;
   min-height: 267px;
-  padding: 5px 100px 25px;
   ${mq.desktop} {
     flex-direction: column;
     flex-wrap: nowrap;
@@ -49,23 +49,16 @@ export const btnStyle = css`
   background-color: ${colors.whiteFaded};
   color: ${colors.independenceBlue};
   font-weight: ${weights.black};
-  font-size: 174%;
+  font-size: 126%;
   width: 300px;
-  margin: 10px 50px;
+  margin: 20px 0;
   height: 50px;
   border-radius: 14%;
   border: none;
   transition: background-color, color 0.4s steps;
   :hover,
   :focus {
-    transform: scale(98%);
     opacity: 0.9;
-  }
-  ${mq.phoneLarge} {
-    transform: scale(0.9);
-  }
-  ${mq.s} {
-    transform: scale(0.7);
   }
 `
 
@@ -86,25 +79,19 @@ export const signWrapper = css`
     width: 407px;
   }
   ${mq.s} {
-    transform: scale(0.7);
+    width: 95%;
   }
 `
 
 export const signWrapperInput = css`
   padding: 8px;
-  width: 98%;
-  height: 30px;
+  width: 100%;
+  height: 50px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
   border: 5.5px solid ${colors.darkBlue};
   border-radius: 7%;
   letter-spacing: 2.2px;
-
-  ${mq.desktop} {
-    height: 50px;
-  }
-  ${mq.phoneLarge} {
-    height: 30px;
   }
 `
 
@@ -116,38 +103,22 @@ export const warning = css`
 
 export const labelWrapper = css`
   display: block;
-  width: calc(550px - 50px);
-  padding: 2px;
-  padding-right: 25px;
   font-size: 1.4rem;
-
-  ${mq.desktop} {
-    width: 500px;
-    font-size: 2rem;
-  }
-  ${mq.phoneLarge} {
-    width: calc(407px - 30px);
-    font-size: 1.345rem;
-  }
-  ${mq.s} {
-    width: 91%;
+  width: 100%;
   }
 `
 
 export const textArea = css`
-  width: 98%;
-  height: calc(100% - 14px);
+  width: 100%;
+  height: 168px;
   padding: 8px;
-  padding-bottom: 0;
   color: ${colors.aliceLightBlue};
   border: 5px solid ${colors.darkBlue};
   border-radius: 7%;
   background-color: transparent;
-  margin-left: 10px;
   letter-spacing: 1.2px;
-
   ${mq.desktop} {
-    margin-left: 0;
+    margin-top: -10px;
     height: 188px;
   }
   ${mq.phoneLarge} {

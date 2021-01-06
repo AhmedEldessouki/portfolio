@@ -15,9 +15,11 @@ import {
   labelWrapper,
   textArea,
   h1XL,
+  mq,
 } from '../../Styles'
 import Input from '../../Utils/Input'
 import {ErrorMessageFallback, useAsync} from '../../Utils/util'
+import {GrMail} from 'react-icons/gr'
 
 function ContactMe() {
   const [errPhoneNumber, setErrPhoneNumber] = React.useState(false)
@@ -52,7 +54,18 @@ function ContactMe() {
         background: colors.backgroundShade,
       }}
     >
-      <h1 css={h1XL}>Contact Me</h1>
+      <div css={{display: 'flex', placeItems: 'center', gap: '27px'}}>
+        <h1 css={h1XL}>Contact Me</h1>
+        <a href="mailto:nemoahmed534@gmail.com">
+          <GrMail
+            color={colors.whiteFaded}
+            css={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        </a>
+      </div>
       <ErrorBoundary
         FallbackComponent={ErrorMessageFallback}
         resetKeys={[status]}
@@ -62,7 +75,17 @@ function ContactMe() {
           onSubmit={handleSubmit}
           css={[wrapper, {marginBottom: 0}]}
         >
-          <section>
+          <div
+            css={css`
+              width: 48%;
+              ${mq.phoneLarge} {
+                width: 71%;
+              }
+              ${mq.s} {
+                width: 89%;
+              }
+            `}
+          >
             <Input
               name="name"
               pattern="[^\(\)0-9]*"
@@ -101,29 +124,41 @@ function ContactMe() {
                 Invalid Phone Number
               </span>
             ) : null}
-          </section>
-          <label css={labelWrapper} htmlFor="description">
-            <textarea
-              name="description"
-              id="description"
-              aria-label="description"
-              onBlur={e =>
-                e.target.validity.valid
-                  ? setDescriptionErr(colors.lightGreen)
-                  : setDescriptionErr(colors.burgundyRed)
+          </div>
+          <div
+            css={css`
+              width: 48%;
+              ${mq.phoneLarge} {
+                width: 71%;
               }
-              required
-              placeholder="Description"
-              minLength={10}
-              maxLength={500}
-              css={[
-                textArea,
-                css`
-                  border-color: ${descriptionErr};
-                `,
-              ]}
-            />
-          </label>
+              ${mq.s} {
+                width: 89%;
+              }
+            `}
+          >
+            <label css={labelWrapper} htmlFor="description">
+              <textarea
+                name="description"
+                id="description"
+                aria-label="description"
+                onBlur={e =>
+                  e.target.validity.valid
+                    ? setDescriptionErr(colors.lightGreen)
+                    : setDescriptionErr(colors.burgundyRed)
+                }
+                required
+                placeholder="Description"
+                minLength={10}
+                maxLength={500}
+                css={[
+                  textArea,
+                  css`
+                    border-color: ${descriptionErr};
+                  `,
+                ]}
+              />
+            </label>
+          </div>
           {status === 'pending' ? (
             <div
               css={css`

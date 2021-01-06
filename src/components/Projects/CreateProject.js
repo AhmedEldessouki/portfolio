@@ -145,12 +145,10 @@ function CreateProjectX() {
         <div
           css={css`
             display: flex;
-            width: 98vw;
             place-content: space-around;
             flex-wrap: wrap-reverse;
             ${mq.s} {
               place-content: center;
-              grid-template: none;
             }
           `}
         >

@@ -18,8 +18,7 @@ function MessagesSummaryComponent({message, fn}) {
     border-radius: 10px;
     font-family: 'Merienda One', cursive;
     padding: 5px 18px;
-    width: 250px;
-    place-items: flex-start;
+    min-width: 250px;
   `
 
   const btn = css`

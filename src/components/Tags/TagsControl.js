@@ -1,7 +1,7 @@
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {useClientFetch} from '../../utils/apis'
+import {useClientFetch} from '../Utils/apis'
 import Layout from '../Layout'
 import {ErrorMessageFallback} from '../Utils/util'
 import Tags from './Tags'

@@ -48,7 +48,6 @@ function Tag({tags, ...props}) {
   return (
     <img
       css={css`
-        padding: 10px 20px;
         font-size: 108%;
         margin: 0;
       `}
@@ -131,6 +130,7 @@ function Card({items = [], setState}) {
                 place-content: center;
                 place-items: center;
                 min-height: 50px;
+                gap: 15px;
               `}
             >
               {item.tag &&
