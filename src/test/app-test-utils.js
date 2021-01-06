@@ -13,7 +13,10 @@ import * as usersDB from 'test/data/user'
 
 import {AuthProvider} from '../context/AuthProvider'
 
-async function render(ui, {route = '/', user, ...renderOptions} = {}) {
+async function render(
+  ui,
+  {route = '/', user, doWait = true, ...renderOptions} = {},
+) {
   // if you want to render the app unauthenticated then pass "null" as the user
   user = typeof user === 'undefined' ? await loginAsUser() : user
   window.history.pushState({}, 'Test page', route)
@@ -27,8 +30,9 @@ async function render(ui, {route = '/', user, ...renderOptions} = {}) {
   }
 
   // wait for react-query to settle before allowing the test to continue
-  await waitForLoadingToFinish()
-
+  if (doWait) {
+    await waitForLoadingToFinish()
+  }
   return returnValue
 }
 
@@ -37,7 +41,7 @@ async function loginAsUser(userProperties) {
   await usersDB.create(user)
   const authUser = await usersDB.authenticate(user)
   window.localStorage.setItem(usersDB.usersKey, JSON.stringify(authUser.token))
-  return authUser
+  return user
 }
 
 const queryClient = new QueryClient()
@@ -52,10 +56,13 @@ function AllProviders({children}) {
   )
 }
 
-const renderWithAllProviders = (ui, {route = '/', ...renderOptions} = {}) => {
+const renderWithAllProviders = (
+  ui,
+  {route = '/', doWait, ...renderOptions} = {},
+) => {
   window.history.pushState({}, 'Test page', route)
 
-  return render(ui, {wrapper: AllProviders, ...renderOptions})
+  return render(ui, {wrapper: AllProviders, doWait, ...renderOptions})
 }
 
 const waitForLoadingToFinish = () =>

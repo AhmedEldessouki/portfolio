@@ -93,7 +93,7 @@ function SignUp() {
             required
             cleanColor={status === 'resolved'}
             onBlur={e => {
-              if (e.target.form[4].value !== e.target.value) {
+              if (e.target.form[4]?.value !== e.target.value) {
                 dispatch({type: 'rejected'})
               } else {
                 dispatch({type: 'idle'})
@@ -102,7 +102,7 @@ function SignUp() {
           />
           <Input
             onBlur={e => {
-              if (e.target.form[3].value !== e.target.value) {
+              if (e.target.form[3]?.value !== e.target.value) {
                 dispatch({type: 'rejected'})
               } else {
                 dispatch({type: 'idle'})
