@@ -65,8 +65,6 @@ function deleteProject(project) {
 }
 
 async function uploadImage(image, project) {
-  console.log('Images Upload Function', image)
-
   let formData
   formData = new FormData()
   formData.set('file', image)
@@ -145,7 +143,6 @@ const reducer = (state, {type, payload}) => {
       return {...state, error: {...payload[0]}}
 
     case 'accepted_images':
-      console.log(acceptedImages)
       if (acceptedImages.length > 9)
         return {...state, error: {code: 'too-many-files'}}
       return {
@@ -336,7 +333,7 @@ function DisplayingImages({
           </div>
         </div>
       )}
-      {oldImages ? (
+      {oldImages.length > 0 && (
         <div css={xyz}>
           <h2 css={hStyle}>Old Images</h2>
           <div css={imgWrap}>
@@ -352,7 +349,7 @@ function DisplayingImages({
               ))}
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   )
 }

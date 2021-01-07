@@ -1,14 +1,14 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import {css, jsx} from '@emotion/react'
+import {jsx} from '@emotion/react'
 import React from 'react'
 
 import {colors, labelWrapper, signWrapperInput} from '../Styles'
 
 function Input({
-  onChange,
-  onBlur = () => {},
+  onChange: handleChange = () => {},
+  onBlur: handleBlur = () => {},
   cleanColor,
   cssNew,
   name,
@@ -27,20 +27,14 @@ function Input({
       <input
         name={name}
         id={name}
-        onChange={onChange}
+        onChange={handleChange}
         aria-label={name}
-        css={[
-          signWrapperInput,
-          css`
-            border-color: ${state};
-          `,
-          cssNew,
-        ]}
+        style={{borderColor: state}}
+        css={[signWrapperInput, cssNew]}
         onBlur={e => {
-          e.target.validity.valid
-            ? setState(colors.lightGreen)
-            : setState(colors.burgundyRed)
-          onBlur(e)
+          const {valid} = e.target.validity
+          valid ? setState(colors.lightGreen) : setState(colors.burgundyRed)
+          handleBlur(e)
         }}
         {...props}
       />

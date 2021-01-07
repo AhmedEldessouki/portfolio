@@ -106,7 +106,6 @@ function CreateProjectX() {
     async (imagesArray, name) =>
       await Promise.allSettled(
         imagesArray.map(async file => {
-          console.log('Images Promise.All', file)
           dispatch({type: 'next'})
           return await uploadImage(file, name)
         }),
@@ -128,17 +127,14 @@ function CreateProjectX() {
 
   async function useSubmitImages(uploadImagesArr = [], name) {
     if (uploadImagesArr.length >= 0) {
-      console.log('submitting images', uploadImagesArr)
       await gradualUpload(uploadImagesArr, name)
       toast.success('Images Uploaded')
       return dispatch({type: 'images_uploaded'})
     }
-    console.log('submitting images rejected', uploadImagesArr)
   }
 
   async function useHandleSubmit(e) {
     e.preventDefault()
-    console.log('entered Submit')
     const {name, link, repoLink, description} = e.target.elements
     dispatch({
       type: 'submit_formData',
@@ -149,24 +145,16 @@ function CreateProjectX() {
         description: description.value,
       },
     })
-    console.log('dispatched form Data')
     await useSubmitImages(acceptedImages)
-    console.log('submitted images')
     if (project) {
-      console.log('will update project')
       await updateProject({...formData, id: project.id})
-      console.log('project updated')
+      setProject(null)
     }
     if (!project) {
-      console.log('will create project')
       await createNewProject(formData)
-      console.log('project created ')
     }
-    console.log('reset status')
-    console.log(status)
-    dispatch({type: 'clean_up'})
-    console.log(status)
-    // e.currentTarget.reset()
+
+    window.location.assign('/dashboard')
   }
 
   function handleDescription(e) {
@@ -201,7 +189,7 @@ function CreateProjectX() {
           <DisplayingImages
             acceptedImages={acceptedImages}
             rejectedImages={rejectedImages}
-            oldImages={project ? projectLogo : null}
+            oldImages={project ? projectLogo : undefined}
             handleClick={(type, index) => dispatch({type, payload: index})}
           />
           <ErrorBoundary
@@ -214,11 +202,11 @@ function CreateProjectX() {
                 getRootProps={getRootProps}
                 getInputProps={getInputProps}
               />
-              {error?.code === 'too-many-files' ? (
+              {error?.code === 'too-many-files' && (
                 <span css={warning} role="alert">
                   Please Upload 10 files or less
                 </span>
-              ) : null}
+              )}
               <ProjInput
                 name="name"
                 project={name}
