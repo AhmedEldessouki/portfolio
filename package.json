@@ -51,9 +51,6 @@
     "start-server-and-test": "^1.11.7",
     "workbox-build": "^6.0.2"
   },
-  "engines": {
-    "node": ">10.19.0"
-  },
   "scripts": {
     "build": "react-scripts build",
     "start": "set PORT=8888 && react-scripts start",

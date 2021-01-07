@@ -6,43 +6,10 @@ import {FaPen} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
-import {colors, weights} from '../Styles'
+import {colors} from '../Styles'
 import PopUp from '../Utils/PopUp/PopUp'
+import {Title} from '../Utils/util'
 import {deleteProject} from './utils'
-
-const Title = ({name, onClick, children, testId}) => {
-  const title = css`
-    background-color: ${colors.darkBlue};
-    padding: 8% 5%;
-    font-size: 1.82rem;
-    font-weight: ${weights.medium};
-    margin: 0;
-    transition: ease-in 500ms;
-    font-family: sans;
-    border-radius: 11%;
-    :hover {
-      font-family: sans-serif;
-      cursor: pointer;
-    }
-  `
-
-  return (
-    <button
-      type="button"
-      data-testid={testId}
-      onClick={() => {
-        onClick()
-      }}
-      css={css`
-        background: transparent;
-        border: none;
-        width: 100%;
-      `}
-    >
-      <h1 css={title}>{name}</h1>
-    </button>
-  )
-}
 
 function Tag({tags, ...props}) {
   return (
@@ -113,7 +80,7 @@ function Card({items = [], setState}) {
     <div css={mWrapper}>
       {items.map((item, i) => {
         return (
-          <div css={pWrapper} key={item.id}>
+          <div css={pWrapper} key={item.id} data-testid={`${item.name}-card`}>
             {authData ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}

@@ -4,9 +4,8 @@ import {screen} from '@testing-library/react'
 import {render, userEvent} from '../test/app-test-utils'
 import {projects} from '../test/data/projects'
 import Projects from '../components/Projects/Projects'
-import {colors} from '../components/Styles'
 
-test('Project Render', async () => {
+test('Project Render and check Card does not have Auth Features', async () => {
   await render(<Projects projectsData={projects} />, {
     user: null,
     doWait: false,
@@ -20,11 +19,6 @@ test('Project Render', async () => {
 
   expect(screen.queryByTestId(/delete-button/i)).not.toBeInTheDocument()
   expect(screen.queryByTestId(/edit-project/i)).not.toBeInTheDocument()
-
-  userEvent.hover(screen.getByText(/Portfolio v1/i))
-  expect(screen.getByText(/Portfolio v1/i)).toHaveStyle(
-    `background: ${colors.kindaBlue}, color: ${colors.darkBlue};`,
-  )
 })
 
 test('Project Details Render', async () => {

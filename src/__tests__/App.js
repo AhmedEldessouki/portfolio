@@ -2,14 +2,11 @@ import * as React from 'react'
 import App from '../App'
 import {buildMessage, buildProject, buildTag, buildUser} from '../test/generate'
 import {
-  render,
   userEvent,
   loginAsUser,
   screen,
   renderWithAllProviders,
-  waitForElementToBeRemoved,
 } from '../test/app-test-utils'
-import {server, rest} from '../test/server/test-server'
 import * as projectsDB from '../test/data/projects'
 import * as messagesDB from '../test/data/messages'
 import * as tagsDB from '../test/data/tags'
@@ -70,28 +67,10 @@ describe('App: Should Check Forms', () => {
     expect(screen.getByLabelText(/description/i)).toHaveDisplayValue(
       message.description,
     )
-
-    //   userEvent.click(screen.getByTestId('submit'))
-
-    //   server.use(
-    //     rest.post('/contactedMe', async (req, res, ctx) => {
-    //       return res(ctx.status(200), ctx.json({data: message}))
-    //     }),
-    //     rest.post('/login', async (req, res, ctx) => {
-    //       return res(ctx.status(200), ctx.json({data: buildUser()}))
-    //     }),
-    //   )
-
-    // userEvent.click(screen.getByText(/dashboard/i))
-
-    //   expect(screen.getAllByText(/XXXXXXX/i)).toHaveLength(2)
-    //   await waitForElementToBeRemoved(() => screen.getAllByText(/xxx/i))
-    //   expect(screen.queryByText(/XXXXXXX/i)).not.toBeInTheDocument()
-    //   expect(screen.getByText(message.name)).toBeInTheDocument()
   })
 
   test('Create Project Form', async () => {
-    const {project, utils: container} = await renderAppScreen({
+    const {project} = await renderAppScreen({
       doWait: false,
       message: null,
       tag: null,
@@ -99,12 +78,10 @@ describe('App: Should Check Forms', () => {
 
     userEvent.click(screen.getByText(/create project/i))
 
-    // TODO: find a way to test the this dropZone
-    // userEvent.upload(container.querySelector('#root > div:nth-child(2) > div > div > form > label:nth-child(1)')), project.imagesFiles)
     userEvent.type(screen.getByLabelText(/name/i), project.name)
     userEvent.type(screen.getByLabelText('link'), project.link)
     userEvent.type(screen.getByLabelText(/repoLink/i), project.repoLink)
-    userEvent.click(screen.getByLabelText(/tag-0/i))
+    userEvent.click(screen.getByTestId(/tag-0/i))
     userEvent.type(screen.getByLabelText(/description/i), project.description)
 
     expect(screen.getByLabelText(/name/i)).toHaveDisplayValue(project.name)
@@ -112,33 +89,15 @@ describe('App: Should Check Forms', () => {
     expect(screen.getByLabelText(/repoLink/i)).toHaveDisplayValue(
       project.repoLink,
     )
-    expect(screen.getByLabelText(/tag-0/i)).toBeChecked()
+    expect(screen.getByTestId('tag-0')).toBeChecked()
     expect(screen.getByLabelText(/description/i)).toHaveDisplayValue(
       project.description,
     )
 
-    userEvent.click(screen.getByLabelText(/tag-0/i))
-    expect(screen.getByLabelText(/tag-0/i)).not.toBeChecked()
+    userEvent.click(screen.getByTestId('tag-0'))
+    expect(screen.getByTestId('tag-0')).not.toBeChecked()
 
     userEvent.click(screen.getByText(/tags/i))
-
-    //   userEvent.click(screen.getByTestId('submit'))
-
-    //   server.use(
-    //     rest.post('/contactedMe', async (req, res, ctx) => {
-    //       return res(ctx.status(200), ctx.json({data: message}))
-    //     }),
-    //     rest.post('/login', async (req, res, ctx) => {
-    //       return res(ctx.status(200), ctx.json({data: buildUser()}))
-    //     }),
-    //   )
-
-    // userEvent.click(screen.getByText(/dashboard/i))
-
-    //   expect(screen.getAllByText(/XXXXXXX/i)).toHaveLength(2)
-    //   await waitForElementToBeRemoved(() => screen.getAllByText(/xxx/i))
-    //   expect(screen.queryByText(/XXXXXXX/i)).not.toBeInTheDocument()
-    //   expect(screen.getByText(message.name)).toBeInTheDocument()
   })
 
   test('Tags Form', async () => {
@@ -155,18 +114,8 @@ describe('App: Should Check Forms', () => {
 
     expect(screen.getByLabelText(/name/i)).toHaveDisplayValue(tag.name)
     expect(screen.getByLabelText('url')).toHaveDisplayValue(tag.url)
-
-    //   userEvent.click(screen.getByTestId('submit'))
-
-    //   server.use(
-    //     rest.post('/contactedMe', async (req, res, ctx) => {
-    //       return res(ctx.status(200), ctx.json({data: message}))
-    //     }),
-    //     rest.post('/login', async (req, res, ctx) => {
-    //       return res(ctx.status(200), ctx.json({data: buildUser()}))
-    //     }),
-    //   )
   })
+
   test('Sign-Up Form', async () => {
     const {user} = await renderAppScreen({
       doWait: false,
