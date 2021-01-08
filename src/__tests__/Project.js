@@ -5,6 +5,12 @@ import {render, userEvent} from '../test/app-test-utils'
 import {projects} from '../test/data/projects'
 import Projects from '../components/Projects/Projects'
 
+beforeAll(() => {
+  jest.mock('react-query', () => ({
+    useQuery: () => ({isLoading: false, error: {}, data: []}),
+  }))
+})
+
 test('Project Render and check Card does not have Auth Features', async () => {
   await render(<Projects projectsData={projects} />, {
     user: null,

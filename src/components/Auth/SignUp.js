@@ -5,16 +5,16 @@ import {jsx, css} from '@emotion/react'
 
 import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
-import {signWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
+import {formWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/util'
 
 function SignUp() {
-  const {useSignUp} = useAuth()
-  const [authError, signUp] = useSignUp()
+  const {useCreateNewUser} = useAuth()
+  const [newUserCreationFailed, createNewUser] = useCreateNewUser()
   const {status, dispatch} = useAsync()
 
-  const handleSubmit = async e => {
+  async function submitNewUserCredentials(e) {
     e.preventDefault()
     dispatch({type: 'pending'})
     const {
@@ -31,9 +31,9 @@ function SignUp() {
       password: password.value,
       confirmPassword: confirmPassword.value,
     }
-    await signUp(formData)
+    await createNewUser(formData)
 
-    if (!authError) {
+    if (!newUserCreationFailed) {
       e.currentTarget.reset()
     }
     dispatch({type: 'resolved'})
@@ -49,7 +49,11 @@ function SignUp() {
           place-content: center;
         `}
       >
-        <form id="#sign-up" css={signWrapper} onSubmit={handleSubmit}>
+        <form
+          id="#sign-up"
+          css={formWrapper}
+          onSubmit={submitNewUserCredentials}
+        >
           <Input
             name="firstName"
             placeholder="First Name"
@@ -78,11 +82,9 @@ function SignUp() {
 
           <Input
             cssNew={
-              status === 'rejected'
-                ? css`
-                    border-color: ${colors.burgundyRed};
-                  `
-                : void 0
+              status === 'rejected' && {
+                borderColor: colors.burgundyRed,
+              }
             }
             name="password"
             autoComplete="new-password"
@@ -109,11 +111,9 @@ function SignUp() {
               }
             }}
             cssNew={
-              status === 'rejected'
-                ? css`
-                    border-color: ${colors.burgundyRed};
-                  `
-                : void 0
+              status === 'rejected' && {
+                borderColor: colors.burgundyRed,
+              }
             }
             autoComplete="new-password"
             name="confirmPassword"
@@ -125,11 +125,13 @@ function SignUp() {
             cleanColor={status === 'resolved'}
           />
           {status === 'rejected' ? (
-            <span css={warning}>Password Don&apos;t Match</span>
+            <span css={warning} role="alert">
+              Password Don&apos;t Match
+            </span>
           ) : null}
-          {authError ? (
+          {newUserCreationFailed ? (
             <div css={warning} role="alert">
-              {authError}
+              {newUserCreationFailed}
             </div>
           ) : null}
 

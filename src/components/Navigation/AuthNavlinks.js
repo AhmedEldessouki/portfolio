@@ -9,7 +9,7 @@ import {useAuth} from '../../context/AuthProvider'
 import {colors, mq} from '../Styles'
 
 const AuthNavlinksX = () => {
-  const {signOut} = useAuth()
+  const {signUserOut} = useAuth()
 
   const nav = css`
     display: flex;
@@ -115,7 +115,7 @@ const AuthNavlinksX = () => {
       >
         <h2>SignUp</h2>
       </NavLink>
-      <NavLink onClick={signOut} to="/">
+      <NavLink onClick={signUserOut} to="/">
         <h2>SignOut</h2>
       </NavLink>
     </div>

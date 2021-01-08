@@ -4,7 +4,7 @@
 import {jsx} from '@emotion/react'
 import React from 'react'
 
-import {colors, labelWrapper, signWrapperInput} from '../Styles'
+import {colors, labelWrapper, formWrapperInput} from '../Styles'
 
 function Input({
   onChange: handleChange = () => {},
@@ -30,7 +30,7 @@ function Input({
         onChange={handleChange}
         aria-label={name}
         style={{borderColor: state}}
-        css={[signWrapperInput, cssNew]}
+        css={[formWrapperInput, cssNew]}
         onBlur={e => {
           const {valid} = e.target.validity
           valid ? setState(colors.lightGreen) : setState(colors.burgundyRed)

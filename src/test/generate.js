@@ -31,11 +31,7 @@ function buildProject(overrides) {
     description: faker.lorem.paragraph(),
     link: faker.internet.url(),
     repoLink: faker.internet.url(),
-    imagesFiles: [
-      faker.image.image(),
-      faker.image.image(),
-      faker.image.image(),
-    ],
+    imageFiles: [faker.image.image(), faker.image.image(), faker.image.image()],
     projectLogo: [faker.image.imageUrl(), faker.image.imageUrl()],
     tag: [faker.image.imageUrl(), faker.image.imageUrl()],
     name: faker.name.firstName(),

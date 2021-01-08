@@ -6,7 +6,7 @@ import {render, userEvent} from '../test/app-test-utils'
 import {buildMessage} from '../test/generate'
 
 const message = buildMessage()
-test('Contact Form Test', async () => {
+test('Should fill out Contact Form Test', async () => {
   await render(<ContactMe />, {user: null, doWait: false})
   userEvent.type(screen.getByLabelText(/name/i), message.name)
 
@@ -21,5 +21,11 @@ test('Contact Form Test', async () => {
   expect(screen.getByLabelText(/description/i)).toHaveDisplayValue(
     message.description,
   )
+
+  expect(screen.getByRole('button', {name: /submit/i})).toHaveAttribute(
+    'type',
+    'submit',
+  )
+
   userEvent.click(screen.getByTestId('submit'))
 })

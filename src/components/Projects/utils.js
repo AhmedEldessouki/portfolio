@@ -115,7 +115,7 @@ function ImageDropZone({getRootProps, getInputProps, color = colors.darkBlue}) {
             `,
           ]}
         >
-          Image(s) Drop Area
+          Image(s) Drop Zone
         </em>
         <input
           id="dropZone"
@@ -136,7 +136,7 @@ function ImageDropZone({getRootProps, getInputProps, color = colors.darkBlue}) {
   )
 }
 
-const reducer = (state, {type, payload}) => {
+const createProjectFormReducer = (state, {type, payload}) => {
   const {formData, acceptedImages, rejectedImages} = state
   switch (type) {
     case 'error':
@@ -233,7 +233,7 @@ const reducer = (state, {type, payload}) => {
   }
 }
 
-function Button({status, project}) {
+function ButtonWithSpinner({status, project}) {
   return status !== 'idle' ? (
     <div
       css={css`
@@ -255,9 +255,9 @@ function Button({status, project}) {
 }
 
 function DisplayingImages({
-  acceptedImages = [],
-  rejectedImages = [],
-  oldImages = [],
+  acceptedImages,
+  rejectedImages,
+  oldImages,
   handleClick,
 }) {
   const imgWrap = css`
@@ -299,7 +299,7 @@ function DisplayingImages({
         margin-bottom: 50px;
       `}
     >
-      {acceptedImages.length > 0 && (
+      {acceptedImages?.length > 0 && (
         <div css={[xyz]}>
           <h2 css={[hStyle, {background: '#11826B'}]}>Accepted Images</h2>
           <div css={imgWrap}>
@@ -315,7 +315,7 @@ function DisplayingImages({
           </div>
         </div>
       )}
-      {rejectedImages.length > 0 && (
+      {rejectedImages?.length > 0 && (
         <div css={[xyz]}>
           <h2 css={[hStyle, {background: colors.burgundyRed}]}>
             Rejected Images
@@ -333,20 +333,19 @@ function DisplayingImages({
           </div>
         </div>
       )}
-      {oldImages.length > 0 && (
+      {oldImages?.length > 0 && (
         <div css={xyz}>
-          <h2 css={hStyle}>Old Images</h2>
+          <h2 css={hStyle}>current Images</h2>
           <div css={imgWrap}>
-            {oldImages &&
-              oldImages?.map((file, i) => (
-                <div key={file} css={div}>
-                  <PopUp
-                    title="Image"
-                    onClick={() => handleClick('remove_oldImages', i)}
-                  />
-                  <img alt="" width={100} src={file} />
-                </div>
-              ))}
+            {oldImages?.map((file, i) => (
+              <div key={file} css={div}>
+                <PopUp
+                  title="Image"
+                  onClick={() => handleClick('remove_oldImages', i)}
+                />
+                <img alt="" width={100} src={file} />
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -435,11 +434,11 @@ export {
   ProjInput,
   uploadImage,
   ImageDropZone,
-  reducer,
+  createProjectFormReducer,
   updateProject,
   deleteProject,
   createNewProject,
-  Button,
+  ButtonWithSpinner,
   DisplayingImages,
   TagsCheckBox,
 }

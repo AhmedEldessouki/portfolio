@@ -3,18 +3,21 @@
 
 import {jsx, css} from '@emotion/react'
 
-import {signWrapper, h1XL, btnStyle, warning, spinner} from '../Styles'
+import {formWrapper, h1XL, btnStyle, warning, spinner} from '../Styles'
 import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/util'
 
 const SignIn = () => {
-  const {useSignIn} = useAuth(null)
-  const [authError, signIn] = useSignIn()
+  const {useVerifyUserSignInCredentials} = useAuth(null)
+  const [
+    verificationFailed,
+    checkUserCredentials,
+  ] = useVerifyUserSignInCredentials()
   const {status, dispatch} = useAsync()
 
-  function handleSubmit(e) {
+  async function submitUserCredentials(e) {
     e.preventDefault()
     dispatch({type: 'pending'})
     const {email, password} = e.target.elements
@@ -23,7 +26,7 @@ const SignIn = () => {
       password: password.value,
     }
 
-    signIn(formData)
+    await checkUserCredentials(formData)
 
     dispatch({type: 'resolved'})
     e.target.reset()
@@ -39,7 +42,7 @@ const SignIn = () => {
           place-content: center;
         `}
       >
-        <form onSubmit={handleSubmit} css={signWrapper}>
+        <form onSubmit={submitUserCredentials} css={formWrapper}>
           <div css={{width: '89%'}}>
             <Input
               type="email"
@@ -60,11 +63,11 @@ const SignIn = () => {
               cleanColor={status === 'resolved'}
             />
           </div>
-          {authError ? (
+          {verificationFailed && (
             <div role="alert" css={warning}>
-              {authError}
+              {verificationFailed}
             </div>
-          ) : null}
+          )}
           {status === 'pending' ? (
             <div
               css={css`

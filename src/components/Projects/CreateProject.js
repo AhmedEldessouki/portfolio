@@ -15,37 +15,38 @@ import {
   h1XL,
   labelWrapper,
   mq,
-  signWrapper,
+  formWrapper,
   textArea,
   warning,
 } from '../Styles'
 import {
   uploadImage,
   ImageDropZone,
-  reducer,
+  createProjectFormReducer,
   createNewProject,
   updateProject,
-  Button,
+  ButtonWithSpinner,
   DisplayingImages,
   ProjInput,
   TagsCheckBox,
 } from './utils'
 
 function CreateProjectX() {
-  const {project, setProject} = useAuth()
+  const {selectedProject, setProject} = useAuth()
 
   const [
     {status, formData, acceptedImages, rejectedImages, error},
     unsafeDispatch,
-  ] = React.useReducer(reducer, {
+  ] = React.useReducer(createProjectFormReducer, {
     status: 'idle',
+    // Passing Selected Project Data to the Form
     formData: {
-      name: project ? project.name : '',
-      link: project ? project.link : '',
-      repoLink: project ? project.repoLink : '',
-      projectLogo: project ? [...project.projectLogo] : [],
-      tag: project ? project.tag ?? [] : [],
-      description: project ? project.description : '',
+      name: selectedProject ? selectedProject.name : '',
+      link: selectedProject ? selectedProject.link : '',
+      repoLink: selectedProject ? selectedProject.repoLink : '',
+      projectLogo: selectedProject ? [...selectedProject.projectLogo] : [],
+      tag: selectedProject ? selectedProject.tag ?? [] : [],
+      description: selectedProject ? selectedProject.description : '',
     },
     error: null,
     acceptedImages: [],
@@ -125,7 +126,7 @@ function CreateProjectX() {
     [dispatch],
   )
 
-  async function useSubmitImages(uploadImagesArr = [], name) {
+  async function useSubmitImages(uploadImagesArr, name) {
     if (uploadImagesArr.length >= 0) {
       await gradualUpload(uploadImagesArr, name)
       toast.success('Images Uploaded')
@@ -146,11 +147,11 @@ function CreateProjectX() {
       },
     })
     await useSubmitImages(acceptedImages)
-    if (project) {
-      await updateProject({...formData, id: project.id})
+    if (selectedProject) {
+      await updateProject({...formData, id: selectedProject.id})
       setProject(null)
     }
-    if (!project) {
+    if (!selectedProject) {
       await createNewProject(formData)
     }
 
@@ -161,11 +162,18 @@ function CreateProjectX() {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
 
-  const {name, link, repoLink, description, projectLogo, tag} = formData
+  const {
+    name: selectedProjectName,
+    link: selectedProjectLink,
+    repoLink: selectedProjectRepoLink,
+    description: selectedProjectDescription,
+    projectLogo: selectedProjectImages,
+    tag: selectedProjectTags,
+  } = formData
   return (
     <Layout>
       <div>
-        <h1 css={h1XL}>{project ? `Edit` : `Create`} Project</h1>
+        <h1 css={h1XL}>{selectedProject ? `Edit` : `Create`} Project</h1>
         <div
           css={[
             {
@@ -173,7 +181,7 @@ function CreateProjectX() {
               placeContent:
                 acceptedImages.length ||
                 rejectedImages.length ||
-                project?.projectLogo.length >= 0
+                selectedProject?.projectLogo.length >= 0
                   ? 'space-around'
                   : 'center',
               flexWrap: 'wrap-reverse',
@@ -189,14 +197,14 @@ function CreateProjectX() {
           <DisplayingImages
             acceptedImages={acceptedImages}
             rejectedImages={rejectedImages}
-            oldImages={project ? projectLogo : undefined}
+            oldImages={selectedProject && selectedProjectImages}
             handleClick={(type, index) => dispatch({type, payload: index})}
           />
           <ErrorBoundary
             FallbackComponent={ErrorMessageFallback}
             onReset={() => dispatch({type: 'clean_up'})}
           >
-            <form css={signWrapper} onSubmit={useHandleSubmit}>
+            <form css={formWrapper} onSubmit={useHandleSubmit}>
               <ImageDropZone
                 color={isDragActive ? colors.blueFont : colors.darkBlue}
                 getRootProps={getRootProps}
@@ -209,7 +217,7 @@ function CreateProjectX() {
               )}
               <ProjInput
                 name="name"
-                project={name}
+                project={selectedProjectName}
                 placeholder="Name"
                 required
                 minLength={3}
@@ -219,7 +227,7 @@ function CreateProjectX() {
               <ProjInput
                 type="url"
                 required
-                project={link}
+                project={selectedProjectLink}
                 placeholder="Project Link"
                 name="link"
                 cleanColor={status === 'pending'}
@@ -227,7 +235,7 @@ function CreateProjectX() {
               <ProjInput
                 type="url"
                 required
-                project={repoLink}
+                project={selectedProjectRepoLink}
                 placeholder="Repo Link"
                 name="repoLink"
                 cleanColor={status === 'pending'}
@@ -246,7 +254,7 @@ function CreateProjectX() {
                     })
                   }
                 }}
-                projectTags={project ? tag : undefined}
+                projectTags={selectedProject && selectedProjectTags}
               />
               <label
                 htmlFor="description"
@@ -259,9 +267,13 @@ function CreateProjectX() {
                   aria-label="description"
                   placeholder="Project Description"
                   name="description"
-                  value={project ? description : void 0}
+                  value={
+                    selectedProject ? selectedProjectDescription : undefined
+                  }
                   minLength={10}
-                  onChange={project ? e => handleDescription(e) : void 0}
+                  onChange={
+                    selectedProject ? e => handleDescription(e) : void 0
+                  }
                   onBlur={e => {
                     e.target.validity.valid
                       ? setDescriptionErr(colors.lightGreen)
@@ -271,7 +283,7 @@ function CreateProjectX() {
                   required
                 />
               </label>
-              <Button status={status} project={project} />
+              <ButtonWithSpinner status={status} project={selectedProject} />
             </form>
           </ErrorBoundary>
         </div>

@@ -9,86 +9,84 @@ const AuthContext = React.createContext()
 AuthContext.displayName = 'AuthContext'
 
 function AuthProvider({children}) {
-  const [authData, setAuthData] = useLocalStorageState(
-    '__portfolio_user__',
-    null,
-  )
+  const [user, setUser] = useLocalStorageState('__portfolio_user__', null)
 
-  const [project, setProject] = React.useState(null)
+  const [selectedProject, setProject] = React.useState(null)
 
   React.useEffect(() => {
-    firebaseApp.auth().onAuthStateChanged(user => {
-      if (user && user.id !== authData) {
-        setAuthData(user.uid)
-      }
-    })
-  }, [authData, setAuthData])
+    function verifyCurrentUserCredentials(user) {
+      firebaseApp.auth().onAuthStateChanged(currentUser => {
+        if (currentUser && currentUser.id !== user) {
+          setUser(currentUser.uid)
+        }
+      })
+    }
+    verifyCurrentUserCredentials(user)
+  }, [user, setUser])
 
-  function useSignIn() {
-    const [authError, setAuthError] = React.useState('')
+  function useVerifyUserSignInCredentials() {
+    const [verificationFailed, setVerificationFailed] = React.useState('')
 
-    const signIn = React.useCallback(credentials => {
-      let error
-      auth
+    async function checkUserCredentials(credentials) {
+      await auth
         .signInWithEmailAndPassword(credentials.email, credentials.password)
         .then(
-          res => {
-            Redirect({to: '/'})
+          async res => {
+            await setUser(res.user)
             toast.success(`LogIn Successful`)
-            setAuthData(res.user)
+            Redirect({to: '/'})
+            return
           },
           err => {
             toast.error(`SignIn Failed "${err.message}"`)
-            setAuthError(err.message)
+            setVerificationFailed(err.message)
+            return
           },
         )
-      return {error}
-    }, [])
-    return [authError, signIn]
+    }
+    return [verificationFailed, checkUserCredentials]
   }
-
-  function signOut() {
+  function signUserOut() {
     auth.signOut()
-    setAuthData(null)
+    setUser(null)
     toast.success(`See You Soon`)
     Redirect({to: '/'})
   }
 
-  function useSignUp() {
-    const [authError, setAuthError] = React.useState('')
+  function useCreateNewUser() {
+    const [newUserCreationFailed, setNewUserCreationFailed] = React.useState('')
 
-    const signUp = React.useCallback(
-      newUser =>
-        auth
-          .createUserWithEmailAndPassword(newUser.email, newUser.password)
-          .then(
-            resp => {
-              db.collection('users')
-                .doc(resp.user.uid)
-                .set({
-                  hstName: newUser.firstName,
-                  lastName: newUser.lastName,
-                  initials: newUser.firstName[0] + newUser.lastName[0],
-                })
-              setAuthData(newUser.uid)
-              toast.success(`Welcome "${newUser.email}" to The Club`)
-            },
-            err => {
-              setAuthError(err.message)
-              toast.error(`SignUp Failed "${err.message}"`)
-            },
-          ),
-      [],
-    )
-    return [authError, signUp]
+    const createNewUser = async newUser => {
+      return auth
+        .createUserWithEmailAndPassword(newUser.email, newUser.password)
+        .then(
+          async resp => {
+            await db
+              .collection('users')
+              .doc(resp.user.uid)
+              .set({
+                hstName: newUser.firstName,
+                lastName: newUser.lastName,
+                initials: newUser.firstName[0] + newUser.lastName[0],
+              })
+            setUser(newUser.uid)
+            toast.success(`Welcome "${newUser.email}" to The Club`)
+          },
+          err => {
+            setNewUserCreationFailed(err.message)
+          },
+        )
+    }
+    return [newUserCreationFailed, createNewUser]
   }
+
   const value = {
-    useSignIn,
-    signOut,
-    useSignUp,
-    authData,
-    setAuthData,
-    project,
+    useVerifyUserSignInCredentials,
+    signUserOut,
+    useCreateNewUser,
+    user,
+    setUser,
+    selectedProject,
     setProject,
   }
 
@@ -97,35 +95,35 @@ function AuthProvider({children}) {
 
 function useAuth() {
   const {
-    useSignIn,
-    signOut,
-    useSignUp,
-    authData,
-    setAuthData,
-    project,
+    useVerifyUserSignInCredentials,
+    signUserOut,
+    useCreateNewUser,
+    user,
+    setUser,
+    selectedProject,
     setProject,
   } = React.useContext(AuthContext)
 
   if (
     !{
-      useSignIn,
-      signOut,
-      useSignUp,
-      authData,
-      setAuthData,
-      project,
+      useVerifyUserSignInCredentials,
+      signUserOut,
+      useCreateNewUser,
+      user,
+      setUser,
+      selectedProject,
       setProject,
     }
   )
     throw new Error('"useAuth" should be used inside "AuthProvider"')
 
   return {
-    useSignIn,
-    signOut,
-    useSignUp,
-    authData,
-    setAuthData,
-    project,
+    useVerifyUserSignInCredentials,
+    signUserOut,
+    useCreateNewUser,
+    user,
+    setUser,
+    selectedProject,
     setProject,
   }
 }

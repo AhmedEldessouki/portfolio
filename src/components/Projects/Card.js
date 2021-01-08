@@ -57,7 +57,7 @@ function EditAndDelete({project, onClick}) {
 }
 
 function Card({items = [], setState}) {
-  const {authData, setProject: setPorj} = useAuth()
+  const {user, setProject: setPorj} = useAuth()
 
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
@@ -81,7 +81,7 @@ function Card({items = [], setState}) {
       {items.map((item, i) => {
         return (
           <div css={pWrapper} key={item.id} data-testid={`${item.name}-card`}>
-            {authData ? (
+            {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}
             <Title

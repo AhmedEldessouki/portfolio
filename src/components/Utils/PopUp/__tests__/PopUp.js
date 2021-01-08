@@ -6,6 +6,7 @@ const func = jest.fn().mockImplementation(() => {})
 
 test('should display PopUp and reject. then close', async () => {
   await render(<PopUp title="Entered Titled" onClick={func()} />, {
+    user: null,
     doWait: false,
   })
 
