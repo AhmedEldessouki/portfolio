@@ -21,12 +21,12 @@ const SignIn = () => {
     e.preventDefault()
     dispatch({type: 'pending'})
     const {email, password} = e.target.elements
-    const formData = {
+    const credentials = {
       email: email.value,
       password: password.value,
     }
 
-    await checkUserCredentials(formData)
+    await checkUserCredentials(credentials)
 
     dispatch({type: 'resolved'})
     e.target.reset()

@@ -97,7 +97,7 @@ function Card({items = [], setState}) {
                 display: flex;
                 place-content: center;
                 place-items: center;
-                min-height: 50px;
+                height: 50px;
                 gap: 15px;
               `}
             >

@@ -180,7 +180,15 @@ function Carousel({imgArray, imgAlt}) {
         >
           {'<'}
         </button>
-        <div>
+        <div
+          css={{
+            width: 350,
+            height: 259,
+            display: 'flex',
+            placeContent: 'center',
+            background: colors.backgroundShade,
+          }}
+        >
           <Img
             width="330"
             imgAlt={imgAlt}

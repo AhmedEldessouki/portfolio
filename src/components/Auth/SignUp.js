@@ -24,14 +24,14 @@ function SignUp() {
       password,
       confirmPassword,
     } = e.target.elements
-    const formData = {
+    const newUserData = {
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
       password: password.value,
       confirmPassword: confirmPassword.value,
     }
-    await createNewUser(formData)
+    await createNewUser(newUserData)
 
     if (!newUserCreationFailed) {
       e.currentTarget.reset()
