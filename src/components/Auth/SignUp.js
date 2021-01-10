@@ -141,7 +141,7 @@ function SignUp() {
                 width: 100%;
               `}
             >
-              <div css={spinner} />
+              <div css={spinner} aria-busy="true" />
             </div>
           ) : (
             <button

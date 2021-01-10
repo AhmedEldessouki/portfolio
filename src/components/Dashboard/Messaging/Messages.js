@@ -49,7 +49,7 @@ function MessagesComponent({messagesData}) {
             return (
               <MessagesSummary
                 key={message.id}
-                fn={() => setMessageSel(message)}
+                setMessageFunc={() => setMessageSel(message)}
                 message={message}
               />
             )

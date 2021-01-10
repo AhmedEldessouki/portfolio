@@ -70,10 +70,11 @@ test('Should fill out Create Project Form', async () => {
   )
 
   // for testing the result after submitting
-  // userEvent.click(screen.getByRole('button', {name: /create project/i}))
-  userEvent.click(screen.getByText(/dashboard/i))
-
-  expect(screen.queryByText(/drop zone/i)).not.toBeInTheDocument()
+  userEvent.click(screen.getByRole('button', {name: /create project/i}))
+  // userEvent.click(screen.getByText(/dashboard/i))
+  screen.debug()
+  expect(screen.getByLabelText(/name/i)).not.toHaveDisplayValue(project.name)
+  // expect(screen.queryByText(/drop zone/i)).not.toBeInTheDocument()
 
   // await waitForElementToBeRemoved(screen.getAllByText('XXXXXXX'))
   // expect(screen.getByText(project.name)).toBeInTheDocument()

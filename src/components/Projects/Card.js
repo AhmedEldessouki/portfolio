@@ -89,6 +89,7 @@ function Card({items = [], setState}) {
               onClick={() => {
                 setState(item)
               }}
+              aria-pressed="false"
               testId={`project[${i}]`}
             />
             <div

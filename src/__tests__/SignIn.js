@@ -42,3 +42,26 @@ test('Should fill out Sign-In Form', async () => {
 
   // expect(screen.getByText(/projects/i)).toBeInTheDocument()
 })
+// test('Should Sign-In Form fail and show the error Message', async () => {
+//   const user = buildUser()
+//   window.localStorage.setItem(usersDB.usersKey, null)
+//   await renderAppScreen({
+//     doWait: false,
+//     user: null,
+//   })
+
+//   expect(
+//     await screen.findByText(/© 2019 Ahmed ElDessouki/i),
+//   ).toBeInTheDocument()
+//   userEvent.click(screen.getByText('© 2019 Ahmed ElDessouki'))
+
+//   userEvent.type(screen.getByLabelText(/email/i), user.email)
+//   userEvent.type(screen.getByLabelText('password'), user.password)
+
+//   userEvent.click(screen.getByRole('button', {name: /submit/i}))
+
+//   expect(await screen.findByRole('alert').textContent).toMatchInlineSnapshot(
+//     `undefined`,
+//   )
+//   // expect(screen.getByText(/projects/i)).toBeInTheDocument()
+// })

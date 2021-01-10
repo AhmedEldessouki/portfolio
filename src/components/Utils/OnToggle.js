@@ -157,6 +157,7 @@ const OnToggle = React.forwardRef(function OnToggle(
                 <Title
                   key={`${item}-${i * 2}`}
                   name={item.name}
+                  aria-pressed="true"
                   csx={css`
                     @keyframes example {
                       from {

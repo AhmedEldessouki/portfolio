@@ -16,7 +16,7 @@ function Spinner() {
         margin-top: 38px;
       `}
     >
-      <div css={spinner} />
+      <div css={spinner} aria-busy="true" />
     </div>
   )
 }

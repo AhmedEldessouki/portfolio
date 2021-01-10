@@ -241,7 +241,7 @@ function ButtonWithSpinner({status, project}) {
         margin-top: 43px;
       `}
     >
-      <div css={spinner} />
+      <div css={spinner} aria-busy="true" />
     </div>
   ) : (
     <button

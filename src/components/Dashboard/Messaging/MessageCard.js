@@ -9,7 +9,7 @@ import PopUp from '../../Utils/PopUp/PopUp'
 import {ErrorMessageFallback} from '../../Utils/util'
 import {deleteMessage} from './utils'
 
-function MessageCard({message, fn}) {
+function MessageCard({message, setMessageFunc}) {
   const messagesSummary = css`
     display: flex;
     background-color: ${colors.independenceBlue};
@@ -33,7 +33,7 @@ function MessageCard({message, fn}) {
 
   return (
     <div css={messagesSummary}>
-      <button css={btn} onClick={fn}>
+      <button css={btn} onClick={setMessageFunc} aria-pressed="false">
         <h2
           css={[
             h1XL,
@@ -54,13 +54,13 @@ function MessageCard({message, fn}) {
   )
 }
 
-function MessagesSummary({message, fn}) {
+function MessagesSummary({message, setMessageFunc}) {
   return (
     <ErrorBoundary
       fallbackComponent={ErrorMessageFallback}
       resetKeys={[message]}
     >
-      <MessageCard message={message} fn={fn} />
+      <MessageCard message={message} setMessageFunc={setMessageFunc} />
     </ErrorBoundary>
   )
 }
