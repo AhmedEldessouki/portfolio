@@ -38,4 +38,7 @@ test('Should fill out Sign-In Form', async () => {
     'type',
     'submit',
   )
+  // userEvent.click(screen.getByRole('button', {name: /submit/i}))
+
+  // expect(screen.getByText(/projects/i)).toBeInTheDocument()
 })

@@ -7,6 +7,7 @@ import {
   screen,
   renderWithAllProviders,
   fireEvent,
+  waitForElementToBeRemoved,
 } from '../test/app-test-utils'
 import * as projectsDB from '../test/data/projects'
 
@@ -68,9 +69,14 @@ test('Should fill out Create Project Form', async () => {
     'submit',
   )
 
+  // for testing the result after submitting
+  // userEvent.click(screen.getByRole('button', {name: /create project/i}))
   userEvent.click(screen.getByText(/dashboard/i))
 
   expect(screen.queryByText(/drop zone/i)).not.toBeInTheDocument()
+
+  // await waitForElementToBeRemoved(screen.getAllByText('XXXXXXX'))
+  // expect(screen.getByText(project.name)).toBeInTheDocument()
 })
 
 // test('Create Project Images Drop Zone should upload 1 file', async () => {
