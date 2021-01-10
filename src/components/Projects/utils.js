@@ -137,7 +137,7 @@ function ImageDropZone({getRootProps, getInputProps, color = colors.darkBlue}) {
 }
 
 const createProjectFormReducer = (state, {type, payload}) => {
-  const {formData, acceptedImages, rejectedImages} = state
+  const {enteredProjectData, acceptedImages, rejectedImages} = state
   switch (type) {
     case 'error':
       return {...state, error: {...payload[0]}}
@@ -162,7 +162,7 @@ const createProjectFormReducer = (state, {type, payload}) => {
         status: 'idle',
       }
     case 'remove_oldImages':
-      formData.projectLogo.splice(payload, 1)
+      enteredProjectData.projectLogo.splice(payload, 1)
       return {...state}
     case 'remove_rejectedImages':
       rejectedImages.splice(payload, 1)
@@ -171,11 +171,11 @@ const createProjectFormReducer = (state, {type, payload}) => {
       acceptedImages.splice(payload, 1)
       return {...state}
 
-    case 'submit_formData':
-      formData.name = payload.name
-      formData.link = payload.link
-      formData.repoLink = payload.repoLink
-      formData.description = payload.description
+    case 'submit_newData':
+      enteredProjectData.name = payload.name
+      enteredProjectData.link = payload.link
+      enteredProjectData.repoLink = payload.repoLink
+      enteredProjectData.description = payload.description
       return {
         ...state,
         status: 'submitted',
@@ -184,16 +184,16 @@ const createProjectFormReducer = (state, {type, payload}) => {
     case 'submit_description':
       return {
         ...state,
-        formData: {...formData, description: payload},
+        enteredProjectData: {...enteredProjectData, description: payload},
       }
     case 'add_tag':
-      formData.tag.push(payload)
+      enteredProjectData.tag.push(payload)
       return {
         ...state,
       }
     case 'remove_tag':
-      const i = formData.tag.indexOf(payload)
-      formData.tag.splice(i, 1)
+      const i = enteredProjectData.tag.indexOf(payload)
+      enteredProjectData.tag.splice(i, 1)
       return {
         ...state,
       }
@@ -205,7 +205,7 @@ const createProjectFormReducer = (state, {type, payload}) => {
     case 'images_uploaded':
       return {...state, status: 'images_uploaded'}
     case 'next_add':
-      formData.projectLogo.push(payload)
+      enteredProjectData.projectLogo.push(payload)
       return {
         ...state,
         status: 'next_add',
@@ -214,7 +214,7 @@ const createProjectFormReducer = (state, {type, payload}) => {
     case 'clean_up':
       return {
         ...state,
-        formData: {
+        enteredProjectData: {
           name: '',
           link: '',
           repoLink: '',
@@ -306,8 +306,8 @@ function DisplayingImages({
             {acceptedImages?.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
-                  title="Image"
-                  onClick={() => handleClick('remove_acceptedImages', i)}
+                  info="Image"
+                  onClickYes={() => handleClick('remove_acceptedImages', i)}
                 />
                 <img alt="" width={100} src={preview} />
               </div>
@@ -324,8 +324,8 @@ function DisplayingImages({
             {rejectedImages?.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
-                  title="Image"
-                  onClick={() => handleClick('remove_rejectedImages', i)}
+                  info="Image"
+                  onClickYes={() => handleClick('remove_rejectedImages', i)}
                 />
                 <img alt="" width={100} src={preview} />
               </div>
@@ -340,8 +340,8 @@ function DisplayingImages({
             {oldImages?.map((file, i) => (
               <div key={file} css={div}>
                 <PopUp
-                  title="Image"
-                  onClick={() => handleClick('remove_oldImages', i)}
+                  info="Image"
+                  onClickYes={() => handleClick('remove_oldImages', i)}
                 />
                 <img alt="" width={100} src={file} />
               </div>

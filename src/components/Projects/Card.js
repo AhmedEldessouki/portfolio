@@ -51,7 +51,7 @@ function EditAndDelete({project, onClick}) {
           `}
         />
       </Link>
-      <PopUp title="Project" onClick={() => deleteProject(project)} />
+      <PopUp info="Project" onClickYes={() => deleteProject(project)} />
     </div>
   )
 }

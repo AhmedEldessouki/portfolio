@@ -9,8 +9,8 @@ import {h1XL} from '../../Styles'
 import OnToggle from '../../Utils/OnToggle'
 import {ErrorMessageFallback} from '../../Utils/util'
 
-import MessageDetails from './MessageDetails'
-import MessagesSummary from './MessagesSummary'
+import MessageView from './MessageView'
+import MessagesSummary from './MessageCard'
 
 function MessagesComponent({messagesData}) {
   const [messageSel, setMessageSel] = React.useState(null)
@@ -41,7 +41,7 @@ function MessagesComponent({messagesData}) {
           setSelected={setMessageSel}
           ref={selectedRef}
         >
-          <MessageDetails message={messageSel} />
+          <MessageView message={messageSel} />
         </OnToggle>
       ) : (
         <div css={mWrapper}>

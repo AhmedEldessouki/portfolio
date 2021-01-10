@@ -35,12 +35,12 @@ function CreateProjectX() {
   const {selectedProject, setProject} = useAuth()
 
   const [
-    {status, formData, acceptedImages, rejectedImages, error},
+    {status, enteredProjectData, acceptedImages, rejectedImages, error},
     unsafeDispatch,
   ] = React.useReducer(createProjectFormReducer, {
     status: 'idle',
     // Passing Selected Project Data to the Form
-    formData: {
+    enteredProjectData: {
       name: selectedProject ? selectedProject.name : '',
       link: selectedProject ? selectedProject.link : '',
       repoLink: selectedProject ? selectedProject.repoLink : '',
@@ -138,7 +138,7 @@ function CreateProjectX() {
     e.preventDefault()
     const {name, link, repoLink, description} = e.target.elements
     dispatch({
-      type: 'submit_formData',
+      type: 'submit_newData',
       payload: {
         name: name.value,
         link: link.value,
@@ -148,11 +148,11 @@ function CreateProjectX() {
     })
     await useSubmitImages(acceptedImages)
     if (selectedProject) {
-      await updateProject({...formData, id: selectedProject.id})
+      await updateProject({...enteredProjectData, id: selectedProject.id})
       setProject(null)
     }
     if (!selectedProject) {
-      await createNewProject(formData)
+      await createNewProject(enteredProjectData)
     }
 
     window.location.assign('/dashboard')
@@ -169,7 +169,7 @@ function CreateProjectX() {
     description: selectedProjectDescription,
     projectLogo: selectedProjectImages,
     tag: selectedProjectTags,
-  } = formData
+  } = enteredProjectData
   return (
     <Layout>
       <div>

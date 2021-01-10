@@ -6,7 +6,7 @@ import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
 import {colors, h1XL, weights} from '../Styles'
-import ProjectDetails from './ProjectDetails'
+import ProjectView from './ProjectView'
 import Card from './Card'
 import OnToggle from '../Utils/OnToggle'
 import {ErrorMessageFallback} from '../Utils/util'
@@ -84,7 +84,7 @@ function ProjectComponent({projectsData}) {
           setSelected={setProject}
           ref={selectedRef}
         >
-          <ProjectDetails project={project} />
+          <ProjectView project={project} />
         </OnToggle>
       ) : (
         <React.Fragment>

@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {contactedMe} from './utils'
+import {sendMessage} from './utils'
 import {
   wrapper,
   colors,
@@ -21,18 +21,20 @@ import Input from '../../Utils/Input'
 import {ErrorMessageFallback, useAsync} from '../../Utils/util'
 import {GrMail} from 'react-icons/gr'
 
-function ContactMe() {
-  const [errPhoneNumber, setErrPhoneNumber] = React.useState(false)
-  const [descriptionErr, setDescriptionErr] = React.useState('')
-  const [contError, setContError] = React.useState('')
+function ContactForm() {
+  const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(
+    false,
+  )
+  const [descriptionFieldError, setDescriptionFieldError] = React.useState('')
+  const [sendMessageError, setSendMessageError] = React.useState('')
   const {status, dispatch} = useAsync()
 
-  async function handleSubmit(e) {
+  async function handleMessage(e) {
     e.preventDefault()
     dispatch({type: 'pending'})
 
     const {name, email, phoneNumber, description} = e.target.elements
-    const formData = {
+    const newMessageData = {
       name: name.value,
       email: email.value,
       phoneNumber: phoneNumber.value,
@@ -40,12 +42,12 @@ function ContactMe() {
     }
     e.currentTarget.reset()
 
-    const {error} = await contactedMe(formData)
+    const {error} = await sendMessage(newMessageData)
 
     if (error) {
-      setContError(error)
+      setSendMessageError(error)
     }
-    setDescriptionErr(colors.darkBlue)
+    setDescriptionFieldError(colors.darkBlue)
     dispatch({type: 'idle'})
   }
   return (
@@ -71,8 +73,8 @@ function ContactMe() {
         resetKeys={[status]}
       >
         <form
-          id="ContactMe"
-          onSubmit={handleSubmit}
+          id="ContactForm"
+          onSubmit={handleMessage}
           css={[wrapper, {marginBottom: 0}]}
         >
           <div
@@ -107,8 +109,8 @@ function ContactMe() {
             <Input
               onBlur={e => {
                 if (e.target.value.search(/^[0-9\b]+$/g)) {
-                  setErrPhoneNumber(true)
-                } else setErrPhoneNumber(false)
+                  setPhoneNumberFieldError(true)
+                } else setPhoneNumberFieldError(false)
               }}
               name="phoneNumber"
               inputMode="tel"
@@ -119,7 +121,7 @@ function ContactMe() {
               pattern="^[0-9\b]+$"
               cleanColor={status === 'pending' ? true : false}
             />
-            {errPhoneNumber ? (
+            {phoneNumberFieldError ? (
               <span css={warning} role="alert">
                 Invalid Phone Number
               </span>
@@ -143,8 +145,8 @@ function ContactMe() {
                 aria-label="description"
                 onBlur={e =>
                   e.target.validity.valid
-                    ? setDescriptionErr(colors.lightGreen)
-                    : setDescriptionErr(colors.burgundyRed)
+                    ? setDescriptionFieldError(colors.lightGreen)
+                    : setDescriptionFieldError(colors.burgundyRed)
                 }
                 required
                 placeholder="Description"
@@ -153,7 +155,7 @@ function ContactMe() {
                 css={[
                   textArea,
                   css`
-                    border-color: ${descriptionErr};
+                    border-color: ${descriptionFieldError};
                   `,
                 ]}
               />
@@ -179,9 +181,9 @@ function ContactMe() {
               Submit
             </button>
           )}
-          {contError ? (
+          {sendMessageError ? (
             <span css={warning} role="alert">
-              {contError}
+              {sendMessageError}
             </span>
           ) : null}
         </form>
@@ -190,4 +192,4 @@ function ContactMe() {
   )
 }
 
-export default ContactMe
+export default ContactForm

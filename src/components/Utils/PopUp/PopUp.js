@@ -9,7 +9,7 @@ import {colors, mq, weights} from '../../Styles'
 import {useAsync} from '../util'
 import '../onToggle.css'
 
-function PopUp({title, onClick}) {
+function PopUp({info, onClickYes}) {
   const popWrapper = css`
     @keyframes fadeIn {
       from {
@@ -77,7 +77,7 @@ function PopUp({title, onClick}) {
   }, [dispatch])
 
   async function handleDelete() {
-    await onClick()
+    await onClickYes()
     dispatch({type: 'idle'})
   }
 
@@ -108,7 +108,7 @@ function PopUp({title, onClick}) {
             <header>
               <h1 css={{marginBottom: '10px'}}>Warning</h1>
             </header>
-            <p css={{margin: 0}}>Do you want to delete this {title}</p>
+            <p css={{margin: 0}}>Do you want to delete this {info}</p>
             <div
               css={{
                 marginTop: '10px',

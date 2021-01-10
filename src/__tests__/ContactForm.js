@@ -1,13 +1,13 @@
 import * as React from 'react'
 import {screen} from '@testing-library/react'
 
-import ContactMe from '../components/Home/ContactMe/ContactMe'
+import ContactForm from '../components/Home/ContactMe/ContactForm'
 import {render, userEvent} from '../test/app-test-utils'
 import {buildMessage} from '../test/generate'
 
 const message = buildMessage()
 test('Should fill out Contact Form Test', async () => {
-  await render(<ContactMe />, {user: null, doWait: false})
+  await render(<ContactForm />, {user: null, doWait: false})
   userEvent.type(screen.getByLabelText(/name/i), message.name)
 
   userEvent.type(screen.getByLabelText(/email/i), message.email)
