@@ -8,10 +8,10 @@ import UnAuthRoutes from './components/Routes/UnAuthRoutes'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
-  const {authData} = useAuth()
+  const {user} = useAuth()
   config({debug: process.env.DEBUG})
 
-  return authData ? <AuthRoutes /> : <UnAuthRoutes />
+  return user ? <AuthRoutes /> : <UnAuthRoutes />
 }
 
 export default App

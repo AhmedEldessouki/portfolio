@@ -8,7 +8,7 @@ import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 import Carousel from '../Utils/Carousel/Carousel'
 import {colors, mq, spinner} from '../Styles'
 
-function ProjectDetails({project}) {
+function ProjectView({project}) {
   const [description, setDescription] = React.useState(project.description)
   const [heightT, setHeightT] = React.useState(3)
   const date = new Date(project.date)
@@ -147,4 +147,4 @@ function ProjectDetails({project}) {
   )
 }
 
-export default ProjectDetails
+export default ProjectView

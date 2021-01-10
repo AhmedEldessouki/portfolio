@@ -5,58 +5,96 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {toast} from 'react-toastify'
 import {ErrorBoundary} from 'react-error-boundary'
+import {useDropzone} from 'react-dropzone'
 
 import {useAuth} from '../../context/AuthProvider'
-import {ErrorMessageFallback} from '../Utils/util'
+import {ErrorMessageFallback, useSafeDispatch} from '../Utils/util'
 import Layout from '../Layout'
-import {colors, h1XL, labelWrapper, mq, signWrapper, textArea} from '../Styles'
+import {
+  colors,
+  h1XL,
+  labelWrapper,
+  mq,
+  formWrapper,
+  textArea,
+  warning,
+} from '../Styles'
 import {
   uploadImage,
   ImageDropZone,
-  useSafeDispatch,
-  reducer,
+  createProjectFormReducer,
   createNewProject,
   updateProject,
-  Button,
+  ButtonWithSpinner,
   DisplayingImages,
   ProjInput,
   TagsCheckBox,
 } from './utils'
 
 function CreateProjectX() {
-  const {project, setProject} = useAuth()
+  const {selectedProject, setProject} = useAuth()
 
   const [
-    {status, formData, imagesFile, imagesDisplay},
+    {status, enteredProjectData, acceptedImages, rejectedImages, error},
     unsafeDispatch,
-  ] = React.useReducer(reducer, {
+  ] = React.useReducer(createProjectFormReducer, {
     status: 'idle',
-    formData: {
-      name: project ? project.name : '',
-      link: project ? project.link : '',
-      repoLink: project ? project.repoLink : '',
-      projectLogo: project ? [...project.projectLogo] : [],
-      tag: project ? project.tag ?? [] : [],
-      description: project ? project.description : '',
+    // Passing Selected Project Data to the Form
+    enteredProjectData: {
+      name: selectedProject ? selectedProject.name : '',
+      link: selectedProject ? selectedProject.link : '',
+      repoLink: selectedProject ? selectedProject.repoLink : '',
+      projectLogo: selectedProject ? [...selectedProject.projectLogo] : [],
+      tag: selectedProject ? selectedProject.tag ?? [] : [],
+      description: selectedProject ? selectedProject.description : '',
     },
     error: null,
-    imagesFile: [],
-    imagesDisplay: [],
+    acceptedImages: [],
+    rejectedImages: [],
   })
-
   const dispatch = useSafeDispatch(unsafeDispatch)
 
   const [descriptionErr, setDescriptionErr] = React.useState('')
+  const [isDragActive, setIsDragActive] = React.useState(false)
 
-  if (status === 'images_uploaded') {
-    if (project) {
-      updateProject({...formData, id: project.id})
-    }
-    if (!project) {
-      createNewProject(formData)
-    }
-    dispatch({type: 'idle'})
-  }
+  const {getRootProps, getInputProps} = useDropzone({
+    accept: 'image/*',
+    maxFiles: 10,
+    maxSize: 8000000,
+    onDropAccepted: acceptedFiles => {
+      setIsDragActive(!isDragActive)
+
+      const newArr = acceptedFiles.map(file => {
+        return Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      })
+      dispatch({
+        type: 'accepted_images',
+        payload: newArr,
+      })
+    },
+    onDropRejected: async rejectedFiles => {
+      setIsDragActive(!isDragActive)
+
+      await dispatch({type: 'error', payload: {...rejectedFiles[0].errors}})
+      const newArr = rejectedFiles.map(({file}) => {
+        return Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      })
+      dispatch({
+        type: 'rejected_images',
+        payload: newArr,
+      })
+    },
+    onDragEnter: () => {
+      setIsDragActive(!isDragActive)
+    },
+    onDragLeave: () => {
+      setIsDragActive(!isDragActive)
+    },
+  })
 
   React.useEffect(() => {
     return () => {
@@ -65,32 +103,12 @@ function CreateProjectX() {
     }
   }, [dispatch, setProject])
 
-  function handleDrop(acceptedFiles, rejectedFiles) {
-    const imagesFile = []
-    const imagesDisplay = []
-    acceptedFiles.forEach((file, i) => {
-      if (acceptedFiles[i].size < 8000000) {
-        imagesFile.push(file)
-        imagesDisplay.push(URL.createObjectURL(file))
-      }
-    })
-    if (rejectedFiles && rejectedFiles.length > 0) {
-      if (rejectedFiles[0].Size > 8000000) {
-        toast.error('This Img is too big')
-      }
-    }
-    dispatch({
-      type: 'images',
-      payload: {file: imagesFile, src: imagesDisplay},
-    })
-  }
-
   const gradualUpload = React.useCallback(
-    () =>
-      Promise.allSettled(
-        imagesFile.map(file => {
+    async (imagesArray, name) =>
+      await Promise.allSettled(
+        imagesArray.map(async file => {
           dispatch({type: 'next'})
-          return uploadImage(file, formData.name)
+          return await uploadImage(file, name)
         }),
       )
         .then(results =>
@@ -105,24 +123,22 @@ function CreateProjectX() {
         .then(() => {
           dispatch({type: 'images_uploaded'})
         }),
-    [dispatch, formData.name, imagesFile],
+    [dispatch],
   )
 
-  async function useSubmitImages() {
-    if (imagesFile.length > -1) {
-      await gradualUpload()
+  async function useSubmitImages(uploadImagesArr, name) {
+    if (uploadImagesArr.length >= 0) {
+      await gradualUpload(uploadImagesArr, name)
       toast.success('Images Uploaded')
-      return
+      return dispatch({type: 'images_uploaded'})
     }
-    dispatch({type: 'images_uploaded'})
   }
 
-  function useHandleSubmit(e) {
+  async function useHandleSubmit(e) {
     e.preventDefault()
-
     const {name, link, repoLink, description} = e.target.elements
     dispatch({
-      type: 'submit_formData',
+      type: 'submit_newData',
       payload: {
         name: name.value,
         link: link.value,
@@ -130,41 +146,78 @@ function CreateProjectX() {
         description: description.value,
       },
     })
-    useSubmitImages()
-    e.currentTarget.reset()
+    await useSubmitImages(acceptedImages)
+    if (selectedProject) {
+      await updateProject({...enteredProjectData, id: selectedProject.id})
+      setProject(null)
+    }
+    if (!selectedProject) {
+      await createNewProject(enteredProjectData)
+    }
+
+    window.location.assign('/dashboard')
   }
 
   function handleDescription(e) {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
-  const {name, link, repoLink, description, projectLogo, tag} = formData
+
+  const {
+    name: selectedProjectName,
+    link: selectedProjectLink,
+    repoLink: selectedProjectRepoLink,
+    description: selectedProjectDescription,
+    projectLogo: selectedProjectImages,
+    tag: selectedProjectTags,
+  } = enteredProjectData
   return (
     <Layout>
       <div>
-        <h1 css={h1XL}>{project ? `Edit` : `Create`} Project</h1>
+        <h1 css={h1XL}>{selectedProject ? `Edit` : `Create`} Project</h1>
         <div
-          css={css`
-            display: flex;
-            place-content: space-around;
-            flex-wrap: wrap-reverse;
-            ${mq.s} {
-              place-content: center;
-            }
-          `}
+          css={[
+            {
+              display: 'flex',
+              placeContent:
+                acceptedImages.length ||
+                rejectedImages.length ||
+                selectedProject?.projectLogo.length >= 0
+                  ? 'space-around'
+                  : 'center',
+              flexWrap: 'wrap-reverse',
+              transition: 'all 0.3s ease-in-out',
+            },
+            css`
+              ${mq.phoneLarge} {
+                place-content: center;
+              }
+            `,
+          ]}
         >
           <DisplayingImages
-            imagesDisplay={imagesDisplay}
-            oldImages={project ? projectLogo : null}
-            handleClick={(array, index) =>
-              dispatch({type: 'remove_image', payload: {array, index}})
-            }
+            acceptedImages={acceptedImages}
+            rejectedImages={rejectedImages}
+            oldImages={selectedProject && selectedProjectImages}
+            handleClick={(type, index) => dispatch({type, payload: index})}
           />
-          <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
-            <form css={signWrapper} onSubmit={useHandleSubmit}>
-              <ImageDropZone handleDrop={handleDrop} />
+          <ErrorBoundary
+            FallbackComponent={ErrorMessageFallback}
+            onReset={() => dispatch({type: 'clean_up'})}
+          >
+            <form css={formWrapper} onSubmit={useHandleSubmit}>
+              <ImageDropZone
+                color={isDragActive ? colors.blueFont : colors.darkBlue}
+                getRootProps={getRootProps}
+                getInputProps={getInputProps}
+              />
+              {error?.code === 'too-many-files' && (
+                <span css={warning} role="alert">
+                  Please Upload 10 files or less
+                </span>
+              )}
               <ProjInput
                 name="name"
-                project={name}
+                project={selectedProjectName}
                 placeholder="Name"
                 required
                 minLength={3}
@@ -174,7 +227,7 @@ function CreateProjectX() {
               <ProjInput
                 type="url"
                 required
-                project={link}
+                project={selectedProjectLink}
                 placeholder="Project Link"
                 name="link"
                 cleanColor={status === 'pending'}
@@ -182,7 +235,7 @@ function CreateProjectX() {
               <ProjInput
                 type="url"
                 required
-                project={repoLink}
+                project={selectedProjectRepoLink}
                 placeholder="Repo Link"
                 name="repoLink"
                 cleanColor={status === 'pending'}
@@ -201,24 +254,26 @@ function CreateProjectX() {
                     })
                   }
                 }}
-                projectTags={project ? tag : undefined}
+                projectTags={selectedProject && selectedProjectTags}
               />
-              <label htmlFor="description" css={labelWrapper}>
+              <label
+                htmlFor="description"
+                style={{marginTop: '10px'}}
+                css={labelWrapper}
+              >
                 <textarea
-                  css={[
-                    textArea,
-                    css`
-                      margin: 0;
-                      border-color: ${descriptionErr};
-                    `,
-                  ]}
+                  css={[textArea, {margin: 0, borderColor: descriptionErr}]}
                   id="description"
                   aria-label="description"
                   placeholder="Project Description"
                   name="description"
-                  value={project ? description : void 0}
+                  value={
+                    selectedProject ? selectedProjectDescription : undefined
+                  }
                   minLength={10}
-                  onChange={project ? e => handleDescription(e) : void 0}
+                  onChange={
+                    selectedProject ? e => handleDescription(e) : void 0
+                  }
                   onBlur={e => {
                     e.target.validity.valid
                       ? setDescriptionErr(colors.lightGreen)
@@ -228,7 +283,7 @@ function CreateProjectX() {
                   required
                 />
               </label>
-              <Button status={status} project={project} />
+              <ButtonWithSpinner status={status} project={selectedProject} />
             </form>
           </ErrorBoundary>
         </div>

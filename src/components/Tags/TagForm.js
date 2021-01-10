@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {btnStyle, h2XL, signWrapper, spinner} from '../Styles'
+import {btnStyle, h2XL, formWrapper, spinner} from '../Styles'
 import Input from '../Utils/Input'
 import {ErrorMessageFallback} from '../Utils/util'
 
@@ -16,7 +16,7 @@ function Spinner() {
         margin-top: 38px;
       `}
     >
-      <div css={spinner} />
+      <div css={spinner} aria-busy="true" />
     </div>
   )
 }
@@ -33,7 +33,7 @@ function TagForm({status, handleSubmit}) {
     >
       <h2 css={h2XL}>Create Tag</h2>
       <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
-        <form onSubmit={e => handleSubmit(e)} css={signWrapper}>
+        <form onSubmit={e => handleSubmit(e)} css={formWrapper}>
           <div className="field-container">
             <Input
               type="text"

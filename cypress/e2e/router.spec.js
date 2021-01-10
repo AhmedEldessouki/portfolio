@@ -59,7 +59,7 @@ describe('Router check', () => {
         .click()
       cy.wait(1000)
       cy.contains(/Create Project/i).should('exist')
-      cy.contains(/New Images/i).should('exist')
+      cy.contains(/accepted Images/i).should('not.exist')
 
       cy.get('a').contains(/tags/i).click()
       cy.wait(1000)

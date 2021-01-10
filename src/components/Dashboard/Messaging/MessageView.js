@@ -6,7 +6,7 @@ import React from 'react'
 
 import {h1XL, colors, mq} from '../../Styles'
 
-function MessageDetails({message}) {
+function MessageView({message}) {
   const [description, setDescription] = React.useState(message.description)
   const container = css`
     display: grid;
@@ -119,4 +119,4 @@ function MessageDetails({message}) {
   )
 }
 
-export default MessageDetails
+export default MessageView

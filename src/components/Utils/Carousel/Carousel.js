@@ -180,13 +180,21 @@ function Carousel({imgArray, imgAlt}) {
         >
           {'<'}
         </button>
-        <div>
+        <div
+          css={{
+            width: 350,
+            height: 259,
+            display: 'flex',
+            placeContent: 'center',
+            background: colors.backgroundShade,
+          }}
+        >
           <Img
             width="330"
             imgAlt={imgAlt}
             fit="contain"
             src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=350&fit=contain`}
-            onDoubleClick={() => window.open(imgArray[currentImage])}
+            onClick={() => window.open(imgArray[currentImage])}
           />
         </div>
         <button

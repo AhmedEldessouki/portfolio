@@ -9,6 +9,9 @@ import {buildMessage} from '../test/generate'
 let messages = []
 beforeAll(() => {
   messages.push(buildMessage())
+  jest.mock('react-query', () => ({
+    useQuery: () => ({isLoading: false, error: {}, data: []}),
+  }))
 })
 
 test('message Render', async () => {

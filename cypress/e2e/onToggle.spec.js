@@ -7,8 +7,9 @@ describe('onToggle desktop', () => {
   it('select a project and check its position in the DOM', () => {
     cy.visit('/')
     cy.contains(/projects/i).should('exist')
-    // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
+
     cy.wait(2000)
+
     cy.get('button')
       .contains(/portfolio v1/i)
       .click()

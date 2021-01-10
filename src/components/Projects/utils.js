@@ -5,7 +5,6 @@ import {jsx, css} from '@emotion/react'
 import * as React from 'react'
 import axios from 'axios'
 import {toast} from 'react-toastify'
-import Dropzone from 'react-dropzone'
 
 import {
   CLOUDINARY_API_KEY,
@@ -18,8 +17,9 @@ import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
 import {useClientFetch} from '../Utils/apis'
 
-function createNewProject(project) {
-  db.collection('projects')
+async function createNewProject(project) {
+  await db
+    .collection('projects')
     .add({
       ...project,
       date: new Date(),
@@ -33,9 +33,10 @@ function createNewProject(project) {
     })
 }
 
-function updateProject(project) {
+async function updateProject(project) {
   const {id, name} = project
-  db.collection('projects')
+  await db
+    .collection('projects')
     .doc(`${id}`)
     .update({
       ...project,
@@ -63,7 +64,7 @@ function deleteProject(project) {
     })
 }
 
-function uploadImage(image, project) {
+async function uploadImage(image, project) {
   let formData
   formData = new FormData()
   formData.set('file', image)
@@ -71,7 +72,7 @@ function uploadImage(image, project) {
   formData.set('upload_preset', `${CLOUDINARY_UPLOAD_PRESET}`)
   formData.set('api_key', `${CLOUDINARY_API_KEY}`)
 
-  return axios.post(`${CLOUDINARY_UPLOAD_URL}`, formData).then(
+  return await axios.post(`${CLOUDINARY_UPLOAD_URL}`, formData).then(
     res => {
       return res.data.secure_url
     },
@@ -82,96 +83,99 @@ function uploadImage(image, project) {
   )
 }
 
-function ImageDropZone({handleDrop}) {
+function ImageDropZone({getRootProps, getInputProps, color = colors.darkBlue}) {
   return (
-    <Dropzone onDrop={handleDrop} accept="image/*" multiple maxSize={8000000}>
-      {({getRootProps, getInputProps}) => (
-        <label
-          htmlFor="dropZone"
-          css={css`
-            display: flex;
-            place-items: center;
-            place-content: center;
-            border: 10px dashed ${colors.darkBlue};
-            width: 95%;
-            height: 200px;
-            text-align: center;
-            cursor: pointer;
-            margin-bottom: 20px;
-            padding: 0;
-            margin-right: 0;
-          `}
-          {...getRootProps()}
+    <React.Fragment>
+      <div
+        css={css`
+          display: flex;
+          place-items: center;
+          place-content: center;
+          border: 10px dashed ${color};
+          width: 95%;
+          height: 200px;
+          text-align: center;
+          cursor: pointer;
+          margin-bottom: 20px;
+          padding: 0;
+          margin-right: 0;
+          :hover,
+          :focus {
+            border-color: ${colors.blueFont};
+          }
+        `}
+        {...getRootProps()}
+      >
+        <em
+          css={[
+            h1XL,
+            css`
+              padding: 0;
+              color: ${colors.aliceLightBlue};
+            `,
+          ]}
         >
-          <span
-            css={[
-              h1XL,
-              css`
-                padding: 0;
-                color: ${colors.aliceLightBlue};
-              `,
-            ]}
-          >
-            Drop Image(s)
-          </span>
-          <input
-            id="dropZone"
-            type="file"
-            name="projectLogo"
-            css={[
-              textArea,
-              css`
-                width: initial;
-                margin: 0;
-              `,
-            ]}
-            {...getInputProps()}
-          />
-        </label>
-      )}
-    </Dropzone>
+          Image(s) Drop Zone
+        </em>
+        <input
+          id="dropZone"
+          type="file"
+          name="projectLogo"
+          aria-label="ImageDropZone"
+          css={[
+            textArea,
+            css`
+              width: initial;
+              margin: 0;
+            `,
+          ]}
+          {...getInputProps()}
+        />
+      </div>
+    </React.Fragment>
   )
 }
 
-function useSafeDispatch(dispatch) {
-  const mounted = React.useRef(false)
-
-  React.useLayoutEffect(() => {
-    mounted.current = true
-    return () => (mounted.current = false)
-  }, [])
-
-  return React.useCallback(
-    (...args) => (mounted.current ? dispatch(...args) : void 0),
-    [dispatch],
-  )
-}
-
-const reducer = (state, {type, payload}) => {
-  const {formData, imagesFile, imagesDisplay} = state
+const createProjectFormReducer = (state, {type, payload}) => {
+  const {enteredProjectData, acceptedImages, rejectedImages} = state
   switch (type) {
-    case 'images':
+    case 'error':
+      return {...state, error: {...payload[0]}}
+
+    case 'accepted_images':
+      if (acceptedImages.length > 9)
+        return {...state, error: {code: 'too-many-files'}}
       return {
         ...state,
-        imagesFile: imagesFile
-          ? [...imagesFile, ...payload.file]
-          : [...payload.file],
-        imagesDisplay: imagesDisplay
-          ? [...imagesDisplay, ...payload.src]
-          : [...payload.src],
+        acceptedImages: acceptedImages
+          ? [...acceptedImages, ...payload]
+          : [...payload],
         status: 'idle',
         error: null,
       }
-    case 'remove_image':
-      const {array, index} = payload
-      if (array === 'oldImages') formData.projectLogo.splice(index, 1)
-      if (array === 'imagesDisplay') imagesDisplay.splice(index, 1)
+    case 'rejected_images':
+      return {
+        ...state,
+        rejectedImages: rejectedImages
+          ? [...rejectedImages, ...payload]
+          : [...payload],
+        status: 'idle',
+      }
+    case 'remove_oldImages':
+      enteredProjectData.projectLogo.splice(payload, 1)
       return {...state}
-    case 'submit_formData':
-      formData.name = payload.name
-      formData.link = payload.link
-      formData.repoLink = payload.repoLink
-      formData.description = payload.description
+    case 'remove_rejectedImages':
+      rejectedImages.splice(payload, 1)
+      return {...state}
+    case 'remove_acceptedImages':
+      acceptedImages.splice(payload, 1)
+      return {...state}
+
+    case 'submit_newData':
+      enteredProjectData.name = payload.name
+      enteredProjectData.link = payload.link
+      enteredProjectData.repoLink = payload.repoLink
+      enteredProjectData.description = payload.description
       return {
         ...state,
         status: 'submitted',
@@ -180,16 +184,16 @@ const reducer = (state, {type, payload}) => {
     case 'submit_description':
       return {
         ...state,
-        formData: {...formData, description: payload},
+        enteredProjectData: {...enteredProjectData, description: payload},
       }
     case 'add_tag':
-      formData.tag.push(payload)
+      enteredProjectData.tag.push(payload)
       return {
         ...state,
       }
     case 'remove_tag':
-      const i = formData.tag.indexOf(payload)
-      formData.tag.splice(i, 1)
+      const i = enteredProjectData.tag.indexOf(payload)
+      enteredProjectData.tag.splice(i, 1)
       return {
         ...state,
       }
@@ -201,22 +205,25 @@ const reducer = (state, {type, payload}) => {
     case 'images_uploaded':
       return {...state, status: 'images_uploaded'}
     case 'next_add':
-      formData.projectLogo.push(payload)
+      enteredProjectData.projectLogo.push(payload)
       return {
         ...state,
         status: 'next_add',
       }
 
     case 'clean_up':
-      formData.name = ''
-      formData.link = ''
-      formData.description = ''
-      formData.projectLogo = []
-      formData.tags = []
-      imagesFile.length = 0
-      imagesDisplay.length = 0
       return {
         ...state,
+        enteredProjectData: {
+          name: '',
+          link: '',
+          repoLink: '',
+          description: '',
+          projectLogo: [],
+          tags: [],
+        },
+        acceptedImages: [],
+        rejectedImages: [],
         status: 'idle',
         error: null,
       }
@@ -226,7 +233,7 @@ const reducer = (state, {type, payload}) => {
   }
 }
 
-function Button({status, project}) {
+function ButtonWithSpinner({status, project}) {
   return status !== 'idle' ? (
     <div
       css={css`
@@ -234,7 +241,7 @@ function Button({status, project}) {
         margin-top: 43px;
       `}
     >
-      <div css={spinner} />
+      <div css={spinner} aria-busy="true" />
     </div>
   ) : (
     <button
@@ -247,7 +254,12 @@ function Button({status, project}) {
   )
 }
 
-function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
+function DisplayingImages({
+  acceptedImages,
+  rejectedImages,
+  oldImages,
+  handleClick,
+}) {
   const imgWrap = css`
     display: grid;
     grid-auto-flow: column;
@@ -276,7 +288,7 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
     place-items: flex-start;
     padding-right: 28px;
     :hover {
-      background: ${colors.darkBlue};
+      background: ${colors.backgroundShade};
     }
   `
   return (
@@ -287,38 +299,56 @@ function DisplayingImages({imagesDisplay, oldImages, handleClick}) {
         margin-bottom: 50px;
       `}
     >
-      <div css={xyz}>
-        <h2 css={hStyle}>New Images</h2>
-        <div css={imgWrap}>
-          {imagesDisplay &&
-            imagesDisplay.map((file, i) => (
+      {acceptedImages?.length > 0 && (
+        <div css={[xyz]}>
+          <h2 css={[hStyle, {background: '#11826B'}]}>Accepted Images</h2>
+          <div css={imgWrap}>
+            {acceptedImages?.map(({preview}, i) => (
+              <div key={preview} css={div}>
+                <PopUp
+                  info="Image"
+                  onClickYes={() => handleClick('remove_acceptedImages', i)}
+                />
+                <img alt="" width={100} src={preview} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {rejectedImages?.length > 0 && (
+        <div css={[xyz]}>
+          <h2 css={[hStyle, {background: colors.burgundyRed}]}>
+            Rejected Images
+          </h2>
+          <div css={imgWrap}>
+            {rejectedImages?.map(({preview}, i) => (
+              <div key={preview} css={div}>
+                <PopUp
+                  info="Image"
+                  onClickYes={() => handleClick('remove_rejectedImages', i)}
+                />
+                <img alt="" width={100} src={preview} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {oldImages?.length > 0 && (
+        <div css={xyz}>
+          <h2 css={hStyle}>current Images</h2>
+          <div css={imgWrap}>
+            {oldImages?.map((file, i) => (
               <div key={file} css={div}>
                 <PopUp
-                  title="Image"
-                  onClick={() => handleClick('imagesDisplay', i)}
+                  info="Image"
+                  onClickYes={() => handleClick('remove_oldImages', i)}
                 />
                 <img alt="" width={100} src={file} />
               </div>
             ))}
-        </div>
-      </div>
-      {oldImages ? (
-        <div css={xyz}>
-          <h2 css={hStyle}>Old Images</h2>
-          <div css={imgWrap}>
-            {oldImages &&
-              oldImages.map((file, i) => (
-                <div key={file} css={div}>
-                  <PopUp
-                    title="Image"
-                    onClick={() => handleClick('oldImages', i)}
-                  />
-                  <img alt="" width={100} src={file} />
-                </div>
-              ))}
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   )
 }
@@ -355,9 +385,9 @@ function TagsCheckBox({handleClick, projectTags, ...props}) {
           >
             <input
               name="tags"
-              aria-label={`tag-${i}`}
+              aria-label={`tag-${tag.name}`}
               id={tag.url}
-              data-testid={`tag[${i}]`}
+              data-testid={`tag-${i}`}
               color={colors.independenceBlue}
               type="checkbox"
               alt={tag.name}
@@ -404,12 +434,11 @@ export {
   ProjInput,
   uploadImage,
   ImageDropZone,
-  useSafeDispatch,
-  reducer,
+  createProjectFormReducer,
   updateProject,
   deleteProject,
   createNewProject,
-  Button,
+  ButtonWithSpinner,
   DisplayingImages,
   TagsCheckBox,
 }

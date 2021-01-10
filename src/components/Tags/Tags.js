@@ -62,12 +62,12 @@ function Tags({TagsData}) {
     e.preventDefault()
     dispatch({type: 'pending'})
     const {name, url} = e.target.elements
-    const formData = {
+    const newTagData = {
       name: name.value,
       url: url.value,
     }
 
-    createNewTag(formData)
+    createNewTag(newTagData)
 
     dispatch({type: 'resolved'})
     e.target.reset()
@@ -96,7 +96,7 @@ function Tags({TagsData}) {
               margin: 0 10px;
             `}
           >
-            <PopUp title={`${tag.name} Tag`} onClick={() => deleteTag(tag)} />
+            <PopUp info={`${tag.name} Tag`} onClickYes={() => deleteTag(tag)} />
             <img src={tag.url} alt={tag.name} width="50" />
           </div>
         ))}

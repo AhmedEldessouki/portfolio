@@ -5,7 +5,8 @@ import PopUp from '../PopUp'
 const func = jest.fn().mockImplementation(() => {})
 
 test('should display PopUp and reject. then close', async () => {
-  await render(<PopUp title="Entered Titled" onClick={func()} />, {
+  await render(<PopUp info="Entered Titled" onClickYes={func()} />, {
+    user: null,
     doWait: false,
   })
 
@@ -27,7 +28,7 @@ test('should display PopUp and reject. then close', async () => {
 })
 
 test('should display PopUp and accept. then close', async () => {
-  await render(<PopUp title="Entered Titled" onClick={func()} />, {
+  await render(<PopUp info="Entered Titled" onClickYes={func()} />, {
     doWait: false,
   })
 

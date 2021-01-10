@@ -1,15 +1,29 @@
 import * as React from 'react'
 import {screen} from '@testing-library/react'
 
-import {render} from '../../../test/app-test-utils'
+import {render, userEvent} from '../../../test/app-test-utils'
 import {buildTag} from '../../../test/generate'
 import Tags from '../Tags'
 
-test('Tag Render', async () => {
-  render(<Tags tagsData={[buildTag(), buildTag()]} />, {user: null})
+const newTag = buildTag()
 
-  expect(screen.getByPlaceholderText(/name/i)).toBeInTheDocument()
-  expect(screen.getByPlaceholderText(/link/i)).toBeInTheDocument()
+test('Tag Form', async () => {
+  await render(<Tags tagsData={[buildTag(), buildTag()]} />, {
+    user: null,
+    doWait: false,
+  })
 
-  expect(screen.getByRole('button')).toBeInTheDocument()
+  expect(screen.getByLabelText('name')).toBeInTheDocument()
+  expect(screen.getByLabelText(/url/i)).toBeInTheDocument()
+
+  userEvent.type(screen.getByLabelText('name'), newTag.name)
+  userEvent.type(screen.getByLabelText(/url/i), newTag.url)
+
+  expect(screen.getByLabelText('name')).toHaveDisplayValue(newTag.name)
+  expect(screen.getByLabelText(/url/i)).toHaveDisplayValue(newTag.url)
+
+  expect(screen.getByRole('button', {name: /create tag/i})).toHaveAttribute(
+    'type',
+    'submit',
+  )
 })

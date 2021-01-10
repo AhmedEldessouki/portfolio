@@ -1,13 +1,13 @@
 import * as React from 'react'
 import {screen} from '@testing-library/react'
 
-import ContactMe from '../components/Home/ContactMe/ContactMe'
+import ContactForm from '../components/Home/ContactMe/ContactForm'
 import {render, userEvent} from '../test/app-test-utils'
 import {buildMessage} from '../test/generate'
 
 const message = buildMessage()
-test('Contact Form Test', async () => {
-  await render(<ContactMe />, {user: null, doWait: false})
+test('Should fill out Contact Form Test', async () => {
+  await render(<ContactForm />, {user: null, doWait: false})
   userEvent.type(screen.getByLabelText(/name/i), message.name)
 
   userEvent.type(screen.getByLabelText(/email/i), message.email)
@@ -21,5 +21,11 @@ test('Contact Form Test', async () => {
   expect(screen.getByLabelText(/description/i)).toHaveDisplayValue(
     message.description,
   )
+
+  expect(screen.getByRole('button', {name: /submit/i})).toHaveAttribute(
+    'type',
+    'submit',
+  )
+
   userEvent.click(screen.getByTestId('submit'))
 })

@@ -62,7 +62,7 @@ export const btnStyle = css`
   }
 `
 
-export const signWrapper = css`
+export const formWrapper = css`
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -83,7 +83,7 @@ export const signWrapper = css`
   }
 `
 
-export const signWrapperInput = css`
+export const formWrapperInput = css`
   padding: 8px;
   width: 100%;
   height: 50px;

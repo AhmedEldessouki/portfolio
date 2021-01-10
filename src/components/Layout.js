@@ -12,10 +12,10 @@ import './Styles/layout.css'
 const MyFooter = React.lazy(() => import('./MyFooter/MyFooter'))
 
 function LayoutX({children, height = '82vh'}) {
-  const {authData} = useAuth()
+  const {user} = useAuth()
   return (
     <>
-      {authData ? <AuthNavlinks /> : <UnAuthNavlinks />}
+      {user ? <AuthNavlinks /> : <UnAuthNavlinks />}
       <Global styles={globalStyles} />
       <div style={{minHeight: height}}>{children}</div>
       <React.Suspense fallback={<h1>Loading Footer...</h1>}>

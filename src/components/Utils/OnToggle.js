@@ -4,50 +4,8 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import {colors, mq, weights} from '../Styles'
-
-function Title({name, onClick, highlight, testId, csx}) {
-  const title = [
-    css`
-      padding: 15px 10px;
-      font-size: 1.62rem;
-      font-weight: ${weights.medium};
-      border-radius: 13%;
-      margin: 0;
-      transition: cubic-bezier(1, 0, 0, 1) 0.5s;
-      :hover {
-        cursor: pointer;
-        font-family: sans-serif;
-      }
-      ${mq.s} {
-        font-size: 1.2rem;
-      }
-    `,
-    {
-      background: highlight ? colors.whiteFaded : colors.darkBlue,
-      color: highlight ? colors.darkBlue : colors.whiteFaded,
-      fontFamily: highlight ? 'sans-serif' : 'sans',
-    },
-  ]
-
-  return (
-    <button
-      type="button"
-      onClick={() => {
-        onClick()
-      }}
-      css={css`
-        background: transparent;
-        border: none;
-        width: 100%;
-      `}
-    >
-      <h1 css={[title, csx]} data-testid={testId} key={testId}>
-        {name}
-      </h1>
-    </button>
-  )
-}
+import {colors} from '../Styles'
+import {Title} from './util'
 
 const OnToggle = React.forwardRef(function OnToggle(
   {items, setSelected, children, selected},
@@ -199,6 +157,7 @@ const OnToggle = React.forwardRef(function OnToggle(
                 <Title
                   key={`${item}-${i * 2}`}
                   name={item.name}
+                  aria-pressed="true"
                   csx={css`
                     @keyframes example {
                       from {
@@ -215,8 +174,8 @@ const OnToggle = React.forwardRef(function OnToggle(
                   onClick={() => {
                     setSelected(item)
                   }}
-                  testId={`${i}-title`}
-                  highlight={selected.name === item.name}
+                  testId={`${item.name}-title`}
+                  highlight={selected.id === item.id}
                 />
               )
             }

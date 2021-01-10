@@ -6,43 +6,10 @@ import {FaPen} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
-import {colors, weights} from '../Styles'
+import {colors} from '../Styles'
 import PopUp from '../Utils/PopUp/PopUp'
+import {Title} from '../Utils/util'
 import {deleteProject} from './utils'
-
-const Title = ({name, onClick, children, testId}) => {
-  const title = css`
-    background-color: ${colors.darkBlue};
-    padding: 8% 5%;
-    font-size: 1.82rem;
-    font-weight: ${weights.medium};
-    margin: 0;
-    transition: ease-in 500ms;
-    font-family: sans;
-    border-radius: 11%;
-    :hover {
-      font-family: sans-serif;
-      cursor: pointer;
-    }
-  `
-
-  return (
-    <button
-      type="button"
-      data-testid={testId}
-      onClick={() => {
-        onClick()
-      }}
-      css={css`
-        background: transparent;
-        border: none;
-        width: 100%;
-      `}
-    >
-      <h1 css={title}>{name}</h1>
-    </button>
-  )
-}
 
 function Tag({tags, ...props}) {
   return (
@@ -84,13 +51,13 @@ function EditAndDelete({project, onClick}) {
           `}
         />
       </Link>
-      <PopUp title="Project" onClick={() => deleteProject(project)} />
+      <PopUp info="Project" onClickYes={() => deleteProject(project)} />
     </div>
   )
 }
 
 function Card({items = [], setState}) {
-  const {authData, setProject: setPorj} = useAuth()
+  const {user, setProject: setPorj} = useAuth()
 
   const pWrapper = css`
     border-bottom: 10px solid ${colors.darkBlue};
@@ -113,8 +80,8 @@ function Card({items = [], setState}) {
     <div css={mWrapper}>
       {items.map((item, i) => {
         return (
-          <div css={pWrapper} key={item.id}>
-            {authData ? (
+          <div css={pWrapper} key={item.id} data-testid={`${item.name}-card`}>
+            {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}
             <Title
@@ -122,6 +89,7 @@ function Card({items = [], setState}) {
               onClick={() => {
                 setState(item)
               }}
+              aria-pressed="false"
               testId={`project[${i}]`}
             />
             <div
@@ -129,7 +97,7 @@ function Card({items = [], setState}) {
                 display: flex;
                 place-content: center;
                 place-items: center;
-                min-height: 50px;
+                height: 50px;
                 gap: 15px;
               `}
             >

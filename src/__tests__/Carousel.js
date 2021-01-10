@@ -5,7 +5,7 @@ import {render, screen} from '@testing-library/react'
 import Carousel from '../components/Utils/Carousel/Carousel'
 import {colors} from '../components/Styles'
 
-test('Carousel Render and btn functionality', async () => {
+test('Carousel should Render and btn functionality', async () => {
   await render(
     <Carousel
       imgArray={[
