@@ -1,11 +1,28 @@
 {
-  "short_name": "My Portfolio",
+  "manifest_version": 2,
   "name": "Ahmed Eldessouki's Portfolio",
+  "short_name": "My Portfolio",
+  "default_locale": "en",
   "description": "A Showcase Web App For Projects Made by Ahmed Eldessouki",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "rgba(255, 255, 255, 0.7)",
   "background_color": "#3A405A",
+  "shortcuts": [
+    {
+       "name": "Dashboard",
+       "description": "Fast Access to Dashboard",
+       "url": "/dashboard",
+       "icons": [
+          {
+            "src": "/icons/apple-icon-180.png",
+            "type": "image/png",
+            "purpose": "any"
+          }
+       ]
+    }
+ ]
+ ,
   "icons": [
     {
       "src": "icons/manifest-icon-192.png",
