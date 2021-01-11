@@ -4,6 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
+import {GrMail} from 'react-icons/gr'
 
 import {sendMessage} from './utils'
 import {
@@ -18,8 +19,8 @@ import {
   mq,
 } from '../../Styles'
 import Input from '../../Utils/Input'
-import {ErrorMessageFallback, useAsync} from '../../Utils/util'
-import {GrMail} from 'react-icons/gr'
+import {ErrorMessageFallback} from '../../Utils/util'
+import {useAsync} from '../../Utils/hooks'
 
 function ContactForm() {
   const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(

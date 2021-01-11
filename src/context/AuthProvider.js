@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
 import {auth, db, firebaseApp} from '../components/Utils/firebase'
-import {useLocalStorageState} from '../components/Utils/util'
+import {useLocalStorageState} from '../components/Utils/hooks'
 
 const AuthContext = React.createContext()
 AuthContext.displayName = 'AuthContext'
@@ -14,10 +14,11 @@ function AuthProvider({children}) {
   const [selectedProject, setProject] = React.useState(null)
 
   React.useEffect(() => {
+    if (!auth.currentUser) return
     function verifyCurrentUserCredentials(user) {
       firebaseApp.auth().onAuthStateChanged(currentUser => {
-        if (currentUser && currentUser.id !== user) {
-          setUser(currentUser.uid)
+        if (currentUser && currentUser.uid !== user.uid) {
+          setUser(currentUser)
         }
       })
     }
@@ -47,7 +48,7 @@ function AuthProvider({children}) {
     return [verificationFailed, checkUserCredentials]
   }
   function signUserOut() {
-    auth.signOut()
+    if (auth.currentUser) auth.signOut()
     setUser(null)
     toast.success(`See You Soon`)
     Redirect({to: '/'})

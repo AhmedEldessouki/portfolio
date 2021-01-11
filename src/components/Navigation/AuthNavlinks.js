@@ -17,7 +17,8 @@ const AuthNavlinksX = () => {
     background: black;
     background-color: ${colors.darkBlue};
     padding: 18px 6px;
-    & > a {
+    & > a,
+    button {
       text-decoration: none;
       border: none;
       border-radius: 11%;
@@ -115,9 +116,16 @@ const AuthNavlinksX = () => {
       >
         <h2>SignUp</h2>
       </NavLink>
-      <NavLink onClick={signUserOut} to="/">
+      <button
+        onClick={signUserOut}
+        type="button"
+        css={{
+          background: 'transparent',
+          color: 'inherit',
+        }}
+      >
         <h2>SignOut</h2>
-      </NavLink>
+      </button>
     </div>
   )
 }

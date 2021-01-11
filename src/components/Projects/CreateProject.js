@@ -8,7 +8,8 @@ import {ErrorBoundary} from 'react-error-boundary'
 import {useDropzone} from 'react-dropzone'
 
 import {useAuth} from '../../context/AuthProvider'
-import {ErrorMessageFallback, useSafeDispatch} from '../Utils/util'
+import {ErrorMessageFallback} from '../Utils/util'
+import {useSafeDispatch} from '../Utils/hooks'
 import Layout from '../Layout'
 import {
   colors,
