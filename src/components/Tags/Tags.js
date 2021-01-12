@@ -8,7 +8,7 @@ import {toast} from 'react-toastify'
 import {h1XL, h2XL} from '../Styles'
 import {db} from '../Utils/firebase'
 import PopUp from '../Utils/PopUp/PopUp'
-import {useAsync} from '../Utils/util'
+import {useAsync} from '../Utils/hooks'
 import TagForm from './TagForm'
 
 function Tags({TagsData}) {

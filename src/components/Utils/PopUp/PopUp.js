@@ -6,7 +6,7 @@ import React, {Fragment} from 'react'
 import {GoTrashcan} from 'react-icons/go'
 
 import {colors, mq, weights} from '../../Styles'
-import {useAsync} from '../util'
+import {useAsync} from '../hooks'
 import '../onToggle.css'
 
 function PopUp({info, onClickYes}) {

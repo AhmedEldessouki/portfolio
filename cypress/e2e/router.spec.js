@@ -72,7 +72,7 @@ describe('Router check', () => {
       cy.wait(1000)
       cy.contains(/sign up/i).should('exist')
 
-      cy.get('a')
+      cy.get('button')
         .contains(/signout/i)
         .click()
       cy.visit('/404')

@@ -7,7 +7,7 @@ import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
 import {formWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
 import Input from '../Utils/Input'
-import {useAsync} from '../Utils/util'
+import {useAsync} from '../Utils/hooks'
 
 function SignUp() {
   const {useCreateNewUser} = useAuth()
