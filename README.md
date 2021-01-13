@@ -1,8 +1,7 @@
 # Portfolio
 
-New Website: <https://ahmedeldessouki.netlify.com>
+[New Website](https://ahmedeldessouki.netlify.com)
 \
-
 Tools:\
       - Emotion\
       - React-Hooks\
@@ -12,7 +11,7 @@ Tools:\
       - Cypress\
       - Husky (precommit testing and linting)\
 
-Old Website: <https://ahmedeldessouki-a7488.firebaseapp.com>
+[Old Website](https://ahmedeldessouki-a7488.firebaseapp.com)
 \
 Tools:\
       - Redux\
