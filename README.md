@@ -1,7 +1,7 @@
 # Portfolio
 
 ## [New Website](https://ahmedeldessouki.netlify.com)
-\
+
 Tools:\
       - Emotion\
       - React-Hooks\
@@ -9,14 +9,14 @@ Tools:\
       - Jest & RTL\
       - Workbox\
       - Cypress\
-      - Husky (precommit testing and linting)\
+      - Husky (precommit testing and linting)
 
 ## [Old Website](https://ahmedeldessouki-a7488.firebaseapp.com)
-\
+
 Tools:\
       - Redux\
       - Axios\
-      - scss\
+      - scss
 
 ## Available Scripts
 
