@@ -1,10 +1,10 @@
-const breakpoints = [320, 480, 900, 1220]
-const names = [`xs`, `s`, `phoneLarge`, `desktop`]
+const breakpoints: Array<number> = [320, 480, 900, 1220]
+const names: Array<string> = [`xs`, `s`, `phoneLarge`, `desktop`]
 
 export const mq = breakpoints.reduce((acc, bp, i) => {
   acc[names[i]] = `@media screen and (max-width: ${bp}px)`
   return acc
-}, {})
+}, {} as Record<string, string>)
 
 export const colors = {
   blueFont: ` rgb(0, 153, 255)`,

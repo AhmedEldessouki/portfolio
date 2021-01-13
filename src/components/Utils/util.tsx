@@ -1,11 +1,19 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import {css, jsx} from '@emotion/react'
+import {css, jsx, SerializedStyles} from '@emotion/react'
 
 import {colors, mq, warning, weights} from '../Styles'
 
-function ErrorMessageFallback({error, resetErrorBoundary}) {
+interface ErrorMessageFallbackProps {
+  resetErrorBoundary: Function
+  error: {code: string; message: string}
+}
+
+function ErrorMessageFallback({
+  error,
+  resetErrorBoundary,
+}: ErrorMessageFallbackProps) {
   return (
     <div role="alert" css={[warning, {background: colors.independenceBlue}]}>
       <p>There was an error: </p>
@@ -22,7 +30,21 @@ function ErrorMessageFallback({error, resetErrorBoundary}) {
   )
 }
 
-function Title({name = '', onClick, highlight = false, testId, csx}) {
+interface TitleProps {
+  name: string
+  onClick: () => void
+  highlight: boolean
+  testId: string
+  csx: SerializedStyles
+}
+
+function Title({
+  name = '',
+  onClick,
+  highlight = false,
+  testId,
+  csx,
+}: TitleProps) {
   const title = [
     css`
       padding: 15px 10px;

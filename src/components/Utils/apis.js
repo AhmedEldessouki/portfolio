@@ -17,8 +17,13 @@ const placeholderData = [
     },
   },
 ]
+// interface useClientFetchProps {
+//   collection: string
+//   onSuccess: ()=>void
+//   options: any
+// }
 
-const useClientFetch = ({collection, onSuccess, ...options} = {}) => {
+const useClientFetch = ({collection, onSuccess, ...options}) => {
   const {data} = useQuery({
     queryKey: collection,
     queryFn: async () =>

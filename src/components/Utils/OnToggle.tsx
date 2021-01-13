@@ -7,13 +7,30 @@ import React from 'react'
 import {colors} from '../Styles'
 import {Title} from './util'
 
+// will be fixed later
+interface Project {
+  name: string
+  id: string
+}
+
+interface OnToggleProps {
+  items: Array<Project>
+  children: React.ReactNode
+  selected: Project
+  setSelected: React.Dispatch<React.SetStateAction<Project | undefined>>
+}
+
 const OnToggle = React.forwardRef(function OnToggle(
-  {items, setSelected, children, selected},
+  {items, setSelected, children, selected}: OnToggleProps,
   ref,
 ) {
-  const containerRef = React.useRef()
-  const [touchStart, setTouchStart] = React.useState(0)
-  const [touchEnd, setTouchEnd] = React.useState(0)
+  const containerRef = React.useRef<any>()
+  const [touchStart, setTouchStart] = React.useState<
+    React.TouchEvent | React.MouseEvent | any
+  >()
+  const [touchEnd, setTouchEnd] = React.useState<
+    React.TouchEvent | React.MouseEvent | any
+  >()
 
   function moveFocus() {
     containerRef.current.focus()
@@ -87,7 +104,7 @@ const OnToggle = React.forwardRef(function OnToggle(
           `}
           ref={containerRef}
           data-testid="close-toggler"
-          onClick={() => setSelected(null)}
+          onClick={() => setSelected(undefined)}
         >
           X
         </button>
@@ -139,7 +156,7 @@ const OnToggle = React.forwardRef(function OnToggle(
             setTouchEnd(e.screenX)
             handleTouch(e.screenX, touchStart)
           }}
-          onTouchStart={e => {
+          onTouchStart={(e: React.TouchEvent) => {
             setTouchStart(e.changedTouches)
           }}
           onTouchEnd={e => {
