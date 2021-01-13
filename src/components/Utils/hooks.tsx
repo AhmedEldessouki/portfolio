@@ -1,15 +1,18 @@
 import React from 'react'
 
-function useSafeDispatch(dispatch) {
+function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   const mounted = React.useRef(false)
 
   React.useLayoutEffect(() => {
     mounted.current = true
-    return () => (mounted.current = false)
+    return () => {
+      mounted.current = false
+    }
   }, [])
 
   return React.useCallback(
-    (...args) => (mounted.current ? dispatch(...args) : void 0),
+    ({...args}): React.Dispatch<IAction> | void =>
+      mounted.current ? dispatch({...args}) : void 0,
     [dispatch],
   )
 }
@@ -23,8 +26,8 @@ function useSafeDispatch(dispatch) {
  */
 
 function useLocalStorageState(
-  key,
-  defaultValue,
+  key: string,
+  defaultValue: Object,
   {serialize = JSON.stringify, deserialize = JSON.parse} = {},
 ) {
   const [state, setState] = React.useState(() => {
@@ -49,7 +52,12 @@ function useLocalStorageState(
   return [state, setState]
 }
 
-function asyncReducer(state, action) {
+interface IAction {
+  type: 'idle' | 'pending' | 'resolved' | 'rejected'
+  payload?: Object | Array<any> | string | boolean
+}
+
+function asyncReducer(state: useAsyncState, action: IAction) {
   switch (action.type) {
     case 'idle': {
       return {status: 'idle'}
@@ -68,18 +76,32 @@ function asyncReducer(state, action) {
     }
   }
 }
+interface useAsyncState {
+  status?: string
+}
 
-function useAsync(initialState) {
+interface useAsyncReturn {
+  isIdle: boolean
+  isLoading: boolean
+  isSuccess: boolean
+  isRejected: boolean
+
+  status: string
+  dispatch: React.Dispatch<IAction>
+}
+
+function useAsync(initialState?: useAsyncState): useAsyncReturn {
   const initialStateRef = React.useRef({
     ...{status: 'idle'},
     ...initialState,
   })
-  const [{status}, unsafeDispatch] = React.useReducer(
+  const [state, unsafeDispatch] = React.useReducer(
     asyncReducer,
     initialStateRef.current,
   )
 
   const dispatch = useSafeDispatch(unsafeDispatch)
+  const {status} = state
   return {
     isIdle: status === 'idle',
     isLoading: status === 'pending',
