@@ -1,4 +1,7 @@
 # Portfolio
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## [New Website](https://ahmedeldessouki.netlify.com)
 
@@ -46,6 +49,19 @@ Open [http://localhost:8888](http://localhost:8888) to view it in the browser.
 ## Contributors ✨
 
 Thanks goes to these people ([emoji key][emojis]):
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://peter.hozak.info/"><img src="https://avatars0.githubusercontent.com/u/1087670?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Hozák</b></sub></a><br /><a href="https://github.com/AhmedEldessouki/portfolio/commits?author=Aprillion" title="Code">💻</a> <a href="https://github.com/AhmedEldessouki/portfolio/pulls?q=is%3Apr+reviewed-by%3AAprillion" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
