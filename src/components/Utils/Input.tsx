@@ -12,6 +12,7 @@ interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
   cssNew?: React.CSSProperties | any
   name: string
 }
+
 function Input({
   onChange: handleChange,
   onBlur: handleBlur,
