@@ -11,8 +11,8 @@ function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   }, [])
 
   return React.useCallback(
-    ({...args}): React.Dispatch<IAction> | void =>
-      mounted.current ? dispatch({...args}) : void 0,
+    (action: IAction): React.Dispatch<IAction> | void =>
+      mounted.current ? dispatch(action) : undefined,
     [dispatch],
   )
 }

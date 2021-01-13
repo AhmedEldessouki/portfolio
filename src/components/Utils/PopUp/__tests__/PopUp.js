@@ -1,8 +1,13 @@
 import React from 'react'
-import {render, userEvent, screen} from '../../../../test/app-test-utils'
+import {
+  render,
+  userEvent,
+  screen,
+  waitForElementToBeRemoved,
+} from '../../../../test/app-test-utils'
 import PopUp from '../PopUp'
 
-const func = jest.fn().mockName('mockedFunction')
+const func = jest.fn()
 
 test('should display PopUp then reject then PopUp closes', async () => {
   await render(<PopUp info="Entered Titled" onClickYes={func} />, {
@@ -12,8 +17,7 @@ test('should display PopUp then reject then PopUp closes', async () => {
 
   userEvent.click(screen.getByTestId('delete-button'))
 
-  // const buttons = screen.getAllByRole('button')
-  const buttons = await screen.findAllByRole('button')
+  const buttons = screen.getAllByRole('button')
 
   expect(screen.getByText(/warning/i)).toBeInTheDocument()
   expect(screen.getByText(/Entered Titled/i)).toBeInTheDocument()
@@ -24,7 +28,8 @@ test('should display PopUp then reject then PopUp closes', async () => {
   expect(buttons[2]).toHaveTextContent(/yup/i)
 
   userEvent.click(buttons[1])
-  expect(screen.queryByTitle(/warning/i)).not.toBeInTheDocument()
+
+  expect(screen.queryByText(/warning/i)).not.toBeInTheDocument()
 })
 
 test('should display PopUp then accept then PopUp closes', async () => {
@@ -34,14 +39,15 @@ test('should display PopUp then accept then PopUp closes', async () => {
 
   userEvent.click(screen.getByTestId('delete-button'))
 
-  const buttons = await screen.findAllByRole('button')
+  const buttons = screen.getAllByRole('button')
 
   expect(screen.getByText(/warning/i)).toBeInTheDocument()
   expect(screen.getByText(/Entered Titled/i)).toBeInTheDocument()
 
   userEvent.click(buttons[2])
+  await waitForElementToBeRemoved(() => screen.getByText(/warning/i))
 
   expect(func).toBeCalledTimes(1)
 
-  expect(screen.queryByTitle(/warning/i)).not.toBeInTheDocument()
+  expect(screen.queryByText(/warning/i)).not.toBeInTheDocument()
 })
