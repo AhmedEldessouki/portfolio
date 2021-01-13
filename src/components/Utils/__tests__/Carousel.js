@@ -2,8 +2,8 @@ import * as React from 'react'
 import userEvent from '@testing-library/user-event'
 import {render, screen} from '@testing-library/react'
 
-import Carousel from '../components/Utils/Carousel/Carousel'
-import {colors} from '../components/Styles'
+import Carousel from '../Carousel/Carousel'
+import {colors} from '../../Styles'
 
 test('Carousel should Render and btn functionality', async () => {
   await render(

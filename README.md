@@ -1,32 +1,43 @@
-Demo: https://ahmedeldessouki-a7488.firebaseapp.com
+# Portfolio
+
+## [New Website](https://ahmedeldessouki.netlify.com)
+
+Tools:\
+ - Emotion\
+ - React-Hooks\
+ - React-Query\
+ - Jest & RTL\
+ - Workbox\
+ - Cypress\
+ - Husky (precommit testing and linting)
+
+## [Old Website](https://ahmedeldessouki-a7488.firebaseapp.com)
+
+Tools:\
+ - Redux\
+ - Axios\
+ - scss
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `Yarn dev`
+### `npm run dev`
 
-Runs the app in the development mode.<br> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br> You will also see any lint errors in
-the console.
+### `npm run start`
 
-### `yarn build`
+**Used only for e2e testing** Runs the app in the development mode.\
+Open [http://localhost:8888](http://localhost:8888) to view it in the browser.
 
-Builds the app for production to the `build` folder.<br> It correctly bundles
-React in production mode and optimizes the build for the best performance.
+### `npm run build`
 
-The build is minified and the filenames include the hashes.<br> Your app is
-ready to be deployed!
+### Available Testing Scripts
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+#### `npm run test:watch`
 
-## Learn More
+#### `npm run test:coverage`
 
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### `npm run e2e:cy`
