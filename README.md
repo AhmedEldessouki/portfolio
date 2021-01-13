@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm run start`
 
-**used only for testing**
+**Used only for e2e testing**
 Runs the app in the development mode.
 [2 spaces]
 Open [http://localhost:8888](http://localhost:8888) to view it in the browser.
