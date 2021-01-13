@@ -48,7 +48,7 @@ Open [http://localhost:8888](http://localhost:8888) to view it in the browser.
 
 ## Contributors ✨
 
-Thanks goes to these people ([emoji key][emojis]):
+Thanks you guys ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
