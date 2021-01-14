@@ -13,7 +13,7 @@ const MyFooter = React.lazy(() => import('./MyFooter/MyFooter'))
 
 interface LayoutXProps {
   children: React.ReactNode
-  height: string
+  height?: string
 }
 
 function LayoutX({children, height = '82vh'}: LayoutXProps) {

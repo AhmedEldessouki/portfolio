@@ -17,17 +17,25 @@ function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   )
 }
 
-function useLocalStorageState(
+type UseLocalStorageOptions<TState = unknown> = {
+  serialize?: (data: TState) => string
+  deserialize?: (str: string) => TState
+}
+
+function useLocalStorageState<TState>(
   key: string,
-  defaultValue: Object,
-  {serialize = JSON.stringify, deserialize = JSON.parse} = {},
+  defaultValue: TState | (() => TState),
+  {
+    serialize = JSON.stringify,
+    deserialize = JSON.parse,
+  }: UseLocalStorageOptions = {},
 ) {
   const [state, setState] = React.useState(() => {
     const valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage) {
       return deserialize(valueInLocalStorage)
     }
-    return typeof defaultValue === 'function' ? defaultValue() : defaultValue
+    return defaultValue instanceof Function ? defaultValue() : defaultValue
   })
 
   const prevKeyRef = React.useRef(key)

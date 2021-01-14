@@ -6,7 +6,7 @@ import {css, jsx, SerializedStyles} from '@emotion/react'
 import {colors, mq, warning, weights} from '../Styles'
 
 interface ErrorMessageFallbackProps {
-  resetErrorBoundary: Function
+  resetErrorBoundary: (...args: Array<unknown>) => void
   error: {code: string; message: string}
 }
 
