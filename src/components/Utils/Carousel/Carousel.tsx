@@ -11,14 +11,18 @@ type ImgProps = {
   onClick: () => void
   src: string
 }
-function Img({imgAlt, onClick, src, ...imgOverride}: ImgProps) {
+function Img({
+  imgAlt,
+  onClick,
+  src,
+  ...imgOverride
+}: ImgProps & React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <img
       alt={imgAlt}
       onClick={() => {
         onClick()
       }}
-      width="330"
       css={css`
         @keyframes in {
           from {
@@ -206,6 +210,7 @@ function Carousel({
         >
           <Img
             imgAlt={imgAlt}
+            width="330"
             src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=350&fit=contain`}
             onClick={() => window.open(imgArray[currentImage])}
           />
