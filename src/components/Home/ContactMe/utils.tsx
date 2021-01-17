@@ -1,7 +1,8 @@
 import {toast} from 'react-toastify'
+import type {Message} from '../../Utils/interfaces'
 import {db} from '../../Utils/firebase'
 
-async function sendMessage(contact) {
+async function sendMessage(contact: Message) {
   let resolved
   let error
 

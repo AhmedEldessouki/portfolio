@@ -1,6 +1,9 @@
 import faker from 'faker'
+import type {Message, NewUser, Project} from '../components/Utils/interfaces'
+import type {User} from '@firebase/auth-types/index'
+import type {Tag} from '../components/Tags/tagsTypes'
 
-function buildUser(overrides) {
+function buildUser(overrides?: Partial<NewUser>) {
   return {
     uid: faker.random.uuid(),
     token: faker.random.uuid(),
@@ -12,20 +15,21 @@ function buildUser(overrides) {
     ...overrides,
   }
 }
-function buildUserLogin(overrides) {
+function buildUserLogin(overrides?: Partial<User>) {
   return {
     uid: faker.random.uuid(),
     token: faker.random.uuid(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    name: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
+    phoneNumber: faker.phone.phoneNumberFormat().replace(/[^0-9]/gi, ''),
+    photoURL: faker.image.avatar(),
+    providerId: null,
     ...overrides,
   }
 }
 
-function buildProject(overrides) {
+function buildProject(overrides?: Partial<Project>) {
   return {
     id: faker.random.uuid(),
     description: faker.lorem.paragraph(),
@@ -40,7 +44,7 @@ function buildProject(overrides) {
   }
 }
 
-function buildMessage(overrides = {}) {
+function buildMessage(overrides?: Partial<Message>) {
   return {
     id: faker.random.uuid(),
     email: faker.internet.email(),
@@ -52,7 +56,7 @@ function buildMessage(overrides = {}) {
   }
 }
 
-function buildTag(overrides = {}) {
+function buildTag(overrides?: Partial<Tag>) {
   return {
     id: faker.random.uuid(),
     name: faker.name.firstName(),

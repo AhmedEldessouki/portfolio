@@ -14,14 +14,6 @@ try {
   // ignore json parse error
 }
 
-window.__bookshelf = window.__bookshelf || {}
-window.__bookshelf.purgeUsers = () => {
-  Object.keys(users).forEach(key => {
-    delete users[key]
-  })
-  persist()
-}
-
 function validateUserForm({username, password}) {
   if (!username) {
     const error = new Error('A username is required')

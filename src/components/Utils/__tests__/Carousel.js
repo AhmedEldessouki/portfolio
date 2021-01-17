@@ -5,8 +5,8 @@ import {render, screen} from '@testing-library/react'
 import Carousel from '../Carousel/Carousel'
 import {colors} from '../../Styles'
 
-test('Carousel should Render and btn functionality', async () => {
-  await render(
+test('Carousel should Render and btn functionality', () => {
+  render(
     <Carousel
       imgArray={[
         'https://res.cloudinary.com/ahmedeldessouki/image/upload/v1599235621/zxlpwrjozjowzkisrenz.png',
@@ -15,7 +15,6 @@ test('Carousel should Render and btn functionality', async () => {
       ]}
       imgAlt="project name"
     />,
-    {user: null},
   )
   expect(screen.getByTestId(/previous/i)).toBeDisabled()
   expect(screen.getByTestId(/btn0/i)).toHaveStyle(

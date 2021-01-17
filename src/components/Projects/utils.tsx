@@ -17,7 +17,10 @@ import Input from '../Utils/Input'
 import PopUp from '../Utils/PopUp/PopUp'
 import {useClientFetch} from '../Utils/apis'
 
-async function createNewProject(project) {
+import type {DropzoneInputProps, DropzoneRootProps} from 'react-dropzone'
+import type {Project} from '../Utils/interfaces'
+
+async function createNewProject(project: Project) {
   await db
     .collection('projects')
     .add({
@@ -33,7 +36,7 @@ async function createNewProject(project) {
     })
 }
 
-async function updateProject(project) {
+async function updateProject(project: Project) {
   const {id, name} = project
   await db
     .collection('projects')
@@ -51,7 +54,7 @@ async function updateProject(project) {
     })
 }
 
-function deleteProject(project) {
+function deleteProject(project: Project) {
   db.collection('projects')
     .doc(`${project.id}`)
     .delete()
@@ -64,11 +67,11 @@ function deleteProject(project) {
     })
 }
 
-async function uploadImage(image, project) {
+async function uploadImage(image: File, projectName: string) {
   let formData
   formData = new FormData()
   formData.set('file', image)
-  formData.set('tags', [`${project}`, `image`])
+  formData.set('tags', `${projectName}_image`)
   formData.set('upload_preset', `${CLOUDINARY_UPLOAD_PRESET}`)
   formData.set('api_key', `${CLOUDINARY_API_KEY}`)
 
@@ -83,7 +86,15 @@ async function uploadImage(image, project) {
   )
 }
 
-function ImageDropZone({getRootProps, getInputProps, color = colors.darkBlue}) {
+function ImageDropZone({
+  getRootProps,
+  getInputProps,
+  color = colors.darkBlue,
+}: {
+  getRootProps: (props?: DropzoneRootProps | undefined) => DropzoneRootProps
+  getInputProps: (props?: DropzoneInputProps | undefined) => DropzoneInputProps
+  color: string
+}) {
   return (
     <React.Fragment>
       <div
@@ -136,7 +147,14 @@ function ImageDropZone({getRootProps, getInputProps, color = colors.darkBlue}) {
   )
 }
 
-const createProjectFormReducer = (state, {type, payload}) => {
+const createProjectFormReducer = (
+  state: {
+    enteredProjectData: Project
+    acceptedImages: Array<Blob>
+    rejectedImages: Array<Blob>
+  },
+  {type, payload}: {type: string; payload: any},
+) => {
   const {enteredProjectData, acceptedImages, rejectedImages} = state
   switch (type) {
     case 'error':
@@ -233,7 +251,13 @@ const createProjectFormReducer = (state, {type, payload}) => {
   }
 }
 
-function ButtonWithSpinner({status, project}) {
+function ButtonWithSpinner({
+  status,
+  isProject,
+}: {
+  status: string
+  isProject: boolean
+}) {
   return status !== 'idle' ? (
     <div
       css={css`
@@ -249,7 +273,7 @@ function ButtonWithSpinner({status, project}) {
       css={[btnStyle, {fontSize: '126%'}]}
       disabled={status !== 'idle'}
     >
-      {project ? 'Edit' : 'Create'} Project
+      {isProject ? 'Edit' : 'Create'} Project
     </button>
   )
 }
@@ -259,6 +283,11 @@ function DisplayingImages({
   rejectedImages,
   oldImages,
   handleClick,
+}: {
+  acceptedImages: Array<{preview: string}>
+  rejectedImages: Array<{preview: string}>
+  oldImages: Array<string>
+  handleClick: (arg0: string, arg1: number) => void
 }) {
   const imgWrap = css`
     display: grid;
@@ -353,8 +382,21 @@ function DisplayingImages({
   )
 }
 
-function TagsCheckBox({handleClick, projectTags, ...props}) {
-  const TagsData = useClientFetch({collection: 'tags'})
+function TagsCheckBox({
+  handleClick,
+  projectTags,
+  ...inputProps
+}: {
+  handleClick: (e: React.ChangeEvent) => void
+  projectTags: Array<string>
+  inputProps: {
+    [x: string]: React.InputHTMLAttributes<HTMLInputElement>
+  }
+}) {
+  const TagsData: any &
+    Array<{name: string; url: string; id: string}> = useClientFetch({
+    collection: 'tags',
+  })
 
   return (
     <div
@@ -369,7 +411,7 @@ function TagsCheckBox({handleClick, projectTags, ...props}) {
         flex-wrap: wrap;
       `}
     >
-      {TagsData?.map((tag, i) => {
+      {TagsData?.map((tag: {id: string; name: string; url: string}, i: any) => {
         return (
           <label
             key={tag.id}
@@ -394,10 +436,12 @@ function TagsCheckBox({handleClick, projectTags, ...props}) {
               onChange={e => {
                 handleClick(e)
               }}
-              checked={projectTags?.find(
-                item => item.trim() === tag.url.trim(),
-              )}
-              {...props}
+              checked={
+                projectTags?.find(item => item.trim() === tag.url.trim())
+                  ? true
+                  : undefined
+              }
+              {...inputProps}
             />
             <img
               css={css`
@@ -414,18 +458,25 @@ function TagsCheckBox({handleClick, projectTags, ...props}) {
   )
 }
 
-function ProjInputX({project, ...props}) {
+function ProjInputX({
+  project,
+  ...inputOverrides
+}: {
+  project: string | Array<string>
+}) {
   const [state, setState] = React.useState(project)
 
   if (project)
     return (
       <Input
         value={state}
-        onChange={e => setState(e.target.value)}
-        {...props}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setState(e.target.value)
+        }
+        {...inputOverrides}
       />
     )
-  return <Input {...props} />
+  return <Input {...inputOverrides} />
 }
 
 const ProjInput = React.memo(ProjInputX)

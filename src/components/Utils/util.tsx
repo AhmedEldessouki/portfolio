@@ -33,9 +33,9 @@ function ErrorMessageFallback({
 interface TitleProps {
   name: string
   onClick: () => void
-  highlight: boolean
+  highlight?: boolean
   testId: string
-  csx: SerializedStyles
+  csx?: SerializedStyles
 }
 
 function Title({

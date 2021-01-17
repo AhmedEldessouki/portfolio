@@ -8,13 +8,14 @@ import Layout from '../Layout'
 import {formWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/hooks'
+import {NewUser} from '../Utils/interfaces'
 
 function SignUp() {
   const {useCreateNewUser} = useAuth()
   const [newUserCreationFailed, createNewUser] = useCreateNewUser()
   const {status, dispatch} = useAsync()
 
-  async function submitNewUserCredentials(e) {
+  async function submitNewUserCredentials(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
     const {
@@ -23,8 +24,14 @@ function SignUp() {
       email,
       password,
       confirmPassword,
-    } = e.target.elements
-    const newUserData = {
+    } = e.target as typeof e.target & {
+      firstName: {value: string}
+      lastName: {value: string}
+      email: {value: string}
+      password: {value: string}
+      confirmPassword: {value: string}
+    }
+    const newUserData: NewUser = {
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
@@ -34,7 +41,8 @@ function SignUp() {
     await createNewUser(newUserData)
 
     if (!newUserCreationFailed) {
-      e.currentTarget.reset()
+      dispatch({type: 'resolved'})
+      window.location.assign('/')
     }
     dispatch({type: 'resolved'})
   }
@@ -82,9 +90,11 @@ function SignUp() {
 
           <Input
             cssNew={
-              status === 'rejected' && {
-                borderColor: colors.burgundyRed,
-              }
+              status === 'rejected'
+                ? {
+                    borderColor: colors.burgundyRed,
+                  }
+                : undefined
             }
             name="password"
             autoComplete="new-password"
@@ -95,7 +105,10 @@ function SignUp() {
             required
             cleanColor={status === 'resolved'}
             onBlur={e => {
-              if (e.target.form[4]?.value !== e.target.value) {
+              const {form} = e.target as typeof e.target & {
+                form: Array<React.InputHTMLAttributes<HTMLInputElement>>
+              }
+              if (form[4]?.value !== e.target.value) {
                 dispatch({type: 'rejected'})
               } else {
                 dispatch({type: 'idle'})
@@ -104,16 +117,21 @@ function SignUp() {
           />
           <Input
             onBlur={e => {
-              if (e.target.form[3]?.value !== e.target.value) {
+              const {form} = e.target as typeof e.target & {
+                form: Array<React.InputHTMLAttributes<HTMLInputElement>>
+              }
+              if (form[3]?.value !== e.target.value) {
                 dispatch({type: 'rejected'})
               } else {
                 dispatch({type: 'idle'})
               }
             }}
             cssNew={
-              status === 'rejected' && {
-                borderColor: colors.burgundyRed,
-              }
+              status === 'rejected'
+                ? {
+                    borderColor: colors.burgundyRed,
+                  }
+                : undefined
             }
             autoComplete="new-password"
             name="confirmPassword"

@@ -287,7 +287,10 @@ function CreateProjectX() {
                   required
                 />
               </label>
-              <ButtonWithSpinner status={status} project={selectedProject} />
+              <ButtonWithSpinner
+                status={status}
+                isProject={selectedProject ? true : false}
+              />
             </form>
           </ErrorBoundary>
         </div>

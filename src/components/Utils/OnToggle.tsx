@@ -7,21 +7,19 @@ import React from 'react'
 import {colors} from '../Styles'
 import {Title} from './util'
 
-// will be fixed later
-interface Project {
-  name: string
-  id: string
-}
+import type {Message, Project} from './interfaces'
 
 interface OnToggleProps {
-  items: Array<Project>
+  items: Array<Project | Message>
   children: React.ReactNode
-  selected: Project
-  setSelected: React.Dispatch<React.SetStateAction<Project | undefined>>
+  displayedData: Project | Message
+  setDisplayData: React.Dispatch<
+    React.SetStateAction<Project | Message | undefined>
+  >
 }
 
 const OnToggle = React.forwardRef(function OnToggle(
-  {items, setSelected, children, selected}: OnToggleProps,
+  {items, setDisplayData, children, displayedData}: OnToggleProps,
   ref,
 ) {
   const containerRef = React.useRef<any>()
@@ -41,7 +39,7 @@ const OnToggle = React.forwardRef(function OnToggle(
   }))
 
   const [show, setShow] = React.useState(() => {
-    const i = items.findIndex(item => item.name === selected.name)
+    const i = items.findIndex(item => item.name === displayedData.name)
     if (window.innerWidth >= 1220) {
       if (i === items.length - 1) return {min: i - 3, max: i, range: 4}
       return {min: i, max: i + 3, range: 4}
@@ -104,7 +102,7 @@ const OnToggle = React.forwardRef(function OnToggle(
           `}
           ref={containerRef}
           data-testid="close-toggler"
-          onClick={() => setSelected(undefined)}
+          onClick={() => setDisplayData(undefined)}
         >
           X
         </button>
@@ -189,10 +187,10 @@ const OnToggle = React.forwardRef(function OnToggle(
                     animation-duration: 3s;
                   `}
                   onClick={() => {
-                    setSelected(item)
+                    setDisplayData(item)
                   }}
                   testId={`${item.name}-title`}
-                  highlight={selected.id === item.id}
+                  highlight={displayedData.id === item.id}
                 />
               )
             }

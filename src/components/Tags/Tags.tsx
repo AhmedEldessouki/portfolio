@@ -11,16 +11,12 @@ import PopUp from '../Utils/PopUp/PopUp'
 import {useAsync} from '../Utils/hooks'
 import TagForm from './TagForm'
 
-interface TagsInterface {
-  url: string
-  name: string
-  id: string
-}
+import type {Tag} from './tagsTypes'
 
-function Tags({TagsData}: {TagsData: Array<TagsInterface>}) {
+function Tags({TagsData}: {TagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()
 
-  function createNewTag(tag: Omit<TagsInterface, 'id'>) {
+  function createNewTag(tag: Omit<Tag, 'id'>) {
     db.collection('tags')
       .add({
         ...tag,
@@ -51,7 +47,7 @@ function Tags({TagsData}: {TagsData: Array<TagsInterface>}) {
   //     })
   // }
 
-  function deleteTag(tag: TagsInterface) {
+  function deleteTag(tag: Tag) {
     db.collection('tags')
       .doc(`${tag.id}`)
       .delete()

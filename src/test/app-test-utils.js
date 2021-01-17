@@ -8,8 +8,8 @@ import userEvent from '@testing-library/user-event'
 import {BrowserRouter} from 'react-router-dom'
 
 import {QueryClient, QueryClientProvider} from 'react-query'
-import {buildUser} from 'test/generate'
-import * as usersDB from 'test/data/user'
+import {buildUser} from './generate'
+import * as usersDB from './data/user'
 
 import {AuthProvider} from '../context/AuthProvider'
 

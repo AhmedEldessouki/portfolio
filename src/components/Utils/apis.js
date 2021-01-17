@@ -23,7 +23,11 @@ const placeholderData = [
 //   options: any
 // }
 
-const useClientFetch = ({collection, onSuccess, ...options}) => {
+const useClientFetch = ({
+  collection = '',
+  onSuccess = () => {},
+  ...options
+}) => {
   const {data} = useQuery({
     queryKey: collection,
     queryFn: async () =>

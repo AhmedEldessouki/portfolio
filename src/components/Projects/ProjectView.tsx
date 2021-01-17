@@ -7,10 +7,11 @@ import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 
 import Carousel from '../Utils/Carousel/Carousel'
 import {colors, mq, spinner} from '../Styles'
+import type {Project} from '../Utils/interfaces'
 
-function ProjectView({project}) {
+function ProjectView({project}: {project: Project}) {
   const [description, setDescription] = React.useState(project.description)
-  const [heightT, setHeightT] = React.useState(3)
+  const [heightT, setHeightT] = React.useState('3')
   const date = new Date(project.date)
 
   React.useEffect(() => {
@@ -18,10 +19,13 @@ function ProjectView({project}) {
     if (description !== project.description) {
       setDescription(project.description)
     }
-    if (textField.clientHeight < textField.scrollHeight) {
-      setHeightT(textField.scrollHeight + 'px')
-    } else if (textField.clientHeight > textField.scrollHeight) {
-      setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
+
+    if (textField) {
+      if (textField.clientHeight < textField.scrollHeight) {
+        setHeightT(textField.scrollHeight + 'px')
+      } else if (textField.clientHeight > textField.scrollHeight) {
+        setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
+      }
     }
   }, [description, project.description])
 
