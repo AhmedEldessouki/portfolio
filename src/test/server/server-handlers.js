@@ -1,9 +1,9 @@
 import {rest} from 'msw'
 import {match} from 'node-match-path'
-import * as projectsDB from 'test/data/projects'
-import * as tagsDB from 'test/data/tags'
-import * as messagesDB from 'test/data/messages'
-import * as usersDB from 'test/data/user'
+import * as projectsDB from '../data/projects'
+import * as tagsDB from '../data/tags'
+import * as messagesDB from '../data/messages'
+import * as usersDB from '../data/user'
 
 let sleep
 if (process.env.CI) {

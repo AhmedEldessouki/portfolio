@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {config} from 'dotenv'
+// import {config} from 'dotenv'
 
 import {useAuth} from './context/AuthProvider'
 import AuthRoutes from './components/Routes/AuthRoutes'
@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const {user} = useAuth()
-  config({debug: process.env.DEBUG})
+  // config({debug: process.env.DEBUG})
 
   return user ? <AuthRoutes /> : <UnAuthRoutes />
 }

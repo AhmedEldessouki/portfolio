@@ -13,13 +13,13 @@ import MessageView from './MessageView'
 import MessagesSummary from './MessageCard'
 
 function MessagesComponent({messagesData}) {
-  const [messageSel, setMessageSel] = React.useState(null)
+  const [displayMessage, setDisplayMessage] = React.useState(null)
   const selectedRef = React.useRef()
   const moveFocus = () => selectedRef.current?.moveFocus()
 
   React.useEffect(() => {
     moveFocus()
-  }, [messageSel])
+  }, [displayMessage])
 
   const mWrapper = css`
     margin: 0 10px;
@@ -34,14 +34,14 @@ function MessagesComponent({messagesData}) {
   return (
     <React.Fragment>
       <h1 css={h1XL}>Messages</h1>
-      {messageSel ? (
+      {displayMessage ? (
         <OnToggle
           items={messagesData}
-          selected={messageSel}
-          setSelected={setMessageSel}
+          displayedData={displayMessage}
+          setDisplayData={setDisplayMessage}
           ref={selectedRef}
         >
-          <MessageView message={messageSel} />
+          <MessageView message={displayMessage} />
         </OnToggle>
       ) : (
         <div css={mWrapper}>
@@ -49,7 +49,7 @@ function MessagesComponent({messagesData}) {
             return (
               <MessagesSummary
                 key={message.id}
-                setMessageFunc={() => setMessageSel(message)}
+                setMessageFunc={() => setDisplayMessage(message)}
                 message={message}
               />
             )

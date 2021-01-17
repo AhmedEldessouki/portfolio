@@ -1,11 +1,16 @@
 import React from 'react'
-import {render, userEvent, screen} from '../../../../test/app-test-utils'
+import {
+  render,
+  userEvent,
+  screen,
+  waitForElementToBeRemoved,
+} from '../../../../test/app-test-utils'
 import PopUp from '../PopUp'
 
-const func = jest.fn().mockImplementation(() => {})
+const func = jest.fn()
 
-test('should display PopUp and reject. then close', async () => {
-  await render(<PopUp info="Entered Titled" onClickYes={func()} />, {
+test('should display PopUp then reject then PopUp closes', async () => {
+  await render(<PopUp info="Entered Titled" onClickYes={func} />, {
     user: null,
     doWait: false,
   })
@@ -24,11 +29,11 @@ test('should display PopUp and reject. then close', async () => {
 
   userEvent.click(buttons[1])
 
-  expect(screen.queryByTitle(/warning/i)).not.toBeInTheDocument()
+  expect(screen.queryByText(/warning/i)).not.toBeInTheDocument()
 })
 
-test('should display PopUp and accept. then close', async () => {
-  await render(<PopUp info="Entered Titled" onClickYes={func()} />, {
+test('should display PopUp then accept then PopUp closes', async () => {
+  await render(<PopUp info="Entered Titled" onClickYes={func} />, {
     doWait: false,
   })
 
@@ -40,8 +45,9 @@ test('should display PopUp and accept. then close', async () => {
   expect(screen.getByText(/Entered Titled/i)).toBeInTheDocument()
 
   userEvent.click(buttons[2])
+  await waitForElementToBeRemoved(() => screen.getByText(/warning/i))
 
   expect(func).toBeCalledTimes(1)
 
-  expect(screen.queryByTitle(/warning/i)).not.toBeInTheDocument()
+  expect(screen.queryByText(/warning/i)).not.toBeInTheDocument()
 })

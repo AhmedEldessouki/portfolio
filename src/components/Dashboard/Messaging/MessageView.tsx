@@ -3,10 +3,11 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
+import type {Message} from '../../Utils/interfaces'
 
 import {h1XL, colors, mq} from '../../Styles'
 
-function MessageView({message}) {
+function MessageView({message}: {message: Message}) {
   const [description, setDescription] = React.useState(message.description)
   const container = css`
     display: grid;
@@ -91,7 +92,7 @@ function MessageView({message}) {
       </div>
       <textarea
         disabled
-        rows="7"
+        rows={7}
         wrap="hard"
         maxLength={description.length}
         css={[

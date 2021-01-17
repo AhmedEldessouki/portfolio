@@ -6,12 +6,22 @@ import React from 'react'
 
 import {colors, mq} from '../../Styles'
 
-function Img({imgAlt, onDoubleClick, src, ...props}) {
+type ImgProps = {
+  imgAlt: string
+  onClick: () => void
+  src: string
+}
+function Img({
+  imgAlt,
+  onClick,
+  src,
+  ...imgOverride
+}: ImgProps & React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <img
       alt={imgAlt}
       onClick={() => {
-        onDoubleClick()
+        onClick()
       }}
       css={css`
         @keyframes in {
@@ -29,19 +39,26 @@ function Img({imgAlt, onDoubleClick, src, ...props}) {
         animation-name: in;
         animation-duration: 3s;
       `}
-      fit="contain"
       src={src}
-      {...props}
+      {...imgOverride}
     />
   )
 }
 
-function Carousel({imgArray, imgAlt}) {
-  const [currentImage, setCurrentImage] = React.useState(0)
-  const [touchStart, setTouchStart] = React.useState(0)
+function Carousel({
+  imgArray,
+  imgAlt,
+}: {
+  imgArray: Array<string>
+  imgAlt: string
+}) {
+  const [currentImage, setCurrentImage] = React.useState<number>(0)
+  const [touchStart, setTouchStart] = React.useState<React.TouchList | number>(
+    0,
+  )
   // TODO handle swiping
-  // const [touchMove, setTouchMove] = React.useState([])
-  const [touchEnd, setTouchEnd] = React.useState(0)
+  // const [touchMove, setTouchMove] = React.useState<Object|number>([])
+  const [touchEnd, setTouchEnd] = React.useState<React.TouchList | number>(0)
 
   React.useEffect(() => {
     setCurrentImage(0)
@@ -112,12 +129,12 @@ function Carousel({imgArray, imgAlt}) {
     }
   `
 
-  const handlePrevious = React.useCallback(() => {
+  const displayPrevious = React.useCallback(() => {
     if (currentImage !== 0) setCurrentImage(currentImage - 1)
     return
   }, [currentImage])
 
-  const handleNext = React.useCallback(() => {
+  const displayNext = React.useCallback(() => {
     if (currentImage !== imgArray.length - 1) setCurrentImage(currentImage + 1)
     return
   }, [currentImage, imgArray.length])
@@ -125,13 +142,13 @@ function Carousel({imgArray, imgAlt}) {
   const handleTouch = React.useCallback(
     (end, start) => {
       if (end > start) {
-        handlePrevious()
+        displayPrevious()
       }
       if (end < start) {
-        handleNext()
+        displayNext()
       }
     },
-    [handleNext, handlePrevious],
+    [displayNext, displayPrevious],
   )
 
   return (
@@ -162,9 +179,11 @@ function Carousel({imgArray, imgAlt}) {
         }}
         onTouchEnd={e => {
           setTouchEnd(e.changedTouches)
-          if (touchEnd.length === 1 && touchStart.length === 1) {
-            if (e.changedTouches[0].screenY - touchStart[0].screenY < 3) {
-              handleTouch(e.changedTouches[0].screenX, touchStart[0].screenX)
+          if (typeof touchEnd !== 'number' && typeof touchStart !== 'number') {
+            if (touchEnd.length === 1 && touchStart.length === 1) {
+              if (e.changedTouches[0].screenY - touchStart[0].screenY < 3) {
+                handleTouch(e.changedTouches[0].screenX, touchStart[0].screenX)
+              }
             }
           }
         }}
@@ -173,7 +192,7 @@ function Carousel({imgArray, imgAlt}) {
           type="button"
           css={[btn, leftS, currentImage === 0 ? disabledBTN : null]}
           onClick={() => {
-            handlePrevious()
+            displayPrevious()
           }}
           data-testid="previous"
           disabled={currentImage === 0}
@@ -190,9 +209,8 @@ function Carousel({imgArray, imgAlt}) {
           }}
         >
           <Img
-            width="330"
             imgAlt={imgAlt}
-            fit="contain"
+            width="330"
             src={`https://images.weserv.nl/?url=${imgArray[currentImage]}&w=450&h=350&fit=contain`}
             onClick={() => window.open(imgArray[currentImage])}
           />
@@ -206,7 +224,7 @@ function Carousel({imgArray, imgAlt}) {
             currentImage === imgArray.length - 1 ? disabledBTN : null,
           ]}
           onClick={() => {
-            handleNext()
+            displayNext()
           }}
           disabled={currentImage === imgArray.length - 1}
         >

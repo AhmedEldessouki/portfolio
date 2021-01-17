@@ -1,11 +1,14 @@
 # Portfolio
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+
 ## [New Website](https://ahmedeldessouki.netlify.com)
 
 Tools:\
+
       - Emotion\
       - React-Hooks\
       - React-Query\
@@ -14,12 +17,15 @@ Tools:\
       - Cypress\
       - Husky (precommit testing and linting)
 
+
 ## [Old Website](https://ahmedeldessouki-a7488.firebaseapp.com)
 
 Tools:\
+
       - Redux\
       - Axios\
       - scss
+
 
 ## Available Scripts
 
@@ -67,3 +73,4 @@ Thanks you guys ([emoji key][emojis]):
 ## LICENSE
 
 MIT
+

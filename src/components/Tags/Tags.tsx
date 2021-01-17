@@ -11,10 +11,12 @@ import PopUp from '../Utils/PopUp/PopUp'
 import {useAsync} from '../Utils/hooks'
 import TagForm from './TagForm'
 
-function Tags({TagsData}) {
+import type {Tag} from './tagsTypes'
+
+function Tags({TagsData}: {TagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()
 
-  function createNewTag(tag) {
+  function createNewTag(tag: Omit<Tag, 'id'>) {
     db.collection('tags')
       .add({
         ...tag,
@@ -45,7 +47,7 @@ function Tags({TagsData}) {
   //     })
   // }
 
-  function deleteTag(tag) {
+  function deleteTag(tag: Tag) {
     db.collection('tags')
       .doc(`${tag.id}`)
       .delete()
@@ -58,7 +60,16 @@ function Tags({TagsData}) {
       })
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: {
+    preventDefault: () => void
+    target: {
+      elements: {
+        name: any
+        url: any
+      }
+      reset: () => void
+    }
+  }) {
     e.preventDefault()
     dispatch({type: 'pending'})
     const {name, url} = e.target.elements

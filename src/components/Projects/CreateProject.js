@@ -75,10 +75,10 @@ function CreateProjectX() {
         payload: newArr,
       })
     },
-    onDropRejected: async rejectedFiles => {
+    onDropRejected: rejectedFiles => {
       setIsDragActive(!isDragActive)
 
-      await dispatch({type: 'error', payload: {...rejectedFiles[0].errors}})
+      dispatch({type: 'error', payload: {...rejectedFiles[0].errors}})
       const newArr = rejectedFiles.map(({file}) => {
         return Object.assign(file, {
           preview: URL.createObjectURL(file),
@@ -98,11 +98,14 @@ function CreateProjectX() {
   })
 
   React.useEffect(() => {
+    if (selectedProject) {
+      window.scroll(0, 0)
+    }
     return () => {
       setProject(null)
       dispatch({type: 'clean_up'})
     }
-  }, [dispatch, setProject])
+  }, [dispatch, selectedProject, setProject])
 
   const gradualUpload = React.useCallback(
     async (imagesArray, name) =>
@@ -284,7 +287,10 @@ function CreateProjectX() {
                   required
                 />
               </label>
-              <ButtonWithSpinner status={status} project={selectedProject} />
+              <ButtonWithSpinner
+                status={status}
+                isProject={selectedProject ? true : false}
+              />
             </form>
           </ErrorBoundary>
         </div>

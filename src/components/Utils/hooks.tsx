@@ -1,38 +1,48 @@
 import React from 'react'
+import type {User} from '@firebase/auth-types/index'
 
-function useSafeDispatch(dispatch) {
+function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   const mounted = React.useRef(false)
 
   React.useLayoutEffect(() => {
     mounted.current = true
-    return () => (mounted.current = false)
+    return () => {
+      mounted.current = false
+    }
   }, [])
 
   return React.useCallback(
-    (...args) => (mounted.current ? dispatch(...args) : void 0),
+    (action: IAction): React.Dispatch<IAction> | void =>
+      mounted.current ? dispatch(action) : undefined,
     [dispatch],
   )
 }
 
-/**
- * @ useLocalStorageState
- *
- * @param {String} key The key to set in localStorage for this value
- * @param {Object} defaultValue The value to use if it is not already in localStorage
- * @param {{serialize: Function, deserialize: Function}} options The serialize and deserialize functions to use (defaults to JSON.stringify and JSON.parse respectively)
- */
+type UseLocalStorageOptions<
+  TState = Pick<
+    User,
+    'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
+  > | null
+> = {
+  serialize?: (data: TState) => string
+  deserialize?: (str: string) => TState
+}
 
-function useLocalStorageState(
-  key,
-  defaultValue,
-  {serialize = JSON.stringify, deserialize = JSON.parse} = {},
+function useLocalStorageState<TState>(
+  key: string,
+  defaultValue: TState,
+  {
+    serialize = JSON.stringify,
+    deserialize = JSON.parse,
+  }: UseLocalStorageOptions = {},
 ) {
   const [state, setState] = React.useState(() => {
     const valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage) {
       return deserialize(valueInLocalStorage)
     }
-    return typeof defaultValue === 'function' ? defaultValue() : defaultValue
+    // work around tslint
+    return defaultValue instanceof Function ? defaultValue() : defaultValue
   })
 
   const prevKeyRef = React.useRef(key)
@@ -49,7 +59,12 @@ function useLocalStorageState(
   return [state, setState]
 }
 
-function asyncReducer(state, action) {
+interface IAction {
+  type: 'idle' | 'pending' | 'resolved' | 'rejected'
+  payload?: Object | Array<any> | string | boolean
+}
+
+function asyncReducer(state: useAsyncState, action: IAction) {
   switch (action.type) {
     case 'idle': {
       return {status: 'idle'}
@@ -68,18 +83,32 @@ function asyncReducer(state, action) {
     }
   }
 }
+interface useAsyncState {
+  status?: string
+}
 
-function useAsync(initialState) {
+interface useAsyncReturn {
+  isIdle: boolean
+  isLoading: boolean
+  isSuccess: boolean
+  isRejected: boolean
+
+  status: string
+  dispatch: React.Dispatch<IAction>
+}
+
+function useAsync(initialState?: useAsyncState): useAsyncReturn {
   const initialStateRef = React.useRef({
     ...{status: 'idle'},
     ...initialState,
   })
-  const [{status}, unsafeDispatch] = React.useReducer(
+  const [state, unsafeDispatch] = React.useReducer(
     asyncReducer,
     initialStateRef.current,
   )
 
   const dispatch = useSafeDispatch(unsafeDispatch)
+  const {status} = state
   return {
     isIdle: status === 'idle',
     isLoading: status === 'pending',

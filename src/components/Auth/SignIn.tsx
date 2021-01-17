@@ -9,18 +9,21 @@ import Layout from '../Layout'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/hooks'
 
-const SignIn = () => {
-  const {useVerifyUserSignInCredentials} = useAuth(null)
+const SignIn = (): React.ReactNode => {
+  const {useVerifyUserSignInCredentials} = useAuth()
   const [
     verificationFailed,
     checkUserCredentials,
   ] = useVerifyUserSignInCredentials()
   const {status, dispatch} = useAsync()
 
-  async function submitUserCredentials(e) {
+  async function submitUserCredentials(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
-    const {email, password} = e.target.elements
+    const {email, password} = e.target as typeof e.target & {
+      email: {value: string}
+      password: {value: string}
+    }
     const credentials = {
       email: email.value,
       password: password.value,
@@ -29,7 +32,6 @@ const SignIn = () => {
     await checkUserCredentials(credentials)
 
     dispatch({type: 'resolved'})
-    e.target.reset()
   }
 
   return (
@@ -45,10 +47,10 @@ const SignIn = () => {
         <form onSubmit={submitUserCredentials} css={formWrapper}>
           <div css={{width: '89%'}}>
             <Input
-              type="email"
-              autoComplete="email"
-              placeholder="Email"
               name="email"
+              placeholder="Email"
+              autoComplete="email"
+              type="email"
               required
               cleanColor={status === 'resolved'}
             />

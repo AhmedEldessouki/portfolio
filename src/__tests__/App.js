@@ -23,12 +23,22 @@ async function renderAppScreen({user, doWait} = {}) {
 }
 
 test('should check all router', async () => {
+  // const mockedReplace = jest.fn()
+  // const originalWindow = {...window}
+  // const windowSpy = jest.spyOn(global, 'window', 'get')
   await renderAppScreen()
+  // windowSpy.mockImplementation(() => ({
+  //   ...originalWindow,
+  //   scroll: mockedReplace,
+  // }))
   userEvent.click(screen.getByText(/dashboard/i))
   userEvent.click(screen.getByTestId(/edit-project/i))
+  // expect(mockedReplace).toBeCalled()
   userEvent.click(screen.getAllByText(/Ahmed ElDessouki/i)[0])
   userEvent.click(screen.getByText(/create project/i))
+  // expect(mockedReplace).toBeCalled()
   userEvent.click(screen.getByText(/tags/i))
   userEvent.click(screen.getByText(/signup/i))
   userEvent.click(screen.getByText(/signOut/i))
+  // windowSpy.mockRestore()
 })

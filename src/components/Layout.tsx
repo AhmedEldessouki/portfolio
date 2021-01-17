@@ -11,7 +11,12 @@ import './Styles/layout.css'
 
 const MyFooter = React.lazy(() => import('./MyFooter/MyFooter'))
 
-function LayoutX({children, height = '82vh'}) {
+interface LayoutXProps {
+  children: React.ReactNode
+  height?: string
+}
+
+function LayoutX({children, height = '82vh'}: LayoutXProps) {
   const {user} = useAuth()
   return (
     <>

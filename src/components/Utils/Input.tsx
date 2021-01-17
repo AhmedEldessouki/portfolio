@@ -2,18 +2,27 @@
 /** @jsx jsx */
 
 import {jsx} from '@emotion/react'
+import type {CSSObject} from '@emotion/react'
 import React from 'react'
 
 import {colors, labelWrapper, formWrapperInput} from '../Styles'
 
+type InputProps = {
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+  cleanColor?: boolean
+  cssNew?: CSSObject
+  name?: string
+}
+
 function Input({
-  onChange: handleChange = () => {},
-  onBlur: handleBlur = () => {},
+  onChange: handleChange,
+  onBlur: handleBlur,
   cleanColor,
   cssNew,
   name,
-  ...props
-}) {
+  ...inputOverrides
+}: InputProps & React.InputHTMLAttributes<HTMLInputElement>) {
   const [state, setState] = React.useState(colors.darkBlue)
 
   React.useEffect(() => {
@@ -34,9 +43,9 @@ function Input({
         onBlur={e => {
           const {valid} = e.target.validity
           valid ? setState(colors.lightGreen) : setState(colors.burgundyRed)
-          handleBlur(e)
+          handleBlur && handleBlur(e)
         }}
-        {...props}
+        {...inputOverrides}
       />
     </label>
   )

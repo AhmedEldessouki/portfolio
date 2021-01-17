@@ -2,14 +2,19 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import {ErrorBoundary} from 'react-error-boundary'
+import type {Message} from '../../Utils/interfaces'
 
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
-import {ErrorMessageFallback} from '../../Utils/util'
 import {deleteMessage} from './utils'
 
-function MessageCard({message, setMessageFunc}) {
+function MessagesSummary({
+  message,
+  setMessageFunc,
+}: {
+  message: Message
+  setMessageFunc(): void
+}) {
   const messagesSummary = css`
     display: flex;
     background-color: ${colors.independenceBlue};
@@ -51,17 +56,6 @@ function MessageCard({message, setMessageFunc}) {
         onClickYes={() => deleteMessage(message)}
       />
     </div>
-  )
-}
-
-function MessagesSummary({message, setMessageFunc}) {
-  return (
-    <ErrorBoundary
-      fallbackComponent={ErrorMessageFallback}
-      resetKeys={[message]}
-    >
-      <MessageCard message={message} setMessageFunc={setMessageFunc} />
-    </ErrorBoundary>
   )
 }
 

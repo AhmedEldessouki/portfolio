@@ -3,8 +3,6 @@
 
 import {jsx, css} from '@emotion/react'
 import {NavLink} from 'react-router-dom'
-import {useAuth} from '../../context/AuthProvider'
-import {buildUser} from '../../test/generate'
 
 import {colors, mq} from '../Styles'
 
@@ -31,17 +29,11 @@ const UnAuthNavlinks = () => {
       font-size: 1.2rem;
     }
   `
-  const {setUser} = useAuth()
   return (
     <div css={container}>
       <NavLink to="/" style={{textDecoration: 'none'}}>
         <h1 css={h1a}>Ahmed Eldessouki</h1>
       </NavLink>
-      {process.env.NODE_ENV === 'test' && (
-        <button type="button" onClick={() => setUser(buildUser())}>
-          SignIn
-        </button>
-      )}
     </div>
   )
 }

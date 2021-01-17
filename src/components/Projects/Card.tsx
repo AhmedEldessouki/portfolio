@@ -7,25 +7,35 @@ import {Link} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
 import {colors} from '../Styles'
+import type {Project} from '../Utils/interfaces'
 import PopUp from '../Utils/PopUp/PopUp'
 import {Title} from '../Utils/util'
 import {deleteProject} from './utils'
 
-function Tag({tags, ...props}) {
+function Tag({
+  tagUrl,
+  ...imageOverrides
+}: {tagUrl: string} & React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <img
       css={css`
         font-size: 108%;
         margin: 0;
       `}
-      src={tags}
+      src={tagUrl}
       alt="tag"
-      {...props}
+      {...imageOverrides}
     />
   )
 }
 
-function EditAndDelete({project, onClick}) {
+function EditAndDelete({
+  project,
+  onClick,
+}: {
+  project: Project
+  onClick: () => any
+}) {
   return (
     <div
       css={css`
@@ -37,7 +47,7 @@ function EditAndDelete({project, onClick}) {
       <Link
         to={`/edit/${project.id}`}
         data-testid="edit-project"
-        onFocus={() => {
+        onClick={() => {
           onClick()
         }}
       >
@@ -56,7 +66,13 @@ function EditAndDelete({project, onClick}) {
   )
 }
 
-function Card({items = [], setState}) {
+function Card({
+  items = [],
+  setState,
+}: {
+  items: Array<Project>
+  setState: React.Dispatch<React.SetStateAction<Project>>
+}) {
   const {user, setProject: setPorj} = useAuth()
 
   const pWrapper = css`
@@ -103,7 +119,7 @@ function Card({items = [], setState}) {
             >
               {item.tag &&
                 item.tag.map((tag, i) => (
-                  <Tag key={`${tag}_${i}`} src={tag} width="30" />
+                  <Tag key={`${tag}_${i}`} tagUrl={tag} width="30" />
                 ))}
             </div>
           </div>

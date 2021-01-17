@@ -12,7 +12,7 @@ import OnToggle from '../Utils/OnToggle'
 import {ErrorMessageFallback} from '../Utils/util'
 
 function ProjectComponent({projectsData}) {
-  const [project, setProject] = React.useState(null)
+  const [displayProject, setDisplayProject] = React.useState(null)
   const selectedRef = React.useRef()
 
   const moveFocus = () => selectedRef.current?.moveFocus()
@@ -64,7 +64,7 @@ function ProjectComponent({projectsData}) {
 
   React.useEffect(() => {
     moveFocus()
-  }, [project])
+  }, [displayProject])
 
   const btn = {
     borderRadius: '11%',
@@ -77,14 +77,14 @@ function ProjectComponent({projectsData}) {
   return (
     <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
-      {project ? (
+      {displayProject ? (
         <OnToggle
           items={projects ?? projectsData}
-          selected={project}
-          setSelected={setProject}
+          displayedData={displayProject}
+          setDisplayData={setDisplayProject}
           ref={selectedRef}
         >
-          <ProjectView project={project} />
+          <ProjectView project={displayProject} />
         </OnToggle>
       ) : (
         <React.Fragment>
@@ -181,11 +181,7 @@ function ProjectComponent({projectsData}) {
               Latest
             </button>
           </div>
-          <Card
-            items={projects ?? projectsData}
-            state={project}
-            setState={setProject}
-          />
+          <Card items={projects ?? projectsData} setState={setDisplayProject} />
         </React.Fragment>
       )}
     </React.Fragment>

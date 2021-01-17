@@ -7,13 +7,28 @@ import React from 'react'
 import {colors} from '../Styles'
 import {Title} from './util'
 
+import type {Message, Project} from './interfaces'
+
+interface OnToggleProps {
+  items: Array<Project | Message>
+  children: React.ReactNode
+  displayedData: Project | Message
+  setDisplayData: React.Dispatch<
+    React.SetStateAction<Project | Message | undefined>
+  >
+}
+
 const OnToggle = React.forwardRef(function OnToggle(
-  {items, setSelected, children, selected},
+  {items, setDisplayData, children, displayedData}: OnToggleProps,
   ref,
 ) {
-  const containerRef = React.useRef()
-  const [touchStart, setTouchStart] = React.useState(0)
-  const [touchEnd, setTouchEnd] = React.useState(0)
+  const containerRef = React.useRef<any>()
+  const [touchStart, setTouchStart] = React.useState<
+    React.TouchEvent | React.MouseEvent | any
+  >()
+  const [touchEnd, setTouchEnd] = React.useState<
+    React.TouchEvent | React.MouseEvent | any
+  >()
 
   function moveFocus() {
     containerRef.current.focus()
@@ -24,7 +39,7 @@ const OnToggle = React.forwardRef(function OnToggle(
   }))
 
   const [show, setShow] = React.useState(() => {
-    const i = items.findIndex(item => item.name === selected.name)
+    const i = items.findIndex(item => item.name === displayedData.name)
     if (window.innerWidth >= 1220) {
       if (i === items.length - 1) return {min: i - 3, max: i, range: 4}
       return {min: i, max: i + 3, range: 4}
@@ -87,7 +102,7 @@ const OnToggle = React.forwardRef(function OnToggle(
           `}
           ref={containerRef}
           data-testid="close-toggler"
-          onClick={() => setSelected(null)}
+          onClick={() => setDisplayData(undefined)}
         >
           X
         </button>
@@ -139,7 +154,7 @@ const OnToggle = React.forwardRef(function OnToggle(
             setTouchEnd(e.screenX)
             handleTouch(e.screenX, touchStart)
           }}
-          onTouchStart={e => {
+          onTouchStart={(e: React.TouchEvent) => {
             setTouchStart(e.changedTouches)
           }}
           onTouchEnd={e => {
@@ -172,10 +187,10 @@ const OnToggle = React.forwardRef(function OnToggle(
                     animation-duration: 3s;
                   `}
                   onClick={() => {
-                    setSelected(item)
+                    setDisplayData(item)
                   }}
                   testId={`${item.name}-title`}
-                  highlight={selected.id === item.id}
+                  highlight={displayedData.id === item.id}
                 />
               )
             }

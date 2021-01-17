@@ -1,7 +1,8 @@
+// @ts-ignore: Unreachable code error
 /// <reference types="cypress" />
 
 describe('my portfolio', () => {
-  it('passes smoke tests', () => {
+  it('should check landing page', () => {
     cy.visit('/')
     cy.contains('Github').should('exist')
     cy.contains('Ahmed ElDessouki').should('exist')

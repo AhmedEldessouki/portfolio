@@ -9,7 +9,7 @@ import {colors, mq, weights} from '../../Styles'
 import {useAsync} from '../hooks'
 import '../onToggle.css'
 
-function PopUp({info, onClickYes}) {
+function PopUp({info, onClickYes}: {info: string; onClickYes: Function}) {
   const popWrapper = css`
     @keyframes fadeIn {
       from {
@@ -62,10 +62,10 @@ function PopUp({info, onClickYes}) {
   const {status, dispatch} = useAsync()
 
   // onClick outside PopUp Component close PopUp
-  const ref = React.useRef(null)
+  const ref = React.useRef<any | undefined>()
 
   React.useEffect(() => {
-    const handleClickOutside = event => {
+    const handleClickOutside = (event: {target: any}) => {
       if (ref.current && !ref.current.contains(event.target)) {
         dispatch({type: 'idle'})
       }

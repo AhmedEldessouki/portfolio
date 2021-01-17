@@ -5,19 +5,55 @@ import {toast} from 'react-toastify'
 import {auth, db, firebaseApp} from '../components/Utils/firebase'
 import {useLocalStorageState} from '../components/Utils/hooks'
 
-const AuthContext = React.createContext()
+import {User} from '@firebase/auth-types/index'
+import type {NewUser, Project} from '../components/Utils/interfaces'
+
+interface Context {
+  useVerifyUserSignInCredentials: () => [
+    verificationFailed: string,
+    checkUserCredentials: (arg0: {
+      email: string
+      password: string
+    }) => Promise<User>,
+  ]
+
+  signUserOut: () => void
+  user: Pick<
+    User,
+    'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
+  > | null
+  setUser: React.Dispatch<
+    React.SetStateAction<Pick<
+      User,
+      'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
+    > | null>
+  >
+  useCreateNewUser: () => [
+    newUserCreationFailed: string,
+    createNewUser: (newUser: NewUser) => Promise<User>,
+  ]
+  selectedProject: Project | undefined
+  setProject: React.Dispatch<React.SetStateAction<Project | undefined>>
+}
+
+const AuthContext = React.createContext<any>({})
 AuthContext.displayName = 'AuthContext'
 
-function AuthProvider({children}) {
+function AuthProvider({children}: {children: React.ReactNode}) {
   const [user, setUser] = useLocalStorageState('__portfolio_user__', null)
 
-  const [selectedProject, setProject] = React.useState(null)
+  const [selectedProject, setProject] = React.useState<Project | undefined>()
 
   React.useEffect(() => {
     if (!auth.currentUser) return
-    function verifyCurrentUserCredentials(user) {
+    function verifyCurrentUserCredentials(
+      user: Pick<
+        User,
+        'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
+      > | null,
+    ) {
       firebaseApp.auth().onAuthStateChanged(currentUser => {
-        if (currentUser && currentUser.uid !== user.uid) {
+        if (currentUser && currentUser.uid !== user?.uid) {
           setUser(currentUser)
         }
       })
@@ -28,14 +64,17 @@ function AuthProvider({children}) {
   function useVerifyUserSignInCredentials() {
     const [verificationFailed, setVerificationFailed] = React.useState('')
 
-    async function checkUserCredentials(credentials) {
+    async function checkUserCredentials(credentials: {
+      email: string
+      password: string
+    }) {
       await auth
         .signInWithEmailAndPassword(credentials.email, credentials.password)
         .then(
           async res => {
-            await setUser(res.user)
+            setUser(res.user)
             toast.success(`LogIn Successful`)
-            Redirect({to: '/'})
+            new Redirect({to: '/'})
             return
           },
           err => {
@@ -51,27 +90,28 @@ function AuthProvider({children}) {
     if (auth.currentUser) auth.signOut()
     setUser(null)
     toast.success(`See You Soon`)
-    Redirect({to: '/'})
+    new Redirect({to: '/'})
   }
 
   function useCreateNewUser() {
     const [newUserCreationFailed, setNewUserCreationFailed] = React.useState('')
 
-    const createNewUser = async newUser => {
+    const createNewUser = async (newUser: NewUser) => {
       return auth
         .createUserWithEmailAndPassword(newUser.email, newUser.password)
         .then(
           async resp => {
             await db
               .collection('users')
-              .doc(resp.user.uid)
+              .doc(user?.uid)
               .set({
-                hstName: newUser.firstName,
+                firstName: newUser.firstName,
                 lastName: newUser.lastName,
                 initials: newUser.firstName[0] + newUser.lastName[0],
               })
-            setUser(newUser.uid)
+            setUser(resp.user)
             toast.success(`Welcome "${newUser.email}" to The Club`)
+            new Redirect({to: '/'})
           },
           err => {
             setNewUserCreationFailed(err.message)
@@ -103,7 +143,7 @@ function useAuth() {
     setUser,
     selectedProject,
     setProject,
-  } = React.useContext(AuthContext)
+  } = React.useContext<Context>(AuthContext)
 
   if (
     !{
