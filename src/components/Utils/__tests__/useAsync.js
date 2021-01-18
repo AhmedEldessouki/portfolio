@@ -1,23 +1,6 @@
 import {renderHook, act} from '@testing-library/react-hooks'
 import {useAsync} from '../hooks'
 
-beforeEach(() => {
-  jest.spyOn(console, 'error')
-})
-
-afterEach(() => {
-  console.error.mockRestore()
-})
-
-function deferred() {
-  let resolve, reject
-  const promise = new Promise((res, rej) => {
-    resolve = res
-    reject = rej
-  })
-  return {promise, resolve, reject}
-}
-
 const defaultState = {
   status: 'idle',
 
@@ -78,18 +61,14 @@ test('can specify an initial state as rejected', () => {
 })
 
 test('No state updates happen if the component is unmounted while pending', async () => {
-  const {promise, resolve} = deferred()
   const {result, unmount} = renderHook(() => useAsync())
-  let p
   act(() => {
-    p = promise
+    result.current.dispatch({type: 'pending'})
   })
   unmount()
-  await act(async () => {
-    resolve()
-    await p
+  act(() => {
+    result.current.dispatch({type: 'resolved'})
   })
-  expect(console.error).not.toHaveBeenCalled()
 })
 
 test('can dispatch', () => {
