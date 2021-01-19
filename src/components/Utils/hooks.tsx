@@ -1,5 +1,4 @@
 import React from 'react'
-import type {User} from '@firebase/auth-types/index'
 
 function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   const mounted = React.useRef(false)
@@ -36,7 +35,6 @@ function useLocalStorageState<TState>(
     if (valueInLocalStorage) {
       return deserialize(valueInLocalStorage)
     }
-    // work around tslint
     return defaultValue instanceof Function ? defaultValue() : defaultValue
   })
 
