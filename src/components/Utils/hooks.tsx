@@ -1,5 +1,4 @@
 import React from 'react'
-import type {User} from '@firebase/auth-types/index'
 
 function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   const mounted = React.useRef(false)
@@ -18,12 +17,7 @@ function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   )
 }
 
-type UseLocalStorageOptions<
-  TState = Pick<
-    User,
-    'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
-  > | null
-> = {
+type UseLocalStorageOptions<TState> = {
   serialize?: (data: TState) => string
   deserialize?: (str: string) => TState
 }
@@ -34,14 +28,13 @@ function useLocalStorageState<TState>(
   {
     serialize = JSON.stringify,
     deserialize = JSON.parse,
-  }: UseLocalStorageOptions = {},
+  }: UseLocalStorageOptions<TState> = {},
 ) {
   const [state, setState] = React.useState(() => {
     const valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage) {
       return deserialize(valueInLocalStorage)
     }
-    // work around tslint
     return defaultValue instanceof Function ? defaultValue() : defaultValue
   })
 

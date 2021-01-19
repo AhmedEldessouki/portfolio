@@ -40,7 +40,10 @@ const AuthContext = React.createContext<any>({})
 AuthContext.displayName = 'AuthContext'
 
 function AuthProvider({children}: {children: React.ReactNode}) {
-  const [user, setUser] = useLocalStorageState('__portfolio_user__', null)
+  const [user, setUser] = useLocalStorageState<Pick<
+    User,
+    'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
+  > | null>('__portfolio_user__', null)
 
   const [selectedProject, setProject] = React.useState<Project | undefined>()
 
