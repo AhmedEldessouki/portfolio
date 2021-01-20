@@ -53,7 +53,9 @@ jobs:
             ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
             }}
 
+      - name: Cypress verify
+        run: npm run cy:verify
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: npm start
+          start: npm run test:e2e
