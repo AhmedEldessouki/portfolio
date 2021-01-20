@@ -48,7 +48,7 @@ function AuthProvider({children}: {children: React.ReactNode}) {
   const [selectedProject, setProject] = React.useState<Project | undefined>()
 
   React.useEffect(() => {
-    if (!auth.currentUser) return
+    if (!auth?.currentUser) return
     function verifyCurrentUserCredentials(
       user: Pick<
         User,
@@ -90,7 +90,7 @@ function AuthProvider({children}: {children: React.ReactNode}) {
     return [verificationFailed, checkUserCredentials]
   }
   function signUserOut() {
-    if (auth.currentUser) auth.signOut()
+    if (auth?.currentUser) auth.signOut()
     setUser(null)
     toast.success(`See You Soon`)
     new Redirect({to: '/'})

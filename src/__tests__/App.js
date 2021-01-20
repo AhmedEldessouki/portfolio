@@ -6,6 +6,7 @@ import {
   screen,
   renderWithAllProviders,
 } from '../test/app-test-utils'
+import {MockFirebase} from 'firebase-mock'
 
 async function renderAppScreen({user, doWait} = {}) {
   if (user === undefined) {
@@ -13,7 +14,6 @@ async function renderAppScreen({user, doWait} = {}) {
   }
 
   const route = `/`
-
   const utils = await renderWithAllProviders(<App />, {user, route, doWait})
 
   return {
@@ -21,6 +21,14 @@ async function renderAppScreen({user, doWait} = {}) {
     user,
   }
 }
+
+beforeEach(() => {
+  jest.spyOn(console, 'error')
+})
+
+afterEach(() => {
+  console.error.mockRestore()
+})
 
 test('should check all router', async () => {
   // const mockedReplace = jest.fn()
@@ -31,6 +39,7 @@ test('should check all router', async () => {
   //   ...originalWindow,
   //   scroll: mockedReplace,
   // }))
+
   userEvent.click(screen.getByText(/dashboard/i))
   userEvent.click(screen.getByTestId(/edit-project/i))
   // expect(mockedReplace).toBeCalled()

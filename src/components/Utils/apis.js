@@ -41,7 +41,7 @@ const useClientFetch = ({
             })
             return data
           },
-          err => console.log(err),
+          err => Promise.reject(err),
         )
         .catch(err => {
           Promise.reject(err)
