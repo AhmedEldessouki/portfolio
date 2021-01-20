@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import App from '../App'
 import {buildProject} from '../test/generate'
 import {
@@ -6,8 +6,6 @@ import {
   loginAsUser,
   screen,
   renderWithAllProviders,
-  fireEvent,
-  waitForElementToBeRemoved,
 } from '../test/app-test-utils'
 import * as projectsDB from '../test/data/projects'
 
