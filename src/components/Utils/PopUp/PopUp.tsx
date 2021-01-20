@@ -7,7 +7,6 @@ import {GoTrashcan} from 'react-icons/go'
 
 import {colors, mq, weights} from '../../Styles'
 import {useAsync} from '../hooks'
-import '../onToggle.css'
 
 function PopUp({info, onClickYes}: {info: string; onClickYes: Function}) {
   const popWrapper = css`
