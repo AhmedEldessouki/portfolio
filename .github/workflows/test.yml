@@ -45,6 +45,7 @@ jobs:
         uses: cypress-io/github-action@v2.7.0
         with:
           config: pageLoadTimeout=100000,baseUrl=http://localhost:3000
+          build: npm build
           start: npm start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
