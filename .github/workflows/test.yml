@@ -44,7 +44,7 @@ jobs:
       - name: Cypress.io
         uses: cypress-io/github-action@v2.7.0
         with:
-          config-file: ../cypress.json
+          config: pageLoadTimeout=100000,baseUrl=http://localhost:8888
           record: true
         env:
           # pass the Dashboard record key as an environment variable
