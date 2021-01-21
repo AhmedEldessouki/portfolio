@@ -7,7 +7,7 @@ import {ErrorMessageFallback} from '../Utils/util'
 import Tags from './Tags'
 
 function TagsControl() {
-  const TagsData = useClientFetch({collection: 'tags'})
+  const TagsData = useClientFetch('tags')
 
   return (
     <Layout>

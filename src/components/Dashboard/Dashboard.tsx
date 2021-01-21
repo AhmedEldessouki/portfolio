@@ -7,8 +7,8 @@ import Layout from '../Layout'
 import Messages from './Messaging/Messages'
 
 const Dashboard = () => {
-  const projectsData = useClientFetch({collection: 'projects'})
-  const messagesData = useClientFetch({collection: 'contactedMe'})
+  const projectsData = useClientFetch('projects')
+  const messagesData = useClientFetch('contactedMe')
   return (
     <Layout>
       <Projects projectsData={projectsData} />

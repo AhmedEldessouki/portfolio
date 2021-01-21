@@ -394,9 +394,7 @@ function TagsCheckBox({
   }
 }) {
   const TagsData: any &
-    Array<{name: string; url: string; id: string}> = useClientFetch({
-    collection: 'tags',
-  })
+    Array<{name: string; url: string; id: string}> = useClientFetch('tags')
 
   return (
     <div

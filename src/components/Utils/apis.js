@@ -23,11 +23,7 @@ const placeholderData = [
 //   options: any
 // }
 
-const useClientFetch = ({
-  collection = '',
-  onSuccess = () => {},
-  ...options
-}) => {
+const useClientFetch = collection => {
   const {data} = useQuery({
     queryKey: collection,
     queryFn: async () =>
@@ -50,7 +46,6 @@ const useClientFetch = ({
       staleTime: 1000 * 60 * 60,
       cacheTime: 1000 * 60 * 60,
       onError: err => Promise.reject(err),
-      ...options,
     },
   })
 
