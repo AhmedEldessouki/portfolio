@@ -59,7 +59,8 @@ jobs:
       - name: Cypress verify
         run: npm run cy:verify
 
+      - name: Start App
+        run: npm start
+
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        with:
-          start: npm run test:e2e
