@@ -50,8 +50,11 @@ jobs:
             ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
             }}
 
+      - name: install
+        run: npm ci
+
       - name: Cypress run
-        run: npm run cy:run
+        run: npm run test:e2e
         continue-on-error: false
 
       - name: Copy Videos and ScreenShots
