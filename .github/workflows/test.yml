@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   test:
-    name: Test
+    name: Jest & RTL Tests
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -35,15 +35,12 @@ jobs:
         run: npm test
 
   cypress-run:
-    name: E2E
+    name: Cypress Tests
     runs-on: ubuntu-latest
+    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -53,14 +50,12 @@ jobs:
             ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
             }}
 
-      - name: install
-        run: npm ci
-
-      - name: Cypress verify
-        run: npm run cy:verify
-
-      - name: Start App
-        run: npm start
-
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        run: npm run cy:run
+        continue-on-error: false
+
+      - name: Copy Videos and ScreenShots
+        run: |
+          mkdir public
+          cp -r cypress/videos public/videos
+          cp -r cypress/Screenshots public/Screenshots
