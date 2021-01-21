@@ -1,6 +1,6 @@
 name: test CI
 
-on: [push]
+on: [pull_request]
 
 jobs:
   test:
@@ -53,8 +53,12 @@ jobs:
             ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
             }}
 
+      - name: install
+        run: npm ci
+
       - name: Cypress verify
         run: npm run cy:verify
+
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
