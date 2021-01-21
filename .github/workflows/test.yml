@@ -44,7 +44,7 @@ jobs:
       - name: Cypress.io
         uses: cypress-io/github-action@v2.7.0
         with:
-          start-windows: npm run start:windows:server
+          start-windows: npm start
           wait-on: 'http://localhost:8888'
           record: true
         env:
