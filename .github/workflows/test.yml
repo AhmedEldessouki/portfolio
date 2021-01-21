@@ -38,8 +38,10 @@ jobs:
           browser: chrome
           config: 'pageLoadTimeout=100000,baseUrl=http://localhost:3000'
           build: npm build
-          env:
-            super_secret: ${{ secrets.SuperSecret }}
+
           start: npm start
+          with:
+            env:
+              super_secret: ${{ secrets.SuperSecret }}
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
