@@ -44,8 +44,9 @@ jobs:
       - name: Cypress.io
         uses: cypress-io/github-action@v2.7.0
         with:
-          start-windows: npm start
-          wait-on: 'http://localhost:8888'
+          start: npm start
+          wait-on: 'npx wait-on --timeout 5000 http://localhost:8888'
+
           record: true
         env:
           # pass the Dashboard record key as an environment variable
