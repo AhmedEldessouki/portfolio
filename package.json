@@ -69,7 +69,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "start": "set PORT=8888 && react-scripts start -c-1 --silent",
+    "start": "set PORT=8888 && react-scripts start",
     "dev": "react-scripts start",
     "setup": "npm install && npm run validate",
     "validate": "npm run build && npm run test:coverage",
