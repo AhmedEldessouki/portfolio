@@ -39,10 +39,7 @@ jobs:
           config: 'pageLoadTimeout=100000,baseUrl=http://localhost:3000'
           build: npm build
           env:
-            CYPRESS_REACT_APP_CLOUDINARY_API_KEY:
-              '${{ secrets.REACT_APP_CLOUDINARY_API_KEY }}'
-            CYPRESS_REACT_APP_FIREBASE_API_KEY:
-              '${{ REACT_APP_FIREBASE_API_KEY }}'
+            super_secret: ${{ secrets.SuperSecret }}
           start: npm start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
