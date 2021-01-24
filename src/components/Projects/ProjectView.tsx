@@ -7,17 +7,20 @@ import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 
 import Carousel from '../Utils/Carousel/Carousel'
 import {colors, mq, spinner} from '../Styles'
+
 import type {Project} from '../Utils/interfaces'
 
-function ProjectView({project}: {project: Project}) {
-  const [description, setDescription] = React.useState(project.description)
+function ProjectView({project}: {project: Project | undefined}) {
+  const [description, setDescription] = React.useState(
+    project?.description || '',
+  )
   const [heightT, setHeightT] = React.useState('3')
-  const date = new Date(project.date)
+  const date = new Date(project?.date || '')
 
   React.useEffect(() => {
     const textField = document.getElementById('textArea')
-    if (description !== project.description) {
-      setDescription(project.description)
+    if (description !== project?.description || '') {
+      setDescription(project?.description || '')
     }
 
     if (textField) {
@@ -27,7 +30,7 @@ function ProjectView({project}: {project: Project}) {
         setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
       }
     }
-  }, [description, project.description])
+  }, [description, project?.description])
 
   const anc = css`
     color: ${colors.darkBlue};
@@ -38,7 +41,18 @@ function ProjectView({project}: {project: Project}) {
       color: ${colors.blueFont};
     }
   `
-
+  if (!project) {
+    return (
+      <div
+        css={[
+          spinner,
+          css`
+            margin: 50px 0 0;
+          `,
+        ]}
+      />
+    )
+  }
   return project ? (
     <React.Fragment>
       {project.projectLogo.length !== 0 ? (
@@ -98,7 +112,7 @@ function ProjectView({project}: {project: Project}) {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={project.repoLink ?? null}
+            href={project.repoLink ?? ''}
             css={[
               anc,
               project.repoLink

@@ -12,7 +12,7 @@ import type {Message, Project} from './interfaces'
 interface OnToggleProps {
   items: Array<Project | Message>
   children: React.ReactNode
-  displayedData: Project | Message
+  displayedData: Project | Message | undefined
   setDisplayData: React.Dispatch<
     React.SetStateAction<Project | Message | undefined>
   >
@@ -39,7 +39,7 @@ const OnToggle = React.forwardRef(function OnToggle(
   }))
 
   const [show, setShow] = React.useState(() => {
-    const i = items.findIndex(item => item.name === displayedData.name)
+    const i = items.findIndex(item => item.name === displayedData?.name)
     if (window.innerWidth >= 1220) {
       if (i === items.length - 1) return {min: i - 3, max: i, range: 4}
       return {min: i, max: i + 3, range: 4}
@@ -190,7 +190,7 @@ const OnToggle = React.forwardRef(function OnToggle(
                     setDisplayData(item)
                   }}
                   testId={`${item.name}-title`}
-                  highlight={displayedData.id === item.id}
+                  highlight={displayedData?.id === item.id}
                 />
               )
             }

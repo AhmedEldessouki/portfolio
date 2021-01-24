@@ -3,11 +3,14 @@ import * as React from 'react'
 import {useClientFetch} from '../Utils/apis'
 import Layout from '../Layout'
 import About from './About/About'
+
+import type {Project} from '../Utils/interfaces'
+
 const Projects = React.lazy(() => import('../Projects/Projects'))
 const ContactForm = React.lazy(() => import('./ContactMe/ContactForm'))
 
 function Home() {
-  const projectsData = useClientFetch({collection: 'projects'})
+  const projectsData = useClientFetch('projects') as Array<Project>
 
   return (
     <Layout>

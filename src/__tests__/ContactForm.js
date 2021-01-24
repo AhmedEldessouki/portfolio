@@ -27,5 +27,5 @@ test('Should fill out Contact Form Test', async () => {
     'submit',
   )
 
-  userEvent.click(screen.getByTestId('submit'))
+  // userEvent.click(screen.getByTestId('submit'))
 })

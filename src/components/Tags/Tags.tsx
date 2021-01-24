@@ -60,16 +60,18 @@ function Tags({TagsData}: {TagsData: Array<Tag>}) {
       })
   }
 
-  function handleSubmit(e: {
-    preventDefault: () => void
-    target: {
-      elements: {
-        name: any
-        url: any
+  function handleSubmit(
+    e: {
+      preventDefault: () => void
+      target: {
+        elements: {
+          name: any
+          url: any
+        }
+        reset: () => void
       }
-      reset: () => void
-    }
-  }) {
+    } & React.FormEventHandler,
+  ) {
     e.preventDefault()
     dispatch({type: 'pending'})
     const {name, url} = e.target.elements

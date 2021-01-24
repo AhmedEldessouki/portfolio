@@ -5,10 +5,11 @@ import Projects from '../Projects/Projects'
 import Layout from '../Layout'
 
 import Messages from './Messaging/Messages'
+import type {Message, Project} from '../Utils/interfaces'
 
 const Dashboard = () => {
-  const projectsData = useClientFetch({collection: 'projects'})
-  const messagesData = useClientFetch({collection: 'contactedMe'})
+  const projectsData = useClientFetch('projects') as Array<Project>
+  const messagesData = useClientFetch('contactedMe') as Array<Message>
   return (
     <Layout>
       <Projects projectsData={projectsData} />

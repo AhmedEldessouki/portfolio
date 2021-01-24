@@ -26,5 +26,5 @@ interface Message {
   date?: any
   id?: string
 }
-
-export {NewUser, Project, Message}
+type Status = 'idle' | 'pending' | 'resolved' | 'rejected'
+export {NewUser, Project, Message, Status}

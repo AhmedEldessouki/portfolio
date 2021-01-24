@@ -9,7 +9,7 @@ import Layout from '../Layout'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/hooks'
 
-const SignIn = (): React.ReactNode => {
+const SignIn = () => {
   const {useVerifyUserSignInCredentials} = useAuth()
   const [
     verificationFailed,
@@ -79,11 +79,7 @@ const SignIn = (): React.ReactNode => {
               <div css={spinner} aria-busy="true" />
             </div>
           ) : (
-            <button
-              type="submit"
-              disabled={status === 'pending'}
-              css={btnStyle}
-            >
+            <button type="submit" css={btnStyle}>
               Submit
             </button>
           )}

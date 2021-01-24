@@ -1,6 +1,9 @@
 import {useQuery} from 'react-query'
 import {db} from './firebase'
 
+import type {Tag} from '../Tags/tagsTypes'
+import type {Message, Project} from './interfaces'
+
 const placeholderData = [
   {
     email: 'XXXXX@XXXX.com',
@@ -17,20 +20,13 @@ const placeholderData = [
     },
   },
 ]
-// interface useClientFetchProps {
-//   collection: string
-//   onSuccess: ()=>void
-//   options: any
-// }
 
-const useClientFetch = ({
-  collection = '',
-  onSuccess = () => {},
-  ...options
-}) => {
-  const {data} = useQuery({
-    queryKey: collection,
-    queryFn: async () =>
+const useClientFetch = (
+  collection: string,
+): Project | Message | Tag | unknown => {
+  const {data} = useQuery(
+    collection,
+    async () =>
       await db
         .collection(collection)
         .get()
@@ -41,18 +37,16 @@ const useClientFetch = ({
             })
             return data
           },
-          err => console.log(err),
+          err => Promise.reject(err),
         )
         .catch(err => {
           Promise.reject(err)
         }),
-    config: {
+    {
       staleTime: 1000 * 60 * 60,
       cacheTime: 1000 * 60 * 60,
-      onError: err => Promise.reject(err),
-      ...options,
     },
-  })
+  )
 
   return data ?? placeholderData
 }
