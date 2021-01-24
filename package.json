@@ -74,7 +74,7 @@
     "setup": "npm install && npm run validate",
     "validate": "npm run build && npm run test:coverage",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|yml|yaml|html)\"",
-    "lint": "eslint . --cache-location node_modules/.cache/eslint",
+    "lint": "eslint --fix --ext js,jsx,ts,tsx --ignore-path .gitignore .",
     "test": "jest",
     "test:precommit": "jest  --watch=false --findRelatedTests",
     "test:watch": "jest --watch",

@@ -18,7 +18,8 @@ import PopUp from '../Utils/PopUp/PopUp'
 import {useClientFetch} from '../Utils/apis'
 
 import type {DropzoneInputProps, DropzoneRootProps} from 'react-dropzone'
-import type {Project} from '../Utils/interfaces'
+import type {Project, Status} from '../Utils/interfaces'
+import type {Tag} from '../Tags/tagsTypes'
 
 async function createNewProject(project: Project) {
   await db
@@ -153,7 +154,28 @@ const createProjectFormReducer = (
     acceptedImages: Array<Blob>
     rejectedImages: Array<Blob>
   },
-  {type, payload}: {type: string; payload: any},
+  {
+    type,
+    payload,
+  }: {
+    type:
+      | 'error'
+      | 'accepted_images'
+      | 'rejected_images'
+      | 'remove_oldImages'
+      | 'remove_rejectedImages'
+      | 'remove_acceptedImages'
+      | 'submit_newData'
+      | 'submit_description'
+      | 'add_tag'
+      | 'remove_tag'
+      | 'idle'
+      | 'next'
+      | 'images_uploaded'
+      | 'next_add'
+      | 'clean_up'
+    payload: any
+  },
 ) => {
   const {enteredProjectData, acceptedImages, rejectedImages} = state
   switch (type) {
@@ -246,7 +268,7 @@ const createProjectFormReducer = (
         error: null,
       }
     default: {
-      throw new Error(`Unhandled action type: ${type}`)
+      return state
     }
   }
 }
@@ -255,7 +277,7 @@ function ButtonWithSpinner({
   status,
   isProject,
 }: {
-  status: string
+  status: Status
   isProject: boolean
 }) {
   return status !== 'idle' ? (
@@ -389,12 +411,8 @@ function TagsCheckBox({
 }: {
   handleClick: (e: React.ChangeEvent) => void
   projectTags: Array<string>
-  inputProps: {
-    [x: string]: React.InputHTMLAttributes<HTMLInputElement>
-  }
-}) {
-  const TagsData: any &
-    Array<{name: string; url: string; id: string}> = useClientFetch('tags')
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  const TagsData = useClientFetch('tags') as Array<Tag>
 
   return (
     <div
@@ -409,7 +427,7 @@ function TagsCheckBox({
         flex-wrap: wrap;
       `}
     >
-      {TagsData?.map((tag: {id: string; name: string; url: string}, i: any) => {
+      {TagsData?.map((tag, i) => {
         return (
           <label
             key={tag.id}
@@ -461,7 +479,7 @@ function ProjInputX({
   ...inputOverrides
 }: {
   project: string | Array<string>
-}) {
+} & React.InputHTMLAttributes<HTMLInputElement>) {
   const [state, setState] = React.useState(project)
 
   if (project)
