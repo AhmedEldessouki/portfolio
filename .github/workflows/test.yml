@@ -40,8 +40,6 @@ jobs:
           build: npm build
 
           start: npm start
-          with:
-            env:
-              super_secret: ${{ secrets.SuperSecret }}
+
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
