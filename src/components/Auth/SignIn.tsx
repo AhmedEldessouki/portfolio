@@ -9,7 +9,7 @@ import Layout from '../Layout'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/hooks'
 
-const SignIn = (): React.ReactNode => {
+const SignIn = () => {
   const {useVerifyUserSignInCredentials} = useAuth()
   const [
     verificationFailed,

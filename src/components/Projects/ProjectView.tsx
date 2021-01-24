@@ -1,6 +1,5 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-/** @jsxFrag React.Fragment */
 
 import {jsx, css} from '@emotion/react'
 import * as React from 'react'
@@ -55,7 +54,7 @@ function ProjectView({project}: {project: Project | undefined}) {
     )
   }
   return project ? (
-    <>
+    <React.Fragment>
       {project.projectLogo.length !== 0 ? (
         <Carousel imgArray={project.projectLogo} imgAlt={project.name} />
       ) : null}
@@ -153,7 +152,7 @@ function ProjectView({project}: {project: Project | undefined}) {
         />
         <span>Added On: {date.toDateString()}</span>
       </div>
-    </>
+    </React.Fragment>
   ) : (
     <div
       css={[

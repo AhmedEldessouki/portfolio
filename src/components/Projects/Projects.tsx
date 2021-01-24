@@ -1,6 +1,5 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-/** @jsxFrag React.Fragment */
 
 import {jsx} from '@emotion/react'
 import React from 'react'
@@ -101,7 +100,7 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
   }
   const {sortedBy, projects} = state
   return (
-    <>
+    <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
       {displayProject ? (
         <OnToggle
@@ -113,7 +112,7 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
           <ProjectView project={displayProject} />
         </OnToggle>
       ) : (
-        <>
+        <React.Fragment>
           <section
             css={{
               display: 'flex',
@@ -208,9 +207,9 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
             </button>
           </section>
           <Card items={projects ?? projectsData} setState={setDisplayProject} />
-        </>
+        </React.Fragment>
       )}
-    </>
+    </React.Fragment>
   )
 }
 

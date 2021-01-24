@@ -26,11 +26,23 @@ function ContactForm() {
   const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(
     false,
   )
-  const [descriptionFieldError, setDescriptionFieldError] = React.useState('')
-  const [sendMessageError, setSendMessageError] = React.useState('')
+  const [descriptionFieldError, setDescriptionFieldError] = React.useState<
+    string | undefined
+  >('')
+  const [sendMessageError, setSendMessageError] = React.useState<
+    string | undefined
+  >('')
   const {status, dispatch} = useAsync()
 
-  async function handleMessage(e) {
+  async function handleMessage(
+    e: {
+      preventDefault: () => void
+      target: {
+        elements: {name: any; email: any; phoneNumber: any; description: any}
+      }
+      currentTarget: {reset: () => void}
+    } & React.FormEvent<HTMLFormElement>,
+  ) {
     e.preventDefault()
     dispatch({type: 'pending'})
 
@@ -97,7 +109,7 @@ function ContactForm() {
               minLength={3}
               maxLength={30}
               inputMode="text"
-              cleanColor={status === 'pending' ? true : false}
+              cleanColor={status === 'pending'}
             />
             <Input
               name="email"
@@ -105,7 +117,7 @@ function ContactForm() {
               inputMode="email"
               placeholder="Email Address"
               required
-              cleanColor={status === 'pending' ? true : false}
+              cleanColor={status === 'pending'}
             />
             <Input
               onBlur={e => {
@@ -120,7 +132,7 @@ function ContactForm() {
               maxLength={13}
               placeholder="Phone Number"
               pattern="^[0-9\b]+$"
-              cleanColor={status === 'pending' ? true : false}
+              cleanColor={status === 'pending'}
             />
             {phoneNumberFieldError ? (
               <span css={warning} role="alert">
@@ -173,12 +185,7 @@ function ContactForm() {
               <div css={spinner} aria-busy="true" />
             </div>
           ) : (
-            <button
-              type="submit"
-              data-testid="submit"
-              disabled={status === 'pending' ? true : false}
-              css={btnStyle}
-            >
+            <button type="submit" data-testid="submit" css={btnStyle}>
               Submit
             </button>
           )}

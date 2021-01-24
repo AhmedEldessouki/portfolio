@@ -11,10 +11,11 @@ import {ErrorMessageFallback} from '../../Utils/util'
 
 import MessageView from './MessageView'
 import MessagesSummary from './MessageCard'
+import type {Message} from '../../Utils/interfaces'
 
-function MessagesComponent({messagesData}) {
-  const [displayMessage, setDisplayMessage] = React.useState(null)
-  const selectedRef = React.useRef()
+function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
+  const [displayMessage, setDisplayMessage] = React.useState<Message | any>()
+  const selectedRef = React.useRef<any>()
   const moveFocus = () => selectedRef.current?.moveFocus()
 
   React.useEffect(() => {
@@ -60,7 +61,7 @@ function MessagesComponent({messagesData}) {
   )
 }
 
-function Messages({messagesData}) {
+function Messages({messagesData}: {messagesData: Array<Message>}) {
   return (
     <ErrorBoundary
       resetKeys={[messagesData]}
