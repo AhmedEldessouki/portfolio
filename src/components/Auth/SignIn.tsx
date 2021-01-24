@@ -79,11 +79,7 @@ const SignIn = (): React.ReactNode => {
               <div css={spinner} aria-busy="true" />
             </div>
           ) : (
-            <button
-              type="submit"
-              disabled={status === 'pending'}
-              css={btnStyle}
-            >
+            <button type="submit" css={btnStyle}>
               Submit
             </button>
           )}

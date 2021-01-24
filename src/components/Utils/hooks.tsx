@@ -1,9 +1,11 @@
 import React from 'react'
 
-function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
+import type {Status} from './interfaces'
+
+function useSafeDispatch<T, S>(dispatch: React.Dispatch<IAction<T, S>>) {
   const mounted = React.useRef(false)
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     mounted.current = true
     return () => {
       mounted.current = false
@@ -11,7 +13,7 @@ function useSafeDispatch(dispatch: React.Dispatch<IAction>) {
   }, [])
 
   return React.useCallback(
-    (action: IAction): React.Dispatch<IAction> | void =>
+    (action: IAction<T, S>): React.Dispatch<IAction<T, S>> | void =>
       mounted.current ? dispatch(action) : undefined,
     [dispatch],
   )
@@ -52,47 +54,55 @@ function useLocalStorageState<TState>(
   return [state, setState]
 }
 
-interface IAction {
-  type: 'idle' | 'pending' | 'resolved' | 'rejected'
-  payload?: Object | Array<any> | string | boolean
+interface IAction<T, S> {
+  type: T
+  payload?: S
 }
 
-function asyncReducer(state: useAsyncState, action: IAction) {
+function asyncReducer(
+  state: useAsyncReducerState,
+  action: IAction<Status, unknown>,
+) {
   switch (action.type) {
     case 'idle': {
-      return {status: 'idle'}
+      state.status = 'idle'
+      return {...state}
     }
     case 'pending': {
-      return {status: 'pending'}
+      state.status = 'pending'
+      return {...state}
     }
     case 'resolved': {
-      return {status: 'resolved'}
+      state.status = 'resolved'
+      return {...state}
     }
     case 'rejected': {
-      return {status: 'rejected'}
+      state.status = 'rejected'
+      return {...state}
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
     }
   }
 }
-interface useAsyncState {
-  status?: string
+interface useAsyncReducerState {
+  status: Status
 }
 
-interface useAsyncReturn {
+interface useAsyncProps {
   isIdle: boolean
   isLoading: boolean
   isSuccess: boolean
   isRejected: boolean
 
-  status: string
-  dispatch: React.Dispatch<IAction>
+  status: Status
+  dispatch: React.Dispatch<IAction<Status, unknown>>
 }
 
-function useAsync(initialState?: useAsyncState): useAsyncReturn {
+function useAsync(
+  initialState: useAsyncReducerState = {status: 'idle'},
+): useAsyncProps {
   const initialStateRef = React.useRef({
-    ...{status: 'idle'},
     ...initialState,
   })
   const [state, unsafeDispatch] = React.useReducer(

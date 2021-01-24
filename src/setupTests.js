@@ -42,6 +42,11 @@ var mockFirebaseSDK = new firebaseMocks.MockFirebaseSdk(
           doc: jest.fn().mockReturnValue({
             add: jest.fn().mockResolvedValue({
               id: 'abc123',
+              name: 'xxxx',
+            }),
+            get: jest.fn().mockResolvedValue({
+              id: 'abc123',
+              name: 'xxxx',
             }),
             set: jest.fn().mockResolvedValue({
               uid: 'abc123',

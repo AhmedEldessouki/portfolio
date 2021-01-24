@@ -1,31 +1,28 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import {css, jsx, SerializedStyles} from '@emotion/react'
+import {css, jsx} from '@emotion/react'
+import React from 'react'
+import type {SerializedStyles} from '@emotion/react'
 
 import {colors, mq, warning, weights} from '../Styles'
+import type {FallbackProps} from 'react-error-boundary'
 
-interface ErrorMessageFallbackProps {
-  resetErrorBoundary: (...args: Array<unknown>) => void
-  error: {code: string; message: string}
-}
-
-function ErrorMessageFallback({
-  error,
-  resetErrorBoundary,
-}: ErrorMessageFallbackProps) {
+function ErrorMessageFallback({error, resetErrorBoundary}: FallbackProps) {
   return (
     <div role="alert" css={[warning, {background: colors.independenceBlue}]}>
       <p>There was an error: </p>
       <pre>{error.message}</pre>
-      <button
-        onClick={() => {
-          // resetComponentState()
-          resetErrorBoundary()
-        }}
-      >
-        Try again
-      </button>
+      <ol>
+        <li>
+          <button onClick={resetErrorBoundary}>retry</button>
+        </li>
+        <li>
+          <button onClick={() => window.location.reload()}>
+            Refresh the page
+          </button>
+        </li>
+      </ol>
     </div>
   )
 }

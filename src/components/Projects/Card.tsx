@@ -71,7 +71,7 @@ function Card({
   setState,
 }: {
   items: Array<Project>
-  setState: React.Dispatch<React.SetStateAction<Project>>
+  setState: React.Dispatch<React.SetStateAction<Project | any>>
 }) {
   const {user, setProject: setPorj} = useAuth()
 

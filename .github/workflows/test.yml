@@ -1,6 +1,5 @@
 name: test CI
-'on':
-  - pull_request
+on: [pull_request]
 jobs:
   test:
     name: Jest & RTL Tests

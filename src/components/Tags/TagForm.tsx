@@ -8,6 +8,8 @@ import {btnStyle, h2XL, formWrapper, spinner} from '../Styles'
 import Input from '../Utils/Input'
 import {ErrorMessageFallback} from '../Utils/util'
 
+import type {Status} from '../Utils/interfaces'
+
 function Spinner() {
   return (
     <div
@@ -21,7 +23,13 @@ function Spinner() {
   )
 }
 
-function TagForm({status, handleSubmit}) {
+function TagForm({
+  status,
+  handleSubmit,
+}: {
+  status: Status
+  handleSubmit: (e: any) => void
+}) {
   return (
     <div
       css={css`
@@ -53,11 +61,7 @@ function TagForm({status, handleSubmit}) {
           {status === 'pending' ? (
             <Spinner />
           ) : (
-            <button
-              type="submit"
-              disabled={status === 'pending'}
-              css={btnStyle}
-            >
+            <button type="submit" css={btnStyle}>
               Create Tag
             </button>
           )}

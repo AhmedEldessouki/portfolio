@@ -64,7 +64,7 @@ function Messages({messagesData}) {
   return (
     <ErrorBoundary
       resetKeys={[messagesData]}
-      fallbackComponent={ErrorMessageFallback}
+      FallbackComponent={ErrorMessageFallback}
     >
       <MessagesComponent messagesData={messagesData} />
     </ErrorBoundary>
