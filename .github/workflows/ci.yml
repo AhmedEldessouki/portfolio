@@ -1,0 +1,40 @@
+name: test CI
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  NODE_VERSION: '12.x'
+
+jobs:
+  test:
+    name: Jest & RTL Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '${{ env.NODE_VERSION }}'
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key:
+            ${{ runner.os }}-node_modules-${{
+            hashFiles('**/package-lock.json')}}
+
+      - name: install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: build
+        run: npm run build
+
+      - name: lint
+        run: npm run lint
+
+      - name: jest testing
+        run: npm test
