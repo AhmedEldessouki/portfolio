@@ -24,7 +24,7 @@ function ImageDropZone({
 }) {
   return (
     <React.Fragment>
-      <div
+      <article
         css={css`
           display: flex;
           place-items: center;
@@ -69,7 +69,7 @@ function ImageDropZone({
           ]}
           {...getInputProps()}
         />
-      </div>
+      </article>
     </React.Fragment>
   )
 }
@@ -140,7 +140,7 @@ function DisplayingImages({
     }
   `
   return (
-    <div
+    <section
       css={css`
         display: flex;
         flex-direction: column;
@@ -148,9 +148,9 @@ function DisplayingImages({
       `}
     >
       {acceptedImages?.length > 0 && (
-        <div css={[xyz]}>
+        <article css={[xyz]}>
           <h2 css={[hStyle, {background: '#11826B'}]}>Accepted Images</h2>
-          <div css={imgWrap}>
+          <section css={imgWrap}>
             {acceptedImages?.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
@@ -160,15 +160,15 @@ function DisplayingImages({
                 <img alt="" width={100} src={preview} />
               </div>
             ))}
-          </div>
-        </div>
+          </section>
+        </article>
       )}
       {rejectedImages?.length > 0 && (
-        <div css={[xyz]}>
+        <article css={[xyz]}>
           <h2 css={[hStyle, {background: colors.burgundyRed}]}>
             Rejected Images
           </h2>
-          <div css={imgWrap}>
+          <section css={imgWrap}>
             {rejectedImages?.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
@@ -178,26 +178,33 @@ function DisplayingImages({
                 <img alt="" width={100} src={preview} />
               </div>
             ))}
-          </div>
-        </div>
+          </section>
+        </article>
       )}
       {oldImages && oldImages.length > 0 && (
-        <div css={xyz}>
+        <article css={xyz}>
           <h2 css={hStyle}>current Images</h2>
-          <div css={imgWrap}>
+          <section css={imgWrap}>
             {oldImages.map((imageUrl, i) => (
               <div key={imageUrl} css={div}>
                 <PopUp
                   info="Image"
                   onClickYes={() => handleClick('remove_oldImages', i)}
                 />
-                <img alt="" width={100} src={imageUrl} />
+                <picture>
+                  {/* 
+                    // TODO: Image MediaQuery
+                    <source media="(min-width:650px)" srcset="img_pink_flowers.jpg">
+                    <source media="(min-width:465px)" srcset="img_white_flower.jpg"> 
+                  */}
+                  <img alt="" width={100} src={imageUrl} />
+                </picture>
               </div>
             ))}
-          </div>
-        </div>
+          </section>
+        </article>
       )}
-    </div>
+    </section>
   )
 }
 

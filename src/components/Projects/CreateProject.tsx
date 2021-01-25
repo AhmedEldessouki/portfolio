@@ -34,6 +34,7 @@ import {
   ProjInput,
   TagsCheckBox,
 } from './helpers/components'
+import {deepEqual} from '../Utils/helpers'
 
 function CreateProjectX() {
   const {selectedProject, setProject} = useAuth()
@@ -166,8 +167,22 @@ function CreateProjectX() {
     })
     await useSubmitImages(acceptedImages, enteredProjectData.name)
     if (selectedProject) {
-      await updateProject({...enteredProjectData, id: selectedProject.id})
-      setProject(undefined)
+      const hasChanged = !deepEqual(selectedProject, {
+        ...enteredProjectData,
+        id: selectedProject.id,
+      })
+
+      if (hasChanged) {
+        console.log(`[hasChanged]: ${hasChanged}`)
+        await updateProject({...enteredProjectData, id: selectedProject.id})
+        setProject(undefined)
+      } else {
+        toast.warn(`No Update Found in ${selectedProjectName}`, {
+          style: {color: 'black'},
+        })
+        dispatch({type: 'idle'})
+        console.log(`[hasChanged]: ${hasChanged}`)
+      }
     }
     if (!selectedProject) {
       await createNewProject(enteredProjectData)
@@ -193,9 +208,9 @@ function CreateProjectX() {
 
   return (
     <Layout>
-      <div>
+      <section>
         <h1 css={h1XL}>{selectedProject ? `Edit` : `Create`} Project</h1>
-        <div
+        <section
           css={[
             {
               display: 'flex',
@@ -316,8 +331,8 @@ function CreateProjectX() {
               />
             </form>
           </ErrorBoundary>
-        </div>
-      </div>
+        </section>
+      </section>
     </Layout>
   )
 }
