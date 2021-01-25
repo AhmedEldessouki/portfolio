@@ -1,0 +1,44 @@
+name: test CI
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    name: Jest & RTL Tests
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [12, 14]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Cache node modules
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key:
+            ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
+            }}
+
+      - name: Install Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: 🛠 Run build script
+        run: npm run build
+
+      - name: 💡 Run lint script
+        run: npm run lint:ci
+
+      - name: ⚡ Run test script
+        run: npm test
