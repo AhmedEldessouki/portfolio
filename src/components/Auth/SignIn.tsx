@@ -3,11 +3,12 @@
 
 import {jsx, css} from '@emotion/react'
 
-import {formWrapper, h1XL, btnStyle, warning, spinner} from '../Styles'
+import {formWrapper, h1XL, btnStyle, warning} from '../Styles'
 import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/hooks'
+import {Spinner} from '../Utils/util'
 
 const SignIn = () => {
   const {useVerifyUserSignInCredentials} = useAuth()
@@ -71,13 +72,7 @@ const SignIn = () => {
             </div>
           )}
           {status === 'pending' ? (
-            <div
-              css={css`
-                width: 100%;
-              `}
-            >
-              <div css={spinner} aria-busy="true" />
-            </div>
+            <Spinner />
           ) : (
             <button type="submit" css={btnStyle}>
               Submit

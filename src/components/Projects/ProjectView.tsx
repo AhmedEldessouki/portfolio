@@ -6,7 +6,8 @@ import * as React from 'react'
 import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 
 import Carousel from '../Utils/Carousel/Carousel'
-import {colors, mq, spinner} from '../Styles'
+import {colors, mq} from '../Styles'
+import {Spinner} from '../Utils/util'
 
 import type {Project} from '../Utils/interfaces'
 
@@ -42,16 +43,7 @@ function ProjectView({project}: {project: Project | undefined}) {
     }
   `
   if (!project) {
-    return (
-      <div
-        css={[
-          spinner,
-          css`
-            margin: 50px 0 0;
-          `,
-        ]}
-      />
-    )
+    return <Spinner />
   }
   return project ? (
     <React.Fragment>
@@ -150,18 +142,11 @@ function ProjectView({project}: {project: Project | undefined}) {
           `}
           value={description}
         />
-        <span>Added On: {date.toDateString()}</span>
+        <span>Added On: {date.toDateString() ?? ''}</span>
       </div>
     </React.Fragment>
   ) : (
-    <div
-      css={[
-        spinner,
-        css`
-          margin: 50px 0 0;
-        `,
-      ]}
-    />
+    <Spinner />
   )
 }
 

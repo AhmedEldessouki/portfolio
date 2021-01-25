@@ -73,6 +73,7 @@
     "dev": "react-scripts start",
     "setup": "npm install && npm run validate",
     "validate": "npm run build && npm run test:coverage",
+    "tsVerify": "tsc --watch",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|yml|yaml|html)\"",
     "lint": "eslint --fix --ext js,jsx,ts,tsx --ignore-path .gitignore .",
     "test": "jest",

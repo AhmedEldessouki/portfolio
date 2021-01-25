@@ -10,7 +10,7 @@ import {colors} from '../Styles'
 import type {Project} from '../Utils/interfaces'
 import PopUp from '../Utils/PopUp/PopUp'
 import {Title} from '../Utils/util'
-import {deleteProject} from './utils'
+import {deleteProject} from './helpers/functions'
 
 function Tag({
   tagUrl,

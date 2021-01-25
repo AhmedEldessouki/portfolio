@@ -6,6 +6,7 @@ import React from 'react'
 import {toast} from 'react-toastify'
 import {ErrorBoundary} from 'react-error-boundary'
 import {useDropzone} from 'react-dropzone'
+import {Redirect} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
 import {ErrorMessageFallback} from '../Utils/util'
@@ -22,39 +23,38 @@ import {
 } from '../Styles'
 import {
   uploadImage,
-  ImageDropZone,
-  createProjectFormReducer,
+  projectFormReducer,
   createNewProject,
   updateProject,
+} from './helpers/functions'
+import {
+  ImageDropZone,
   ButtonWithSpinner,
   DisplayingImages,
   ProjInput,
   TagsCheckBox,
-} from './utils'
+} from './helpers/components'
 
 function CreateProjectX() {
   const {selectedProject, setProject} = useAuth()
 
-  const [
-    {status, enteredProjectData, acceptedImages, rejectedImages, error},
-    unsafeDispatch,
-  ] = React.useReducer(createProjectFormReducer, {
+  const [state, unsafeDispatch] = React.useReducer(projectFormReducer, {
     status: 'idle',
     // Passing Selected Project Data to the Form
     enteredProjectData: {
-      name: selectedProject ? selectedProject.name : '',
-      link: selectedProject ? selectedProject.link : '',
-      repoLink: selectedProject ? selectedProject.repoLink : '',
+      name: selectedProject?.name ?? '',
+      link: selectedProject?.link ?? '',
+      repoLink: selectedProject?.repoLink ?? '',
       projectLogo: selectedProject ? [...selectedProject.projectLogo] : [],
       tag: selectedProject ? selectedProject.tag ?? [] : [],
-      description: selectedProject ? selectedProject.description : '',
+      description: selectedProject?.description ?? '',
     },
     error: null,
     acceptedImages: [],
     rejectedImages: [],
   })
   const dispatch = useSafeDispatch(unsafeDispatch)
-
+  // const dispatch = useSafeDispatch<Pick<ReducerAction, "type">,Pick<ReducerAction, "payload">|undefined>(unsafeDispatch)
   const [descriptionErr, setDescriptionErr] = React.useState('')
   const [isDragActive, setIsDragActive] = React.useState(false)
 
@@ -78,7 +78,7 @@ function CreateProjectX() {
     onDropRejected: rejectedFiles => {
       setIsDragActive(!isDragActive)
 
-      dispatch({type: 'error', payload: {...rejectedFiles[0].errors}})
+      dispatch({type: 'error', payload: {...rejectedFiles[0].errors[0]}})
       const newArr = rejectedFiles.map(({file}) => {
         return Object.assign(file, {
           preview: URL.createObjectURL(file),
@@ -102,22 +102,23 @@ function CreateProjectX() {
       window.scroll(0, 0)
     }
     return () => {
-      setProject(null)
+      setProject(undefined)
       dispatch({type: 'clean_up'})
     }
   }, [dispatch, selectedProject, setProject])
 
   const gradualUpload = React.useCallback(
-    async (imagesArray, name) =>
+    async (imagesArray: Array<{preview: string & File}>, name: string) =>
       await Promise.allSettled(
-        imagesArray.map(async file => {
+        imagesArray.map(async (file: any) => {
           dispatch({type: 'next'})
           return await uploadImage(file, name)
         }),
       )
         .then(results =>
-          results.forEach(result => {
+          results.forEach((result: any) => {
             if (result.status === 'fulfilled') {
+              toast.success('Images Uploaded')
               dispatch({type: 'next_add', payload: result.value})
               return result.value
             }
@@ -130,17 +131,30 @@ function CreateProjectX() {
     [dispatch],
   )
 
-  async function useSubmitImages(uploadImagesArr, name) {
+  async function useSubmitImages(
+    uploadImagesArr: Array<{preview: string & File}>,
+    name: string,
+  ) {
     if (uploadImagesArr.length >= 0) {
       await gradualUpload(uploadImagesArr, name)
-      toast.success('Images Uploaded')
       return dispatch({type: 'images_uploaded'})
     }
   }
-
-  async function useHandleSubmit(e) {
+  const {
+    status,
+    enteredProjectData,
+    error,
+    acceptedImages,
+    rejectedImages,
+  } = state
+  async function useHandleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
-    const {name, link, repoLink, description} = e.target.elements
+    const {name, link, repoLink, description} = e.target as typeof e.target & {
+      name: {value: string}
+      link: {value: string}
+      repoLink: {value: string}
+      description: {value: string}
+    }
     dispatch({
       type: 'submit_newData',
       payload: {
@@ -150,19 +164,19 @@ function CreateProjectX() {
         description: description.value,
       },
     })
-    await useSubmitImages(acceptedImages)
+    await useSubmitImages(acceptedImages, enteredProjectData.name)
     if (selectedProject) {
       await updateProject({...enteredProjectData, id: selectedProject.id})
-      setProject(null)
+      setProject(undefined)
     }
     if (!selectedProject) {
       await createNewProject(enteredProjectData)
     }
 
-    window.location.assign('/dashboard')
+    new Redirect({to: '/dashboard'})
   }
 
-  function handleDescription(e) {
+  function handleDescription(e: React.ChangeEvent<HTMLTextAreaElement>) {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
 
@@ -174,6 +188,9 @@ function CreateProjectX() {
     projectLogo: selectedProjectImages,
     tag: selectedProjectTags,
   } = enteredProjectData
+
+  const isPending = status === 'images_uploaded'
+
   return (
     <Layout>
       <div>
@@ -185,7 +202,7 @@ function CreateProjectX() {
               placeContent:
                 acceptedImages.length ||
                 rejectedImages.length ||
-                selectedProject?.projectLogo.length >= 0
+                (selectedProject && selectedProject?.projectLogo.length >= 0)
                   ? 'space-around'
                   : 'center',
               flexWrap: 'wrap-reverse',
@@ -201,8 +218,14 @@ function CreateProjectX() {
           <DisplayingImages
             acceptedImages={acceptedImages}
             rejectedImages={rejectedImages}
-            oldImages={selectedProject && selectedProjectImages}
-            handleClick={(type, index) => dispatch({type, payload: index})}
+            oldImages={selectedProjectImages}
+            handleClick={(
+              type:
+                | 'remove_acceptedImages'
+                | 'remove_oldImages'
+                | 'remove_rejectedImages',
+              index,
+            ) => dispatch({type, payload: index})}
           />
           <ErrorBoundary
             FallbackComponent={ErrorMessageFallback}
@@ -221,31 +244,31 @@ function CreateProjectX() {
               )}
               <ProjInput
                 name="name"
-                project={selectedProjectName}
+                editableValue={selectedProjectName ?? undefined}
                 placeholder="Name"
                 required
                 minLength={3}
                 maxLength={15}
-                cleanColor={status === 'pending'}
+                cleanColor={isPending}
               />
               <ProjInput
                 type="url"
                 required
-                project={selectedProjectLink}
+                editableValue={selectedProjectLink ?? undefined}
                 placeholder="Project Link"
                 name="link"
-                cleanColor={status === 'pending'}
+                cleanColor={isPending}
               />
               <ProjInput
                 type="url"
                 required
-                project={selectedProjectRepoLink}
+                editableValue={selectedProjectRepoLink ?? undefined}
                 placeholder="Repo Link"
                 name="repoLink"
-                cleanColor={status === 'pending'}
+                cleanColor={isPending}
               />
               <TagsCheckBox
-                handleClick={e => {
+                handleClick={(e: any) => {
                   if (e.target.checked) {
                     dispatch({
                       type: 'add_tag',
@@ -258,7 +281,7 @@ function CreateProjectX() {
                     })
                   }
                 }}
-                projectTags={selectedProject && selectedProjectTags}
+                projectTags={selectedProjectTags}
               />
               <label
                 htmlFor="description"
@@ -288,7 +311,7 @@ function CreateProjectX() {
                 />
               </label>
               <ButtonWithSpinner
-                status={status}
+                isPending={status !== 'idle'}
                 isProject={selectedProject ? true : false}
               />
             </form>
