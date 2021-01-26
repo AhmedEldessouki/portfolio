@@ -2,7 +2,10 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors-)
-[![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/)
+
+![test CI](https://github.com/AhmedEldessouki/portfolio/workflows/test%20CI/badge.svg?style=flat)
+[![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg?style=flat)](https://www.cypress.io/)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 
