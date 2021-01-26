@@ -60,8 +60,8 @@ function SignUp() {
         `}
       >
         <form
-          id="#sign-up"
-          css={formWrapper}
+          id="sign-up"
+          css={[formWrapper, {gap: 6}]}
           onSubmit={submitNewUserCredentials}
         >
           <Input

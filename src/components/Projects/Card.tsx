@@ -2,6 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import React from 'react'
 import {FaPen} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 
@@ -66,6 +67,44 @@ function EditAndDelete({
   )
 }
 
+function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
+  const [hovered, setHover] = React.useState(false)
+  return (
+    <div
+      css={{
+        display: 'flex',
+        placeContent: 'end',
+      }}
+    >
+      <h3
+        onMouseEnter={() => setHover(!hovered)}
+        onMouseLeave={() => setHover(!hovered)}
+        css={{
+          borderRadius: 50,
+          border: `1px solid`,
+          borderColor:
+            projType === 'Contribution' ? 'orange' : colors.lightGreen,
+          color: projType === 'Contribution' ? 'orange' : colors.lightGreen,
+          textAlign: 'center',
+          fontSize: '1rem',
+          width: 20,
+          height: 20,
+          transition: 'width 0.3s ease-in-out',
+          marginBottom: 9,
+          overflow: 'hidden',
+          cursor: 'help',
+          ':hover, :focus': {
+            padding: '0 8px',
+            width: projType === 'Contribution' ? 108 : 78,
+          },
+        }}
+      >
+        {hovered ? projType : '!'}
+      </h3>
+    </div>
+  )
+}
+
 function Card({
   items = [],
   setState,
@@ -100,12 +139,12 @@ function Card({
             {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}
+            <ProjectType projType={item.projectType ?? 'Personal'} />
             <Title
               name={item.name}
               onClick={() => {
                 setState(item)
               }}
-              aria-pressed="false"
               testId={`project[${i}]`}
             />
             <div

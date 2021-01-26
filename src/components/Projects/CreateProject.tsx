@@ -38,7 +38,6 @@ import {deepEqual} from '../Utils/helpers'
 
 function CreateProjectX() {
   const {selectedProject, setProject} = useAuth()
-
   const [state, unsafeDispatch] = React.useReducer(projectFormReducer, {
     status: 'idle',
     // Passing Selected Project Data to the Form
@@ -46,6 +45,7 @@ function CreateProjectX() {
       name: selectedProject?.name ?? '',
       link: selectedProject?.link ?? '',
       repoLink: selectedProject?.repoLink ?? '',
+      projectType: selectedProject?.projectType ?? 'Personal',
       projectLogo: selectedProject ? [...selectedProject.projectLogo] : [],
       tag: selectedProject ? selectedProject.tag ?? [] : [],
       description: selectedProject?.description ?? '',
@@ -55,7 +55,6 @@ function CreateProjectX() {
     rejectedImages: [],
   })
   const dispatch = useSafeDispatch(unsafeDispatch)
-  // const dispatch = useSafeDispatch<Pick<ReducerAction, "type">,Pick<ReducerAction, "payload">|undefined>(unsafeDispatch)
   const [descriptionErr, setDescriptionErr] = React.useState('')
   const [isDragActive, setIsDragActive] = React.useState(false)
 
@@ -104,9 +103,9 @@ function CreateProjectX() {
     }
     return () => {
       setProject(undefined)
-      dispatch({type: 'clean_up'})
+      // dispatch({type: 'clean_up'})
     }
-  }, [dispatch, selectedProject, setProject])
+  }, [selectedProject, setProject])
 
   const gradualUpload = React.useCallback(
     async (imagesArray: Array<{preview: string & File}>, name: string) =>
@@ -141,6 +140,7 @@ function CreateProjectX() {
       return dispatch({type: 'images_uploaded'})
     }
   }
+
   const {
     status,
     enteredProjectData,
@@ -148,23 +148,43 @@ function CreateProjectX() {
     acceptedImages,
     rejectedImages,
   } = state
+
   async function useHandleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
-    const {name, link, repoLink, description} = e.target as typeof e.target & {
+
+    const {
+      name,
+      link,
+      repoLink,
+      projectType,
+      description,
+    } = e.target as typeof e.target & {
       name: {value: string}
       link: {value: string}
       repoLink: {value: string}
+      projectType: {value: 'Personal' | 'Contribution'}
       description: {value: string}
     }
+
     dispatch({
       type: 'submit_newData',
       payload: {
         name: name.value,
         link: link.value,
         repoLink: repoLink.value,
+        projectType: projectType.value,
         description: description.value,
       },
     })
+    // console.log('{EnteredProject}: ', enteredProjectData)
+    // console.log(
+    //   '{EnteredProject}: ',
+    //   name.value,
+    //   link.value,
+    //   repoLink.value,
+    //   projectType.value,
+    //   description.value,
+    // )
     await useSubmitImages(acceptedImages, enteredProjectData.name)
     if (selectedProject) {
       const hasChanged = !deepEqual(selectedProject, {
@@ -173,37 +193,39 @@ function CreateProjectX() {
       })
 
       if (hasChanged) {
-        console.log(`[hasChanged]: ${hasChanged}`)
         await updateProject({...enteredProjectData, id: selectedProject.id})
         setProject(undefined)
       } else {
-        toast.warn(`No Update Found in ${selectedProjectName}`, {
+        toast.warn(`No Update Found in ${enteredProjectData.name}`, {
           style: {color: 'black'},
         })
-        dispatch({type: 'idle'})
-        console.log(`[hasChanged]: ${hasChanged}`)
       }
+      dispatch({type: 'redirect'})
     }
+
     if (!selectedProject) {
       await createNewProject(enteredProjectData)
+      dispatch({type: 'redirect'})
     }
-
-    new Redirect({to: '/dashboard'})
+    dispatch({type: 'idle'})
   }
-
   function handleDescription(e: React.ChangeEvent<HTMLTextAreaElement>) {
     dispatch({type: 'submit_description', payload: e.target.value})
   }
 
-  const {
-    name: selectedProjectName,
-    link: selectedProjectLink,
-    repoLink: selectedProjectRepoLink,
-    description: selectedProjectDescription,
-    projectLogo: selectedProjectImages,
-    tag: selectedProjectTags,
-  } = enteredProjectData
+  if (status === 'redirect') {
+    return <Redirect to="/dashboard" />
+  }
 
+  const {
+    name,
+    link,
+    repoLink,
+    projectLogo,
+    description,
+    projectType,
+    tag,
+  } = enteredProjectData
   const isPending = status === 'images_uploaded'
 
   return (
@@ -233,7 +255,7 @@ function CreateProjectX() {
           <DisplayingImages
             acceptedImages={acceptedImages}
             rejectedImages={rejectedImages}
-            oldImages={selectedProjectImages}
+            oldImages={projectLogo}
             handleClick={(
               type:
                 | 'remove_acceptedImages'
@@ -246,7 +268,7 @@ function CreateProjectX() {
             FallbackComponent={ErrorMessageFallback}
             onReset={() => dispatch({type: 'clean_up'})}
           >
-            <form css={formWrapper} onSubmit={useHandleSubmit}>
+            <form css={[formWrapper, {gap: 6}]} onSubmit={useHandleSubmit}>
               <ImageDropZone
                 color={isDragActive ? colors.blueFont : colors.darkBlue}
                 getRootProps={getRootProps}
@@ -259,7 +281,7 @@ function CreateProjectX() {
               )}
               <ProjInput
                 name="name"
-                editableValue={selectedProjectName ?? undefined}
+                editableValue={name}
                 placeholder="Name"
                 required
                 minLength={3}
@@ -269,7 +291,7 @@ function CreateProjectX() {
               <ProjInput
                 type="url"
                 required
-                editableValue={selectedProjectLink ?? undefined}
+                editableValue={link}
                 placeholder="Project Link"
                 name="link"
                 cleanColor={isPending}
@@ -277,11 +299,42 @@ function CreateProjectX() {
               <ProjInput
                 type="url"
                 required
-                editableValue={selectedProjectRepoLink ?? undefined}
+                editableValue={repoLink}
                 placeholder="Repo Link"
                 name="repoLink"
                 cleanColor={isPending}
               />
+              <select
+                css={{
+                  color: colors.whiteFaded,
+                  background: colors.darkBlue,
+                  margin: '2px 0',
+                  height: 50,
+                  letterSpacing: '2.2px',
+                  width: '100%',
+                  borderRadius: '11%',
+                  padding: 8,
+                  fontSize: '1.4rem',
+                  border: `0 solid ${colors.independenceBlue}`,
+                  boxShadow: `0 1px 0 1px ${colors.independenceBlue}`,
+                  appearance: 'none',
+                  backgroundImage: `url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+	                  linear-gradient(to bottom, ${colors.darkBlue} 0%,${colors.darkBlue} 100%)`,
+                  backgroundRepeat: ` no-repeat, repeat`,
+                  backgroundPosition: `right .7em top 50%, 0 0`,
+                  backgroundSize: `.65em auto, 100%`,
+                  option: {
+                    borderRadius: '11%',
+                    padding: 8,
+                  },
+                }}
+                defaultValue={projectType}
+                name="projectType"
+                aria-label="Please Select Project Type"
+              >
+                <option value="Personal">Personal</option>
+                <option value="Contribution">Contribution</option>
+              </select>
               <TagsCheckBox
                 handleClick={(e: any) => {
                   if (e.target.checked) {
@@ -296,7 +349,7 @@ function CreateProjectX() {
                     })
                   }
                 }}
-                projectTags={selectedProjectTags}
+                projectTags={tag}
               />
               <label
                 htmlFor="description"
@@ -309,18 +362,13 @@ function CreateProjectX() {
                   aria-label="description"
                   placeholder="Project Description"
                   name="description"
-                  value={
-                    selectedProject ? selectedProjectDescription : undefined
-                  }
+                  value={description}
                   minLength={10}
-                  onChange={
-                    selectedProject ? e => handleDescription(e) : void 0
-                  }
+                  onChange={e => handleDescription(e)}
                   onBlur={e => {
                     e.target.validity.valid
                       ? setDescriptionErr(colors.lightGreen)
                       : setDescriptionErr(colors.burgundyRed)
-                    handleDescription(e)
                   }}
                   required
                 />

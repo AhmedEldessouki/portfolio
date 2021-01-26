@@ -1,7 +1,7 @@
 import type {Project} from '../../components/Utils/interfaces'
 import {projectsData} from './projects-data'
 
-let projects: Array<Partial<Project>> = [...projectsData]
+let projects: Array<Project> = [...projectsData]
 
 async function create(project: Project) {
   projects.push(project)

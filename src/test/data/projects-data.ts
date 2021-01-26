@@ -1,6 +1,11 @@
-const projectsData = [
+import {Project} from '../../components/Utils/interfaces'
+
+const projectsData: Array<Project> = [
   {
     id: '2Az5lOeuEpimusasRbu4',
+    repoLink: 'xx',
+    projectType: `Contribution`,
+    date: new Date(),
 
     description:
       'This App was Created using Angular, Bulma, and Angular Material.',
@@ -20,6 +25,9 @@ const projectsData = [
   {
     link: 'https://ahmedeldessouki-a7488.firebaseapp.com/',
     id: '9lfMA1DnbWHq2mTtYIpq',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
 
     description:
       '// Note: The Pictures are for the old and the new modifications in the web App.\n\nReact.js\nRedux\nReact-Router\naxios\n\n-- What is new --\nReact V17\nReact-Query\nReact-Hooks\nJest & React-testing-library\nSuspinse\nNode_ENV\nEmotion/react(core)',
@@ -47,6 +55,9 @@ const projectsData = [
   {
     name: 'Tic Tac Teo',
     id: 'EJodDJ1pjvvLSGTDfnco',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--0wyS4BK6--/v1608653815/profileLogos/1_cPh7ujRIfcHAy4kW2ADGOw_1.png',
     ],
@@ -69,6 +80,9 @@ const projectsData = [
     ],
     description: 'React.js\nChart.js\nMatirial-Ui\nReact-Query',
     id: 'ZiqNw0MPUYAGct8j7jm6',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--0wyS4BK6--/v1608653815/profileLogos/1_cPh7ujRIfcHAy4kW2ADGOw_1.png',
     ],
@@ -86,6 +100,9 @@ const projectsData = [
 
     link: 'https://booklist-mine.web.app',
     id: 'kirCDouOW2L8QH5iahG2',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
   },
   {
     description:
@@ -99,6 +116,9 @@ const projectsData = [
     link: 'https://tic-tac-teo-3b62b.web.app/',
 
     id: 'lELoGl25TpRptuqj5TXr',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--N2uohADv--/v1608654350/profileLogos/angular.png',
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--E7NunOG---/v1608653028/profileLogos/1_mn6bOs7s6Qbao15PMNRyOA.png',
@@ -113,6 +133,9 @@ const projectsData = [
     name: 'Todo & Bcalc',
 
     id: 'qTAV4jdpv1eq696Z42hG',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--0wyS4BK6--/v1608653815/profileLogos/1_cPh7ujRIfcHAy4kW2ADGOw_1.png',
     ],
@@ -132,6 +155,9 @@ const projectsData = [
     ],
 
     id: 'syNENmmECalb7AKP76ni',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
   },
   {
     description: 'React.js\nAxios',
@@ -144,6 +170,9 @@ const projectsData = [
       'https://res.cloudinary.com/ahmedeldessouki/image/upload/v1607446596/gsxmtnpquyhajbgyjafr.png',
     ],
     id: 'wut9gkeMxT6GAgjB4Tqn',
+    repoLink: 'xx',
+    projectType: `Personal`,
+    date: new Date(),
     name: 'Weather',
   },
 ]
