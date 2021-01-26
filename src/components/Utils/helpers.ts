@@ -1,4 +1,4 @@
-function deepEqual(arg0: any, arg1: any): boolean {
+function deepEqual(arg0: NonNullable<any>, arg1: NonNullable<any>): boolean {
   if (typeof arg0 !== typeof arg1) {
     return false
   } else {
@@ -23,5 +23,5 @@ function deepEqual(arg0: any, arg1: any): boolean {
   }
   return true
 }
-
+deepEqual(null, null)
 export {deepEqual}
