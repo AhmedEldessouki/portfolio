@@ -1,0 +1,35 @@
+import type {Project} from '../../Utils/interfaces'
+
+type ReducerState = {
+  status: 'idle' | 'submitted' | 'next' | 'images_uploaded' | 'next_add'
+  enteredProjectData: Omit<Project, 'id' | 'date'>
+  acceptedImages: Array<{preview: string & File}>
+  rejectedImages: Array<{preview: string & File}>
+  error: {code: string; message: string} | null
+}
+
+type ReducerAction = {
+  type:
+    | 'error'
+    | 'accepted_images'
+    | 'rejected_images'
+    | 'remove_oldImages'
+    | 'remove_rejectedImages'
+    | 'remove_acceptedImages'
+    | 'submit_newData'
+    | 'submit_description'
+    | 'add_tag'
+    | 'remove_tag'
+    | 'idle'
+    | 'next'
+    | 'images_uploaded'
+    | 'next_add'
+    | 'clean_up'
+  payload?:
+    | Partial<ReducerState>
+    | Omit<Project, 'projectLogo', 'tag', 'id', 'date'>
+    | Omit<Project, 'projectLogo', 'id', 'date'>
+    | string
+}
+
+export {ReducerAction, ReducerState}

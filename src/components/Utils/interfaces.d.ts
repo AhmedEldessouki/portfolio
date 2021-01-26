@@ -14,7 +14,7 @@ interface Project {
   tag: Array<string>
   description: string
   id?: string
-  date: Date
+  date: Date | any
 }
 
 interface Message {

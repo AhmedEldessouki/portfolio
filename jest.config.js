@@ -26,10 +26,12 @@ module.exports = {
       'react-scripts/config/jest/fileTransform.js',
     ),
   },
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$'],
   resetMocks: true,
   collectCoverageFrom: [
     'src/**/*.js',
+    'src/**/*.ts',
+    'src/**/*.tsx',
     '!<rootDir>/node_modules/**/*',
     '!<rootDir>/src/test/**/*',
     '!<rootDir>/src/setupTests*',

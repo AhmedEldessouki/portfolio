@@ -60,21 +60,13 @@ function Tags({TagsData}: {TagsData: Array<Tag>}) {
       })
   }
 
-  function handleSubmit(
-    e: {
-      preventDefault: () => void
-      target: {
-        elements: {
-          name: any
-          url: any
-        }
-        reset: () => void
-      }
-    } & React.FormEventHandler,
-  ) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
-    const {name, url} = e.target.elements
+    const {name, url} = e.target as typeof e.target & {
+      name: {value: string}
+      url: {value: string}
+    }
     const newTagData = {
       name: name.value,
       url: url.value,
@@ -83,7 +75,6 @@ function Tags({TagsData}: {TagsData: Array<Tag>}) {
     createNewTag(newTagData)
 
     dispatch({type: 'resolved'})
-    e.target.reset()
   }
 
   return (

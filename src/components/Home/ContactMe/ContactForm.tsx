@@ -10,7 +10,6 @@ import {sendMessage} from './utils'
 import {
   wrapper,
   colors,
-  spinner,
   btnStyle,
   warning,
   labelWrapper,
@@ -19,7 +18,7 @@ import {
   mq,
 } from '../../Styles'
 import Input from '../../Utils/Input'
-import {ErrorMessageFallback} from '../../Utils/util'
+import {ErrorMessageFallback, Spinner} from '../../Utils/util'
 import {useAsync} from '../../Utils/hooks'
 
 function ContactForm() {
@@ -38,7 +37,12 @@ function ContactForm() {
     e: {
       preventDefault: () => void
       target: {
-        elements: {name: any; email: any; phoneNumber: any; description: any}
+        elements: {
+          name: {value: string}
+          email: {value: string}
+          phoneNumber: {value: string}
+          description: {value: string}
+        }
       }
       currentTarget: {reset: () => void}
     } & React.FormEvent<HTMLFormElement>,
@@ -175,15 +179,12 @@ function ContactForm() {
             </label>
           </div>
           {status === 'pending' ? (
-            <div
-              css={css`
-                margin-top: 38px;
-                margin-left: 42px;
-                width: 100%;
-              `}
-            >
-              <div css={spinner} aria-busy="true" />
-            </div>
+            // css={css`
+            //   margin-top: 38px;
+            //   margin-left: 42px;
+            //   width: 100%;
+            // `}
+            <Spinner />
           ) : (
             <button type="submit" data-testid="submit" css={btnStyle}>
               Submit

@@ -5,10 +5,12 @@ import {jsx, css} from '@emotion/react'
 
 import {useAuth} from '../../context/AuthProvider'
 import Layout from '../Layout'
-import {formWrapper, spinner, warning, btnStyle, h1XL, colors} from '../Styles'
+import {formWrapper, warning, btnStyle, h1XL, colors} from '../Styles'
 import Input from '../Utils/Input'
 import {useAsync} from '../Utils/hooks'
 import {NewUser} from '../Utils/interfaces'
+import {Spinner} from '../Utils/util'
+import {Redirect} from 'react-router-dom'
 
 function SignUp() {
   const {useCreateNewUser} = useAuth()
@@ -42,7 +44,7 @@ function SignUp() {
 
     if (!newUserCreationFailed) {
       dispatch({type: 'resolved'})
-      window.location.assign('/')
+      new Redirect({to: '/dashboard'})
     }
     dispatch({type: 'resolved'})
   }
@@ -154,13 +156,7 @@ function SignUp() {
           ) : null}
 
           {status === 'pending' ? (
-            <div
-              css={css`
-                width: 100%;
-              `}
-            >
-              <div css={spinner} aria-busy="true" />
-            </div>
+            <Spinner />
           ) : (
             <button
               type="submit"

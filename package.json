@@ -12,17 +12,17 @@
     "bootstrap": "^4.6.0",
     "cloudinary-react": "^1.6.8",
     "debounce-fn": "^4.0.0",
-    "firebase": "^8.2.3",
+    "firebase": "^8.2.4",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
     "react-error-boundary": "^3.1.0",
     "react-icons": "^4.1.0",
-    "react-query": "^3.5.16",
+    "react-query": "^3.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
-    "react-toastify": "^6.2.0",
+    "react-toastify": "^7.0.0",
     "react-transition-group": "^4.4.1",
     "workbox-build": "^6.0.2",
     "workbox-core": "^6.0.2",
@@ -36,21 +36,21 @@
     "@testing-library/cypress": "^7.0.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
-    "@testing-library/react-hooks": "^5.0.0",
-    "@testing-library/user-event": "^12.6.0",
+    "@testing-library/react-hooks": "^5.0.3",
+    "@testing-library/user-event": "^12.6.2",
     "@types/faker": "^5.1.5",
     "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.21",
+    "@types/node": "^14.14.22",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/scheduler": "^0.16.1",
-    "cypress": "^6.2.1",
+    "cypress": "^6.3.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.18.0",
     "eslint-config-kentcdodds": "^17.3.0",
     "eslint-plugin-cypress": "^2.11.2",
-    "faker": "^5.1.0",
+    "faker": "^5.2.0",
     "firebase-mock": "^2.3.2",
     "husky": "^4.3.8",
     "is-ci": "^2.0.0",
@@ -73,8 +73,10 @@
     "dev": "react-scripts start",
     "setup": "npm install && npm run validate",
     "validate": "npm run build && npm run test:coverage",
+    "tsVerify": "tsc --watch",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|yml|yaml|html)\"",
-    "lint": "eslint . --cache-location node_modules/.cache/eslint",
+    "lint": "eslint --fix --ext js,jsx,ts,tsx --ignore-path .gitignore .",
+    "lint:ci": "eslint --ext js,jsx,ts,tsx --ignore-path .gitignore .",
     "test": "jest",
     "test:precommit": "jest  --watch=false --findRelatedTests",
     "test:watch": "jest --watch",
@@ -99,15 +101,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/path/to/dir/"
-    ],
-    "coverageReporters": [
-      "text"
-    ]
   }
 }

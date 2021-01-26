@@ -24,9 +24,9 @@ test('Should fill out Sign-In Form', async () => {
   })
 
   expect(
-    await screen.findByText(/© 2019 Ahmed ElDessouki/i),
+    await screen.findByText(/© 2021 Ahmed ElDessouki/i),
   ).toBeInTheDocument()
-  userEvent.click(screen.getByText('© 2019 Ahmed ElDessouki'))
+  userEvent.click(screen.getByText('© 2021 Ahmed ElDessouki'))
 
   userEvent.type(screen.getByLabelText(/email/i), user.email)
   userEvent.type(screen.getByLabelText('password'), user.password)

@@ -4,31 +4,18 @@
 import {jsx, css} from '@emotion/react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {btnStyle, h2XL, formWrapper, spinner} from '../Styles'
+import {btnStyle, h2XL, formWrapper} from '../Styles'
 import Input from '../Utils/Input'
-import {ErrorMessageFallback} from '../Utils/util'
+import {ErrorMessageFallback, Spinner} from '../Utils/util'
 
 import type {Status} from '../Utils/interfaces'
-
-function Spinner() {
-  return (
-    <div
-      css={css`
-        width: 100%;
-        margin-top: 38px;
-      `}
-    >
-      <div css={spinner} aria-busy="true" />
-    </div>
-  )
-}
 
 function TagForm({
   status,
   handleSubmit,
 }: {
   status: Status
-  handleSubmit: (e: any) => void
+  handleSubmit: (e: React.SyntheticEvent) => void
 }) {
   return (
     <div
