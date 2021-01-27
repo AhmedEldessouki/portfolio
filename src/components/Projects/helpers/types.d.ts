@@ -1,4 +1,4 @@
-import type {Project} from '../../Utils/interfaces'
+import type {ErrorType, Project} from '../../Utils/interfaces'
 
 type ReducerState = {
   status:
@@ -11,7 +11,7 @@ type ReducerState = {
   enteredProjectData: Omit<Project, 'id' | 'date'>
   acceptedImages: Array<{preview: string & File}>
   rejectedImages: Array<{preview: string & File}>
-  error: {code: string; message: string} | null
+  error: ErrorType | null
 }
 
 type ReducerAction = {

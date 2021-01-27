@@ -21,12 +21,7 @@ import {
   textArea,
   warning,
 } from '../Styles'
-import {
-  uploadImage,
-  projectFormReducer,
-  createNewProject,
-  updateProject,
-} from './helpers/functions'
+import {uploadImage, projectFormReducer} from './helpers/functions'
 import {
   ImageDropZone,
   ButtonWithSpinner,
@@ -35,6 +30,7 @@ import {
   TagsCheckBox,
 } from './helpers/components'
 import {deepEqual} from '../Utils/helpers'
+import {createNewProject, updateProject} from '../Utils/apis'
 
 function CreateProjectX() {
   const {selectedProject, setProject} = useAuth()

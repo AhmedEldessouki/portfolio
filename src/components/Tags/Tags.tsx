@@ -3,62 +3,17 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {toast} from 'react-toastify'
 
 import {h1XL, h2XL} from '../Styles'
-import {db} from '../Utils/firebase'
 import PopUp from '../Utils/PopUp/PopUp'
 import {useAsync} from '../Utils/hooks'
 import TagForm from './TagForm'
 
 import type {Tag} from './tagsTypes'
+import {createNewTag, deleteTag} from '../Utils/apis'
 
 function Tags({TagsData}: {TagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()
-
-  function createNewTag(tag: Omit<Tag, 'id'>) {
-    db.collection('tags')
-      .add({
-        ...tag,
-      })
-      .then(() => {
-        toast.success(`Tag "${tag.name}" Created`)
-      })
-      .catch(err => {
-        toast.error(`Tag Creation Failed ${err.message}`)
-        throw err.message
-      })
-  }
-
-  // function updateTag(tag) {
-  //   const {id, name, link} = tag
-  //   db.collection('tags')
-  //     .doc(`${id}`)
-  //     .update({
-  //       name,
-  //       link,
-  //     })
-  //     .then(() => {
-  //       toast.success(`tag "${name}" Updated`)
-  //     })
-  //     .catch(err => {
-  //       toast.error(`tag Didn't Update ${err.message}`)
-  //       throw err.message
-  //     })
-  // }
-
-  function deleteTag(tag: Tag) {
-    db.collection('tags')
-      .doc(`${tag.id}`)
-      .delete()
-      .then(() => {
-        toast.success(`tag "${tag.name}" deleted`)
-      })
-      .catch(err => {
-        toast.error(`tag Deletion Failed ${err.message}`)
-        throw err
-      })
-  }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
