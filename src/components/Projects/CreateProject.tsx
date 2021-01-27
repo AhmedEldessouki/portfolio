@@ -176,15 +176,7 @@ function CreateProjectX() {
         description: description.value,
       },
     })
-    // console.log('{EnteredProject}: ', enteredProjectData)
-    // console.log(
-    //   '{EnteredProject}: ',
-    //   name.value,
-    //   link.value,
-    //   repoLink.value,
-    //   projectType.value,
-    //   description.value,
-    // )
+
     await useSubmitImages(acceptedImages, enteredProjectData.name)
     if (selectedProject) {
       const hasChanged = !deepEqual(selectedProject, {
