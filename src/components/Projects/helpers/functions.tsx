@@ -6,57 +6,8 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../../Config/CloudInary'
-import {db} from '../../Utils/firebase'
 
-import type {Project} from '../../Utils/interfaces'
 import {ReducerAction, ReducerState} from './types'
-
-async function createNewProject(project: Omit<Project, 'date' | 'id'>) {
-  await db
-    .collection('projects')
-    .add({
-      ...project,
-      date: new Date(),
-    })
-    .then(() => {
-      toast.success(`Project "${project.name}" Created`)
-    })
-    .catch(err => {
-      toast.error(`Project Creation Failed ${err.message}`)
-      throw err.message
-    })
-}
-
-async function updateProject(project: Partial<Project>) {
-  const {id, name} = project
-  await db
-    .collection('projects')
-    .doc(`${id}`)
-    .update({
-      ...project,
-      updatedOn: new Date(),
-    })
-    .then(() => {
-      toast.success(`Project "${name}" Updated`)
-    })
-    .catch(err => {
-      toast.error(`Project Didn't Update ${err.message}`)
-      throw err.message
-    })
-}
-
-function deleteProject(project: Project) {
-  db.collection('projects')
-    .doc(`${project.id}`)
-    .delete()
-    .then(() => {
-      toast.success(`Project "${project.name}" deleted`)
-    })
-    .catch(err => {
-      toast.error(`Project Deletion Failed ${err.message}`)
-      throw err
-    })
-}
 
 async function uploadImage(image: File, projectName: string) {
   let formData
@@ -203,10 +154,4 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
   }
 }
 
-export {
-  uploadImage,
-  projectFormReducer,
-  updateProject,
-  deleteProject,
-  createNewProject,
-}
+export {uploadImage, projectFormReducer}

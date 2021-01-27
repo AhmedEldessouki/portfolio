@@ -6,7 +6,6 @@ import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 import {GrMail} from 'react-icons/gr'
 
-import {sendMessage} from './utils'
 import {
   wrapper,
   colors,
@@ -20,6 +19,9 @@ import {
 import Input from '../../Utils/Input'
 import {ErrorMessageFallback, Spinner} from '../../Utils/util'
 import {useAsync} from '../../Utils/hooks'
+import {createNewMessage} from '../../Utils/apis'
+
+import type {ErrorType} from '../../Utils/interfaces'
 
 function ContactForm() {
   const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(
@@ -28,9 +30,7 @@ function ContactForm() {
   const [descriptionFieldError, setDescriptionFieldError] = React.useState<
     string | undefined
   >('')
-  const [sendMessageError, setSendMessageError] = React.useState<
-    string | undefined
-  >('')
+  const [sendMessageError, setSendMessageError] = React.useState<ErrorType>()
   const {status, dispatch} = useAsync()
 
   async function handleMessage(
@@ -59,7 +59,7 @@ function ContactForm() {
     }
     e.currentTarget.reset()
 
-    const {error} = await sendMessage(newMessageData)
+    const {error} = await createNewMessage(newMessageData)
 
     if (error) {
       setSendMessageError(error)
@@ -192,7 +192,7 @@ function ContactForm() {
           )}
           {sendMessageError ? (
             <span css={warning} role="alert">
-              {sendMessageError}
+              {sendMessageError.message}
             </span>
           ) : null}
         </form>

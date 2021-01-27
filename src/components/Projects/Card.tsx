@@ -8,25 +8,27 @@ import {Link} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
 import {colors} from '../Styles'
+import {deleteProject} from '../Utils/apis'
 import type {Project} from '../Utils/interfaces'
 import PopUp from '../Utils/PopUp/PopUp'
 import {Title} from '../Utils/util'
-import {deleteProject} from './helpers/functions'
 
 function Tag({
   tagUrl,
   ...imageOverrides
 }: {tagUrl: string} & React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
-    <img
-      css={css`
-        font-size: 108%;
-        margin: 0;
-      `}
-      src={tagUrl}
-      alt="tag"
-      {...imageOverrides}
-    />
+    <li>
+      <img
+        css={css`
+          font-size: 108%;
+          margin: 0;
+        `}
+        src={tagUrl}
+        alt="tag"
+        {...imageOverrides}
+      />
+    </li>
   )
 }
 
@@ -70,15 +72,18 @@ function EditAndDelete({
 function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
   const [hovered, setHover] = React.useState(false)
   return (
-    <div
+    <header
       css={{
         display: 'flex',
-        placeContent: 'end',
+        placeContent: 'flex-end',
       }}
+      onMouseEnter={() => setHover(!hovered)}
+      onMouseLeave={() => setHover(!hovered)}
+      onFocus={() => setHover(!hovered)}
+      onBlur={() => setHover(!hovered)}
     >
       <h3
-        onMouseEnter={() => setHover(!hovered)}
-        onMouseLeave={() => setHover(!hovered)}
+        aria-label="this is a personal project"
         css={{
           borderRadius: 50,
           border: `1px solid`,
@@ -95,13 +100,13 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
           cursor: 'help',
           ':hover, :focus': {
             padding: '0 8px',
-            width: projType === 'Contribution' ? 108 : 78,
+            width: projType === 'Contribution' ? 110 : 80,
           },
         }}
       >
         {hovered ? projType : '!'}
       </h3>
-    </div>
+    </header>
   )
 }
 
@@ -132,10 +137,14 @@ function Card({
     grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
   `
   return (
-    <div css={mWrapper}>
+    <section css={mWrapper}>
       {items.map((item, i) => {
         return (
-          <div css={pWrapper} key={item.id} data-testid={`${item.name}-card`}>
+          <article
+            css={pWrapper}
+            key={item.id}
+            data-testid={`${item.name}-card`}
+          >
             {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}
@@ -147,24 +156,26 @@ function Card({
               }}
               testId={`project[${i}]`}
             />
-            <div
+            <ul
               css={css`
                 display: flex;
                 place-content: center;
                 place-items: center;
                 height: 50px;
                 gap: 15px;
+                margin-bottom: 0px;
+                padding-left: 0;
               `}
             >
               {item.tag &&
                 item.tag.map((tag, i) => (
                   <Tag key={`${tag}_${i}`} tagUrl={tag} width="30" />
                 ))}
-            </div>
-          </div>
+            </ul>
+          </article>
         )
       })}
-    </div>
+    </section>
   )
 }
 
