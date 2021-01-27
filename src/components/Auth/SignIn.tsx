@@ -45,7 +45,7 @@ const SignIn = () => {
           place-content: center;
         `}
       >
-        <form onSubmit={submitUserCredentials} css={formWrapper}>
+        <form onSubmit={submitUserCredentials} css={[formWrapper, {gap: 6}]}>
           <div css={{width: '89%'}}>
             <Input
               name="email"

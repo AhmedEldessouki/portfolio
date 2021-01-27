@@ -126,6 +126,7 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
       enteredProjectData.name = payload.name
       enteredProjectData.link = payload.link
       enteredProjectData.repoLink = payload.repoLink
+      enteredProjectData.projectType = payload.projectType
       enteredProjectData.description = payload.description
       state.status = 'submitted'
       state.error = null
@@ -159,6 +160,10 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
       state.status = 'idle'
       return {...state}
     }
+    case 'redirect': {
+      state.status = 'redirect'
+      return {...state}
+    }
     case 'next': {
       state.status = 'next'
       return {...state}
@@ -180,6 +185,7 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
         link: '',
         repoLink: '',
         description: '',
+        projectType: 'Personal',
         projectLogo: [],
         tag: [],
       }

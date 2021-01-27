@@ -14,6 +14,8 @@ interface Project {
   tag: Array<string>
   description: string
   id?: string
+  projectType: `Personal` | `Contribution`
+  // Data is any because firebase uses linux timestamp
   date: Date | any
 }
 
