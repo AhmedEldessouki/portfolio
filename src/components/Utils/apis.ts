@@ -105,6 +105,7 @@ function handleCreate<T>(collection: CollectionTypes) {
       .catch(err => {
         toast.error(`Project Creation Failed ${err.message}`)
         error = err.message
+        Promise.reject(err)
       })
     return {isResolved, error}
   }
