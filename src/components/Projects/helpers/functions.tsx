@@ -13,7 +13,7 @@ async function uploadImage(image: File, projectName: string) {
   let formData
   formData = new FormData()
   formData.set('file', image)
-  formData.set('', `${projectName}_image`)
+  formData.set('tag', `${projectName}_image`)
   formData.set('upload_preset', `${CLOUDINARY_UPLOAD_PRESET}`)
   formData.set('api_key', `${CLOUDINARY_API_KEY}`)
 

@@ -27,10 +27,13 @@ function ContactForm() {
   const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(
     false,
   )
-  const [descriptionFieldError, setDescriptionFieldError] = React.useState<
+  const [descriptionFieldColor, setDescriptionFieldColor] = React.useState<
     string | undefined
   >('')
-  const [sendMessageError, setSendMessageError] = React.useState<ErrorType>()
+  const [
+    sendMessageErrorApi,
+    setSendMessageErrorApi,
+  ] = React.useState<ErrorType>()
   const {status, dispatch} = useAsync()
 
   async function handleMessage(
@@ -62,9 +65,10 @@ function ContactForm() {
     const {error} = await createNewMessage(newMessageData)
 
     if (error) {
-      setSendMessageError(error)
+      setSendMessageErrorApi(error)
     }
-    setDescriptionFieldError(colors.darkBlue)
+
+    setDescriptionFieldColor(colors.darkBlue)
     dispatch({type: 'idle'})
   }
   return (
@@ -162,8 +166,8 @@ function ContactForm() {
                 aria-label="description"
                 onBlur={e =>
                   e.target.validity.valid
-                    ? setDescriptionFieldError(colors.lightGreen)
-                    : setDescriptionFieldError(colors.burgundyRed)
+                    ? setDescriptionFieldColor(colors.lightGreen)
+                    : setDescriptionFieldColor(colors.burgundyRed)
                 }
                 required
                 placeholder="Description"
@@ -172,27 +176,22 @@ function ContactForm() {
                 css={[
                   textArea,
                   css`
-                    border-color: ${descriptionFieldError};
+                    border-color: ${descriptionFieldColor};
                   `,
                 ]}
               />
             </label>
           </div>
           {status === 'pending' ? (
-            // css={css`
-            //   margin-top: 38px;
-            //   margin-left: 42px;
-            //   width: 100%;
-            // `}
             <Spinner />
           ) : (
             <button type="submit" data-testid="submit" css={btnStyle}>
               Submit
             </button>
           )}
-          {sendMessageError ? (
+          {sendMessageErrorApi ? (
             <span css={warning} role="alert">
-              {sendMessageError.message}
+              {sendMessageErrorApi.message}
             </span>
           ) : null}
         </form>

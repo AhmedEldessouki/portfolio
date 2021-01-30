@@ -36,7 +36,7 @@ test('should Input onBlur Error: accept only text', () => {
   expect(screen.getByTestId('name')).toHaveStyle(
     `border-color: ${colors.darkBlue}`,
   )
-  document.getElementById('name').focus()
+  userEvent.tab()
 
   userEvent.type(screen.getByTestId('name'), 'sad123')
 
@@ -69,7 +69,7 @@ test('should Input onBlur success: accept only text', () => {
     `border-color: ${colors.darkBlue}`,
   )
 
-  document.getElementById('name').focus()
+  userEvent.tab()
   userEvent.type(screen.getByTestId('name'), 'aasd')
   document.getElementById('name_XX').focus()
 
