@@ -61,19 +61,23 @@ function PopUp({info, onClickYes}: {info: string; onClickYes: Function}) {
   const {status, dispatch} = useAsync()
 
   // onClick outside PopUp Component close PopUp
-  const ref = React.useRef<any | undefined>()
+  const ref = React.useRef<HTMLDivElement | null>(null)
 
-  React.useEffect(() => {
-    const handleClickOutside = (event: {target: any}) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+  const handleClickOutside = React.useCallback(
+    (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         dispatch({type: 'idle'})
       }
-    }
+    },
+    [dispatch],
+  )
+
+  React.useEffect(() => {
     document.addEventListener('click', handleClickOutside, true)
     return () => {
       document.removeEventListener('click', handleClickOutside, true)
     }
-  }, [dispatch])
+  }, [handleClickOutside])
 
   async function handleDelete() {
     await onClickYes()
