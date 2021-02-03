@@ -2,7 +2,7 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
-import {auth, db, firebaseApp} from '../components/Utils/firebase'
+import {auth, db, firebase} from '../components/Utils/firebase'
 import {useLocalStorageState} from '../components/Utils/hooks'
 
 import {User} from '@firebase/auth-types/index'
@@ -55,7 +55,7 @@ function AuthProvider({children}: {children: React.ReactNode}) {
         'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
       > | null,
     ) {
-      firebaseApp.auth().onAuthStateChanged(currentUser => {
+      firebase.auth().onAuthStateChanged(currentUser => {
         if (currentUser && currentUser.uid !== user?.uid) {
           setUser(currentUser)
         }

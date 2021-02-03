@@ -9,7 +9,7 @@ import {
   messagingSenderId,
 } from '../../config'
 
-const firebaseApp = firebase.initializeApp({
+const firebaseApp = {
   apiKey: apiKey,
   authDomain: 'ahmedeldessouki-a7488.firebaseapp.com',
   databaseURL: databaseURL,
@@ -17,9 +17,17 @@ const firebaseApp = firebase.initializeApp({
   storageBucket: storageBucket,
   storage: storage,
   messagingSenderId: messagingSenderId,
-})
+}
 
-const db = firebaseApp.firestore()
-const auth = firebaseApp.auth()
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseApp)
+}
 
-export {db, auth, firebaseApp}
+const db = firebase.firestore()
+const auth = firebase.auth()
+
+if (process.env.NODE_ENV !== 'production') {
+  db.useEmulator('localhost', 8080)
+}
+
+export {db, auth, firebase}
