@@ -1,11 +1,17 @@
-import type {Project} from '../../Utils/interfaces'
+import type {ErrorType, Project} from '../../Utils/interfaces'
 
 type ReducerState = {
-  status: 'idle' | 'submitted' | 'next' | 'images_uploaded' | 'next_add'
+  status:
+    | 'idle'
+    | 'submitted'
+    | 'next'
+    | 'images_uploaded'
+    | 'next_add'
+    | 'redirect'
   enteredProjectData: Omit<Project, 'id' | 'date'>
   acceptedImages: Array<{preview: string & File}>
   rejectedImages: Array<{preview: string & File}>
-  error: {code: string; message: string} | null
+  error: ErrorType | null
 }
 
 type ReducerAction = {
@@ -25,6 +31,7 @@ type ReducerAction = {
     | 'images_uploaded'
     | 'next_add'
     | 'clean_up'
+    | 'redirect'
   payload?:
     | Partial<ReducerState>
     | Omit<Project, 'projectLogo', 'tag', 'id', 'date'>

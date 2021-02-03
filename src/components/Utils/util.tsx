@@ -2,7 +2,6 @@
 /** @jsx jsx */
 
 import {css, jsx} from '@emotion/react'
-import React from 'react'
 import type {SerializedStyles} from '@emotion/react'
 
 import {colors, mq, spinner, warning, weights} from '../Styles'
@@ -80,21 +79,23 @@ function Title({
   ]
 
   return (
-    <button
-      type="button"
-      onClick={() => {
-        onClick()
-      }}
-      css={css`
-        background: transparent;
-        border: none;
-        width: 100%;
-      `}
-    >
-      <h1 css={[title, csx]} data-testid={testId} key={testId}>
-        {name}
-      </h1>
-    </button>
+    <section css={{width: '100%'}}>
+      <button
+        type="button"
+        onClick={() => {
+          onClick()
+        }}
+        css={css`
+          background: transparent;
+          border: none;
+          width: 100%;
+        `}
+      >
+        <h1 css={[title, csx]} data-testid={testId} key={testId}>
+          {name}
+        </h1>
+      </button>
+    </section>
   )
 }
 

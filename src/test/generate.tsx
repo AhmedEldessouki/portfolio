@@ -39,6 +39,7 @@ function buildProject(overrides?: Partial<Project>) {
     projectLogo: [faker.image.imageUrl(), faker.image.imageUrl()],
     tag: [faker.image.imageUrl(), faker.image.imageUrl()],
     name: faker.name.firstName(),
+    projectType: `Personal`,
     date: faker.date.past(),
     ...overrides,
   }

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import * as firebaseMocks from 'firebase-mock'
-import {server} from './test/server'
+import {server} from './test/server/test-server'
 
 const localStorageMock = {
   getItem: jest.fn(),

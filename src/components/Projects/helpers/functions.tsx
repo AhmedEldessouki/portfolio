@@ -6,63 +6,14 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../../Config/CloudInary'
-import {db} from '../../Utils/firebase'
 
-import type {Project} from '../../Utils/interfaces'
 import {ReducerAction, ReducerState} from './types'
-
-async function createNewProject(project: Omit<Project, 'date' | 'id'>) {
-  await db
-    .collection('projects')
-    .add({
-      ...project,
-      date: new Date(),
-    })
-    .then(() => {
-      toast.success(`Project "${project.name}" Created`)
-    })
-    .catch(err => {
-      toast.error(`Project Creation Failed ${err.message}`)
-      throw err.message
-    })
-}
-
-async function updateProject(project: Partial<Project>) {
-  const {id, name} = project
-  await db
-    .collection('projects')
-    .doc(`${id}`)
-    .update({
-      ...project,
-      updatedOn: new Date(),
-    })
-    .then(() => {
-      toast.success(`Project "${name}" Updated`)
-    })
-    .catch(err => {
-      toast.error(`Project Didn't Update ${err.message}`)
-      throw err.message
-    })
-}
-
-function deleteProject(project: Project) {
-  db.collection('projects')
-    .doc(`${project.id}`)
-    .delete()
-    .then(() => {
-      toast.success(`Project "${project.name}" deleted`)
-    })
-    .catch(err => {
-      toast.error(`Project Deletion Failed ${err.message}`)
-      throw err
-    })
-}
 
 async function uploadImage(image: File, projectName: string) {
   let formData
   formData = new FormData()
   formData.set('file', image)
-  formData.set('', `${projectName}_image`)
+  formData.set('tag', `${projectName}_image`)
   formData.set('upload_preset', `${CLOUDINARY_UPLOAD_PRESET}`)
   formData.set('api_key', `${CLOUDINARY_API_KEY}`)
 
@@ -126,6 +77,7 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
       enteredProjectData.name = payload.name
       enteredProjectData.link = payload.link
       enteredProjectData.repoLink = payload.repoLink
+      enteredProjectData.projectType = payload.projectType
       enteredProjectData.description = payload.description
       state.status = 'submitted'
       state.error = null
@@ -159,6 +111,10 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
       state.status = 'idle'
       return {...state}
     }
+    case 'redirect': {
+      state.status = 'redirect'
+      return {...state}
+    }
     case 'next': {
       state.status = 'next'
       return {...state}
@@ -180,6 +136,7 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
         link: '',
         repoLink: '',
         description: '',
+        projectType: 'Personal',
         projectLogo: [],
         tag: [],
       }
@@ -197,10 +154,4 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
   }
 }
 
-export {
-  uploadImage,
-  projectFormReducer,
-  updateProject,
-  deleteProject,
-  createNewProject,
-}
+export {uploadImage, projectFormReducer}

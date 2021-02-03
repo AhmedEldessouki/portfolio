@@ -281,26 +281,19 @@ function ProjInputX({
   editableValue,
   ...inputOverrides
 }: {
-  editableValue?: string | Array<string> | undefined
+  editableValue?: string | undefined
   cleanColor?: boolean
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   const [state, setState] = React.useState(editableValue)
-
-  if (editableValue) {
-    return (
-      <Input
-        value={editableValue ? state : undefined}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          if (editableValue) {
-            return undefined
-          }
-          setState(e.target.value)
-        }}
-        {...inputOverrides}
-      />
-    )
-  }
-  return <Input {...inputOverrides} />
+  return (
+    <Input
+      value={state}
+      onChange={e => {
+        setState(e.target.value)
+      }}
+      {...inputOverrides}
+    />
+  )
 }
 
 const ProjInput = React.memo(ProjInputX)

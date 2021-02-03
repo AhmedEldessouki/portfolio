@@ -6,7 +6,7 @@ import type {Message} from '../../Utils/interfaces'
 
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../../Utils/PopUp/PopUp'
-import {deleteMessage} from './utils'
+import {deleteMessage} from '../../Utils/apis'
 
 function MessagesSummary({
   message,

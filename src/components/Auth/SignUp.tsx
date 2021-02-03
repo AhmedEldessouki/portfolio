@@ -10,7 +10,6 @@ import Input from '../Utils/Input'
 import {useAsync} from '../Utils/hooks'
 import {NewUser} from '../Utils/interfaces'
 import {Spinner} from '../Utils/util'
-import {Redirect} from 'react-router-dom'
 
 function SignUp() {
   const {useCreateNewUser} = useAuth()
@@ -44,7 +43,6 @@ function SignUp() {
 
     if (!newUserCreationFailed) {
       dispatch({type: 'resolved'})
-      new Redirect({to: '/dashboard'})
     }
     dispatch({type: 'resolved'})
   }
@@ -60,8 +58,8 @@ function SignUp() {
         `}
       >
         <form
-          id="#sign-up"
-          css={formWrapper}
+          id="sign-up"
+          css={[formWrapper, {gap: 6}]}
           onSubmit={submitNewUserCredentials}
         >
           <Input
