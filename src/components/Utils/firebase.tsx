@@ -26,8 +26,8 @@ if (!firebase.apps.length) {
 const db = firebase.firestore()
 const auth = firebase.auth()
 
-if (process.env.NODE_ENV !== 'production') {
-  db.useEmulator('localhost', 8080)
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   db.useEmulator('localhost', 8080)
+// }
 
 export {db, auth, firebase}

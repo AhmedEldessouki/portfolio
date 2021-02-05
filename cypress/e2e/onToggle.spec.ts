@@ -14,12 +14,12 @@ describe('onToggle desktop', () => {
       .contains(/portfolio v1/i)
       .click()
 
-    let pos1
+    let pos1: Cypress.ElementCoordinates
     cy.get('button')
       .contains(/portfolio v1/i)
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
-        pos1 = Cypress.dom.getElementCoordinatesByPosition($el)
+        pos1 = Cypress.dom.getElementCoordinatesByPosition($el, '')
       })
 
     cy.get('[data-testid=before-toggle]').click()
@@ -28,7 +28,7 @@ describe('onToggle desktop', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
         ).not.to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -37,7 +37,7 @@ describe('onToggle desktop', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -87,12 +87,12 @@ describe('onToggle phoneLarge', () => {
       .contains(/portfolio v1/i)
       .click()
 
-    let pos1
+    let pos1: Cypress.ElementCoordinates
     cy.get('button')
       .contains(/portfolio v1/i)
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
-        pos1 = Cypress.dom.getElementCoordinatesByPosition($el)
+        pos1 = Cypress.dom.getElementCoordinatesByPosition($el, '')
       })
 
     cy.get('[data-testid=before-toggle]').click()
@@ -101,7 +101,7 @@ describe('onToggle phoneLarge', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
         ).not.to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -110,7 +110,7 @@ describe('onToggle phoneLarge', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -159,12 +159,12 @@ describe('onToggle ipad', () => {
       .contains(/portfolio v1/i)
       .click()
 
-    let pos1
+    let pos1: Cypress.ElementCoordinates
     cy.get('button')
       .contains(/portfolio v1/i)
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
-        pos1 = Cypress.dom.getElementCoordinatesByPosition($el)
+        pos1 = Cypress.dom.getElementCoordinatesByPosition($el, '')
       })
 
     cy.get('[data-testid=before-toggle]').click()
@@ -173,7 +173,7 @@ describe('onToggle ipad', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
         ).not.to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -182,7 +182,7 @@ describe('onToggle ipad', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el).fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
