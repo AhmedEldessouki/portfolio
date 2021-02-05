@@ -40,4 +40,4 @@ jobs:
         run: npm run lint:ci
 
       - name: ⚡ Run test script
-        run: npm run test:ci
+        run: npm test
