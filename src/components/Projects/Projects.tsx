@@ -15,58 +15,54 @@ import {useSafeDispatch} from '../Utils/hooks'
 
 // Note: Projects & Payload will never be undefined... need to dig deeper into to this later
 interface ReducerState {
-  sortedBy: 'reverse_date' | 'date' | 'alphabet' | 'none'
+  sortedBy: 'reverse_date' | 'date' | 'alphabet' | 'none' | 'no_sorting'
   projects: Array<Project> | undefined
 }
 interface ReducerAction {
-  type: 'reverse_date' | 'date' | 'alphabet'
+  type: 'reverse_date' | 'none' | 'date' | 'alphabet' | 'reset_sort'
   payload?: Array<Project>
 }
 
 const reducer = (state: ReducerState, action: ReducerAction) => {
   const {type, payload} = action
   switch (type) {
+    case 'none': {
+      state.projects = payload && [...payload]
+      state.sortedBy = 'none'
+      return {
+        ...state,
+      }
+    }
+    case 'reset_sort': {
+      state.projects = payload && [...payload]
+      state.sortedBy = 'no_sorting'
+      return {
+        ...state,
+      }
+    }
     case 'alphabet': {
-      state.projects = payload && [
-        ...payload.sort(function (a, b) {
-          return a.name.localeCompare(b.name)
-        }),
-      ]
+      state.projects = payload && [...payload]
       state.sortedBy = 'alphabet'
       return {
         ...state,
       }
     }
     case 'date': {
-      state.projects = payload && [
-        ...payload.sort(function (a, b) {
-          let x = new Date(a.date) as any,
-            y = new Date(b.date) as any
-          return x - y
-        }),
-      ]
+      state.projects = payload && [...payload]
       state.sortedBy = 'date'
       return {
         ...state,
       }
     }
     case 'reverse_date': {
-      state.projects =
-        payload &&
-        [
-          ...payload.sort(function (a, b) {
-            let x = new Date(a.date) as any,
-              y = new Date(b.date) as any
-            return x - y
-          }),
-        ].reverse()
+      state.projects = payload && [...payload]
       state.sortedBy = 'reverse_date'
       return {
         ...state,
       }
     }
     default: {
-      throw new Error(`Unhandled action type: ${type} in Project_Component`)
+      return state
     }
   }
 }
@@ -83,7 +79,7 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
     projects: undefined,
   })
   const dispatch = useSafeDispatch<
-    'reverse_date' | 'date' | 'alphabet',
+    'reverse_date' | 'date' | 'alphabet' | 'reset_sort',
     Array<Project>
   >(dispatchUnsafe)
 
@@ -97,6 +93,14 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
     background: colors.darkBlue,
     color: colors.whiteFaded,
     cursor: 'pointer',
+    ':hover': {
+      opacity: 0.8,
+      transform: 'scale(1.1)',
+    },
+  }
+  const btnHasFocus = {
+    opacity: 0.8,
+    transform: 'scale(1.1)',
   }
   const {sortedBy, projects} = state
   return (
@@ -122,6 +126,11 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
               background: colors.backgroundShade,
               padding: '10px 25px 10px 0',
             }}
+            onMouseEnter={() => {
+              if (sortedBy === 'none') {
+                dispatch({type: 'reset_sort', payload: projectsData})
+              }
+            }}
           >
             <span
               css={{
@@ -136,23 +145,18 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
             <button
               type="button"
               data-testid="sort_by_name"
-              css={[
-                btn,
-                sortedBy === 'alphabet'
-                  ? {
-                      background: colors.blueFont,
-                      cursor: 'no-drop',
-                    }
-                  : {
-                      ':hover': {
-                        opacity: 0.8,
-                        transform: 'scale(1.1)',
-                      },
-                    },
-              ]}
-              disabled={sortedBy === 'alphabet'}
+              css={[btn, sortedBy === 'alphabet' ? btnHasFocus : null]}
               onClick={() => {
-                dispatch({type: 'alphabet', payload: projectsData})
+                if (sortedBy === 'alphabet') {
+                  dispatch({type: 'reset_sort', payload: projectsData})
+                } else {
+                  dispatch({
+                    type: 'alphabet',
+                    payload: projects?.sort(function (a, b) {
+                      return a.name.localeCompare(b.name)
+                    }),
+                  })
+                }
               }}
             >
               Name
@@ -160,23 +164,20 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
             <button
               type="button"
               data-testid="sort_by_date"
-              css={[
-                btn,
-                sortedBy === 'date'
-                  ? {
-                      background: colors.blueFont,
-                      cursor: 'no-drop',
-                    }
-                  : {
-                      ':hover': {
-                        opacity: 0.8,
-                        transform: 'scale(1.1)',
-                      },
-                    },
-              ]}
-              disabled={sortedBy === 'date'}
+              css={[btn, sortedBy === 'date' ? btnHasFocus : null]}
               onClick={() => {
-                dispatch({type: 'date', payload: projectsData})
+                if (sortedBy === 'date') {
+                  dispatch({type: 'reset_sort', payload: projectsData})
+                } else {
+                  dispatch({
+                    type: 'date',
+                    payload: projects?.sort(function (a, b) {
+                      let x = new Date(a.date) as any,
+                        y = new Date(b.date) as any
+                      return x - y
+                    }),
+                  })
+                }
               }}
             >
               Oldest
@@ -184,23 +185,22 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
             <button
               type="button"
               data-testid="sort_by_date_reverse"
-              css={[
-                btn,
-                sortedBy === 'reverse_date'
-                  ? {
-                      background: colors.blueFont,
-                      cursor: 'no-drop',
-                    }
-                  : {
-                      ':hover': {
-                        opacity: 0.8,
-                        transform: 'scale(1.1)',
-                      },
-                    },
-              ]}
-              disabled={sortedBy === 'reverse_date'}
+              css={[btn, sortedBy === 'reverse_date' ? btnHasFocus : null]}
               onClick={() => {
-                dispatch({type: 'reverse_date', payload: projectsData})
+                if (sortedBy === 'reverse_date') {
+                  dispatch({type: 'reset_sort', payload: projectsData})
+                } else {
+                  dispatch({
+                    type: 'reverse_date',
+                    payload: projects
+                      ?.sort(function (a, b) {
+                        let x = new Date(a.date) as any,
+                          y = new Date(b.date) as any
+                        return x - y
+                      })
+                      .reverse(),
+                  })
+                }
               }}
             >
               Latest

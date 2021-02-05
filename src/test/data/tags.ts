@@ -1,6 +1,7 @@
 import type {Tag} from '../../components/Tags/tagsTypes'
+import { tagsMockData } from './tags-data'
 
-let tags: Array<Tag> = []
+let tags: Array<Tag> = tagsMockData
 
 async function create(tag: Tag) {
   tags.push(tag)
@@ -18,4 +19,4 @@ async function remove(tag: Tag) {
   delete tags[i]
 }
 
-export {create, update, remove}
+export {create, update, remove, tags}

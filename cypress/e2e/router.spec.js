@@ -12,12 +12,7 @@ describe('Router check', () => {
   })
   it(
     'Router Test',
-    {
-      env: {
-        email: 'nemoahmed@hotmail.co.uk',
-        password: '123456',
-      },
-    },
+
     () => {
       cy.clearLocalStorage().should(ls => {
         expect(ls.getItem('__portfolio_user__')).to.be.null
@@ -29,7 +24,7 @@ describe('Router check', () => {
       cy.contains('Ahmed ElDessouki').should('exist')
       cy.contains(/projects/i).should('exist')
       cy.get('a')
-        .contains(/2019 Ahmed ElDessouki/i)
+        .contains(/2021 Ahmed ElDessouki/i)
         .click()
 
       cy.contains(/sign-in/i).should('exist')
