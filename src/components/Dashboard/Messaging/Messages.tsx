@@ -9,12 +9,15 @@ import {h1XL} from '../../Styles'
 import OnToggle from '../../Utils/OnToggle'
 import {ErrorMessageFallback} from '../../Utils/util'
 
+import type {Message, Project} from '../../Utils/interfaces'
 import MessageView from './MessageView'
 import MessagesSummary from './MessageCard'
-import type {Message} from '../../Utils/interfaces'
 
 function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
-  const [displayMessage, setDisplayMessage] = React.useState<Message | any>()
+  const [displayMessage, setDisplayMessage] = React.useState<
+    Message | undefined | Project
+  >()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectedRef = React.useRef<any>()
   const moveFocus = () => selectedRef.current?.moveFocus()
 
@@ -42,11 +45,11 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
           setDisplayData={setDisplayMessage}
           ref={selectedRef}
         >
-          <MessageView message={displayMessage} />
+          <MessageView message={displayMessage as Message} />
         </OnToggle>
       ) : (
         <div css={mWrapper}>
-          {messagesData?.map(message => {
+          {messagesData.map(message => {
             return (
               <MessagesSummary
                 key={message.id}

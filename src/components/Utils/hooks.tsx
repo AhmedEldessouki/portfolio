@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react'
 
 import type {Status} from './interfaces'
@@ -13,6 +14,7 @@ function useSafeDispatch<T, S>(dispatch: React.Dispatch<IAction<T, S>>) {
   }, [])
 
   return React.useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (action: IAction<T, S>): React.Dispatch<IAction<T, S>> | void =>
       mounted.current ? dispatch(action) : undefined,
     [dispatch],

@@ -1,24 +1,24 @@
 import type {Project} from '../../components/Utils/interfaces'
 import {projectsData} from './projects-data'
 
-let projects: Array<Project> = [...projectsData]
+const projects: Array<Project> = [...projectsData]
 
-async function create(project: Project) {
+function create(project: Project) {
   projects.push(project)
   return project
 }
 
-async function update(project: Project) {
+function update(project: Project) {
   const i = projects.findIndex(proj => proj.id === project.id)
   projects.splice(i, 1, project)
   return project
 }
 
-async function remove(projectId: Pick<Project, 'id'>) {
+function remove(projectId: Pick<Project, 'id'>) {
   const i = projects.findIndex(project => project.id === projectId)
-  delete projects[i]
+  projects.splice(i, 1)
 }
-async function read(projectId: Pick<Project, 'id'>) {
+function read(projectId: Pick<Project, 'id'>) {
   return projects.find(project => project.id === projectId)
 }
 export {create, update, remove, projects, read}

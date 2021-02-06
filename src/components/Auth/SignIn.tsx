@@ -2,6 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import React from 'react'
 
 import {formWrapper, h1XL, btnStyle, warning} from '../Styles'
 import {useAuth} from '../../context/AuthProvider'
@@ -21,13 +22,13 @@ const SignIn = () => {
   async function submitUserCredentials(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
-    const {email, password} = e.target as typeof e.target & {
-      email: {value: string}
-      password: {value: string}
+    const {signin_email, signin_password} = e.target as typeof e.target & {
+      signin_email: {value: string}
+      signin_password: {value: string}
     }
     const credentials = {
-      email: email.value,
-      password: password.value,
+      email: signin_email.value,
+      password: signin_password.value,
     }
 
     await checkUserCredentials(credentials)
@@ -48,21 +49,19 @@ const SignIn = () => {
         <form onSubmit={submitUserCredentials} css={[formWrapper, {gap: 6}]}>
           <div css={{width: '89%'}}>
             <Input
-              name="email"
-              placeholder="Email"
-              autoComplete="email"
+              name="signin_email"
+              placeholder="Enter email"
               type="email"
               required
               cleanColor={status === 'resolved'}
             />
             <Input
               type="password"
-              name="password"
-              autoComplete="password"
+              name="signin_password"
               minLength={6}
               maxLength={20}
               required
-              placeholder="Password"
+              placeholder="Enter password"
               cleanColor={status === 'resolved'}
             />
           </div>

@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
@@ -21,6 +22,8 @@ import {
   textArea,
   warning,
 } from '../Styles'
+import {deepEqual} from '../Utils/helpers'
+import {createNewProject, updateProject} from '../Utils/apis'
 import {uploadImage, projectFormReducer} from './helpers/functions'
 import {
   ImageDropZone,
@@ -29,8 +32,6 @@ import {
   ProjInput,
   TagsCheckBox,
 } from './helpers/components'
-import {deepEqual} from '../Utils/helpers'
-import {createNewProject, updateProject} from '../Utils/apis'
 
 function CreateProjectX() {
   const {selectedProject, setProject} = useAuth()
@@ -43,10 +44,10 @@ function CreateProjectX() {
       repoLink: selectedProject?.repoLink ?? '',
       projectType: selectedProject?.projectType ?? 'Personal',
       projectLogo: selectedProject ? [...selectedProject.projectLogo] : [],
-      tag: selectedProject ? selectedProject.tag ?? [] : [],
+      tag: selectedProject?.tag ?? [],
       description: selectedProject?.description ?? '',
     },
-    error: null,
+    error: undefined,
     acceptedImages: [],
     rejectedImages: [],
   })
@@ -105,20 +106,21 @@ function CreateProjectX() {
 
   const gradualUpload = React.useCallback(
     async (imagesArray: Array<{preview: string & File}>, name: string) =>
-      await Promise.allSettled(
+      Promise.allSettled(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         imagesArray.map(async (file: any) => {
           dispatch({type: 'next'})
-          return await uploadImage(file, name)
+          return uploadImage(file, name)
         }),
       )
         .then(results =>
-          results.forEach((result: any) => {
+          results.forEach((result: PromiseSettledResult<string>) => {
             if (result.status === 'fulfilled') {
               toast.success('Images Uploaded')
               dispatch({type: 'next_add', payload: result.value})
               return result.value
             }
-            return result.value
+            return result.reason
           }),
         )
         .then(() => {
@@ -135,6 +137,7 @@ function CreateProjectX() {
       await gradualUpload(uploadImagesArr, name)
       return dispatch({type: 'images_uploaded'})
     }
+    return undefined
   }
 
   const {
@@ -227,7 +230,7 @@ function CreateProjectX() {
               placeContent:
                 acceptedImages.length ||
                 rejectedImages.length ||
-                (selectedProject && selectedProject?.projectLogo.length >= 0)
+                (selectedProject && selectedProject.projectLogo.length >= 0)
                   ? 'space-around'
                   : 'center',
               flexWrap: 'wrap-reverse',
@@ -324,7 +327,7 @@ function CreateProjectX() {
                 <option value="Contribution">Contribution</option>
               </select>
               <TagsCheckBox
-                handleClick={(e: any) => {
+                handleClick={(e: React.ChangeEvent<HTMLInputElement>) => {
                   if (e.target.checked) {
                     dispatch({
                       type: 'add_tag',
@@ -363,7 +366,7 @@ function CreateProjectX() {
               </label>
               <ButtonWithSpinner
                 isPending={status !== 'idle'}
-                isProject={selectedProject ? true : false}
+                isProject={!!selectedProject}
               />
             </form>
           </ErrorBoundary>

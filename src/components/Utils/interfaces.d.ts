@@ -16,7 +16,8 @@ interface Project {
   id?: string
   projectType: `Personal` | `Contribution`
   // Data is any because firebase uses linux timestamp
-  date: Date | any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  date: Date | any 
 }
 
 interface Message {
@@ -25,6 +26,7 @@ interface Message {
   phoneNumber: string
   description: string
   // Data is any because firebase uses linux timestamp
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   date?: any
   id?: string
 }

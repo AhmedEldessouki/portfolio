@@ -17,15 +17,15 @@
  * @type {Cypress.PluginConfig}
  */
 
-const task: Cypress.PluginConfig =(on, config) => {
+const task: Cypress.PluginConfig = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('task', {
-    log(message: any) {
+    log(message: string) {
       console.log(message)
       return null
     },
-    table(message: any) {
+    table(message: Record<string, unknown>) {
       console.table(message)
       return null
     },

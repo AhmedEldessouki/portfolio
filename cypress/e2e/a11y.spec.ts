@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable no-unused-expressions */
 /// <reference types="cypress" />
 
 import {a11yRunOnly, terminalLog} from 'utils/utils'
@@ -12,17 +10,15 @@ describe('A11y check', () => {
   beforeEach(() => {
     cy.visit('/signin')
     cy.get('form').within(() => {
-      cy.get('#email')
+      cy.findByPlaceholderText(/email/i)
         .type(`${Cypress.env('email')}`)
         .should('have.value', `${Cypress.env('email')}`)
-      cy.get('#password')
+      cy.findByPlaceholderText(/password/i)
         .type(`${Cypress.env('password')}`)
         .should('have.value', `${Cypress.env('password')}`)
-      cy.wait(3000)
       cy.get('button').click()
     })
     cy.findByText(/Github/i).should('exist')
-
   })
 
   it('HomePage', () => {
@@ -50,7 +46,7 @@ describe('A11y check', () => {
   })
   it('Tags', () => {
     cy.visit('/tags')
-    
+
     cy.findByText(/Create tag/i).should('exist')
     cy.findByText(/Tags Control/i).should('exist')
     cy.injectAxe()
@@ -60,7 +56,6 @@ describe('A11y check', () => {
   it('Signup', () => {
     cy.visit('/signup')
 
-    
     cy.findByText(/sign up/i).should('exist')
     cy.injectAxe()
     cy.checkA11y(undefined, a11yRunOnly, terminalLog)
@@ -75,7 +70,7 @@ describe('A11y check', () => {
   it('404', () => {
     cy.visit('/404')
 
-    cy.get('a').findByText(/home/i)
+    cy.findByText(/home/i).should('exist')
 
     cy.injectAxe()
     cy.checkA11y(undefined, a11yRunOnly, terminalLog)
@@ -86,13 +81,12 @@ it('Sign In Page', () => {
   cy.injectAxe()
   cy.checkA11y(undefined, a11yRunOnly, terminalLog)
   cy.get('form').within(() => {
-    cy.get('#email')
+    cy.findByPlaceholderText(/email/i)
       .type(`${Cypress.env('email')}`)
       .should('have.value', `${Cypress.env('email')}`)
-    cy.get('#password')
+    cy.findByPlaceholderText(/password/i)
       .type(`${Cypress.env('password')}`)
       .should('have.value', `${Cypress.env('password')}`)
-    cy.wait(3000)
     cy.get('button').click()
   })
 })

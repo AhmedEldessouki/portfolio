@@ -30,7 +30,7 @@ const UnAuthNavlinks = () => {
     }
   `
   return (
-    <div css={container}>
+    <div css={container} role="navigation">
       <NavLink to="/" style={{textDecoration: 'none'}}>
         <h1 css={h1a}>Ahmed Eldessouki</h1>
       </NavLink>

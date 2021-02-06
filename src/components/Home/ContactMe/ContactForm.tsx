@@ -116,6 +116,7 @@ function ContactForm() {
               required
               minLength={3}
               maxLength={30}
+              autoComplete="name"
               inputMode="text"
               cleanColor={status === 'pending'}
             />

@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import React from 'react'
-import {Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify'
+
+import type {User as UserType} from '@firebase/auth-types/index'
 
 import {auth, db, firebase} from '../components/Utils/firebase'
 import {useLocalStorageState} from '../components/Utils/hooks'
 
-import {User} from '@firebase/auth-types/index'
 import type {NewUser, Project} from '../components/Utils/interfaces'
 
 interface Context {
@@ -14,34 +15,35 @@ interface Context {
     checkUserCredentials: (arg0: {
       email: string
       password: string
-    }) => Promise<User>,
+    }) => Promise<UserType>,
   ]
 
   signUserOut: () => void
   user: Pick<
-    User,
+    UserType,
     'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
   > | null
   setUser: React.Dispatch<
     React.SetStateAction<Pick<
-      User,
+      UserType,
       'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
     > | null>
   >
   useCreateNewUser: () => [
     newUserCreationFailed: string,
-    createNewUser: (newUser: NewUser) => Promise<User>,
+    createNewUser: (newUser: NewUser) => Promise<NewUser>,
   ]
   selectedProject: Project | undefined
   setProject: React.Dispatch<React.SetStateAction<Project | undefined>>
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AuthContext = React.createContext<any>({})
 AuthContext.displayName = 'AuthContext'
 
 function AuthProvider({children}: {children: React.ReactNode}) {
   const [user, setUser] = useLocalStorageState<Pick<
-    User,
+    UserType,
     'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
   > | null>('__portfolio_user__', null)
 
@@ -50,13 +52,13 @@ function AuthProvider({children}: {children: React.ReactNode}) {
   React.useEffect(() => {
     if (!auth?.currentUser) return
     function verifyCurrentUserCredentials(
-      user: Pick<
-        User,
+      userArg: Pick<
+        UserType,
         'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
       > | null,
     ) {
       firebase.auth().onAuthStateChanged(currentUser => {
-        if (currentUser && currentUser.uid !== user?.uid) {
+        if (currentUser && currentUser.uid !== userArg?.uid) {
           setUser(currentUser)
         }
       })
@@ -74,16 +76,13 @@ function AuthProvider({children}: {children: React.ReactNode}) {
       await auth
         .signInWithEmailAndPassword(credentials.email, credentials.password)
         .then(
-          async res => {
+          res => {
             setUser(res.user)
             toast.success(`LogIn Successful`)
-            new Redirect({to: '/'})
-            return
           },
           err => {
             toast.error(`SignIn Failed "${err.message}"`)
             setVerificationFailed(err.message)
-            return
           },
         )
     }
@@ -93,7 +92,6 @@ function AuthProvider({children}: {children: React.ReactNode}) {
     if (auth?.currentUser) auth.signOut()
     setUser(null)
     toast.success(`See You Soon`)
-    new Redirect({to: '/'})
   }
 
   function useCreateNewUser() {
@@ -114,7 +112,6 @@ function AuthProvider({children}: {children: React.ReactNode}) {
               })
             setUser(resp.user)
             toast.success(`Welcome "${newUser.email}" to The Club`)
-            new Redirect({to: '/'})
           },
           err => {
             setNewUserCreationFailed(err.message)
@@ -149,6 +146,7 @@ function useAuth() {
   } = React.useContext<Context>(AuthContext)
 
   if (
+    // eslint-disable-next-line no-constant-condition
     !{
       useVerifyUserSignInCredentials,
       signUserOut,

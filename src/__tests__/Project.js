@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { screen } from '@testing-library/react'
+import {screen} from '@testing-library/react'
 
-import { render, userEvent } from '../test/app-test-utils'
-import { projects } from '../test/data/projects'
+import {render, userEvent} from '../test/app-test-utils'
+import {projects} from '../test/data/projects'
 import Projects from '../components/Projects/Projects'
 
 beforeAll(() => {
   jest.mock('react-query', () => ({
-    useQuery: () => ({ isLoading: false, error: {}, data: [] }),
+    useQuery: () => ({isLoading: false, error: {}, data: []}),
   }))
 })
 
@@ -108,9 +108,9 @@ test('Projects Sorting Integration', async () => {
   userEvent.click(screen.getByTestId('sort_by_date'))
   expect(screen.getByTestId('sort_by_date')).toBeEnabled()
 
-  const sortedByDate = projects.sort(function (a, b) {
-    let x = new Date(a.date),
-      y = new Date(b.date)
+  const sortedByDate = projects.sort((a, b) => {
+    const x = new Date(a.date)
+    const y = new Date(b.date)
     return x - y
   })
   sortedByDate.map((project, i) =>

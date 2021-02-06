@@ -22,12 +22,13 @@ const OnToggle = React.forwardRef(function OnToggle(
   {items, setDisplayData, children, displayedData}: OnToggleProps,
   ref,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const containerRef = React.useRef<any>()
   const [touchStart, setTouchStart] = React.useState<
-    React.TouchEvent | React.MouseEvent | any
+    React.TouchEvent | React.MouseEvent | undefined | number | React.TouchList
   >()
   const [touchEnd, setTouchEnd] = React.useState<
-    React.TouchEvent | React.MouseEvent | any
+    React.TouchEvent | React.MouseEvent | undefined | number | React.TouchList
   >()
 
   function moveFocus() {
@@ -159,18 +160,23 @@ const OnToggle = React.forwardRef(function OnToggle(
           }}
           onTouchEnd={e => {
             setTouchEnd(e.changedTouches)
-            if (touchEnd.length > 0 && touchStart.length > 0) {
-              if (e.changedTouches[0].screenY - touchStart[0].screenY < 3) {
-                handleTouch(e.changedTouches[0].screenX, touchStart[0].screenX)
+            if (Array.isArray(touchStart) && Array.isArray(touchEnd)) {
+              if (touchEnd.length > 0 && touchStart.length > 0) {
+                if (e.changedTouches[0].screenY - touchStart[0].screenY < 3) {
+                  handleTouch(
+                    e.changedTouches[0].screenX,
+                    touchStart[0].screenX,
+                  )
+                }
               }
             }
           }}
         >
-          {items?.map((item, i) => {
+          {items.map((item, i) => {
             if (i >= show.min && i <= show.max) {
               return (
                 <Title
-                  key={`${item}-${i * 2}`}
+                  key={`${item.name}-${i * 2}`}
                   name={item.name}
                   aria-pressed="true"
                   csx={css`

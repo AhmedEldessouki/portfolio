@@ -1,5 +1,5 @@
-import {renderHook, act} from '@testing-library/react-hooks'
-import {useAsync} from '../hooks'
+import { renderHook, act } from '@testing-library/react-hooks'
+import { useAsync } from '../hooks'
 
 const defaultState = {
   status: 'idle',
@@ -34,8 +34,8 @@ const rejectedState = {
 }
 
 test('can specify an initial state as resolved', () => {
-  const customInitialState = {status: 'resolved'}
-  const {result} = renderHook(() => useAsync(customInitialState))
+  const customInitialState = { status: 'resolved' }
+  const { result } = renderHook(() => useAsync(customInitialState))
   expect(result.current).toEqual({
     ...resolvedState,
     ...customInitialState,
@@ -43,8 +43,8 @@ test('can specify an initial state as resolved', () => {
 })
 
 test('can specify an initial state as pending', () => {
-  const customInitialState = {status: 'pending'}
-  const {result} = renderHook(() => useAsync(customInitialState))
+  const customInitialState = { status: 'pending' }
+  const { result } = renderHook(() => useAsync(customInitialState))
   expect(result.current).toEqual({
     ...pendingState,
     ...customInitialState,
@@ -52,29 +52,29 @@ test('can specify an initial state as pending', () => {
 })
 
 test('can specify an initial state as rejected', () => {
-  const customInitialState = {status: 'rejected'}
-  const {result} = renderHook(() => useAsync(customInitialState))
+  const customInitialState = { status: 'rejected' }
+  const { result } = renderHook(() => useAsync(customInitialState))
   expect(result.current).toEqual({
     ...rejectedState,
     ...customInitialState,
   })
 })
 
-test('No state updates happen if the component is unmounted while pending', async () => {
-  const {result, unmount} = renderHook(() => useAsync())
+test('No state updates happen if the component is unmounted while pending', () => {
+  const { result, unmount } = renderHook(() => useAsync())
   act(() => {
-    result.current.dispatch({type: 'pending'})
+    result.current.dispatch({ type: 'pending' })
   })
   unmount()
   act(() => {
-    result.current.dispatch({type: 'resolved'})
+    result.current.dispatch({ type: 'resolved' })
   })
 })
 
 test('can dispatch', () => {
-  const {result} = renderHook(() => useAsync())
+  const { result } = renderHook(() => useAsync())
   act(() => {
-    result.current.dispatch({type: 'resolved'})
+    result.current.dispatch({ type: 'resolved' })
   })
   expect(result.current).toEqual({
     ...resolvedState,

@@ -43,7 +43,7 @@ function Input({
         onBlur={e => {
           const {valid} = e.target.validity
           valid ? setState(colors.lightGreen) : setState(colors.burgundyRed)
-          handleBlur && handleBlur(e)
+          handleBlur?.(e)
         }}
         {...inputOverrides}
       />

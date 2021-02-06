@@ -1,15 +1,16 @@
+/* eslint-disable import/no-unresolved */
 import * as React from 'react'
-import {screen} from '@testing-library/react'
+import { screen } from '@testing-library/react'
 
 import ContactForm from '../components/Home/ContactMe/ContactForm'
-import {render, userEvent} from '../test/app-test-utils'
-import {buildMessage} from '../test/generate'
-import {colors} from '../components/Styles'
+import { render, userEvent } from '../test/app-test-utils'
+import { buildMessage } from '../test/generate'
+import { colors } from '../components/Styles'
 
 const message = buildMessage()
 
 test('Should fill out Contact Form', async () => {
-  await render(<ContactForm />, {user: null, doWait: false})
+  await render(<ContactForm />, { user: null, doWait: false })
 
   userEvent.type(screen.getByLabelText(/name/i), message.name)
 
@@ -25,14 +26,14 @@ test('Should fill out Contact Form', async () => {
     message.description,
   )
 
-  expect(screen.getByRole('button', {name: /submit/i})).toHaveAttribute(
+  expect(screen.getByRole('button', { name: /submit/i })).toHaveAttribute(
     'type',
     'submit',
   )
 })
 
 test('PhoneNumber Field Should [fail]', async () => {
-  await render(<ContactForm />, {user: null, doWait: false})
+  await render(<ContactForm />, { user: null, doWait: false })
 
   userEvent.type(screen.getByLabelText(/phoneNumber/i), message.phoneNumber)
 
@@ -48,7 +49,7 @@ test('PhoneNumber Field Should [fail]', async () => {
   )
 
   expect(screen.getByLabelText(/phoneNumber/i)).toHaveDisplayValue(
-    message.phoneNumber + 'sad',
+    `${message.phoneNumber}sad`,
   )
 
   expect(screen.getByLabelText(/phoneNumber/i))
@@ -56,8 +57,8 @@ test('PhoneNumber Field Should [fail]', async () => {
       `)
 })
 
-test('PhoneNumber Field should [succeed] ', async () => {
-  await render(<ContactForm />, {user: null, doWait: false})
+test('PhoneNumber Field should [succeed]', async () => {
+  await render(<ContactForm />, { user: null, doWait: false })
 
   userEvent.type(screen.getByLabelText(/phoneNumber/i), message.phoneNumber)
 
@@ -75,7 +76,7 @@ test('PhoneNumber Field should [succeed] ', async () => {
 })
 
 test('PhoneNumber Field Should [Fail] and then [Succeed]', async () => {
-  await render(<ContactForm />, {user: null, doWait: false})
+  await render(<ContactForm />, { user: null, doWait: false })
 
   userEvent.type(screen.getByLabelText(/phoneNumber/i), message.phoneNumber)
 
@@ -91,7 +92,7 @@ test('PhoneNumber Field Should [Fail] and then [Succeed]', async () => {
   )
 
   expect(screen.getByLabelText(/phoneNumber/i)).toHaveDisplayValue(
-    message.phoneNumber + 'sad',
+    `${message.phoneNumber}sad`,
   )
 
   expect(screen.getByLabelText(/phoneNumber/i))

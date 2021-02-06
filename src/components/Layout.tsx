@@ -22,7 +22,9 @@ function LayoutX({children, height = '82vh'}: LayoutXProps) {
     <>
       {user ? <AuthNavlinks /> : <UnAuthNavlinks />}
       <Global styles={globalStyles} />
-      <div style={{minHeight: height}}>{children}</div>
+      <div style={{minHeight: height}} role="main">
+        {children}
+      </div>
       <React.Suspense fallback={<h1>Loading Footer...</h1>}>
         <MyFooter />
       </React.Suspense>

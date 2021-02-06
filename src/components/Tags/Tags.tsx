@@ -7,10 +7,10 @@ import React from 'react'
 import {h1XL, h2XL} from '../Styles'
 import PopUp from '../Utils/PopUp/PopUp'
 import {useAsync} from '../Utils/hooks'
+import {createNewTag, deleteTag} from '../Utils/apis'
 import TagForm from './TagForm'
 
 import type {Tag} from './tagsTypes'
-import {createNewTag, deleteTag} from '../Utils/apis'
 
 function Tags({TagsData}: {TagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()

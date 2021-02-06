@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useQuery} from 'react-query'
-import {db} from './firebase'
 import {toast} from 'react-toastify'
 
 import type {Tag} from '../Tags/tagsTypes'
+import {db} from './firebase'
 import type {ErrorType, Message, Project, CollectionTypes} from './interfaces'
 
 const placeholderData = [
@@ -29,15 +29,15 @@ const useClientFetch = (
   const {data} = useQuery(
     collection,
     async () =>
-      await db
+      db
         .collection(collection)
         .get()
         .then(
           querySnapshot => {
-            const data = querySnapshot.docs.map(doc => {
+            const dataRes = querySnapshot.docs.map(doc => {
               return {...doc.data(), id: doc.id}
             })
-            return data
+            return dataRes
           },
           err => Promise.reject(err),
         )
@@ -55,7 +55,7 @@ const useClientFetch = (
 
 function handleUpdate<T>(collection: CollectionTypes) {
   return async (data: T | any): Promise<void> =>
-    await db
+    db
       .collection(collection)
       .doc(`${data.id}`)
       .update({
@@ -73,7 +73,7 @@ function handleUpdate<T>(collection: CollectionTypes) {
 
 function handleDelete<T>(collection: CollectionTypes) {
   return async (data: T | any): Promise<void> =>
-    await db
+    db
       .collection(collection)
       .doc(`${data.id}`)
       .delete()
@@ -90,8 +90,8 @@ function handleCreate<T>(collection: CollectionTypes) {
   return async (
     data: T | any,
   ): Promise<{isResolved: boolean; error: ErrorType}> => {
-    let isResolved: boolean = false
-    let error: ErrorType = undefined
+    let isResolved = false
+    let error: ErrorType
     await db
       .collection(collection)
       .add({
@@ -104,8 +104,7 @@ function handleCreate<T>(collection: CollectionTypes) {
       })
       .catch(err => {
         toast.error(`Project Creation Failed ${err.message}`)
-        error = err.message
-        Promise.reject(err)
+        error = err as ErrorType
       })
     return {isResolved, error}
   }
@@ -118,7 +117,6 @@ const deleteProject = handleDelete<Partial<Project>>('projects')
 const createNewMessage = handleCreate<Omit<Message, 'date' | 'id'>>(
   'contactedMe',
 )
-const updateMessage = handleUpdate<Partial<Message>>('contactedMe')
 const deleteMessage = handleDelete<Partial<Message>>('contactedMe')
 
 const createNewTag = handleCreate<Omit<Tag, 'date' | 'id'>>('tags')
@@ -131,7 +129,6 @@ export {
   updateProject,
   deleteProject,
   createNewMessage,
-  updateMessage,
   deleteMessage,
   createNewTag,
   updateTag,

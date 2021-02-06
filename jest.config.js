@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const resolve = require('resolve')
 
@@ -35,9 +36,5 @@ module.exports = {
     '!<rootDir>/node_modules/**/*',
     '!<rootDir>/src/test/**/*',
     '!<rootDir>/src/setupTests*',
-  ],
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
   ],
 }

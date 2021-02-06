@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
@@ -18,6 +20,7 @@ function Img({
   ...imgOverride
 }: ImgProps & React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
+    // TODO Add fullscreen button
     <img
       alt={imgAlt}
       onClick={() => {
@@ -131,12 +134,10 @@ function Carousel({
 
   const displayPrevious = React.useCallback(() => {
     if (currentImage !== 0) setCurrentImage(currentImage - 1)
-    return
   }, [currentImage])
 
   const displayNext = React.useCallback(() => {
     if (currentImage !== imgArray.length - 1) setCurrentImage(currentImage + 1)
-    return
   }, [currentImage, imgArray.length])
 
   const handleTouch = React.useCallback(
@@ -165,6 +166,7 @@ function Carousel({
       `}
     >
       <div
+        aria-label="Swipe to view different images"
         css={cWrapper}
         onMouseDown={e => {
           e.preventDefault()

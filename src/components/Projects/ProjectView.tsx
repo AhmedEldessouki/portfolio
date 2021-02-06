@@ -13,22 +13,22 @@ import type {Project} from '../Utils/interfaces'
 
 function ProjectView({project}: {project: Project | undefined}) {
   const [description, setDescription] = React.useState(
-    project?.description || '',
+    project?.description ?? '',
   )
   const [heightT, setHeightT] = React.useState('3')
   const date = new Date(project?.date || '')
 
   React.useEffect(() => {
     const textField = document.getElementById('textArea')
-    if (description !== project?.description || '') {
-      setDescription(project?.description || '')
+    if (description !== project?.description) {
+      setDescription(project?.description ?? '')
     }
 
     if (textField) {
       if (textField.clientHeight < textField.scrollHeight) {
-        setHeightT(textField.scrollHeight + 'px')
+        setHeightT(`${textField.scrollHeight}px`)
       } else if (textField.clientHeight > textField.scrollHeight) {
-        setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
+        setHeightT(`${textField.scrollHeight * 2 - textField.clientHeight}px`)
       }
     }
   }, [description, project?.description])
@@ -45,7 +45,7 @@ function ProjectView({project}: {project: Project | undefined}) {
   if (!project) {
     return <Spinner />
   }
-  return project ? (
+  return (
     <React.Fragment>
       {project.projectLogo.length !== 0 ? (
         <Carousel imgArray={project.projectLogo} imgAlt={project.name} />
@@ -104,7 +104,7 @@ function ProjectView({project}: {project: Project | undefined}) {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={project.repoLink ?? ''}
+            href={project.repoLink}
             css={[
               anc,
               project.repoLink
@@ -142,11 +142,9 @@ function ProjectView({project}: {project: Project | undefined}) {
           `}
           value={description}
         />
-        <span>Added On: {date.toDateString() ?? ''}</span>
+        <span>Added On: {date.toDateString() || ''}</span>
       </div>
     </React.Fragment>
-  ) : (
-    <Spinner />
   )
 }
 

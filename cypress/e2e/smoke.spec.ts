@@ -1,4 +1,3 @@
-// @ts-ignore: Unreachable code error
 /// <reference types="cypress" />
 
 describe('my portfolio', () => {

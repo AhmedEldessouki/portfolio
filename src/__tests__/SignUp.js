@@ -1,6 +1,6 @@
 import * as React from 'react'
-import App from '../App'
 import faker from 'faker'
+import App from '../App'
 import {
   userEvent,
   loginAsUser,

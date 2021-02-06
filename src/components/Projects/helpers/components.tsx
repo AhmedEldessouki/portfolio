@@ -4,13 +4,13 @@
 import {jsx, css} from '@emotion/react'
 import * as React from 'react'
 
+import type {DropzoneInputProps, DropzoneRootProps} from 'react-dropzone'
 import {btnStyle, colors, h1XL, mq, textArea} from '../../Styles'
 import Input from '../../Utils/Input'
 import PopUp from '../../Utils/PopUp/PopUp'
 import {useClientFetch} from '../../Utils/apis'
 
 import type {Tag} from '../../Tags/tagsTypes'
-import type {DropzoneInputProps, DropzoneRootProps} from 'react-dropzone'
 import {Spinner} from '../../Utils/util'
 
 function ImageDropZone({
@@ -147,11 +147,11 @@ function DisplayingImages({
         margin-bottom: 50px;
       `}
     >
-      {acceptedImages?.length > 0 && (
+      {acceptedImages.length > 0 && (
         <article css={[xyz]}>
           <h2 css={[hStyle, {background: '#11826B'}]}>Accepted Images</h2>
           <section css={imgWrap}>
-            {acceptedImages?.map(({preview}, i) => (
+            {acceptedImages.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
                   info="Image"
@@ -163,13 +163,13 @@ function DisplayingImages({
           </section>
         </article>
       )}
-      {rejectedImages?.length > 0 && (
+      {rejectedImages.length > 0 && (
         <article css={[xyz]}>
           <h2 css={[hStyle, {background: colors.burgundyRed}]}>
             Rejected Images
           </h2>
           <section css={imgWrap}>
-            {rejectedImages?.map(({preview}, i) => (
+            {rejectedImages.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
                   info="Image"
@@ -181,7 +181,7 @@ function DisplayingImages({
           </section>
         </article>
       )}
-      {oldImages && oldImages.length > 0 && (
+      {oldImages.length > 0 && (
         <article css={xyz}>
           <h2 css={hStyle}>current Images</h2>
           <section css={imgWrap}>
@@ -213,7 +213,7 @@ function TagsCheckBox({
   projectTags,
   ...inputProps
 }: {
-  handleClick: (e: React.ChangeEvent) => void
+  handleClick: (e: React.ChangeEvent<HTMLInputElement>) => void
   projectTags: Array<string>
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   const TagsData = useClientFetch('tags') as Array<Tag>
@@ -256,9 +256,7 @@ function TagsCheckBox({
                 handleClick(e)
               }}
               checked={
-                projectTags?.find(item => item.trim() === tag.url.trim())
-                  ? true
-                  : false
+                !!projectTags.find(item => item.trim() === tag.url.trim())
               }
               {...inputProps}
             />

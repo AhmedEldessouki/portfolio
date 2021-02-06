@@ -28,7 +28,8 @@ describe('onToggle desktop', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow
+            .left,
         ).not.to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -37,7 +38,8 @@ describe('onToggle desktop', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow
+            .left,
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -101,7 +103,8 @@ describe('onToggle phoneLarge', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow
+            .left,
         ).not.to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -110,7 +113,8 @@ describe('onToggle phoneLarge', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow
+            .left,
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -173,7 +177,8 @@ describe('onToggle ipad', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow
+            .left,
         ).not.to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
@@ -182,7 +187,8 @@ describe('onToggle ipad', () => {
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
-          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow.left,
+          Cypress.dom.getElementCoordinatesByPosition($el, '').fromElWindow
+            .left,
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()

@@ -29,10 +29,10 @@ test('Should fill out Sign-In Form', async () => {
   userEvent.click(screen.getByText('© 2021 Ahmed ElDessouki'))
 
   userEvent.type(screen.getByLabelText(/email/i), user.email)
-  userEvent.type(screen.getByLabelText('password'), user.password)
+  userEvent.type(screen.getByLabelText(/password/i), user.password)
 
-  expect(screen.getByLabelText('email')).toHaveDisplayValue(user.email)
-  expect(screen.getByLabelText('password')).toHaveDisplayValue(user.password)
+  expect(screen.getByLabelText(/email/i)).toHaveDisplayValue(user.email)
+  expect(screen.getByLabelText(/password/i)).toHaveDisplayValue(user.password)
 
   expect(screen.getByRole('button', {name: /submit/i})).toHaveAttribute(
     'type',

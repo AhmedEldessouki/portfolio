@@ -2,9 +2,8 @@ import * as React from 'react'
 
 import {useClientFetch} from '../Utils/apis'
 import Layout from '../Layout'
-import About from './About/About'
-
 import type {Project} from '../Utils/interfaces'
+import About from './About/About'
 
 const Projects = React.lazy(() => import('../Projects/Projects'))
 const ContactForm = React.lazy(() => import('./ContactMe/ContactForm'))

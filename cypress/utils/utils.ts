@@ -9,14 +9,12 @@ function terminalLog(violations: axe.Result[]) {
     } ${violations.length === 1 ? 'was' : 'were'} detected`,
   )
   // pluck specific keys to keep the table readable
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      nodes: nodes.length,
-    }),
-  )
+  const violationData = violations.map(({id, impact, description, nodes}) => ({
+    id,
+    impact,
+    description,
+    nodes: nodes.length,
+  }))
 
   cy.task('table', violationData)
 }
@@ -34,4 +32,4 @@ const a11yRunOnly: axe.RunOptions = {
     ],
   },
 }
-export { terminalLog, a11yRunOnly }
+export {terminalLog, a11yRunOnly}

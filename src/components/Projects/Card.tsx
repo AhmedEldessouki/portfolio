@@ -37,7 +37,7 @@ function EditAndDelete({
   onClick,
 }: {
   project: Project
-  onClick: () => any
+  onClick: () => void
 }) {
   return (
     <div
@@ -115,7 +115,7 @@ function Card({
   setState,
 }: {
   items: Array<Project>
-  setState: React.Dispatch<React.SetStateAction<Project | any>>
+  setState: React.Dispatch<React.SetStateAction<Project | unknown>>
 }) {
   const {user, setProject: setPorj} = useAuth()
 
@@ -148,7 +148,7 @@ function Card({
             {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}
-            <ProjectType projType={item.projectType ?? 'Personal'} />
+            <ProjectType projType={item.projectType} />
             <Title
               name={item.name}
               onClick={() => {
@@ -167,10 +167,9 @@ function Card({
                 padding-left: 0;
               `}
             >
-              {item.tag &&
-                item.tag.map((tag, i) => (
-                  <Tag key={`${tag}_${i}`} tagUrl={tag} width="30" />
-                ))}
+              {item.tag?.map((tag, index) => (
+                <Tag key={`${tag}_${index}`} tagUrl={tag} width="30" />
+              ))}
             </ul>
           </article>
         )

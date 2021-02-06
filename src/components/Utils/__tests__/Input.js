@@ -1,8 +1,8 @@
-import {render} from '@testing-library/react'
+import { render } from '@testing-library/react'
 import React from 'react'
-import {screen, userEvent} from '../../../test/app-test-utils'
+import { screen, userEvent } from '../../../test/app-test-utils'
 import Input from '../Input'
-import {colors} from '../../Styles'
+import { colors } from '../../Styles'
 
 test('should Input onChange', () => {
   const handleChange = jest.fn(e => e.target.value)
@@ -68,7 +68,6 @@ test('should Input onBlur success: accept only text', () => {
   expect(screen.getByTestId('name')).toHaveStyle(
     `border-color: ${colors.darkBlue}`,
   )
-
   userEvent.tab()
   userEvent.type(screen.getByTestId('name'), 'aasd')
   document.getElementById('name_XX').focus()

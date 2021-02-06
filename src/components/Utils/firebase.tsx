@@ -10,13 +10,13 @@ import {
 } from '../../config'
 
 const firebaseApp = {
-  apiKey: apiKey,
+  apiKey,
   authDomain: 'ahmedeldessouki-a7488.firebaseapp.com',
-  databaseURL: databaseURL,
+  databaseURL,
   projectId: 'ahmedeldessouki-a7488',
-  storageBucket: storageBucket,
-  storage: storage,
-  messagingSenderId: messagingSenderId,
+  storageBucket,
+  storage,
+  messagingSenderId,
 }
 
 if (!firebase.apps.length) {

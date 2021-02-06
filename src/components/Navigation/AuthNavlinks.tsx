@@ -65,7 +65,7 @@ const AuthNavlinksX = () => {
   `
 
   return (
-    <div css={nav}>
+    <div css={nav} role="navigation">
       <NavLink
         to="/"
         exact

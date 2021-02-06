@@ -4,8 +4,8 @@
 import {css, jsx} from '@emotion/react'
 import type {SerializedStyles} from '@emotion/react'
 
-import {colors, mq, spinner, warning, weights} from '../Styles'
 import type {FallbackProps} from 'react-error-boundary'
+import {colors, mq, spinner, warning, weights} from '../Styles'
 
 function ErrorMessageFallback({error, resetErrorBoundary}: FallbackProps) {
   return (
@@ -34,7 +34,7 @@ function Spinner() {
         margin-top: 38px;
       `}
     >
-      <div css={spinner} aria-busy="true" />
+      <div css={spinner} aria-label="loading" />
     </div>
   )
 }

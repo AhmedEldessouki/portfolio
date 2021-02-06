@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const usersKey = '__portfolio_user__'
 
 let users = {}
@@ -14,7 +15,7 @@ try {
   // ignore json parse error
 }
 
-function validateUserForm({username, password}) {
+function validateUserForm({ username, password }) {
   if (!username) {
     const error = new Error('A username is required')
     error.status = 400
@@ -27,20 +28,20 @@ function validateUserForm({username, password}) {
   }
 }
 
-async function authenticate({username, password}) {
-  validateUserForm({username, password})
+function authenticate({ username, password }) {
+  validateUserForm({ username, password })
   const id = hash(username)
   const user = users[id] || {}
   if (user.passwordHash === hash(password)) {
-    return {...sanitizeUser(user), token: btoa(user.id)}
+    return { ...sanitizeUser(user), token: btoa(user.id) }
   }
   const error = new Error('Invalid username or password')
   error.status = 400
   throw error
 }
 
-async function create({username, password}) {
-  validateUserForm({username, password})
+function create({ username, password }) {
+  validateUserForm({ username, password })
   const id = hash(username)
   const passwordHash = hash(password)
   if (users[id]) {
@@ -50,22 +51,22 @@ async function create({username, password}) {
     error.status = 400
     throw error
   }
-  users[id] = {id, username, passwordHash}
+  users[id] = { id, username, passwordHash }
   persist()
   return read(id)
 }
 
-async function read(id) {
+function read(id) {
   validateUser(id)
   return sanitizeUser(users[id])
 }
 
 function sanitizeUser(user) {
-  const {passwordHash, ...rest} = user
+  const { passwordHash, ...rest } = user
   return rest
 }
 
-async function update(id, updates) {
+function update(id, updates) {
   validateUser(id)
   Object.assign(users[id], updates)
   persist()
@@ -73,7 +74,7 @@ async function update(id, updates) {
 }
 
 // this would be called `delete` except that's a reserved word in JS :-(
-async function remove(id) {
+function remove(id) {
   validateUser(id)
   delete users[id]
   persist()
@@ -89,18 +90,18 @@ function validateUser(id) {
 }
 
 function hash(str) {
-  var hash = 5381,
-    i = str.length
+  let hashIt = 5381
+  let i = str.length
 
   while (i) {
-    hash = (hash * 33) ^ str.charCodeAt(--i)
+    hashIt = (hashIt * 33) ^ str.charCodeAt(--i)
   }
-  return String(hash >>> 0)
+  return String(hashIt >>> 0)
 }
 
-async function reset() {
+function reset() {
   users = {}
   persist()
 }
 
-export {authenticate, create, read, update, remove, reset, usersKey}
+export { authenticate, create, read, update, remove, reset, usersKey }

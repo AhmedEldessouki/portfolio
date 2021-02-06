@@ -11,7 +11,7 @@ type ReducerState = {
   enteredProjectData: Omit<Project, 'id' | 'date'>
   acceptedImages: Array<{preview: string & File}>
   rejectedImages: Array<{preview: string & File}>
-  error: ErrorType | null
+  error: ErrorType
 }
 
 type ReducerAction = {
