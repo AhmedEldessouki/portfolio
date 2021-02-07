@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import {NavLink} from 'react-router-dom'
 
-import {colors, mq} from '../Styles'
+import {colors, mq} from '../../Styles'
 
 const UnAuthNavlinks = () => {
   const container = css`

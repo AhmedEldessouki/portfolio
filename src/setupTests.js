@@ -66,7 +66,7 @@ const mockFirebaseSDK = new firebaseMocks.MockFirebaseSdk(
     return null
   },
 )
-jest.mock('./components/Utils/firebase', () => {
+jest.mock('./Utils/firebase', () => {
   return jest.fn().mockImplementation(() => {
     return {
       firebaseApp: mockFirebaseSDK,

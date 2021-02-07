@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 
-import Messages from '../components/Dashboard/Messaging/Messages'
+import Messages from '../components/Messaging/Messages'
 import { userEvent } from '../test/app-test-utils'
-import { colors } from '../components/Styles'
+import { colors } from '../Styles'
 import { buildMessage } from '../test/generate'
 
 const messages = []
@@ -12,8 +12,13 @@ beforeAll(() => {
   jest.mock('react-query', () => ({
     useQuery: () => ({ isLoading: false, error: {}, data: [] }),
   }))
+  // jest.doMock('../components/Utils/apis', () => {
+  //   return { useClientFetch: jest.fn().mockReturnValue(messages) }
+  // })
 })
-
+afterAll(() => {
+  jest.resetAllMocks()
+})
 test('message Render', async () => {
   await render(<Messages messagesData={messages} />, { user: null })
   expect(screen.getByText(messages[0].name)).toBeInTheDocument()

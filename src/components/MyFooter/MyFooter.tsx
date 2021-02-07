@@ -13,19 +13,22 @@ import {VscTwitter, VscGithub} from 'react-icons/vsc'
 import {GrReactjs} from 'react-icons/gr'
 import {Link} from 'react-router-dom'
 
-import {colors, mq, weights} from '../Styles'
+import {colors, mq, weights} from '../../Styles'
 
 const MyFooter = () => {
   const fWrapper = css`
-    display: flex;
+    display: grid;
     padding: 10px;
-    place-content: space-between;
-    flex-wrap: wrap;
     background: ${colors.darkBlue};
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
     div {
       line-height: 38px;
     }
     ${mq.phoneLarge} {
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
       div {
         width: 100%;
         display: flex;
@@ -36,24 +39,29 @@ const MyFooter = () => {
   const whereToFindMe = css`
     padding-left: 20px;
     font-size: 219%;
-    color: ${colors.independenceBlue};
+    color: ${colors.whiteFaded};
+    place-self: flex-start;
     & > * {
+      transition: color 200ms ease-in;
       padding-right: 5px;
       :hover {
-        color: ${colors.whiteFaded};
+        color: ${colors.blueFont};
       }
     }
     ${mq.phoneLarge} {
+      padding-left: 0;
     }
   `
   const reactIcon = css`
     font-size: 219%;
     color: ${colors.blueFont};
+    place-self: center;
   `
   const copyWrite = css`
     padding-right: 20px;
-    color: ${colors.independenceBlue};
+    color: ${colors.whiteFaded};
     font-weight: ${weights.light};
+    place-self: flex-end;
   `
   return (
     <div css={fWrapper} role="contentinfo">

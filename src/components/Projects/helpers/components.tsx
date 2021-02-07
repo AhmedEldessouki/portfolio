@@ -5,13 +5,13 @@ import {jsx, css} from '@emotion/react'
 import * as React from 'react'
 
 import type {DropzoneInputProps, DropzoneRootProps} from 'react-dropzone'
-import {btnStyle, colors, h1XL, mq, textArea} from '../../Styles'
-import Input from '../../Utils/Input'
-import PopUp from '../../Utils/PopUp/PopUp'
-import {useClientFetch} from '../../Utils/apis'
+import {btnStyle, colors, h1XL, mq, textArea} from '../../../Styles'
+import Input from '../../Input'
+import PopUp from '../../PopUp/PopUp'
+import {useClientFetch} from '../../../Utils/apis'
 
-import type {Tag} from '../../Tags/tagsTypes'
-import {Spinner} from '../../Utils/util'
+import type {Tag} from '../../../../types/tagsTypes'
+import Spinner from '../../Spinner'
 
 function ImageDropZone({
   getRootProps,
@@ -147,15 +147,16 @@ function DisplayingImages({
         margin-bottom: 50px;
       `}
     >
-      {acceptedImages.length > 0 && (
+      {acceptedImages?.length > 0 && (
         <article css={[xyz]}>
           <h2 css={[hStyle, {background: '#11826B'}]}>Accepted Images</h2>
           <section css={imgWrap}>
-            {acceptedImages.map(({preview}, i) => (
+            {acceptedImages?.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
                   info="Image"
                   onClickYes={() => handleClick('remove_acceptedImages', i)}
+                  controls={preview}
                 />
                 <img alt="" width={100} src={preview} />
               </div>
@@ -163,17 +164,18 @@ function DisplayingImages({
           </section>
         </article>
       )}
-      {rejectedImages.length > 0 && (
+      {rejectedImages?.length > 0 && (
         <article css={[xyz]}>
           <h2 css={[hStyle, {background: colors.burgundyRed}]}>
             Rejected Images
           </h2>
           <section css={imgWrap}>
-            {rejectedImages.map(({preview}, i) => (
+            {rejectedImages?.map(({preview}, i) => (
               <div key={preview} css={div}>
                 <PopUp
                   info="Image"
                   onClickYes={() => handleClick('remove_rejectedImages', i)}
+                  controls={preview}
                 />
                 <img alt="" width={100} src={preview} />
               </div>
@@ -181,15 +183,16 @@ function DisplayingImages({
           </section>
         </article>
       )}
-      {oldImages.length > 0 && (
+      {oldImages?.length > 0 && (
         <article css={xyz}>
           <h2 css={hStyle}>current Images</h2>
           <section css={imgWrap}>
-            {oldImages.map((imageUrl, i) => (
+            {oldImages?.map((imageUrl, i) => (
               <div key={imageUrl} css={div}>
                 <PopUp
                   info="Image"
                   onClickYes={() => handleClick('remove_oldImages', i)}
+                  controls={imageUrl}
                 />
                 <picture>
                   {/* 
@@ -256,7 +259,7 @@ function TagsCheckBox({
                 handleClick(e)
               }}
               checked={
-                !!projectTags.find(item => item.trim() === tag.url.trim())
+                !!projectTags?.find(item => item.trim() === tag.url.trim())
               }
               {...inputProps}
             />

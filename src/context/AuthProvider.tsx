@@ -4,10 +4,10 @@ import {toast} from 'react-toastify'
 
 import type {User as UserType} from '@firebase/auth-types/index'
 
-import {auth, db, firebase} from '../components/Utils/firebase'
-import {useLocalStorageState} from '../components/Utils/hooks'
+import {auth, db, firebase} from '../Utils/firebase'
+import {useLocalStorageState} from '../Utils/hooks'
 
-import type {NewUser, Project} from '../components/Utils/interfaces'
+import type {NewUser, Project} from '../../types/interfaces'
 
 interface Context {
   useVerifyUserSignInCredentials: () => [

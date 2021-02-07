@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import axios from 'axios'
 import {toast} from 'react-toastify'
+import type {ReducerAction, ReducerState} from '../../../../types/types'
 
 import {
   CLOUDINARY_API_KEY,
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_URL,
 } from '../../../Config/CloudInary'
-
-import type {ReducerAction, ReducerState} from './types'
 
 async function uploadImage(image: File, projectName: string) {
   const formData = new FormData()
@@ -83,7 +82,6 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
 
     case 'submit_newData': {
       state.enteredProjectData = payload as typeof enteredProjectData
-      state.status = 'submitted'
       state.error = undefined
       return {
         ...state,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
-import About from '../components/Home/About/About'
+import About from '../components/About/About'
 import { render } from '../test/app-test-utils'
 
 test('App Rendered', async () => {

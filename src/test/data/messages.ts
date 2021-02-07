@@ -1,4 +1,4 @@
-import type {Message} from '../../components/Utils/interfaces'
+import type {Message} from '../../../types/interfaces'
 
 const messages: Array<Message> = []
 

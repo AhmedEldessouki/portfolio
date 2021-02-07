@@ -6,7 +6,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {useAuth} from '../../context/AuthProvider'
 
-import {colors, mq} from '../Styles'
+import {colors, mq} from '../../Styles'
 
 const AuthNavlinksX = () => {
   const {signUserOut, selectedProject} = useAuth()

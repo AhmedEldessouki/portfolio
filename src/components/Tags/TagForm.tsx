@@ -4,11 +4,12 @@
 import {jsx, css} from '@emotion/react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {btnStyle, h2XL, formWrapper} from '../Styles'
-import Input from '../Utils/Input'
-import {ErrorMessageFallback, Spinner} from '../Utils/util'
+import {btnStyle, h2XL, formWrapper} from '../../Styles'
+import Input from '../Input'
+import ErrorMessageFallback from '../ErrorMessageFallback'
+import Spinner from '../Spinner'
 
-import type {Status} from '../Utils/interfaces'
+import type {Status} from '../../../types/interfaces'
 
 function TagForm({
   status,

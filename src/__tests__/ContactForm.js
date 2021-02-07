@@ -2,10 +2,10 @@
 import * as React from 'react'
 import { screen } from '@testing-library/react'
 
-import ContactForm from '../components/Home/ContactMe/ContactForm'
+import ContactForm from '../components/ContactMe/ContactForm'
 import { render, userEvent } from '../test/app-test-utils'
 import { buildMessage } from '../test/generate'
-import { colors } from '../components/Styles'
+import { colors } from '../Styles'
 
 const message = buildMessage()
 

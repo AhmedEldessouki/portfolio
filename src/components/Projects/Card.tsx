@@ -7,12 +7,14 @@ import {FaPen} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
-import {colors} from '../Styles'
-import {deleteProject} from '../Utils/apis'
-import type {Project} from '../Utils/interfaces'
-import PopUp from '../Utils/PopUp/PopUp'
-import {Title} from '../Utils/util'
+import {colors} from '../../Styles'
+import {deleteProject} from '../../Utils/apis'
+import {replaceWhiteSpaceWith} from '../../Utils/helpers'
+import type {Project} from '../../../types/interfaces'
+import PopUp from '../PopUp/PopUp'
+import Title from '../Title'
 
+// TODO A11y switch to object to place name on image's alt
 function Tag({
   tagUrl,
   ...imageOverrides
@@ -64,15 +66,19 @@ function EditAndDelete({
           `}
         />
       </Link>
-      <PopUp info="Project" onClickYes={() => deleteProject(project)} />
+      <PopUp
+        info="Project"
+        onClickYes={() => deleteProject(project)}
+        controls={replaceWhiteSpaceWith(project.name)}
+      />
     </div>
   )
 }
 
-function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
+function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
   const [hovered, setHover] = React.useState(false)
   return (
-    <header
+    <li
       css={{
         display: 'flex',
         placeContent: 'flex-end',
@@ -82,8 +88,8 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
       onFocus={() => setHover(!hovered)}
       onBlur={() => setHover(!hovered)}
     >
-      <h3
-        aria-label="this is a personal project"
+      <span
+        aria-label={projType ?? 'personal'}
         css={{
           borderRadius: 50,
           border: `1px solid`,
@@ -91,7 +97,7 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
             projType === 'Contribution' ? 'orange' : colors.lightGreen,
           color: projType === 'Contribution' ? 'orange' : colors.lightGreen,
           textAlign: 'center',
-          fontSize: '1rem',
+          fontSize: '0.9rem',
           width: 20,
           height: 20,
           transition: 'width 0.3s ease-in-out',
@@ -105,8 +111,8 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
         }}
       >
         {hovered ? projType : '!'}
-      </h3>
-    </header>
+      </span>
+    </li>
   )
 }
 
@@ -123,6 +129,7 @@ function Card({
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;
     width: 100%;
+    padding: 0;
     :hover,
     :focus {
       border-bottom-color: ${colors.blueFont};
@@ -140,10 +147,11 @@ function Card({
     <section css={mWrapper}>
       {items.map((item, i) => {
         return (
-          <article
+          <ul
             css={pWrapper}
             key={item.id}
             data-testid={`${item.name}-card`}
+            aria-label="project list"
           >
             {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
@@ -171,7 +179,7 @@ function Card({
                 <Tag key={`${tag}_${index}`} tagUrl={tag} width="30" />
               ))}
             </ul>
-          </article>
+          </ul>
         )
       })}
     </section>

@@ -3,11 +3,11 @@ import {Global} from '@emotion/react'
 import {ToastContainer} from 'react-toastify'
 
 import {useAuth} from '../context/AuthProvider'
+import {globalStyles} from '../Styles'
 import UnAuthNavlinks from './Navigation/UnAuthNavlinks'
 import AuthNavlinks from './Navigation/AuthNavlinks'
-import {globalStyles} from './Styles'
 
-import './Styles/layout.css'
+import '../Styles/layout.css'
 
 const MyFooter = React.lazy(() => import('./MyFooter/MyFooter'))
 

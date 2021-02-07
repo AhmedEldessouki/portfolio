@@ -1,4 +1,4 @@
-import type {Tag} from '../../components/Tags/tagsTypes'
+import type {Tag} from '../../../types/tagsTypes'
 import {tagsMockData} from './tags-data'
 
 const tags: Array<Tag> = tagsMockData

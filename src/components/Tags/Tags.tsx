@@ -4,13 +4,14 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import {h1XL, h2XL} from '../Styles'
-import PopUp from '../Utils/PopUp/PopUp'
-import {useAsync} from '../Utils/hooks'
-import {createNewTag, deleteTag} from '../Utils/apis'
+import {h1XL, h2XL} from '../../Styles'
+import PopUp from '../PopUp/PopUp'
+import {useAsync} from '../../Utils/hooks'
+import {createNewTag, deleteTag} from '../../Utils/apis'
+import {replaceWhiteSpaceWith} from '../../Utils/helpers'
+import type {Tag} from '../../../types/tagsTypes'
 import TagForm from './TagForm'
 
-import type {Tag} from './tagsTypes'
 
 function Tags({TagsData}: {TagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()
@@ -55,7 +56,11 @@ function Tags({TagsData}: {TagsData: Array<Tag>}) {
               margin: 0 10px;
             `}
           >
-            <PopUp info={`${tag.name} Tag`} onClickYes={() => deleteTag(tag)} />
+            <PopUp
+              info={`${tag.name} Tag`}
+              onClickYes={() => deleteTag(tag)}
+              controls={replaceWhiteSpaceWith(tag.name, '-')}
+            />
             <img src={tag.url} alt={tag.name} width="50" />
           </div>
         ))}

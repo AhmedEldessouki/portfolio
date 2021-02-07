@@ -5,11 +5,12 @@ import {jsx, css} from '@emotion/react'
 import * as React from 'react'
 import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 
-import Carousel from '../Utils/Carousel/Carousel'
-import {colors, mq} from '../Styles'
-import {Spinner} from '../Utils/util'
+import Carousel from '../Carousel/Carousel'
+import {colors, mq} from '../../Styles'
+import Spinner from '../Spinner'
 
-import type {Project} from '../Utils/interfaces'
+import type {Project} from '../../../types/interfaces'
+import {replaceWhiteSpaceWith} from '../../Utils/helpers'
 
 function ProjectView({project}: {project: Project | undefined}) {
   const [description, setDescription] = React.useState(
@@ -62,6 +63,8 @@ function ProjectView({project}: {project: Project | undefined}) {
             padding: 10px;
           }
         `}
+        aria-current="true"
+        id={replaceWhiteSpaceWith(project.name, '-')}
       >
         <div
           css={css`
@@ -90,6 +93,7 @@ function ProjectView({project}: {project: Project | undefined}) {
                 margin: 0;
               }
             `}
+            id={`${replaceWhiteSpaceWith(project.name, '-')}-labelled`}
           >
             {project.name}
           </h1>
@@ -98,6 +102,7 @@ function ProjectView({project}: {project: Project | undefined}) {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`visit ${project.name}'s website`}
           >
             <FaExternalLinkAlt />
           </a>
@@ -105,6 +110,7 @@ function ProjectView({project}: {project: Project | undefined}) {
             target="_blank"
             rel="noopener noreferrer"
             href={project.repoLink}
+            aria-label={`visit ${project.name}'s source code`}
             css={[
               anc,
               project.repoLink
@@ -124,7 +130,6 @@ function ProjectView({project}: {project: Project | undefined}) {
         <textarea
           disabled
           id="textArea"
-          aria-label="textArea"
           wrap="hard"
           css={css`
             resize: none;
@@ -141,6 +146,7 @@ function ProjectView({project}: {project: Project | undefined}) {
             border-radius: 5%;
           `}
           value={description}
+          readOnly
         />
         <span>Added On: {date.toDateString() || ''}</span>
       </div>
