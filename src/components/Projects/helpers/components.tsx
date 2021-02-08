@@ -10,8 +10,9 @@ import Input from '../../Input'
 import PopUp from '../../PopUp/PopUp'
 import {useClientFetch} from '../../../Utils/apis'
 
-import type {Tag} from '../../../../types/tagsTypes'
 import Spinner from '../../Spinner'
+import type {UploadedImagesArrayType} from '../../../../types/types'
+import type {Tag} from '../../../../types/interfaces'
 
 function ImageDropZone({
   getRootProps,
@@ -23,54 +24,52 @@ function ImageDropZone({
   color: string
 }) {
   return (
-    <React.Fragment>
-      <article
-        css={css`
-          display: flex;
-          place-items: center;
-          place-content: center;
-          border: 10px dashed ${color};
-          width: 95%;
-          height: 200px;
-          text-align: center;
-          cursor: pointer;
-          margin-bottom: 20px;
-          padding: 0;
-          margin-right: 0;
-          :hover,
-          :focus {
-            border-color: ${colors.blueFont};
-          }
-        `}
-        {...getRootProps()}
+    <article
+      css={css`
+        display: flex;
+        place-items: center;
+        place-content: center;
+        border: 10px dashed ${color};
+        width: 95%;
+        height: 200px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+        padding: 0;
+        margin-right: 0;
+        :hover,
+        :focus {
+          border-color: ${colors.blueFont};
+        }
+      `}
+      {...getRootProps()}
+    >
+      <em
+        css={[
+          h1XL,
+          css`
+            padding: 0;
+            color: ${colors.aliceLightBlue};
+          `,
+        ]}
       >
-        <em
-          css={[
-            h1XL,
-            css`
-              padding: 0;
-              color: ${colors.aliceLightBlue};
-            `,
-          ]}
-        >
-          Image(s) Drop Zone
-        </em>
-        <input
-          id="dropZone"
-          type="file"
-          name="projectLogo"
-          aria-label="ImageDropZone"
-          css={[
-            textArea,
-            css`
-              width: initial;
-              margin: 0;
-            `,
-          ]}
-          {...getInputProps()}
-        />
-      </article>
-    </React.Fragment>
+        Image(s) Drop Zone
+      </em>
+      <input
+        id="dropZone"
+        type="file"
+        name="projectLogo"
+        aria-label="ImageDropZone"
+        css={[
+          textArea,
+          css`
+            width: initial;
+            margin: 0;
+          `,
+        ]}
+        {...getInputProps()}
+      />
+    </article>
   )
 }
 
@@ -97,8 +96,8 @@ function DisplayingImages({
   oldImages,
   handleClick,
 }: {
-  acceptedImages: Array<{preview: string & File}>
-  rejectedImages: Array<{preview: string & File}>
+  acceptedImages: UploadedImagesArrayType
+  rejectedImages: UploadedImagesArrayType
   oldImages: Array<string>
   handleClick: (
     arg0:
@@ -211,15 +210,25 @@ function DisplayingImages({
   )
 }
 
+// TODO: After Changing All the `ProjectData` Tags into [Object] Remove the type [String] of `ProjectTags`
 function TagsCheckBox({
-  handleClick,
   projectTags,
   ...inputProps
 }: {
-  handleClick: (e: React.ChangeEvent<HTMLInputElement>) => void
-  projectTags: Array<string>
+  projectTags: Array<string | Tag>
 } & React.InputHTMLAttributes<HTMLInputElement>) {
-  const TagsData = useClientFetch('tags') as Array<Tag>
+  const tagsData = useClientFetch('tags') as Array<Tag>
+  const [isChecked, setChecked] = React.useState(
+    tagsData.map(
+      tag =>
+        projectTags?.length > 0 &&
+        !!projectTags?.find(
+          item =>
+            (typeof item === 'object' ? item.url.trim() : item.trim()) ===
+            tag.url.trim(),
+        ),
+    ),
+  )
   return (
     <div
       css={css`
@@ -233,7 +242,7 @@ function TagsCheckBox({
         flex-wrap: wrap;
       `}
     >
-      {TagsData.map((tag, i) => {
+      {tagsData.map((tag, i) => {
         return (
           <label
             key={tag.id}
@@ -256,11 +265,11 @@ function TagsCheckBox({
               type="checkbox"
               alt={tag.name}
               onChange={e => {
-                handleClick(e)
+                isChecked.splice(i, 1, e.target.checked)
+                setChecked([...isChecked])
               }}
-              checked={
-                !!projectTags?.find(item => item.trim() === tag.url.trim())
-              }
+              value={tag.url}
+              checked={isChecked[i]}
               {...inputProps}
             />
             <img

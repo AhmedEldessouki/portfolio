@@ -11,6 +11,7 @@ import OnToggle from '../OnToggle'
 import ErrorMessageFallback from '../ErrorMessageFallback'
 import type {Project} from '../../../types/interfaces'
 import {useSafeDispatch} from '../../Utils/hooks'
+import {deepEqual} from '../../Utils/helpers'
 import Card from './Card'
 import ProjectView from './ProjectView'
 
@@ -214,15 +215,20 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
   )
 }
 
-function Projects({projectsData}: {projectsData: Array<Project>}) {
-  return (
-    <ErrorBoundary
-      FallbackComponent={ErrorMessageFallback}
-      resetKeys={[projectsData]}
-    >
-      <ProjectComponent projectsData={projectsData} />
-    </ErrorBoundary>
-  )
-}
+const Projects = React.memo(
+  ({projectsData}: {projectsData: Array<Project>}) => {
+    return (
+      <ErrorBoundary
+        FallbackComponent={ErrorMessageFallback}
+        resetKeys={[projectsData]}
+      >
+        <ProjectComponent projectsData={projectsData} />
+      </ErrorBoundary>
+    )
+  },
+  (prevProps, nextProps) => {
+    return deepEqual(prevProps, nextProps)
+  },
+)
 
 export default Projects

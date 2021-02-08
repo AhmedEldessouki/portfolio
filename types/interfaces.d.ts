@@ -1,3 +1,5 @@
+import type { Tag } from "./tagsTypes"
+
 interface NewUser {
   firstName: string
   lastName: string
@@ -11,7 +13,7 @@ interface Project {
   link: string
   repoLink: string
   projectLogo: Array<string>
-  tag: Array<string>
+  tag: Array<string|Tag>
   description: string
   id?: string
   projectType: `Personal` | `Contribution` | ''
@@ -42,4 +44,9 @@ interface TitleProps {
   testId: string
   csx?: SerializedStyles
 }
-export {NewUser, Project, Message, Status, ErrorType, CollectionTypes,TitleProps}
+interface Tag {
+  name: string
+  url: string
+  id?: string
+}
+export {NewUser, Project, Message, Status, ErrorType, CollectionTypes,TitleProps, Tag}

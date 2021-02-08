@@ -9,7 +9,10 @@ import {
   CLOUDINARY_UPLOAD_URL,
 } from '../../../Config/CloudInary'
 
-async function uploadImage(image: File, projectName: string) {
+async function uploadImage(
+  image: File,
+  projectName: string,
+): Promise<PromiseFulfilledResult<string>> {
   const formData = new FormData()
   formData.set('file', image)
   formData.set('tag', `${projectName}_image`)
@@ -18,7 +21,6 @@ async function uploadImage(image: File, projectName: string) {
 
   return axios.post(`${CLOUDINARY_UPLOAD_URL}`, formData).then(
     res => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return res.data.secure_url
     },
     err => {
@@ -27,110 +29,37 @@ async function uploadImage(image: File, projectName: string) {
     },
   )
 }
-
-// eslint-disable-next-line complexity
+const gradualUpload = async (
+  imagesArray: Array<{preview: string; file: File}>,
+  name: string,
+) => {
+  if (imagesArray.length > 0) {
+    const uploadedImages = await Promise.all(
+      imagesArray.map(({file}) => uploadImage(file, name)),
+    )
+    return uploadedImages
+  }
+  return []
+}
 const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const {type, payload} = action
-  const {enteredProjectData, acceptedImages, rejectedImages} = state
   switch (type) {
     case 'error': {
       state.error = payload as typeof state.error
       return {...state}
     }
-
-    case 'accepted_images': {
-      if (acceptedImages.length > 9) {
-        state.error = {code: 'too-many-files', message: 'too-many-files'}
-      } else {
-        // TODO CHECK Functionality
-        state.acceptedImages = [
-          ...acceptedImages,
-          ...(payload as typeof acceptedImages),
-        ]
-
-        state.status = 'idle'
-        state.error = undefined
-      }
-      return {
-        ...state,
-      }
-    }
-    case 'rejected_images': {
-      // TODO CHECK Functionality
-      state.rejectedImages = [
-        ...rejectedImages,
-        ...(payload as typeof rejectedImages),
-      ]
-      state.status = 'idle'
-      return {
-        ...state,
-      }
-    }
-    case 'remove_oldImages': {
-      enteredProjectData.projectLogo.splice(payload, 1)
-      return {...state}
-    }
-    case 'remove_rejectedImages': {
-      rejectedImages.splice(payload, 1)
-      return {...state}
-    }
-    case 'remove_acceptedImages': {
-      acceptedImages.splice(payload, 1)
-      return {...state}
-    }
-
-    case 'submit_newData': {
-      state.enteredProjectData = payload as typeof enteredProjectData
-      state.error = undefined
-      return {
-        ...state,
-      }
-    }
-    case 'submit_description': {
-      state.enteredProjectData.description = payload as string
-      return {
-        ...state,
-      }
-    }
-    case 'add_tag': {
-      enteredProjectData.tag.push(payload)
-      return {
-        ...state,
-      }
-    }
-    case 'remove_tag': {
-      const i = enteredProjectData.tag.indexOf(payload)
-      if (i >= 0) {
-        enteredProjectData.tag.splice(i, 1)
-      }
-      return {
-        ...state,
-      }
-    }
-
     case 'idle': {
       state.status = 'idle'
+      return {...state}
+    }
+    case 'pending': {
+      state.status = 'pending'
       return {...state}
     }
     case 'redirect': {
       state.status = 'redirect'
       return {...state}
     }
-    case 'next': {
-      state.status = 'next'
-      return {...state}
-    }
-    case 'images_uploaded': {
-      state.status = 'images_uploaded'
-      return {...state}
-    }
-    case 'next_add':
-      enteredProjectData.projectLogo.push(payload)
-      state.status = 'next_add'
-      return {
-        ...state,
-      }
 
     case 'clean_up': {
       state.enteredProjectData = {
@@ -142,8 +71,6 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
         projectLogo: [],
         tag: [],
       }
-      state.acceptedImages = []
-      state.rejectedImages = []
       state.status = 'idle'
       state.error = undefined
       return {
@@ -156,4 +83,4 @@ const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
   }
 }
 
-export {uploadImage, projectFormReducer}
+export {uploadImage, projectFormReducer, gradualUpload}

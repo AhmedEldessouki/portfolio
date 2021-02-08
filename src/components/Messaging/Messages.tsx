@@ -10,6 +10,7 @@ import OnToggle from '../OnToggle'
 import ErrorMessageFallback from '../ErrorMessageFallback'
 
 import type {Message, Project} from '../../../types/interfaces'
+import {deepEqual} from '../../Utils/helpers'
 import MessageView from './MessageView'
 import MessagesSummary from './MessageCard'
 
@@ -64,15 +65,20 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
   )
 }
 
-function Messages({messagesData}: {messagesData: Array<Message>}) {
-  return (
-    <ErrorBoundary
-      resetKeys={[messagesData]}
-      FallbackComponent={ErrorMessageFallback}
-    >
-      <MessagesComponent messagesData={messagesData} />
-    </ErrorBoundary>
-  )
-}
+const Messages = React.memo(
+  ({messagesData}: {messagesData: Array<Message>}) => {
+    return (
+      <ErrorBoundary
+        resetKeys={[messagesData]}
+        FallbackComponent={ErrorMessageFallback}
+      >
+        <MessagesComponent messagesData={messagesData} />
+      </ErrorBoundary>
+    )
+  },
+  (prevProps, nextProps) => {
+    return deepEqual(prevProps, nextProps)
+  },
+)
 
 export default Messages

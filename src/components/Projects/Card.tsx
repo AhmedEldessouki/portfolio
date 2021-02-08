@@ -83,12 +83,12 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
         display: 'flex',
         placeContent: 'flex-end',
       }}
-      onMouseEnter={() => setHover(!hovered)}
-      onMouseLeave={() => setHover(!hovered)}
-      onFocus={() => setHover(!hovered)}
-      onBlur={() => setHover(!hovered)}
     >
       <span
+        onMouseEnter={() => setHover(!hovered)}
+        onMouseLeave={() => setHover(!hovered)}
+        onFocus={() => setHover(!hovered)}
+        onBlur={() => setHover(!hovered)}
         aria-label={projType ?? 'personal'}
         css={{
           borderRadius: 50,
@@ -97,9 +97,9 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
             projType === 'Contribution' ? 'orange' : colors.lightGreen,
           color: projType === 'Contribution' ? 'orange' : colors.lightGreen,
           textAlign: 'center',
-          fontSize: '0.9rem',
-          width: 20,
-          height: 20,
+          fontSize: hovered ? '0.95rem' : '1rem',
+          width: 24,
+          height: 24,
           transition: 'width 0.3s ease-in-out',
           marginBottom: 9,
           overflow: 'hidden',
@@ -175,9 +175,11 @@ function Card({
                 padding-left: 0;
               `}
             >
-              {item.tag?.map((tag, index) => (
-                <Tag key={`${tag}_${index}`} tagUrl={tag} width="30" />
-              ))}
+              {/* TODO: Add alt Later After Changing all Tags of ProjectData to an object */}
+              {item.tag?.map((tag, index) => {
+                const url = typeof tag === 'object' ? tag.url : tag
+                return <Tag key={`${url}_${index}`} tagUrl={url} width="30" />
+              })}
             </ul>
           </ul>
         )

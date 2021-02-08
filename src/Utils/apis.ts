@@ -2,8 +2,7 @@
 import {useQuery} from 'react-query'
 import {toast} from 'react-toastify'
 
-import type {Tag} from '../../types/tagsTypes'
-import type {ErrorType, Message, Project, CollectionTypes} from '../../types/interfaces'
+import type {ErrorType, Message, Project, CollectionTypes,Tag} from '../../types/interfaces'
 import {db} from './firebase'
 
 const placeholderData = [

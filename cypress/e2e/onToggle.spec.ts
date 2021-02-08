@@ -3,20 +3,16 @@
 describe('onToggle desktop', () => {
   beforeEach(() => {
     cy.viewport(1280, 720)
+    cy.visit('/')
   })
   it('select a project and check its position in the DOM', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
 
-    cy.wait(2000)
-
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+    cy.findByText('Portfolio V1').click()
 
     let pos1: Cypress.ElementCoordinates
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         pos1 = Cypress.dom.getElementCoordinatesByPosition($el, '')
@@ -24,7 +20,7 @@ describe('onToggle desktop', () => {
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
@@ -34,7 +30,7 @@ describe('onToggle desktop', () => {
       })
     cy.get('[data-testid=next-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
@@ -45,32 +41,26 @@ describe('onToggle desktop', () => {
     cy.get('[data-testid=next-toggle]').click()
     cy.get('[data-testid=next-toggle]').click()
     cy.get('[data-testid=next-toggle]').click()
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .should('not.exist')
+    cy.get('button').contains('Portfolio V1').should('not.exist')
     cy.get('[data-testid=close-toggler]').click()
   })
   it('check focus', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
-    cy.wait(2000)
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+
+    cy.findByText('Portfolio V1').click()
 
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
-    cy.get('button')
-      .contains(/portfolio v2/i)
+    cy.findByText('Portfolio V2')
       .click()
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()
@@ -79,19 +69,17 @@ describe('onToggle desktop', () => {
 describe('onToggle phoneLarge', () => {
   beforeEach(() => {
     cy.viewport(900, 720)
+    cy.visit('/')
   })
   it('select a project and check its position in the DOM', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
-    cy.wait(2000)
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+
+    cy.findByText('Portfolio V1').click()
 
     let pos1: Cypress.ElementCoordinates
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         pos1 = Cypress.dom.getElementCoordinatesByPosition($el, '')
@@ -99,7 +87,7 @@ describe('onToggle phoneLarge', () => {
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
@@ -109,7 +97,7 @@ describe('onToggle phoneLarge', () => {
       })
     cy.get('[data-testid=next-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
@@ -118,33 +106,27 @@ describe('onToggle phoneLarge', () => {
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .should('not.exist')
+    cy.get('button').contains('Portfolio V1').should('not.exist')
 
     cy.get('[data-testid=close-toggler]').click()
   })
   it('check focus', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
-    cy.wait(2000)
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+
+    cy.findByText('Portfolio V1').click()
 
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
-    cy.get('button')
-      .contains(/portfolio v2/i)
+    cy.findByText('Portfolio V2')
       .click()
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()
@@ -152,20 +134,18 @@ describe('onToggle phoneLarge', () => {
 })
 describe('onToggle ipad', () => {
   beforeEach(() => {
+    cy.visit('/')
     cy.viewport('ipad-2')
   })
   it('select a project and check its position in the DOM', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
-    cy.wait(2000)
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+
+    cy.findByText('Portfolio V1').click()
 
     let pos1: Cypress.ElementCoordinates
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         pos1 = Cypress.dom.getElementCoordinatesByPosition($el, '')
@@ -173,7 +153,7 @@ describe('onToggle ipad', () => {
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
@@ -183,7 +163,7 @@ describe('onToggle ipad', () => {
       })
     cy.get('[data-testid=next-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
       .then($el => {
         expect(
@@ -192,33 +172,27 @@ describe('onToggle ipad', () => {
         ).to.eq(pos1.fromElWindow.left)
       })
     cy.get('[data-testid=next-toggle]').click()
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .should('not.exist')
+    cy.get('button').contains('Portfolio V1').should('not.exist')
 
     cy.get('[data-testid=close-toggler]').click()
   })
   it('check focus', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
-    cy.wait(2000)
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+
+    cy.findByText('Portfolio V1').click()
 
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
-    cy.get('button')
-      .contains(/portfolio v2/i)
+    cy.findByText('Portfolio V2')
       .click()
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()
@@ -229,58 +203,45 @@ describe('onToggle iphone', () => {
     cy.viewport('iphone-7')
   })
   it('select a project and check its position in the DOM', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
-    cy.wait(2000)
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+
+    cy.findByText('Portfolio V1').click()
 
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .should('not.exist')
+    cy.get('button').contains('Portfolio V1').should('not.exist')
 
     cy.get('[data-testid=next-toggle]').click()
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .should('exist')
+    cy.get('button').contains('Portfolio V1').should('exist')
 
     cy.get('[data-testid=next-toggle]').click()
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .should('not.exist')
+    cy.get('button').contains('Portfolio V1').should('not.exist')
 
     cy.get('[data-testid=close-toggler]').click()
   })
   it('check focus', () => {
-    cy.visit('/')
-    cy.contains(/projects/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     // cy.wait('@getProjects').then(inc => expect(inc).to.include(/portfolio/i))
-    cy.wait(2000)
-    cy.get('button')
-      .contains(/portfolio v1/i)
-      .click()
+
+    cy.findByText('Portfolio V1').click()
 
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=next-toggle]').click()
 
-    cy.get('button')
-      .contains(/portfolio v2/i)
+    cy.findByText('Portfolio V2')
       .click()
       .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=before-toggle]').click()
     cy.get('button')
-      .contains(/portfolio v1/i)
+      .contains('Portfolio V1')
       .should('not.have.css', 'background-color', 'rgba(255, 255, 255, 0.74)')
 
     cy.get('[data-testid=close-toggler]').click()

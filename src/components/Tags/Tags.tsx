@@ -9,9 +9,8 @@ import PopUp from '../PopUp/PopUp'
 import {useAsync} from '../../Utils/hooks'
 import {createNewTag, deleteTag} from '../../Utils/apis'
 import {replaceWhiteSpaceWith} from '../../Utils/helpers'
-import type {Tag} from '../../../types/tagsTypes'
+import type {Tag} from '../../../types/interfaces'
 import TagForm from './TagForm'
-
 
 function Tags({TagsData}: {TagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()

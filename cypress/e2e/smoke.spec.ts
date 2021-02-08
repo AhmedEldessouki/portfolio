@@ -3,12 +3,16 @@
 describe('my portfolio', () => {
   it('should check landing page', () => {
     cy.visit('/')
-    cy.contains('Github').should('exist')
-    cy.contains('Ahmed ElDessouki').should('exist')
-    cy.contains(/projects/i).should('exist')
+    cy.findByText(/github/i).should('exist')
+
+    cy.findByText('Ahmed ElDessouki').should('exist')
+    cy.findAllByText(/projects/i).should('exist')
     cy.visit('/signin')
-    cy.contains(/sign-in/i).should('exist')
+    cy.findByText(/sign-in/i).should('exist')
     cy.visit('/')
-    cy.contains(/contact me/i).should('exist')
+    cy.findByText(/contact me/i).should('exist')
+    cy.visit('/404')
+    cy.findByText(/home/i).should('exist').click()
+    cy.findByText(/github/i).should('exist')
   })
 })

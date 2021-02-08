@@ -25,8 +25,8 @@ import {
 import {deepEqual} from '../Utils/helpers'
 import {createNewProject, updateProject} from '../Utils/apis'
 import {
-  uploadImage,
   projectFormReducer,
+  gradualUpload,
 } from '../components/Projects/helpers/functions'
 import {
   ImageDropZone,
@@ -35,9 +35,15 @@ import {
   ProjInput,
   TagsCheckBox,
 } from '../components/Projects/helpers/components'
+import type {ImportedImages} from '../../types/types'
+import type {Tag} from '../../types/interfaces'
 
-function CreateProjectX() {
+function CreateProject() {
   const {selectedProject, setProject} = useAuth()
+  const [importedImages, setImportedImages] = React.useState<ImportedImages>({
+    acceptedImages: {imagesType: 'acceptedImages', imgs: []},
+    rejectedImages: {imagesType: 'rejectedImages', imgs: []},
+  })
   const [state, unsafeDispatch] = React.useReducer(projectFormReducer, {
     status: 'idle',
     // Passing Selected Project Data to the Form
@@ -46,16 +52,18 @@ function CreateProjectX() {
       link: selectedProject?.link ?? '',
       repoLink: selectedProject?.repoLink ?? '',
       projectType: selectedProject?.projectType ?? 'Personal',
-      projectLogo: selectedProject ? [...selectedProject.projectLogo] : [],
+      projectLogo: selectedProject?.projectLogo ?? [],
       tag: selectedProject?.tag ?? [],
       description: selectedProject?.description ?? '',
     },
     error: undefined,
-    acceptedImages: [],
-    rejectedImages: [],
   })
   const dispatch = useSafeDispatch(unsafeDispatch)
-  const [descriptionErr, setDescriptionErr] = React.useState('')
+  const [descriptionFieldControl, setDescriptionFieldControl] = React.useState({
+    value: selectedProject?.description ?? '',
+
+    color: '',
+  })
   const [isDragActive, setIsDragActive] = React.useState(false)
 
   const {getRootProps, getInputProps} = useDropzone({
@@ -66,13 +74,14 @@ function CreateProjectX() {
       setIsDragActive(!isDragActive)
 
       const newArr = acceptedFiles.map(file => {
-        return Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
+        return {file, preview: URL.createObjectURL(file)}
       })
-      dispatch({
-        type: 'accepted_images',
-        payload: newArr,
+      setImportedImages({
+        ...importedImages,
+        acceptedImages: {
+          ...importedImages.acceptedImages,
+          imgs: [...importedImages.acceptedImages.imgs, ...newArr],
+        },
       })
     },
     onDropRejected: rejectedFiles => {
@@ -80,13 +89,14 @@ function CreateProjectX() {
 
       dispatch({type: 'error', payload: {...rejectedFiles[0].errors[0]}})
       const newArr = rejectedFiles.map(({file}) => {
-        return Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
+        return {file, preview: URL.createObjectURL(file)}
       })
-      dispatch({
-        type: 'rejected_images',
-        payload: newArr,
+      setImportedImages({
+        ...importedImages,
+        rejectedImages: {
+          ...importedImages.rejectedImages,
+          imgs: [...importedImages.rejectedImages.imgs, ...newArr],
+        },
       })
     },
     onDragEnter: () => {
@@ -106,53 +116,9 @@ function CreateProjectX() {
     }
   }, [selectedProject, setProject])
 
-  const gradualUpload = React.useCallback(
-    async (imagesArray: Array<{preview: string & File}>, name: string) =>
-      Promise.allSettled(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        imagesArray.map(async (file: any) => {
-          dispatch({type: 'next'})
-          return uploadImage(file, name)
-        }),
-      )
-        .then(results =>
-          results.forEach((result: PromiseSettledResult<string>) => {
-            if (result.status === 'fulfilled') {
-              toast.success('Images Uploaded')
-              dispatch({type: 'next_add', payload: result.value})
-              return result.value
-            }
-            return result.reason
-          }),
-        )
-        .then(() => {
-          dispatch({type: 'images_uploaded'})
-        }),
-    [dispatch],
-  )
-
-  async function useSubmitImages(
-    uploadImagesArr: Array<{preview: string & File}>,
-    name: string,
-  ) {
-    if (uploadImagesArr.length >= 0) {
-      await gradualUpload(uploadImagesArr, name)
-      return dispatch({type: 'images_uploaded'})
-    }
-    return undefined
-  }
-
-  const {
-    status,
-    enteredProjectData,
-    error,
-    acceptedImages,
-    rejectedImages,
-  } = state
-
   async function useHandleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
-    dispatch({type: 'next'})
+    dispatch({type: 'pending'})
 
     const {
       name,
@@ -160,69 +126,78 @@ function CreateProjectX() {
       repoLink,
       projectType,
       description,
+      tags,
     } = e.target as typeof e.target & {
-      name: {value: string}
-      link: {value: string}
-      repoLink: {value: string}
-      projectType: {value: 'Personal' | 'Contribution'}
-      description: {value: string}
+      name: HTMLInputElement
+      link: HTMLInputElement
+      repoLink: HTMLInputElement
+      projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
+      description: HTMLInputElement
+      tags: Array<HTMLInputElement>
     }
 
-    dispatch({
-      type: 'submit_newData',
-      payload: {
-        name: name.value,
-        link: link.value,
-        repoLink: repoLink.value,
-        projectType: projectType.value,
-        description: description.value,
-      },
-    })
+    const checkedTags: Array<Tag> = []
+    for (const {alt, checked, value} of tags) {
+      if (checked) {
+        checkedTags.push({name: alt, url: value})
+      }
+    }
 
-    await useSubmitImages(acceptedImages, enteredProjectData.name)
+    const uploadedImages = await gradualUpload(
+      importedImages.acceptedImages.imgs,
+      name.value,
+    )
+
+    const formData = {
+      name: name.value,
+      link: link.value,
+      repoLink: repoLink.value,
+      projectType: projectType.value,
+      description: description.value,
+      projectLogo: [...state.enteredProjectData.projectLogo, ...uploadedImages],
+      tag: checkedTags,
+    }
+
     if (selectedProject) {
-      const hasChanged = deepEqual(selectedProject, {
-        ...enteredProjectData,
+      // Note: deepEqual return true if they are equal
+      const hasChanged = !deepEqual(selectedProject, {
+        ...formData,
         id: selectedProject.id,
       })
 
-      if (!hasChanged) {
-        await updateProject({...enteredProjectData, id: selectedProject.id})
+      if (hasChanged) {
+        await updateProject({...formData, id: selectedProject.id})
         setProject(undefined)
         dispatch({type: 'redirect'})
       } else {
-        toast.warn(`No Update Found in ${enteredProjectData.name}`, {
+        toast.warn(`No Update Found in ${formData.name}`, {
           style: {color: 'black'},
         })
       }
-      dispatch({type: 'idle'})
     }
 
     if (!selectedProject) {
-      await createNewProject(enteredProjectData)
+      await createNewProject(formData)
       dispatch({type: 'redirect'})
     }
     dispatch({type: 'idle'})
   }
-  function handleDescription(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    dispatch({type: 'submit_description', payload: e.target.value})
-  }
 
-  if (status === 'redirect') {
-    return <Redirect to="/dashboard" />
-  }
+  const {status, enteredProjectData, error} = state
 
   const {
     name,
     link,
     repoLink,
     projectLogo,
-    description,
     projectType,
     tag,
   } = enteredProjectData
-  const isPending = status === 'images_uploaded'
+  const isPending = status === 'pending'
 
+  if (status === 'redirect') {
+    return <Redirect to="/dashboard" />
+  }
   return (
     <Layout>
       <section>
@@ -232,9 +207,9 @@ function CreateProjectX() {
             {
               display: 'flex',
               placeContent:
-                acceptedImages.length ||
-                rejectedImages.length ||
-                (selectedProject && selectedProject.projectLogo.length >= 0)
+                importedImages.acceptedImages.imgs?.length ||
+                importedImages.rejectedImages.imgs?.length ||
+                (selectedProject && selectedProject.projectLogo?.length >= 0)
                   ? 'space-around'
                   : 'center',
               flexWrap: 'wrap-reverse',
@@ -248,8 +223,8 @@ function CreateProjectX() {
           ]}
         >
           <DisplayingImages
-            acceptedImages={acceptedImages}
-            rejectedImages={rejectedImages}
+            acceptedImages={importedImages.acceptedImages.imgs}
+            rejectedImages={importedImages.rejectedImages.imgs}
             oldImages={projectLogo}
             handleClick={(
               type:
@@ -257,10 +232,26 @@ function CreateProjectX() {
                 | 'remove_oldImages'
                 | 'remove_rejectedImages',
               index,
-            ) => dispatch({type, payload: index})}
+            ) => {
+              if (type === 'remove_oldImages') {
+                enteredProjectData.projectLogo.splice(index, 1)
+                dispatch({type: 'idle'})
+              } else if (type === 'remove_acceptedImages') {
+                importedImages.acceptedImages.imgs.splice(index, 1)
+                setImportedImages({
+                  ...importedImages,
+                })
+              } else {
+                importedImages.rejectedImages.imgs.splice(index, 1)
+                setImportedImages({
+                  ...importedImages,
+                })
+              }
+            }}
           />
           <ErrorBoundary
             FallbackComponent={ErrorMessageFallback}
+            resetKeys={[state]}
             onReset={() => dispatch({type: 'clean_up'})}
           >
             <form css={[formWrapper, {gap: 6}]} onSubmit={useHandleSubmit}>
@@ -326,53 +317,49 @@ function CreateProjectX() {
                 defaultValue={projectType ?? 'Personal'}
                 name="projectType"
                 aria-label="Please Select Project Type"
-                onChange={e => {
-                  dispatch({
-                    type: 'submit_newData',
-                    payload: {
-                      ...enteredProjectData,
-                      projectType: e.target.value,
-                    },
-                  })
-                }}
               >
                 <option value="Personal">Personal</option>
                 <option value="Contribution">Contribution</option>
               </select>
-              <TagsCheckBox
-                handleClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (e.target.checked) {
-                    dispatch({
-                      type: 'add_tag',
-                      payload: e.target.id,
-                    })
-                  } else {
-                    dispatch({
-                      type: 'remove_tag',
-                      payload: e.target.id,
-                    })
-                  }
-                }}
-                projectTags={tag}
-              />
+              <TagsCheckBox projectTags={tag} />
               <label
                 htmlFor="description"
                 style={{marginTop: '10px'}}
                 css={labelWrapper}
               >
                 <textarea
-                  css={[textArea, {margin: 0, borderColor: descriptionErr}]}
+                  css={[
+                    textArea,
+                    {margin: 0, borderColor: descriptionFieldControl.color},
+                  ]}
                   id="description"
                   aria-label="description"
                   placeholder="Project Description"
                   name="description"
-                  value={description}
+                  value={descriptionFieldControl.value}
                   minLength={10}
-                  onChange={e => handleDescription(e)}
+                  onChange={e => {
+                    if (e.target.validity.valid) {
+                      setDescriptionFieldControl({
+                        ...descriptionFieldControl,
+                        color: colors.lightGreen,
+                      })
+                    }
+                    setDescriptionFieldControl({
+                      ...descriptionFieldControl,
+                      value: e.target.value,
+                    })
+                  }}
                   onBlur={e => {
                     e.target.validity.valid
-                      ? setDescriptionErr(colors.lightGreen)
-                      : setDescriptionErr(colors.burgundyRed)
+                      ? setDescriptionFieldControl({
+                          ...descriptionFieldControl,
+                          color: colors.lightGreen,
+                        })
+                      : setDescriptionFieldControl({
+                          ...descriptionFieldControl,
+                          color: colors.burgundyRed,
+                        })
                   }}
                   required
                 />
@@ -388,7 +375,5 @@ function CreateProjectX() {
     </Layout>
   )
 }
-
-const CreateProject = React.memo(CreateProjectX)
 
 export default CreateProject

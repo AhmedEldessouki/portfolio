@@ -1,7 +1,6 @@
 import faker from 'faker'
 import type {User} from '@firebase/auth-types/index'
-import type {Message, NewUser, Project} from '../../types/interfaces'
-import type {Tag} from '../../types/tagsTypes'
+import type {Message, NewUser, Project, Tag} from '../../types/interfaces'
 
 function buildUser(overrides?: Partial<NewUser>) {
   return {
