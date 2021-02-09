@@ -7,12 +7,14 @@ import {FaPen} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
-import {colors} from '../Styles'
-import {deleteProject} from '../Utils/apis'
-import type {Project} from '../Utils/interfaces'
-import PopUp from '../Utils/PopUp/PopUp'
-import {Title} from '../Utils/util'
+import {colors} from '../../Styles'
+import {deleteProject} from '../../Utils/apis'
+import {replaceWhiteSpaceWith} from '../../Utils/helpers'
+import type {Project} from '../../../types/interfaces'
+import PopUp from '../PopUp/PopUp'
+import Title from '../Title'
 
+// TODO A11y switch to object to place name on image's alt
 function Tag({
   tagUrl,
   ...imageOverrides
@@ -37,7 +39,7 @@ function EditAndDelete({
   onClick,
 }: {
   project: Project
-  onClick: () => any
+  onClick: () => void
 }) {
   return (
     <div
@@ -64,26 +66,30 @@ function EditAndDelete({
           `}
         />
       </Link>
-      <PopUp info="Project" onClickYes={() => deleteProject(project)} />
+      <PopUp
+        info="Project"
+        onClickYes={() => deleteProject(project)}
+        controls={replaceWhiteSpaceWith(project.name)}
+      />
     </div>
   )
 }
 
-function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
+function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
   const [hovered, setHover] = React.useState(false)
   return (
-    <header
+    <li
       css={{
         display: 'flex',
         placeContent: 'flex-end',
       }}
-      onMouseEnter={() => setHover(!hovered)}
-      onMouseLeave={() => setHover(!hovered)}
-      onFocus={() => setHover(!hovered)}
-      onBlur={() => setHover(!hovered)}
     >
-      <h3
-        aria-label="this is a personal project"
+      <span
+        onMouseEnter={() => setHover(!hovered)}
+        onMouseLeave={() => setHover(!hovered)}
+        onFocus={() => setHover(!hovered)}
+        onBlur={() => setHover(!hovered)}
+        aria-label={projType ?? 'personal'}
         css={{
           borderRadius: 50,
           border: `1px solid`,
@@ -91,9 +97,9 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
             projType === 'Contribution' ? 'orange' : colors.lightGreen,
           color: projType === 'Contribution' ? 'orange' : colors.lightGreen,
           textAlign: 'center',
-          fontSize: '1rem',
-          width: 20,
-          height: 20,
+          fontSize: hovered ? '0.95rem' : '1rem',
+          width: 24,
+          height: 24,
           transition: 'width 0.3s ease-in-out',
           marginBottom: 9,
           overflow: 'hidden',
@@ -105,8 +111,8 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution'}) {
         }}
       >
         {hovered ? projType : '!'}
-      </h3>
-    </header>
+      </span>
+    </li>
   )
 }
 
@@ -115,7 +121,7 @@ function Card({
   setState,
 }: {
   items: Array<Project>
-  setState: React.Dispatch<React.SetStateAction<Project | any>>
+  setState: React.Dispatch<React.SetStateAction<Project | unknown>>
 }) {
   const {user, setProject: setPorj} = useAuth()
 
@@ -123,6 +129,7 @@ function Card({
     border-bottom: 10px solid ${colors.darkBlue};
     border-radius: 11%;
     width: 100%;
+    padding: 0;
     :hover,
     :focus {
       border-bottom-color: ${colors.blueFont};
@@ -140,15 +147,16 @@ function Card({
     <section css={mWrapper}>
       {items.map((item, i) => {
         return (
-          <article
+          <ul
             css={pWrapper}
             key={item.id}
             data-testid={`${item.name}-card`}
+            aria-label="project list"
           >
             {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}
-            <ProjectType projType={item.projectType ?? 'Personal'} />
+            <ProjectType projType={item.projectType} />
             <Title
               name={item.name}
               onClick={() => {
@@ -167,12 +175,13 @@ function Card({
                 padding-left: 0;
               `}
             >
-              {item.tag &&
-                item.tag.map((tag, i) => (
-                  <Tag key={`${tag}_${i}`} tagUrl={tag} width="30" />
-                ))}
+              {/* TODO: Add alt Later After Changing all Tags of ProjectData to an object */}
+              {item.tag?.map((tag, index) => {
+                const url = typeof tag === 'object' ? tag.url : tag
+                return <Tag key={`${url}_${index}`} tagUrl={url} width="30" />
+              })}
             </ul>
-          </article>
+          </ul>
         )
       })}
     </section>

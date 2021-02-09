@@ -5,30 +5,31 @@ import {jsx, css} from '@emotion/react'
 import * as React from 'react'
 import {FaGithub, FaExternalLinkAlt} from 'react-icons/fa'
 
-import Carousel from '../Utils/Carousel/Carousel'
-import {colors, mq} from '../Styles'
-import {Spinner} from '../Utils/util'
+import Carousel from '../Carousel/Carousel'
+import {colors, mq} from '../../Styles'
+import Spinner from '../Spinner'
 
-import type {Project} from '../Utils/interfaces'
+import type {Project} from '../../../types/interfaces'
+import {replaceWhiteSpaceWith} from '../../Utils/helpers'
 
 function ProjectView({project}: {project: Project | undefined}) {
   const [description, setDescription] = React.useState(
-    project?.description || '',
+    project?.description ?? '',
   )
   const [heightT, setHeightT] = React.useState('3')
   const date = new Date(project?.date || '')
 
   React.useEffect(() => {
     const textField = document.getElementById('textArea')
-    if (description !== project?.description || '') {
-      setDescription(project?.description || '')
+    if (description !== project?.description) {
+      setDescription(project?.description ?? '')
     }
 
     if (textField) {
       if (textField.clientHeight < textField.scrollHeight) {
-        setHeightT(textField.scrollHeight + 'px')
+        setHeightT(`${textField.scrollHeight}px`)
       } else if (textField.clientHeight > textField.scrollHeight) {
-        setHeightT(textField.scrollHeight * 2 - textField.clientHeight + 'px')
+        setHeightT(`${textField.scrollHeight * 2 - textField.clientHeight}px`)
       }
     }
   }, [description, project?.description])
@@ -45,7 +46,7 @@ function ProjectView({project}: {project: Project | undefined}) {
   if (!project) {
     return <Spinner />
   }
-  return project ? (
+  return (
     <React.Fragment>
       {project.projectLogo.length !== 0 ? (
         <Carousel imgArray={project.projectLogo} imgAlt={project.name} />
@@ -62,6 +63,8 @@ function ProjectView({project}: {project: Project | undefined}) {
             padding: 10px;
           }
         `}
+        aria-current="true"
+        id={replaceWhiteSpaceWith(project.name, '-')}
       >
         <div
           css={css`
@@ -90,6 +93,7 @@ function ProjectView({project}: {project: Project | undefined}) {
                 margin: 0;
               }
             `}
+            id={`${replaceWhiteSpaceWith(project.name, '-')}-labelled`}
           >
             {project.name}
           </h1>
@@ -98,13 +102,15 @@ function ProjectView({project}: {project: Project | undefined}) {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`visit ${project.name}'s website`}
           >
             <FaExternalLinkAlt />
           </a>
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={project.repoLink ?? ''}
+            href={project.repoLink}
+            aria-label={`visit ${project.name}'s source code`}
             css={[
               anc,
               project.repoLink
@@ -124,7 +130,6 @@ function ProjectView({project}: {project: Project | undefined}) {
         <textarea
           disabled
           id="textArea"
-          aria-label="textArea"
           wrap="hard"
           css={css`
             resize: none;
@@ -141,12 +146,11 @@ function ProjectView({project}: {project: Project | undefined}) {
             border-radius: 5%;
           `}
           value={description}
+          readOnly
         />
-        <span>Added On: {date.toDateString() ?? ''}</span>
+        <span>Added On: {date.toDateString() || ''}</span>
       </div>
     </React.Fragment>
-  ) : (
-    <Spinner />
   )
 }
 

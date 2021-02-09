@@ -6,7 +6,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {useAuth} from '../../context/AuthProvider'
 
-import {colors, mq} from '../Styles'
+import {colors, mq} from '../../Styles'
 
 const AuthNavlinksX = () => {
   const {signUserOut, selectedProject} = useAuth()
@@ -65,7 +65,7 @@ const AuthNavlinksX = () => {
   `
 
   return (
-    <div css={nav}>
+    <div css={nav} role="navigation">
       <NavLink
         to="/"
         exact
@@ -97,7 +97,7 @@ const AuthNavlinksX = () => {
         <h2>{selectedProject ? 'Edit' : 'Create'} Project</h2>
       </NavLink>
       <NavLink
-        to="/tags"
+        to="/tags-control"
         exact
         activeStyle={{
           backgroundColor: colors.independenceBlue,

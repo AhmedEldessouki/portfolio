@@ -7,7 +7,7 @@ import {QueryClient, QueryClientProvider} from 'react-query'
 import App from './App'
 import {Profiler} from './profiler'
 import {AuthProvider} from './context/AuthProvider'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import * as serviceWorkerRegistration from './serviceWorker/serviceWorkerRegistration'
 
 import 'bootstrap/dist/css/bootstrap-reboot.css'
 

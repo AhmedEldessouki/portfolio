@@ -1,4 +1,4 @@
-import {Project} from '../../components/Utils/interfaces'
+import {Project} from '../../../types/interfaces'
 
 const projectsData: Array<Project> = [
   {

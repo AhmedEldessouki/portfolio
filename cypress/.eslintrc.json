@@ -1,0 +1,17 @@
+{
+  "extends": "plugin:cypress/recommended",
+  "plugins": ["cypress"],
+  "env": {
+    "cypress/globals": true
+  },
+  "rules": {
+    "testing-library/await-async-query": "off",
+    "testing-library/prefer-screen-queries": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "jest/valid-expect-in-promise": 0,
+    "jest/valid-expect": 0,
+    "cypress/no-unnecessary-waiting": 1
+  }
+}

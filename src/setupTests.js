@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import * as firebaseMocks from 'firebase-mock'
-import {server} from './test/server/test-server'
+import { server } from './test/server/test-server'
 
 const localStorageMock = {
   getItem: jest.fn(),
@@ -23,11 +23,12 @@ afterAll(() => server.close())
 
 // mockFirebase.database().flush()
 // data is logged
-var mockAuth = new firebaseMocks.MockAuthentication()
-var mockFirestoreCloudDB = new firebaseMocks.MockFirestore()
-var mockFirebaseSDK = new firebaseMocks.MockFirebaseSdk(
+const mockAuth = new firebaseMocks.MockAuthentication()
+const mockFirestoreCloudDB = new firebaseMocks.MockFirestore()
+const mockFirebaseSDK = new firebaseMocks.MockFirebaseSdk(
   // use null if your code does not use RTDB
-  path => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _path => {
     return null
   },
   // use null if your code does not use AUTHENTICATION
@@ -65,7 +66,7 @@ var mockFirebaseSDK = new firebaseMocks.MockFirebaseSdk(
     return null
   },
 )
-jest.mock('./components/Utils/firebase', () => {
+jest.mock('./Utils/firebase', () => {
   return jest.fn().mockImplementation(() => {
     return {
       firebaseApp: mockFirebaseSDK,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
@@ -5,13 +6,14 @@ import {jsx} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {colors, h1XL, weights} from '../Styles'
-import ProjectView from './ProjectView'
+import {colors, h1XL, weights} from '../../Styles'
+import OnToggle from '../OnToggle'
+import ErrorMessageFallback from '../ErrorMessageFallback'
+import type {Project} from '../../../types/interfaces'
+import {useSafeDispatch} from '../../Utils/hooks'
+import {deepEqual} from '../../Utils/helpers'
 import Card from './Card'
-import OnToggle from '../Utils/OnToggle'
-import {ErrorMessageFallback} from '../Utils/util'
-import type {Project} from '../Utils/interfaces'
-import {useSafeDispatch} from '../Utils/hooks'
+import ProjectView from './ProjectView'
 
 // Note: Projects & Payload will never be undefined... need to dig deeper into to this later
 interface ReducerState {
@@ -69,7 +71,10 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
 
 function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
   // Its set to any Even thu It can be either Project | undefined but the OnToggle component expects Message to be assigned
-  const [displayProject, setDisplayProject] = React.useState<Project | any>()
+  const [displayProject, setDisplayProject] = React.useState<
+    Project | unknown | undefined
+  >()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectedRef = React.useRef<any>()
 
   const moveFocus = () => selectedRef.current?.moveFocus()
@@ -87,6 +92,13 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
     moveFocus()
   }, [displayProject])
 
+  const sortDate = (a: Project, b: Project) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const x = new Date(a.date) as any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const y = new Date(b.date) as any
+    return x - y
+  }
   const btn = {
     borderRadius: '11%',
     border: 'none',
@@ -109,11 +121,11 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
       {displayProject ? (
         <OnToggle
           items={projects ?? projectsData}
-          displayedData={displayProject}
+          displayedData={displayProject as Project}
           setDisplayData={setDisplayProject}
           ref={selectedRef}
         >
-          <ProjectView project={displayProject} />
+          <ProjectView project={displayProject as Project} />
         </OnToggle>
       ) : (
         <React.Fragment>
@@ -152,7 +164,7 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
                 } else {
                   dispatch({
                     type: 'alphabet',
-                    payload: projects?.sort(function (a, b) {
+                    payload: projects?.sort((a, b) => {
                       return a.name.localeCompare(b.name)
                     }),
                   })
@@ -171,11 +183,7 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
                 } else {
                   dispatch({
                     type: 'date',
-                    payload: projects?.sort(function (a, b) {
-                      let x = new Date(a.date) as any,
-                        y = new Date(b.date) as any
-                      return x - y
-                    }),
+                    payload: projects?.sort(sortDate),
                   })
                 }
               }}
@@ -192,13 +200,7 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
                 } else {
                   dispatch({
                     type: 'reverse_date',
-                    payload: projects
-                      ?.sort(function (a, b) {
-                        let x = new Date(a.date) as any,
-                          y = new Date(b.date) as any
-                        return x - y
-                      })
-                      .reverse(),
+                    payload: projects?.sort(sortDate).reverse(),
                   })
                 }
               }}
@@ -213,15 +215,20 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
   )
 }
 
-function Projects({projectsData}: {projectsData: Array<Project>}) {
-  return (
-    <ErrorBoundary
-      FallbackComponent={ErrorMessageFallback}
-      resetKeys={[projectsData]}
-    >
-      <ProjectComponent projectsData={projectsData} />
-    </ErrorBoundary>
-  )
-}
+const Projects = React.memo(
+  ({projectsData}: {projectsData: Array<Project>}) => {
+    return (
+      <ErrorBoundary
+        FallbackComponent={ErrorMessageFallback}
+        resetKeys={[projectsData]}
+      >
+        <ProjectComponent projectsData={projectsData} />
+      </ErrorBoundary>
+    )
+  },
+  (prevProps, nextProps) => {
+    return deepEqual(prevProps, nextProps)
+  },
+)
 
 export default Projects

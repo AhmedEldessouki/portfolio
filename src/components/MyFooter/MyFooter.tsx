@@ -13,19 +13,22 @@ import {VscTwitter, VscGithub} from 'react-icons/vsc'
 import {GrReactjs} from 'react-icons/gr'
 import {Link} from 'react-router-dom'
 
-import {colors, mq, weights} from '../Styles'
+import {colors, mq, weights} from '../../Styles'
 
 const MyFooter = () => {
   const fWrapper = css`
-    display: flex;
+    display: grid;
     padding: 10px;
-    place-content: space-between;
-    flex-wrap: wrap;
     background: ${colors.darkBlue};
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
     div {
       line-height: 38px;
     }
     ${mq.phoneLarge} {
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
       div {
         width: 100%;
         display: flex;
@@ -36,36 +39,43 @@ const MyFooter = () => {
   const whereToFindMe = css`
     padding-left: 20px;
     font-size: 219%;
-    color: ${colors.independenceBlue};
+    color: ${colors.whiteFaded};
+    place-self: flex-start;
     & > * {
+      transition: color 200ms ease-in;
       padding-right: 5px;
       :hover {
-        color: ${colors.whiteFaded};
+        color: ${colors.blueFont};
       }
     }
     ${mq.phoneLarge} {
+      padding-left: 0;
     }
   `
   const reactIcon = css`
     font-size: 219%;
     color: ${colors.blueFont};
+    place-self: center;
   `
   const copyWrite = css`
     padding-right: 20px;
-    color: ${colors.independenceBlue};
+    color: ${colors.whiteFaded};
     font-weight: ${weights.light};
+    place-self: flex-end;
   `
   return (
-    <div css={fWrapper}>
+    <div css={fWrapper} role="contentinfo">
       <div css={whereToFindMe}>
         <a
           target="_blank"
+          aria-label="Read more about me on linkedin"
           rel="noopener noreferrer"
           href="https://www.linkedin.com/in/ahmedeldessouki/"
         >
           <FaLinkedin />
         </a>
         <a
+          aria-label="Check more of my work on Github"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.github.com/ahmedeldessouki/"
@@ -73,6 +83,7 @@ const MyFooter = () => {
           <VscGithub />
         </a>
         <a
+          aria-label="Check more about me on Github"
           target="_blank"
           rel="noopener noreferrer"
           href="https://plus.google.com/+AhmedElDessouki1"
@@ -80,6 +91,7 @@ const MyFooter = () => {
           <FaGooglePlusSquare />
         </a>
         <a
+          aria-label="Check more about me on Instagram or get in touch with me"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.instagram.com/eldessouki.a"
@@ -87,6 +99,7 @@ const MyFooter = () => {
           <FaInstagram />
         </a>
         <a
+          aria-label="Check more about me on Facebook or get in touch with me"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.facebook.com/ahmed.eldessouki.39"
@@ -94,6 +107,7 @@ const MyFooter = () => {
           <FaFacebookSquare />
         </a>
         <a
+          aria-label="Check more about me on Twitter or get in touch with me"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.twitter.com/nem0adam"
@@ -101,6 +115,7 @@ const MyFooter = () => {
           <VscTwitter />
         </a>
         <a
+          aria-label="Check more about what kind of books i want to read on goodreads"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.goodreads.com/review/list/18907056?ref=nav_mybooks"
@@ -111,6 +126,7 @@ const MyFooter = () => {
       <div css={reactIcon}>
         <a
           target="_blank"
+          aria-label="If you wonder more about React.js. Check this link"
           rel="noopener noreferrer"
           href="https://reactjs.org/"
         >
@@ -120,6 +136,7 @@ const MyFooter = () => {
       <div css={copyWrite}>
         <Link
           to="/signin"
+          aria-label="© 2021 Ahmed ElDessouki"
           css={{
             ':hover': {
               textDecoration: 'none',

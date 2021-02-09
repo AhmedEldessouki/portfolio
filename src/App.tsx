@@ -2,8 +2,8 @@ import * as React from 'react'
 // import {config} from 'dotenv'
 
 import {useAuth} from './context/AuthProvider'
-import AuthRoutes from './components/Routes/AuthRoutes'
-import UnAuthRoutes from './components/Routes/UnAuthRoutes'
+import AuthRoutes from './Routes/AuthRoutes'
+import UnAuthRoutes from './Routes/UnAuthRoutes'
 
 import 'react-toastify/dist/ReactToastify.css'
 

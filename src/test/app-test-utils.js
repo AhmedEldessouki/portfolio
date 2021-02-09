@@ -8,10 +8,9 @@ import userEvent from '@testing-library/user-event'
 import {BrowserRouter} from 'react-router-dom'
 
 import {QueryClient, QueryClientProvider} from 'react-query'
+import {AuthProvider} from '../context/AuthProvider'
 import {buildUser} from './generate'
 import * as usersDB from './data/user'
-
-import {AuthProvider} from '../context/AuthProvider'
 
 async function render(
   ui,

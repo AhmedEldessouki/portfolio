@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react'
 
 let queue: Array<{[key: string]: string | number}> = []
@@ -32,6 +34,7 @@ function Profiler({metadata, phases, ...props}: ProfilerProps): JSX.Element {
     commitTime: number, // when React committed this update
     interactions: any, // the Set of interactions belonging to this update
   ): void {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!phases || phases.includes(phase)) {
       queue.push({
         metadata,

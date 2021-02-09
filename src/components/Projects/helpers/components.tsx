@@ -2,75 +2,117 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import * as React from 'react'
+import React from 'react'
 
-import {btnStyle, colors, h1XL, mq, textArea} from '../../Styles'
-import Input from '../../Utils/Input'
-import PopUp from '../../Utils/PopUp/PopUp'
-import {useClientFetch} from '../../Utils/apis'
+import {useDropzone} from 'react-dropzone'
+import {btnStyle, colors, h1XL, mq, textArea} from '../../../Styles'
+import Input from '../../Input'
+import PopUp from '../../PopUp/PopUp'
+import {useClientFetch} from '../../../Utils/apis'
 
-import type {Tag} from '../../Tags/tagsTypes'
-import type {DropzoneInputProps, DropzoneRootProps} from 'react-dropzone'
-import {Spinner} from '../../Utils/util'
+import Spinner from '../../Spinner'
+import type {
+  ImportedImages,
+  UploadedImagesArrayType,
+} from '../../../../types/types'
+import type {Tag} from '../../../../types/interfaces'
 
 function ImageDropZone({
-  getRootProps,
-  getInputProps,
-  color = colors.darkBlue,
+  importedImages,
+  setImportedImages,
 }: {
-  getRootProps: (props?: DropzoneRootProps | undefined) => DropzoneRootProps
-  getInputProps: (props?: DropzoneInputProps | undefined) => DropzoneInputProps
-  color: string
+  importedImages: ImportedImages
+  setImportedImages: React.Dispatch<React.SetStateAction<ImportedImages>>
 }) {
+  const [isDragActive, setIsDragActive] = React.useState(false)
+
+  const {getRootProps, getInputProps} = useDropzone({
+    accept: 'image/*',
+    maxFiles: 10,
+    maxSize: 8000000,
+    onDropAccepted: acceptedFiles => {
+      setIsDragActive(!isDragActive)
+
+      const newArr = acceptedFiles.map(file => {
+        return {file, preview: URL.createObjectURL(file)}
+      })
+      setImportedImages({
+        ...importedImages,
+        acceptedImages: {
+          ...importedImages.acceptedImages,
+          imgs: [...importedImages.acceptedImages.imgs, ...newArr],
+        },
+      })
+    },
+    onDropRejected: rejectedFiles => {
+      setIsDragActive(!isDragActive)
+
+      const newArr = rejectedFiles.map(({file}) => {
+        return {file, preview: URL.createObjectURL(file)}
+      })
+      setImportedImages({
+        ...importedImages,
+        rejectedImages: {
+          ...importedImages.rejectedImages,
+          imgs: [...importedImages.rejectedImages.imgs, ...newArr],
+        },
+      })
+    },
+    onDragEnter: () => {
+      setIsDragActive(!isDragActive)
+    },
+    onDragLeave: () => {
+      setIsDragActive(!isDragActive)
+    },
+  })
+
   return (
-    <React.Fragment>
-      <article
-        css={css`
-          display: flex;
-          place-items: center;
-          place-content: center;
-          border: 10px dashed ${color};
-          width: 95%;
-          height: 200px;
-          text-align: center;
-          cursor: pointer;
-          margin-bottom: 20px;
-          padding: 0;
-          margin-right: 0;
-          :hover,
-          :focus {
-            border-color: ${colors.blueFont};
-          }
-        `}
-        {...getRootProps()}
+    <article
+      css={css`
+        display: flex;
+        place-items: center;
+        place-content: center;
+        border: 10px dashed ${isDragActive ? colors.blueFont : colors.darkBlue};
+        width: 95%;
+        height: 200px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+        padding: 0;
+        margin-right: 0;
+        :hover,
+        :focus {
+          border-color: ${colors.blueFont};
+        }
+      `}
+      {...getRootProps()}
+    >
+      <em
+        css={[
+          h1XL,
+          css`
+            padding: 0;
+            color: ${colors.aliceLightBlue};
+          `,
+        ]}
       >
-        <em
-          css={[
-            h1XL,
-            css`
-              padding: 0;
-              color: ${colors.aliceLightBlue};
-            `,
-          ]}
-        >
-          Image(s) Drop Zone
-        </em>
-        <input
-          id="dropZone"
-          type="file"
-          name="projectLogo"
-          aria-label="ImageDropZone"
-          css={[
-            textArea,
-            css`
-              width: initial;
-              margin: 0;
-            `,
-          ]}
-          {...getInputProps()}
-        />
-      </article>
-    </React.Fragment>
+        Image(s) Drop Zone
+      </em>
+      <input
+        id="dropZone"
+        type="file"
+        name="projectLogo"
+        aria-label="ImageDropZone"
+        css={[
+          textArea,
+          css`
+            width: initial;
+            margin: 0;
+          `,
+        ]}
+        {...getInputProps()}
+      />
+    </article>
   )
 }
 
@@ -97,8 +139,8 @@ function DisplayingImages({
   oldImages,
   handleClick,
 }: {
-  acceptedImages: Array<{preview: string & File}>
-  rejectedImages: Array<{preview: string & File}>
+  acceptedImages: UploadedImagesArrayType
+  rejectedImages: UploadedImagesArrayType
   oldImages: Array<string>
   handleClick: (
     arg0:
@@ -156,6 +198,7 @@ function DisplayingImages({
                 <PopUp
                   info="Image"
                   onClickYes={() => handleClick('remove_acceptedImages', i)}
+                  controls={preview}
                 />
                 <img alt="" width={100} src={preview} />
               </div>
@@ -174,6 +217,7 @@ function DisplayingImages({
                 <PopUp
                   info="Image"
                   onClickYes={() => handleClick('remove_rejectedImages', i)}
+                  controls={preview}
                 />
                 <img alt="" width={100} src={preview} />
               </div>
@@ -181,15 +225,16 @@ function DisplayingImages({
           </section>
         </article>
       )}
-      {oldImages && oldImages.length > 0 && (
+      {oldImages?.length > 0 && (
         <article css={xyz}>
           <h2 css={hStyle}>current Images</h2>
           <section css={imgWrap}>
-            {oldImages.map((imageUrl, i) => (
+            {oldImages?.map((imageUrl, i) => (
               <div key={imageUrl} css={div}>
                 <PopUp
                   info="Image"
                   onClickYes={() => handleClick('remove_oldImages', i)}
+                  controls={imageUrl}
                 />
                 <picture>
                   {/* 
@@ -208,15 +253,25 @@ function DisplayingImages({
   )
 }
 
-function TagsCheckBox({
-  handleClick,
+// TODO: After Changing All the `ProjectData` Tags into [Object] Remove the type [String] of `ProjectTags`
+function TagsCheckBoxX({
   projectTags,
   ...inputProps
 }: {
-  handleClick: (e: React.ChangeEvent) => void
-  projectTags: Array<string>
+  projectTags: Array<string | Tag>
 } & React.InputHTMLAttributes<HTMLInputElement>) {
-  const TagsData = useClientFetch('tags') as Array<Tag>
+  const tagsData = useClientFetch('tags') as Array<Tag>
+  const [isChecked, setChecked] = React.useState(
+    tagsData.map(
+      tag =>
+        projectTags?.length > 0 &&
+        !!projectTags?.find(
+          item =>
+            (typeof item === 'object' ? item.url.trim() : item.trim()) ===
+            tag.url.trim(),
+        ),
+    ),
+  )
   return (
     <div
       css={css`
@@ -230,7 +285,7 @@ function TagsCheckBox({
         flex-wrap: wrap;
       `}
     >
-      {TagsData.map((tag, i) => {
+      {tagsData.map((tag, i) => {
         return (
           <label
             key={tag.id}
@@ -253,13 +308,11 @@ function TagsCheckBox({
               type="checkbox"
               alt={tag.name}
               onChange={e => {
-                handleClick(e)
+                isChecked.splice(i, 1, e.target.checked)
+                setChecked([...isChecked])
               }}
-              checked={
-                projectTags?.find(item => item.trim() === tag.url.trim())
-                  ? true
-                  : false
-              }
+              value={tag.url}
+              checked={isChecked[i]}
               {...inputProps}
             />
             <img
@@ -276,7 +329,7 @@ function TagsCheckBox({
     </div>
   )
 }
-
+const TagsCheckBox = React.memo(TagsCheckBoxX)
 function ProjInputX({
   editableValue,
   ...inputOverrides

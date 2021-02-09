@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import App from '../App'
 import {
   userEvent,
@@ -6,15 +6,15 @@ import {
   screen,
   renderWithAllProviders,
 } from '../test/app-test-utils'
-import * as hooks from '../components/Utils/apis'
+import * as hooks from '../Utils/apis'
 
-async function renderAppScreen({user, doWait} = {}) {
+async function renderAppScreen({ user, doWait } = {}) {
   if (user === undefined) {
     user = await loginAsUser()
   }
 
   const route = `/`
-  const utils = await renderWithAllProviders(<App />, {user, route, doWait})
+  const utils = await renderWithAllProviders(<App />, { user, route, doWait })
 
   return {
     ...utils,
@@ -26,14 +26,14 @@ beforeAll(() => {
   jest.mock('react-query', () => ({
     useQuery: jest.fn(),
   }))
-  jest.mock('../components/Utils/apis', () => {
-    return {useClientFetch: jest.fn(collection => [])}
+  jest.mock('../Utils/apis', () => {
+    return { useClientFetch: jest.fn() }
   })
   jest.spyOn(console, 'error')
 })
 
-afterEach(() => {
-  jest.mock().clearAllMocks()
+afterAll(() => {
+  jest.resetAllMocks()
 })
 
 test('should check all router', async () => {

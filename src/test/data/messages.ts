@@ -1,15 +1,15 @@
-import type {Message} from '../../components/Utils/interfaces'
+import type {Message} from '../../../types/interfaces'
 
-let messages: Array<Message> = []
+const messages: Array<Message> = []
 
-async function create(message: Message) {
+function create(message: Message) {
   messages.push(message)
   return message
 }
 
-async function remove(message: Message) {
+function remove(message: Message) {
   const i = messages.findIndex(msg => msg.name === message.name)
-  delete messages[i]
+  messages.splice(i, 1)
 }
 
 export {create, remove}
