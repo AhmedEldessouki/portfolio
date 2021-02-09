@@ -1,5 +1,5 @@
 {
   "projectId": "n56vcv",
-  "baseUrl": "http://localhost:5000",
+  "baseUrl": "http://localhost:8888",
   "pageLoadTimeout": 60000
 }

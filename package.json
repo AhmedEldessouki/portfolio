@@ -81,7 +81,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "start": "cross-env PORT=5000 react-scripts start",
+    "start": "cross-env PORT=8888 react-scripts start",
     "dev": "react-scripts start",
     "serve": "serve -s build --no-clipboard",
     "db": "firebase emulators:start --import=./dev-data --export-on-exit --only firestore",
@@ -95,7 +95,7 @@
     "test:precommit": "jest  --watch=false --findRelatedTests",
     "test:coverage": "jest --watch=false --coverage",
     "test:watch": "jest --watch",
-    "test:e2e": "start-server-and-test start 5000 cy:run",
+    "test:e2e": "start-server-and-test start 8888 cy:run",
     "test:e2e:ci": "start-server-and-test serve 5000 cy:run",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
