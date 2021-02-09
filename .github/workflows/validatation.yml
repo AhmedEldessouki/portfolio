@@ -1,8 +1,13 @@
 name: test CI
 on:
+  push:
+    branches:
+      - 'main'
   pull_request:
-    types: [opened, synchronize, reopened]
-
+    branches:
+      - 'main'
+env:
+  super_secret: ${{ secrets }}
 jobs:
   test:
     name: verifying
@@ -24,14 +29,34 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: node_modules
+          path: |
+            node_modules
+            ~/.cache/Cypress
+            ~/Library/Caches/Cypress
           key:
             ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
             }}
-
-      - name: Install Packages
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+      - name: Install Packages & verify Cypress
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: |
+          npm ci
+          npx cypress cache path
+          npx cypress cache list
+          npx cypress verify
+          npx cypress info
+
+      - name: Cache Cypress binary
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/Cypress
+            ~/Library/Caches/Cypress
+          key:
+            cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-cypress-
 
       - name: 🛠 Run build script
         run: npm run build
@@ -41,3 +66,13 @@ jobs:
 
       - name: ⚡ Run test script
         run: npm test
+
+      - name: Run Cypress test script
+        uses: cypress-io/github-action@v2
+        with:
+          parallel: true
+          group: Parallel 2x on ${{ matrix.os }}
+          command: npm run test:e2e
+          start-windows: npm run test:e2e:windows
+          browser: chrome
+          headless: true

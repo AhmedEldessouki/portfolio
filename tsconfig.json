@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", "cypress", "types", "types"],
+  "include": ["src", "cypress", "types"],
   "exclude": ["src/serviceWorker"]
 }
