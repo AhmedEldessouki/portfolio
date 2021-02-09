@@ -1,6 +1,5 @@
 {
   "projectId": "n56vcv",
   "baseUrl": "http://localhost:8888",
-  "integrationFolder": "cypress/e2e",
   "pageLoadTimeout": 60000
 }
