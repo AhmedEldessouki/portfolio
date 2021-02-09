@@ -6,8 +6,8 @@ on:
   pull_request:
     branches:
       - 'main'
-env:
-  super_secret: ${{ secrets }}
+env: ${{ secrets }}
+
 jobs:
   test:
     name: verifying
