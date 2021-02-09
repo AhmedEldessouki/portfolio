@@ -73,7 +73,6 @@ jobs:
           spec: cypress/integration/app
           parallel: true
           group: Parallel 2x on ${{ matrix.os }}
-          command: npm run test:e2e
-          start-windows: npm run test:e2e:windows
+          command: npm run test:e2e:ci
           browser: chrome
           headless: true
