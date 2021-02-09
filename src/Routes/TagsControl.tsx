@@ -1,24 +1,17 @@
 import React from 'react'
-import {ErrorBoundary} from 'react-error-boundary'
 
 import {useClientFetch} from '../Utils/apis'
 import Layout from '../components/Layout'
-import ErrorMessageFallback from '../components/ErrorMessageFallback'
 import Tags from '../components/Tags/Tags'
 
 import type {Tag} from '../../types/interfaces'
 
 function TagsControl() {
-  const TagsData = useClientFetch('tags') as Array<Tag>
+  const tagsData = useClientFetch('tags') as Array<Tag>
 
   return (
     <Layout>
-      <ErrorBoundary
-        resetKeys={[TagsData]}
-        FallbackComponent={ErrorMessageFallback}
-      >
-        <Tags TagsData={TagsData} />
-      </ErrorBoundary>
+      <Tags tagsData={tagsData} />
     </Layout>
   )
 }

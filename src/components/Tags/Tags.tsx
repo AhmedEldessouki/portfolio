@@ -12,7 +12,7 @@ import {replaceWhiteSpaceWith} from '../../Utils/helpers'
 import type {Tag} from '../../../types/interfaces'
 import TagForm from './TagForm'
 
-function Tags({TagsData}: {TagsData: Array<Tag>}) {
+function Tags({tagsData}: {tagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -45,7 +45,7 @@ function Tags({TagsData}: {TagsData: Array<Tag>}) {
           margin-button: 20px;
         `}
       >
-        {TagsData?.map(tag => (
+        {tagsData?.map(tag => (
           <div
             key={tag.id}
             css={css`

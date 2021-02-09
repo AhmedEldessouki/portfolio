@@ -2,34 +2,77 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import * as React from 'react'
+import React from 'react'
 
-import type {DropzoneInputProps, DropzoneRootProps} from 'react-dropzone'
+import {useDropzone} from 'react-dropzone'
 import {btnStyle, colors, h1XL, mq, textArea} from '../../../Styles'
 import Input from '../../Input'
 import PopUp from '../../PopUp/PopUp'
 import {useClientFetch} from '../../../Utils/apis'
 
 import Spinner from '../../Spinner'
-import type {UploadedImagesArrayType} from '../../../../types/types'
+import type {
+  ImportedImages,
+  UploadedImagesArrayType,
+} from '../../../../types/types'
 import type {Tag} from '../../../../types/interfaces'
 
 function ImageDropZone({
-  getRootProps,
-  getInputProps,
-  color = colors.darkBlue,
+  importedImages,
+  setImportedImages,
 }: {
-  getRootProps: (props?: DropzoneRootProps | undefined) => DropzoneRootProps
-  getInputProps: (props?: DropzoneInputProps | undefined) => DropzoneInputProps
-  color: string
+  importedImages: ImportedImages
+  setImportedImages: React.Dispatch<React.SetStateAction<ImportedImages>>
 }) {
+  const [isDragActive, setIsDragActive] = React.useState(false)
+
+  const {getRootProps, getInputProps} = useDropzone({
+    accept: 'image/*',
+    maxFiles: 10,
+    maxSize: 8000000,
+    onDropAccepted: acceptedFiles => {
+      setIsDragActive(!isDragActive)
+
+      const newArr = acceptedFiles.map(file => {
+        return {file, preview: URL.createObjectURL(file)}
+      })
+      setImportedImages({
+        ...importedImages,
+        acceptedImages: {
+          ...importedImages.acceptedImages,
+          imgs: [...importedImages.acceptedImages.imgs, ...newArr],
+        },
+      })
+    },
+    onDropRejected: rejectedFiles => {
+      setIsDragActive(!isDragActive)
+
+      const newArr = rejectedFiles.map(({file}) => {
+        return {file, preview: URL.createObjectURL(file)}
+      })
+      setImportedImages({
+        ...importedImages,
+        rejectedImages: {
+          ...importedImages.rejectedImages,
+          imgs: [...importedImages.rejectedImages.imgs, ...newArr],
+        },
+      })
+    },
+    onDragEnter: () => {
+      setIsDragActive(!isDragActive)
+    },
+    onDragLeave: () => {
+      setIsDragActive(!isDragActive)
+    },
+  })
+
   return (
     <article
       css={css`
         display: flex;
         place-items: center;
         place-content: center;
-        border: 10px dashed ${color};
+        border: 10px dashed ${isDragActive ? colors.blueFont : colors.darkBlue};
         width: 95%;
         height: 200px;
         text-align: center;
@@ -211,7 +254,7 @@ function DisplayingImages({
 }
 
 // TODO: After Changing All the `ProjectData` Tags into [Object] Remove the type [String] of `ProjectTags`
-function TagsCheckBox({
+function TagsCheckBoxX({
   projectTags,
   ...inputProps
 }: {
@@ -286,7 +329,7 @@ function TagsCheckBox({
     </div>
   )
 }
-
+const TagsCheckBox = React.memo(TagsCheckBoxX)
 function ProjInputX({
   editableValue,
   ...inputOverrides

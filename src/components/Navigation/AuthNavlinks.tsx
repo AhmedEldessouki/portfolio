@@ -97,7 +97,7 @@ const AuthNavlinksX = () => {
         <h2>{selectedProject ? 'Edit' : 'Create'} Project</h2>
       </NavLink>
       <NavLink
-        to="/tags"
+        to="/tags-control"
         exact
         activeStyle={{
           backgroundColor: colors.independenceBlue,

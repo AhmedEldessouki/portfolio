@@ -1,12 +1,17 @@
 /// <reference types="cypress" />
 
 import {a11yRunOnly, terminalLog} from 'utils/utils'
-
-before(() => {
-  cy.clearLocalStorage('__portfolio_user__')
-  window.indexedDB.deleteDatabase('firebaseLocalStorageDb')
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // returning false here prevents Cypress from
+  // failing the test
+  console.log(err,runnable)
+  return false
 })
 describe('A11y check', () => {
+  before(() => {
+    cy.clearLocalStorage('__portfolio_user__')
+    window.indexedDB.deleteDatabase('firebaseLocalStorageDb')
+  })
   beforeEach(() => {
     cy.visit('/signin')
     cy.get('form').within(() => {
@@ -32,23 +37,17 @@ describe('A11y check', () => {
     cy.injectAxe()
     cy.checkA11y(undefined, a11yRunOnly, terminalLog)
 
-    cy.findByText(/projects/i).should('exist')
-    cy.findByText(/messages/i).should('exist')
+    cy.findAllByText(/projects/i).should('exist')
+    cy.findAllByText(/messages/i).should('exist')
   })
 
   it('Create Project', () => {
     cy.visit('/create-project')
-
     cy.injectAxe()
-    cy.checkA11y(undefined, a11yRunOnly, terminalLog)
-
-    cy.findByText(/Create Project/i).should('exist')
+    cy.checkA11y('#create-project-form', a11yRunOnly, terminalLog)
   })
   it('Tags', () => {
-    cy.visit('/tags')
-
-    cy.findByText(/Create tag/i).should('exist')
-    cy.findByText(/Tags Control/i).should('exist')
+    cy.visit('/tags-control')
     cy.injectAxe()
     cy.checkA11y(undefined, a11yRunOnly, terminalLog)
   })
@@ -60,11 +59,6 @@ describe('A11y check', () => {
     cy.injectAxe()
     cy.checkA11y(undefined, a11yRunOnly, terminalLog)
 
-    cy.get('button')
-      .findByText(/signout/i)
-      .click()
-
-    cy.get('a').findByText(/home/i).click()
   })
 
   it('404', () => {

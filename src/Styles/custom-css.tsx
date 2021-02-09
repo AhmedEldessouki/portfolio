@@ -92,6 +92,9 @@ export const formWrapperInput = css`
   border: 5.5px solid ${colors.darkBlue};
   border-radius: 7%;
   letter-spacing: 2.2px;
+  ::placeholder {
+    color: ${colors.whiteFaded}
+  }
   }
 `
 

@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
@@ -6,7 +5,6 @@ import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {toast} from 'react-toastify'
 import {ErrorBoundary} from 'react-error-boundary'
-import {useDropzone} from 'react-dropzone'
 import {Redirect} from 'react-router-dom'
 
 import {useAuth} from '../context/AuthProvider'
@@ -44,18 +42,22 @@ function CreateProject() {
     acceptedImages: {imagesType: 'acceptedImages', imgs: []},
     rejectedImages: {imagesType: 'rejectedImages', imgs: []},
   })
+  const proj = React.useCallback(
+    oldProj => ({
+      name: oldProj?.name ?? '',
+      link: oldProj?.link ?? '',
+      repoLink: oldProj?.repoLink ?? '',
+      projectType: oldProj?.projectType ?? 'Personal',
+      projectLogo: oldProj?.projectLogo ?? [],
+      tag: oldProj?.tag ?? [],
+      description: oldProj?.description ?? '',
+    }),
+    [],
+  )
   const [state, unsafeDispatch] = React.useReducer(projectFormReducer, {
     status: 'idle',
     // Passing Selected Project Data to the Form
-    enteredProjectData: {
-      name: selectedProject?.name ?? '',
-      link: selectedProject?.link ?? '',
-      repoLink: selectedProject?.repoLink ?? '',
-      projectType: selectedProject?.projectType ?? 'Personal',
-      projectLogo: selectedProject?.projectLogo ?? [],
-      tag: selectedProject?.tag ?? [],
-      description: selectedProject?.description ?? '',
-    },
+    enteredProjectData: proj(selectedProject),
     error: undefined,
   })
   const dispatch = useSafeDispatch(unsafeDispatch)
@@ -64,49 +66,6 @@ function CreateProject() {
 
     color: '',
   })
-  const [isDragActive, setIsDragActive] = React.useState(false)
-
-  const {getRootProps, getInputProps} = useDropzone({
-    accept: 'image/*',
-    maxFiles: 10,
-    maxSize: 8000000,
-    onDropAccepted: acceptedFiles => {
-      setIsDragActive(!isDragActive)
-
-      const newArr = acceptedFiles.map(file => {
-        return {file, preview: URL.createObjectURL(file)}
-      })
-      setImportedImages({
-        ...importedImages,
-        acceptedImages: {
-          ...importedImages.acceptedImages,
-          imgs: [...importedImages.acceptedImages.imgs, ...newArr],
-        },
-      })
-    },
-    onDropRejected: rejectedFiles => {
-      setIsDragActive(!isDragActive)
-
-      dispatch({type: 'error', payload: {...rejectedFiles[0].errors[0]}})
-      const newArr = rejectedFiles.map(({file}) => {
-        return {file, preview: URL.createObjectURL(file)}
-      })
-      setImportedImages({
-        ...importedImages,
-        rejectedImages: {
-          ...importedImages.rejectedImages,
-          imgs: [...importedImages.rejectedImages.imgs, ...newArr],
-        },
-      })
-    },
-    onDragEnter: () => {
-      setIsDragActive(!isDragActive)
-    },
-    onDragLeave: () => {
-      setIsDragActive(!isDragActive)
-    },
-  })
-
   React.useEffect(() => {
     if (selectedProject) {
       window.scroll(0, 0)
@@ -115,7 +74,6 @@ function CreateProject() {
       setProject(undefined)
     }
   }, [selectedProject, setProject])
-
   async function useHandleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
@@ -182,8 +140,33 @@ function CreateProject() {
     }
     dispatch({type: 'idle'})
   }
-
   const {status, enteredProjectData, error} = state
+
+  const handleImageRemoval = React.useCallback(
+    (
+      type:
+        | 'remove_acceptedImages'
+        | 'remove_oldImages'
+        | 'remove_rejectedImages',
+      index,
+    ) => {
+      if (type === 'remove_oldImages') {
+        enteredProjectData.projectLogo.splice(index, 1)
+        dispatch({type: 'idle'})
+      } else if (type === 'remove_acceptedImages') {
+        importedImages.acceptedImages.imgs.splice(index, 1)
+        setImportedImages({
+          ...importedImages,
+        })
+      } else {
+        importedImages.rejectedImages.imgs.splice(index, 1)
+        setImportedImages({
+          ...importedImages,
+        })
+      }
+    },
+    [dispatch, enteredProjectData.projectLogo, importedImages],
+  )
 
   const {
     name,
@@ -200,9 +183,9 @@ function CreateProject() {
   }
   return (
     <Layout>
-      <section>
+      <React.Fragment>
         <h1 css={h1XL}>{selectedProject ? `Edit` : `Create`} Project</h1>
-        <section
+        <div
           css={[
             {
               display: 'flex',
@@ -226,39 +209,21 @@ function CreateProject() {
             acceptedImages={importedImages.acceptedImages.imgs}
             rejectedImages={importedImages.rejectedImages.imgs}
             oldImages={projectLogo}
-            handleClick={(
-              type:
-                | 'remove_acceptedImages'
-                | 'remove_oldImages'
-                | 'remove_rejectedImages',
-              index,
-            ) => {
-              if (type === 'remove_oldImages') {
-                enteredProjectData.projectLogo.splice(index, 1)
-                dispatch({type: 'idle'})
-              } else if (type === 'remove_acceptedImages') {
-                importedImages.acceptedImages.imgs.splice(index, 1)
-                setImportedImages({
-                  ...importedImages,
-                })
-              } else {
-                importedImages.rejectedImages.imgs.splice(index, 1)
-                setImportedImages({
-                  ...importedImages,
-                })
-              }
-            }}
+            handleClick={handleImageRemoval}
           />
           <ErrorBoundary
             FallbackComponent={ErrorMessageFallback}
             resetKeys={[state]}
             onReset={() => dispatch({type: 'clean_up'})}
           >
-            <form css={[formWrapper, {gap: 6}]} onSubmit={useHandleSubmit}>
+            <form
+              css={[formWrapper, {gap: 6}]}
+              onSubmit={useHandleSubmit}
+              id="create-project-form"
+            >
               <ImageDropZone
-                color={isDragActive ? colors.blueFont : colors.darkBlue}
-                getRootProps={getRootProps}
-                getInputProps={getInputProps}
+                importedImages={importedImages}
+                setImportedImages={setImportedImages}
               />
               {error?.code === 'too-many-files' && (
                 <span css={warning} role="alert">
@@ -370,8 +335,8 @@ function CreateProject() {
               />
             </form>
           </ErrorBoundary>
-        </section>
-      </section>
+        </div>
+      </React.Fragment>
     </Layout>
   )
 }

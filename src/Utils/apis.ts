@@ -12,12 +12,12 @@ const placeholderData = [
     phoneNumber: 'XXXXXXXXX',
     description: 'XXXXXXXXXXXXXXXXXXXX',
     name: 'XXXXXXX',
-    link: 'https://www.xxxxxxxxxxx.co',
-    url: 'https://www.xxxxxxxxxxx.co',
+    link: '',
+    url: '',
     projectLogo: [],
     date: {
-      seconds: 1599235638,
-      nanoseconds: 137000000,
+      seconds: 0,
+      nanoseconds: 0,
     },
   },
 ]

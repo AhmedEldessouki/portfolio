@@ -16,7 +16,7 @@ function AuthRoutes() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/signUp" component={SignUp} />
         <Route path="/create-project" component={CreateProject} />
-        <Route path="/tags" component={TagsControl} />
+        <Route path="/tags-control" component={TagsControl} />
         <Route path="/edit/:id" component={CreateProject} />
         <Redirect from="/signin" to="/" />
         <Route from="*" to="/" component={PageNotFound} />
