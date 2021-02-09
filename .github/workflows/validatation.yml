@@ -1,15 +1,14 @@
 name: test CI
 on:
-  push:
-    branches:
-      - 'main'
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   test:
     name: verifying
     strategy:
       matrix:
-        os: [ubuntu-16.04, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         node: [12, 14]
     runs-on: ${{ matrix.os }}
     steps:
@@ -25,31 +24,14 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            node_modules
-            ~/.cache/Cypress
+          path: node_modules
           key:
             ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
             }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-
-      - name: Install Packages & verify Cypress
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          npm ci
-          npx cypress cache path
-          npx cypress cache list
-          npx cypress verify
-          npx cypress info
 
-      - name: Cache Cypress binary
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/Cypress
-          key:
-            cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-cypress-
+      - name: Install Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: 🛠 Run build script
         run: npm run build
@@ -58,4 +40,4 @@ jobs:
         run: npm run lint:ci
 
       - name: ⚡ Run test script
-        run: npm test
+        run: npm test:ci
