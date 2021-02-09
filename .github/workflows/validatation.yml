@@ -13,7 +13,7 @@ jobs:
     name: verifying
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-16.04, windows-latest, macos-latest]
         node: [12, 14]
     runs-on: ${{ matrix.os }}
     steps:
@@ -70,9 +70,7 @@ jobs:
       - name: Run Cypress test script
         uses: cypress-io/github-action@v2
         with:
-          spec: cypress/integration/app
-          parallel: true
-          group: Parallel 2x on ${{ matrix.os }}
+          group: ${{ matrix.os }}
           command: npm run test:e2e:ci
           browser: chrome
           headless: true
