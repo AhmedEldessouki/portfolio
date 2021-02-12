@@ -12,11 +12,15 @@ const AuthNavlinksX = () => {
   const {signUserOut, selectedProject} = useAuth()
 
   const nav = css`
+    position: absolute;
+    top: 0;
+    width: 100%;
     display: flex;
     place-content: space-evenly;
     background: black;
     background-color: ${colors.darkBlue};
     padding: 18px 6px;
+    min-height: 111px;
     & > a,
     button {
       text-decoration: none;
@@ -57,7 +61,8 @@ const AuthNavlinksX = () => {
     ${mq.phoneLarge} {
       flex-direction: column;
       padding-bottom: 17px;
-      & > a {
+      & > a,
+      button {
         width: 73%;
         text-align: center;
       }
@@ -65,7 +70,7 @@ const AuthNavlinksX = () => {
   `
 
   return (
-    <div css={nav} role="navigation">
+    <nav css={nav}>
       <NavLink
         to="/"
         exact
@@ -126,7 +131,7 @@ const AuthNavlinksX = () => {
       >
         <h2>SignOut</h2>
       </button>
-    </div>
+    </nav>
   )
 }
 const AuthNavlinks = React.memo(AuthNavlinksX)

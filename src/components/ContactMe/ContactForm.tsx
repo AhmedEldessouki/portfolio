@@ -28,9 +28,6 @@ function ContactForm() {
   const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(
     false,
   )
-  const [descriptionFieldColor, setDescriptionFieldColor] = React.useState<
-    string | undefined
-  >('')
   const [
     sendMessageErrorApi,
     setSendMessageErrorApi,
@@ -68,8 +65,6 @@ function ContactForm() {
     if (error) {
       setSendMessageErrorApi(error)
     }
-
-    setDescriptionFieldColor(colors.darkBlue)
     dispatch({type: 'idle'})
   }
   return (
@@ -122,7 +117,6 @@ function ContactForm() {
               maxLength={30}
               autoComplete="name"
               inputMode="text"
-              cleanColor={status === 'pending'}
             />
             <Input
               name="email"
@@ -130,7 +124,6 @@ function ContactForm() {
               inputMode="email"
               placeholder="Email Address"
               required
-              cleanColor={status === 'pending'}
             />
             <Input
               onBlur={e => {
@@ -145,7 +138,6 @@ function ContactForm() {
               maxLength={13}
               placeholder="Phone Number"
               pattern="^[0-9\b]+$"
-              cleanColor={status === 'pending'}
             />
             {phoneNumberFieldError ? (
               <span css={warning} role="alert">
@@ -169,21 +161,11 @@ function ContactForm() {
                 name="description"
                 id="description"
                 aria-label="description"
-                onBlur={e =>
-                  e.target.validity.valid
-                    ? setDescriptionFieldColor(colors.lightGreen)
-                    : setDescriptionFieldColor(colors.burgundyRed)
-                }
                 required
                 placeholder="Description"
                 minLength={10}
                 maxLength={500}
-                css={[
-                  textArea,
-                  css`
-                    border-color: ${descriptionFieldColor};
-                  `,
-                ]}
+                css={textArea}
               />
             </label>
           </div>

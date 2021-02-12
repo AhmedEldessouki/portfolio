@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import {useClientFetch} from '../Utils/apis'
-import Layout from '../components/Layout'
 import type {Project} from '../../types/interfaces'
 import About from '../components/About/About'
 
@@ -14,7 +13,7 @@ function Home() {
   const projectsData = useClientFetch('projects') as Array<Project>
 
   return (
-    <Layout>
+    <main>
       <About />
       <React.Suspense fallback={<span>Loading Projects...</span>}>
         <Projects projectsData={projectsData} />
@@ -22,7 +21,7 @@ function Home() {
       <React.Suspense fallback={<span>Loading Form...</span>}>
         <ContactForm />
       </React.Suspense>
-    </Layout>
+    </main>
   )
 }
 

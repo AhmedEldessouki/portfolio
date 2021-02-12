@@ -4,9 +4,8 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import {formWrapper, h1XL, btnStyle, warning} from '../Styles'
+import {formStyles, h1XL, btnStyle, warning} from '../Styles'
 import {useAuth} from '../context/AuthProvider'
-import Layout from '../components/Layout'
 import Input from '../components/Input'
 import {useAsync} from '../Utils/hooks'
 import Spinner from '../components/Spinner'
@@ -37,23 +36,24 @@ const SignIn = () => {
   }
 
   return (
-    <Layout height="74.5vmin">
+    <main css={{marginTop: '114px'}}>
       <h1 css={h1XL}>Sign-in</h1>
       <div
         css={css`
           width: 100%;
           display: flex;
           place-content: center;
+          min-height: 63vh;
+          place-items: center;
         `}
       >
-        <form onSubmit={submitUserCredentials} css={[formWrapper, {gap: 6}]}>
+        <form onSubmit={submitUserCredentials} css={[formStyles, {gap: 6}]}>
           <div css={{width: '89%'}}>
             <Input
               name="signin_email"
               placeholder="Enter email"
               type="email"
               required
-              cleanColor={status === 'resolved'}
             />
             <Input
               type="password"
@@ -62,7 +62,6 @@ const SignIn = () => {
               maxLength={20}
               required
               placeholder="Enter password"
-              cleanColor={status === 'resolved'}
             />
           </div>
           {verificationFailed && (
@@ -79,7 +78,7 @@ const SignIn = () => {
           )}
         </form>
       </div>
-    </Layout>
+    </main>
   )
 }
 

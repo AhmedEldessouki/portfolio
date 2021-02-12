@@ -64,7 +64,7 @@ const MyFooter = () => {
     place-self: flex-end;
   `
   return (
-    <div css={fWrapper} role="contentinfo">
+    <footer css={fWrapper} role="contentinfo">
       <div css={whereToFindMe}>
         <a
           target="_blank"
@@ -148,7 +148,7 @@ const MyFooter = () => {
           <span>© 2021 Ahmed ElDessouki</span>
         </Link>
       </div>
-    </div>
+    </footer>
   )
 }
 export default MyFooter

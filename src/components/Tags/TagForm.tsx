@@ -4,7 +4,7 @@
 import {jsx, css} from '@emotion/react'
 import {ErrorBoundary} from 'react-error-boundary'
 
-import {btnStyle, h2XL, formWrapper} from '../../Styles'
+import {btnStyle, h2XL, formStyles} from '../../Styles'
 import Input from '../Input'
 import ErrorMessageFallback from '../ErrorMessageFallback'
 import Spinner from '../Spinner'
@@ -29,21 +29,19 @@ function TagForm({
     >
       <h2 css={h2XL}>Create Tag</h2>
       <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
-        <form onSubmit={e => handleSubmit(e)} css={formWrapper}>
+        <form onSubmit={e => handleSubmit(e)} css={formStyles}>
           <div className="field-container">
             <Input
               type="text"
               placeholder="Enter Tag's Name"
               name="name"
               required
-              cleanColor={status === 'resolved'}
             />
             <Input
               type="url"
               name="url"
               required
               placeholder="Enter Tag's Link"
-              cleanColor={status === 'resolved'}
             />
           </div>
           {status === 'pending' ? (
