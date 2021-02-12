@@ -335,7 +335,6 @@ function ProjInputX({
   ...inputOverrides
 }: {
   editableValue?: string | undefined
-  cleanColor?: boolean
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   const [state, setState] = React.useState(editableValue)
   return (

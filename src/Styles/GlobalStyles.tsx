@@ -37,7 +37,6 @@ export const globalStyles = css`
     color: rgba(255, 255, 255, 0.74);
     background: ${colors.independenceBlue};
     scrollbar-width: thin;
-    min-height: 100vh;
   }
 
   footer,
@@ -47,6 +46,14 @@ export const globalStyles = css`
   nav,
   section {
     display: block;
+  }
+
+  main {
+    margin-top: 95px;
+    min-height: 75vh;
+    ${mq.phoneLarge} {
+      margin-top: 242px;
+    }
   }
 
   img {

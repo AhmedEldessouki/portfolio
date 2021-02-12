@@ -7,7 +7,10 @@ import {NavLink} from 'react-router-dom'
 import {colors, mq} from '../../Styles'
 
 const UnAuthNavlinks = () => {
-  const container = css`
+  const nav = css`
+    position: absolute;
+    top: 0;
+    width: 100%;
     background-color: ${colors.darkBlue};
     display: flex;
     justify-content: center;
@@ -16,25 +19,28 @@ const UnAuthNavlinks = () => {
   const h1a = css`
     padding: 23px 40px 24px;
     text-decoration: none;
-    font-size: 2.6rem;
+    font-size: 2rem;
     background: ${colors.independenceBlue};
     margin: 16px 0;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
     border-radius: 12%;
     font-variant-caps: petite-caps;
     :hover {
-      opacity: 0.8;
+      padding: 5px 10px;
+      background-color: ${colors.independenceBlue};
+      color: inherit;
     }
     ${mq.s} {
       font-size: 1.2rem;
+      letter-spacing: 2.5px;
     }
   `
   return (
-    <div css={container} role="navigation">
+    <nav css={nav}>
       <NavLink to="/" style={{textDecoration: 'none'}}>
         <h1 css={h1a}>Ahmed Eldessouki</h1>
       </NavLink>
-    </div>
+    </nav>
   )
 }
 

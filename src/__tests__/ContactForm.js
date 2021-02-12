@@ -5,7 +5,6 @@ import { screen } from '@testing-library/react'
 import ContactForm from '../components/ContactMe/ContactForm'
 import { render, userEvent } from '../test/app-test-utils'
 import { buildMessage } from '../test/generate'
-import { colors } from '../Styles'
 
 const message = buildMessage()
 
@@ -51,10 +50,6 @@ test('PhoneNumber Field Should [fail]', async () => {
   expect(screen.getByLabelText(/phoneNumber/i)).toHaveDisplayValue(
     `${message.phoneNumber}sad`,
   )
-
-  expect(screen.getByLabelText(/phoneNumber/i))
-    .toHaveStyle(`border-color: ${colors.burgundyRed}
-      `)
 })
 
 test('PhoneNumber Field should [succeed]', async () => {
@@ -69,10 +64,6 @@ test('PhoneNumber Field should [succeed]', async () => {
   userEvent.tab()
 
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-
-  expect(screen.getByLabelText(/phoneNumber/i))
-    .toHaveStyle(`border-color: ${colors.lightGreen}
-  `)
 })
 
 test('PhoneNumber Field Should [Fail] and then [Succeed]', async () => {
@@ -95,15 +86,7 @@ test('PhoneNumber Field Should [Fail] and then [Succeed]', async () => {
     `${message.phoneNumber}sad`,
   )
 
-  expect(screen.getByLabelText(/phoneNumber/i))
-    .toHaveStyle(`border-color: ${colors.burgundyRed}
-    `)
-
   userEvent.clear(screen.getByLabelText(/phoneNumber/i))
   userEvent.type(screen.getByLabelText(/phoneNumber/i), message.phoneNumber)
   userEvent.tab()
-
-  expect(screen.getByLabelText(/phoneNumber/i))
-    .toHaveStyle(`border-color: ${colors.lightGreen}
-  `)
 })

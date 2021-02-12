@@ -33,7 +33,7 @@ function Tags({tagsData}: {tagsData: Array<Tag>}) {
   }
 
   return (
-    <React.Fragment>
+    <main>
       <h1 css={h1XL}>Tags Control</h1>
       <TagForm status={status} handleSubmit={handleSubmit} />
       <h2 css={h2XL}>Tags Control</h2>
@@ -64,7 +64,7 @@ function Tags({tagsData}: {tagsData: Array<Tag>}) {
           </div>
         ))}
       </div>
-    </React.Fragment>
+    </main>
   )
 }
 

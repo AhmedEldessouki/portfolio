@@ -52,9 +52,7 @@ describe('Router check', () => {
     cy.findByText(/signup/i).click()
     cy.findByText(/sign up/i).should('exist')
 
-    cy.get('button')
-      .findByText(/signout/i)
-      .click()
+    cy.findByText('SignOut').click()
     cy.visit('/404')
 
     cy.findByText(/home/i).click()

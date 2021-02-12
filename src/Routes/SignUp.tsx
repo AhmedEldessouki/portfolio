@@ -2,13 +2,13 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
+import React from 'react'
 
 import {useAuth} from '../context/AuthProvider'
-import {formWrapper, warning, btnStyle, h1XL, colors} from '../Styles'
+import {formStyles, warning, btnStyle, h1XL, colors} from '../Styles'
 import {useAsync} from '../Utils/hooks'
 import {NewUser} from '../../types/interfaces'
 import Spinner from '../components/Spinner'
-import Layout from '../components/Layout'
 import Input from '../components/Input'
 
 function SignUp() {
@@ -48,7 +48,7 @@ function SignUp() {
   }
 
   return (
-    <Layout>
+    <main>
       <h1 css={h1XL}>Sign up</h1>
       <div
         css={css`
@@ -59,7 +59,7 @@ function SignUp() {
       >
         <form
           id="sign-up"
-          css={[formWrapper, {gap: 6}]}
+          css={[formStyles, {gap: 6}]}
           onSubmit={submitNewUserCredentials}
         >
           <Input
@@ -68,7 +68,6 @@ function SignUp() {
             required
             minLength={3}
             maxLength={15}
-            cleanColor={status === 'resolved'}
           />
           <Input
             name="lastName"
@@ -76,7 +75,6 @@ function SignUp() {
             minLength={3}
             maxLength={15}
             placeholder="Last Name"
-            cleanColor={status === 'resolved'}
           />
           <Input
             name="email"
@@ -85,7 +83,6 @@ function SignUp() {
             required
             maxLength={50}
             placeholder="Email Address"
-            cleanColor={status === 'resolved'}
           />
 
           <Input
@@ -103,7 +100,6 @@ function SignUp() {
             minLength={6}
             maxLength={20}
             required
-            cleanColor={status === 'resolved'}
             onBlur={e => {
               const {form} = e.target as typeof e.target & {
                 form: Array<React.InputHTMLAttributes<HTMLInputElement>>
@@ -140,7 +136,6 @@ function SignUp() {
             minLength={6}
             maxLength={20}
             required
-            cleanColor={status === 'resolved'}
           />
           {status === 'rejected' ? (
             <span css={warning} role="alert">
@@ -166,7 +161,7 @@ function SignUp() {
           )}
         </form>
       </div>
-    </Layout>
+    </main>
   )
 }
 

@@ -46,7 +46,6 @@ export const spinner = css`
 
 export const btnStyle = css`
   place-self: center;
-  background-color: ${colors.whiteFaded};
   color: ${colors.independenceBlue};
   font-weight: ${weights.black};
   font-size: 126%;
@@ -55,6 +54,7 @@ export const btnStyle = css`
   height: 50px;
   border-radius: 14%;
   border: none;
+  background: linear-gradient(to right top, #b3bff4, #8795e0);
   transition: background-color, color 0.4s steps;
   :hover,
   :focus {
@@ -62,7 +62,7 @@ export const btnStyle = css`
   }
 `
 
-export const formWrapper = css`
+export const formStyles = css`
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -83,22 +83,39 @@ export const formWrapper = css`
   }
 `
 
-export const formWrapperInput = css`
+export const inputStyles = css`
   padding: 8px;
   width: 100%;
   height: 50px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
-  border: 5.5px solid ${colors.darkBlue};
-  border-radius: 7%;
+  border: 5px solid #6572a9;
+  outline: none;
   letter-spacing: 2.2px;
+  border-image-slice: 1;
+  border-width: 5px;
+  border-image-source: linear-gradient(to right top, #6572a9, #6873ad);
   ::placeholder {
-    color: ${colors.whiteFaded}
+    color: rgb(241, 241, 241);
   }
+  &:valid{
+    border-image-source: linear-gradient(to right, #1CA195, ${colors.lightGreen});
   }
-`
+  :focus-within {
+    :invalid {
+        outline: none;
+      border-image-source: linear-gradient(
+        to right,
+        #9f1919 ,
+        ${colors.burgundyRed}
+        );
+      }
+    }
+  }
+  `
 
 export const warning = css`
+  transition: all 500ms;
   color: ${colors.red};
   padding-left: 16px;
   padding-bottom: 2px;
@@ -116,8 +133,8 @@ export const textArea = css`
   height: 168px;
   padding: 8px;
   color: ${colors.aliceLightBlue};
-  border: 5px solid ${colors.darkBlue};
-  border-radius: 7%;
+  border: 5px solid #6572a9;
+  outline: none;
   background-color: transparent;
   letter-spacing: 1.2px;
   ${mq.desktop} {
@@ -127,6 +144,30 @@ export const textArea = css`
   ${mq.phoneLarge} {
     height: 124px;
   }
+  border-image-slice: 1;
+  border-width: 5px;
+  border-image-source: linear-gradient(to right top, #6572a9, #6873ad);
+  ::placeholder {
+    color: rgb(241, 241, 241);
+  }
+  :valid {
+    border-image-source: linear-gradient(
+      to right,
+      #1ca195,
+      ${colors.lightGreen}
+    );
+  }
+  :focus-within {
+    :invalid {
+      outline: none;
+      border-image-source: linear-gradient(
+        to right,
+        #9f1919,
+        ${colors.burgundyRed}
+      );
+    }
+  }
+  transition: all 500ms ease;
 `
 export const h1XL = css`
   font-size: 200%;
