@@ -35,7 +35,16 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
     place-content: space-evenly;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
   `
-
+  if (!messagesData) {
+    return (
+      <p role="alert">
+        Ooops Something is not right{' '}
+        <span role="img" aria-label="Exploding head">
+          🤯🤯
+        </span>
+      </p>
+    )
+  }
   return (
     <React.Fragment>
       <h1 css={h1XL}>Messages</h1>

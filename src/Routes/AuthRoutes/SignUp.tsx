@@ -4,12 +4,12 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import {useAuth} from '../context/AuthProvider'
-import {formStyles, warning, btnStyle, h1XL, colors} from '../Styles'
-import {useAsync} from '../Utils/hooks'
-import {NewUser} from '../../types/interfaces'
-import Spinner from '../components/Spinner'
-import Input from '../components/Input'
+import {useAuth} from '../../context/AuthProvider'
+import {formStyles, warning, btnStyle, h1XL, colors} from '../../Styles'
+import {useAsync} from '../../Utils/hooks'
+import {NewUser} from '../../../types/interfaces'
+import Spinner from '../../components/Spinner'
+import Input from '../../components/Input'
 
 function SignUp() {
   const {useCreateNewUser} = useAuth()

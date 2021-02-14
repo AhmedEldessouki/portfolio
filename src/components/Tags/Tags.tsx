@@ -10,6 +10,7 @@ import {useAsync} from '../../Utils/hooks'
 import {createNewTag, deleteTag} from '../../Utils/apis'
 import {replaceWhiteSpaceWith} from '../../Utils/helpers'
 import type {Tag} from '../../../types/interfaces'
+import ImgWithFallback from '../Image'
 import TagForm from './TagForm'
 
 function Tags({tagsData}: {tagsData: Array<Tag>}) {
@@ -60,7 +61,13 @@ function Tags({tagsData}: {tagsData: Array<Tag>}) {
               onClickYes={() => deleteTag(tag)}
               controls={replaceWhiteSpaceWith(tag.name, '-')}
             />
-            <img src={tag.url} alt={tag.name} width="50" />
+            <ImgWithFallback
+              src={tag.url}
+              fallback="/icons/apple-icon-180.png"
+              alt={tag.name}
+              width="50"
+              height="50"
+            />
           </div>
         ))}
       </div>
