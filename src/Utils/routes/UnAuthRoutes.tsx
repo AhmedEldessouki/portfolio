@@ -1,9 +1,9 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 
-import SignIn from './SignIn'
-import PageNotFound from './PageNotFound'
-import Home from './Home'
+import SignIn from '../../Routes/SignIn'
+import PageNotFound from '../../Routes/PageNotFound'
+import Home from '../../Routes/Home'
 
 function UnAuthRoutes() {
   return (

@@ -10,32 +10,19 @@ import {Redirect} from 'react-router-dom'
 import {useAuth} from '../context/AuthProvider'
 import ErrorMessageFallback from '../components/ErrorMessageFallback'
 import {useSafeDispatch} from '../Utils/hooks'
-import {
-  colors,
-  h1XL,
-  labelWrapper,
-  mq,
-  formStyles,
-  textArea,
-  warning,
-} from '../Styles'
+import {h1XL, mq} from '../Styles'
 import {deepEqual} from '../Utils/helpers'
 import {createNewProject, updateProject} from '../Utils/apis'
 import {
   projectFormReducer,
   gradualUpload,
 } from '../components/Projects/helpers/functions'
-import {
-  ImageDropZone,
-  ButtonWithSpinner,
-  DisplayingImages,
-  ProjInput,
-  TagsCheckBox,
-} from '../components/Projects/helpers/components'
+import {DisplayingImages} from '../components/Projects/helpers/components'
 import type {ImportedImages} from '../../types/types'
 import type {Tag} from '../../types/interfaces'
+import ProjectForm from '../components/Projects/ProjectForm'
 
-function CreateProject() {
+function WriteProject() {
   const {selectedProject, setProject} = useAuth()
   const [importedImages, setImportedImages] = React.useState<ImportedImages>({
     acceptedImages: {imagesType: 'acceptedImages', imgs: []},
@@ -166,16 +153,7 @@ function CreateProject() {
     },
     [dispatch, enteredProjectData.projectLogo, importedImages],
   )
-
-  const {
-    name,
-    link,
-    repoLink,
-    projectLogo,
-    projectType,
-    tag,
-  } = enteredProjectData
-
+  const {projectLogo} = enteredProjectData
   if (status === 'redirect') {
     return <Redirect to="/dashboard" />
   }
@@ -210,128 +188,22 @@ function CreateProject() {
         />
         <ErrorBoundary
           FallbackComponent={ErrorMessageFallback}
-          resetKeys={[state]}
+          resetKeys={[status, enteredProjectData, error]}
           onReset={() => dispatch({type: 'clean_up'})}
         >
-          <form
-            css={[formStyles, {gap: 6}]}
-            onSubmit={useHandleSubmit}
-            id="create-project-form"
-          >
-            <ImageDropZone
-              importedImages={importedImages}
-              setImportedImages={setImportedImages}
-            />
-            {error?.code === 'too-many-files' && (
-              <span css={warning} role="alert">
-                Please Upload 10 files or less
-              </span>
-            )}
-            <ProjInput
-              name="name"
-              editableValue={name}
-              placeholder="Name"
-              required
-              minLength={3}
-              maxLength={15}
-            />
-            <ProjInput
-              type="url"
-              required
-              editableValue={link}
-              placeholder="Project Link"
-              name="link"
-            />
-            <ProjInput
-              type="url"
-              required
-              editableValue={repoLink}
-              placeholder="Repo Link"
-              name="repoLink"
-            />
-            <select
-              css={{
-                color: colors.whiteFaded,
-                background: colors.darkBlue,
-                margin: '2px 0',
-                height: 50,
-                letterSpacing: '2.2px',
-                width: '100%',
-                borderRadius: '11%',
-                padding: 8,
-                fontSize: '1.4rem',
-                border: `0 solid ${colors.independenceBlue}`,
-                boxShadow: `0 1px 0 1px ${colors.independenceBlue}`,
-                appearance: 'none',
-                backgroundImage: `url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-	                  linear-gradient(to bottom, ${colors.darkBlue} 0%,${colors.darkBlue} 100%)`,
-                backgroundRepeat: ` no-repeat, repeat`,
-                backgroundPosition: `right .7em top 50%, 0 0`,
-                backgroundSize: `.65em auto, 100%`,
-                option: {
-                  borderRadius: '11%',
-                  padding: 8,
-                },
-              }}
-              defaultValue={projectType ?? 'Personal'}
-              name="projectType"
-              aria-label="Please Select Project Type"
-            >
-              <option value="Personal">Personal</option>
-              <option value="Contribution">Contribution</option>
-            </select>
-            <TagsCheckBox projectTags={tag} />
-            <label
-              htmlFor="description"
-              style={{marginTop: '10px'}}
-              css={labelWrapper}
-            >
-              <textarea
-                css={[
-                  textArea,
-                  {margin: 0, borderColor: descriptionFieldControl.color},
-                ]}
-                id="description"
-                aria-label="description"
-                placeholder="Project Description"
-                name="description"
-                value={descriptionFieldControl.value}
-                minLength={10}
-                onChange={e => {
-                  if (e.target.validity.valid) {
-                    setDescriptionFieldControl({
-                      ...descriptionFieldControl,
-                      color: colors.lightGreen,
-                    })
-                  }
-                  setDescriptionFieldControl({
-                    ...descriptionFieldControl,
-                    value: e.target.value,
-                  })
-                }}
-                onBlur={e => {
-                  e.target.validity.valid
-                    ? setDescriptionFieldControl({
-                        ...descriptionFieldControl,
-                        color: colors.lightGreen,
-                      })
-                    : setDescriptionFieldControl({
-                        ...descriptionFieldControl,
-                        color: colors.burgundyRed,
-                      })
-                }}
-                required
-              />
-            </label>
-            <ButtonWithSpinner
-              isPending={status !== 'idle'}
-              isProject={!!selectedProject}
-            />
-          </form>
+          <ProjectForm
+            useHandleSubmit={useHandleSubmit}
+            importedImages={importedImages}
+            setImportedImages={setImportedImages}
+            state={state}
+            descriptionFieldControl={descriptionFieldControl}
+            setDescriptionFieldControl={setDescriptionFieldControl}
+            selectedProject={selectedProject}
+          />
         </ErrorBoundary>
       </div>
     </main>
   )
 }
 
-export default CreateProject
+export default WriteProject
