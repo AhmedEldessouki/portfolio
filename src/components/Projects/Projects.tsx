@@ -115,6 +115,16 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
     transform: 'scale(1.1)',
   }
   const {sortedBy, projects} = state
+  if (!projectsData) {
+    return (
+      <p role="alert">
+        Ooops Something is not right{' '}
+        <span role="img" aria-label="Exploding head">
+          🤯🤯
+        </span>
+      </p>
+    )
+  }
   return (
     <React.Fragment>
       <h1 css={h1XL}>Projects</h1>

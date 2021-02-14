@@ -7,20 +7,20 @@ import {toast} from 'react-toastify'
 import {ErrorBoundary} from 'react-error-boundary'
 import {Redirect} from 'react-router-dom'
 
-import {useAuth} from '../context/AuthProvider'
-import ErrorMessageFallback from '../components/ErrorMessageFallback'
-import {useSafeDispatch} from '../Utils/hooks'
-import {h1XL, mq} from '../Styles'
-import {deepEqual} from '../Utils/helpers'
-import {createNewProject, updateProject} from '../Utils/apis'
+import {useAuth} from '../../context/AuthProvider'
+import ErrorMessageFallback from '../../components/ErrorMessageFallback'
+import {useSafeDispatch} from '../../Utils/hooks'
+import {h1XL, mq} from '../../Styles'
+import {deepEqual} from '../../Utils/helpers'
+import {createNewProject, updateProject} from '../../Utils/apis'
 import {
   projectFormReducer,
   gradualUpload,
-} from '../components/Projects/helpers/functions'
-import {DisplayingImages} from '../components/Projects/helpers/components'
-import type {ImportedImages} from '../../types/types'
-import type {Tag} from '../../types/interfaces'
-import ProjectForm from '../components/Projects/ProjectForm'
+} from '../../components/Projects/helpers/functions'
+import {DisplayingImages} from '../../components/Projects/helpers/components'
+import type {ImportedImages} from '../../../types/types'
+import type {Tag} from '../../../types/interfaces'
+import ProjectForm from '../../components/Projects/ProjectForm'
 
 function WriteProject() {
   const {selectedProject, setProject} = useAuth()

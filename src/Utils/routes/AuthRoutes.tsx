@@ -1,11 +1,11 @@
 import React from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 
-import WriteProject from '../../Routes/WriteProject'
+import WriteProject from '../../Routes/AuthRoutes/WriteProject'
 import PageNotFound from '../../Routes/PageNotFound'
-import SignUp from '../../Routes/SignUp'
-import TagsControl from '../../Routes/TagsControl'
-import Dashboard from '../../Routes/Dashboard'
+import SignUp from '../../Routes/AuthRoutes/SignUp'
+import TagsControl from '../../Routes/AuthRoutes/TagsControl'
+import Dashboard from '../../Routes/AuthRoutes/Dashboard'
 import Home from '../../Routes/Home'
 
 function AuthRoutes() {

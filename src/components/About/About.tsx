@@ -5,7 +5,7 @@ import {jsx, css} from '@emotion/react'
 import {GoMarkGithub} from 'react-icons/go'
 
 import {colors, weights, mq} from '../../Styles'
-import AhmedEldessouki from '../../assets/pic.png'
+import ImgWithFallback from '../Image'
 
 const MyInfo = () => {
   const container = css`
@@ -101,7 +101,14 @@ const MyInfo = () => {
 
   return (
     <div css={container}>
-      <img src={AhmedEldessouki} alt="profilePicture" />
+      <ImgWithFallback
+        src="/images/pic.jp2"
+        fallback="/images/pic.png"
+        type="image/jp2"
+        alt="profile Picture"
+        height="265"
+        width="265"
+      />
       <p>
         I am Ahmed ElDessouki. Front-end developer using <em>React.js</em>{' '}
         Framework, small time <em>Designer</em>, and <em>Self-Improvement</em>{' '}
@@ -121,7 +128,7 @@ const MyInfo = () => {
           `}
         >
           <a
-            href="www.github.com/ahmedeldessouki"
+            href="https://www.github.com/ahmedeldessouki"
             target="_blank"
             rel="noopener noreferrer"
             style={{textDecoration: 'none', color: 'inherit'}}

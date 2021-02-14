@@ -13,6 +13,7 @@ import {replaceWhiteSpaceWith} from '../../Utils/helpers'
 import type {Project} from '../../../types/interfaces'
 import PopUp from '../PopUp/PopUp'
 import Title from '../Title'
+import ImgWithFallback from '../Image'
 
 // TODO A11y switch to object to place name on image's alt
 function Tag({
@@ -21,11 +22,14 @@ function Tag({
 }: {tagUrl: string} & React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <li>
-      <img
+      <ImgWithFallback
         css={css`
           font-size: 108%;
           margin: 0;
         `}
+        height="30"
+        width="30"
+        fallback="/icons/apple-icon-180.png"
         src={tagUrl}
         alt="tag"
         {...imageOverrides}
@@ -52,6 +56,7 @@ function EditAndDelete({
       <Link
         to={`/edit/${project.id}`}
         data-testid="edit-project"
+        aria-label={`edit ${project.name} project`}
         onClick={() => {
           onClick()
         }}
@@ -78,7 +83,7 @@ function EditAndDelete({
 function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
   const [hovered, setHover] = React.useState(false)
   return (
-    <li
+    <div
       css={{
         display: 'flex',
         placeContent: 'flex-end',
@@ -112,7 +117,7 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
       >
         {hovered ? projType : '!'}
       </span>
-    </li>
+    </div>
   )
 }
 
@@ -144,46 +149,50 @@ function Card({
     grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
   `
   return (
-    <section css={mWrapper}>
-      {items.map((item, i) => {
-        return (
-          <ul
-            css={pWrapper}
-            key={item.id}
-            data-testid={`${item.name}-card`}
-            aria-label="project list"
-          >
-            {user ? (
-              <EditAndDelete project={item} onClick={() => setPorj(item)} />
-            ) : null}
-            <ProjectType projType={item.projectType} />
-            <Title
-              name={item.name}
-              onClick={() => {
-                setState(item)
-              }}
-              testId={`project[${i}]`}
-            />
-            <ul
-              css={css`
-                display: flex;
-                place-content: center;
-                place-items: center;
-                height: 50px;
-                gap: 15px;
-                margin-bottom: 0px;
-                padding-left: 0;
-              `}
+    <section>
+      <ul css={mWrapper}>
+        {items.map((item, i) => {
+          return (
+            <li
+              css={pWrapper}
+              key={item.id}
+              data-testid={`${item.name}-card`}
+              aria-label="project list"
             >
-              {/* TODO: Add alt Later After Changing all Tags of ProjectData to an object */}
-              {item.tag?.map((tag, index) => {
-                const url = typeof tag === 'object' ? tag.url : tag
-                return <Tag key={`${url}_${index}`} tagUrl={url} width="30" />
-              })}
-            </ul>
-          </ul>
-        )
-      })}
+              {user ? (
+                <EditAndDelete project={item} onClick={() => setPorj(item)} />
+              ) : null}
+              <ProjectType projType={item.projectType} />
+              <ul css={{padding: 0}}>
+                <Title
+                  name={item.name}
+                  onClick={() => {
+                    setState(item)
+                  }}
+                  testId={`project[${i}]`}
+                />
+              </ul>
+              <ul
+                css={css`
+                  display: flex;
+                  place-content: center;
+                  place-items: center;
+                  height: 50px;
+                  gap: 15px;
+                  margin-bottom: 0px;
+                  padding-left: 0;
+                `}
+              >
+                {/* TODO: Add alt Later After Changing all Tags of ProjectData to an object */}
+                {item.tag?.map((tag, index) => {
+                  const url = typeof tag === 'object' ? tag.url : tag
+                  return <Tag key={`${url}_${index}`} tagUrl={url} width="30" />
+                })}
+              </ul>
+            </li>
+          )
+        })}
+      </ul>
     </section>
   )
 }
