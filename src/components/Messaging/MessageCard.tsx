@@ -7,7 +7,7 @@ import type {Message} from '../../../types/interfaces'
 import {colors, h1XL} from '../../Styles'
 import PopUp from '../PopUp/PopUp'
 import {deleteMessage} from '../../Utils/apis'
-import {replaceWhiteSpaceWith} from '../../Utils/helpers'
+import {replaceWhiteSpaceWith} from '../../Utils/replaceWhiteSpaceWith'
 
 function MessagesSummary({
   message,

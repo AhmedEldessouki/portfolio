@@ -10,7 +10,7 @@ import OnToggle from '../OnToggle'
 import ErrorMessageFallback from '../ErrorMessageFallback'
 
 import type {Message, Project} from '../../../types/interfaces'
-import {deepEqual} from '../../Utils/helpers'
+import {deepEqual} from '../../Utils/deepEqual'
 import MessageView from './MessageView'
 import MessagesSummary from './MessageCard'
 

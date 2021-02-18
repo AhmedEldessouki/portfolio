@@ -10,7 +10,7 @@ import {colors, mq} from '../../Styles'
 import Spinner from '../Spinner'
 
 import type {Project} from '../../../types/interfaces'
-import {replaceWhiteSpaceWith} from '../../Utils/helpers'
+import {replaceWhiteSpaceWith} from '../../Utils/replaceWhiteSpaceWith'
 
 function ProjectView({project}: {project: Project | undefined}) {
   const [description, setDescription] = React.useState(

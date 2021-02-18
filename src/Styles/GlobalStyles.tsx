@@ -3,6 +3,7 @@
 import {css} from '@emotion/react'
 
 import {colors, mq, weights} from './css-utils'
+import 'normalize.css'
 
 export const globalStyles = css`
   /*
@@ -52,7 +53,10 @@ export const globalStyles = css`
     margin-top: 95px;
     min-height: 75vh;
     ${mq.phoneLarge} {
-      margin-top: 242px;
+      margin-top: 230px;
+    }
+    ${mq.s} {
+      margin-top: 200px;
     }
   }
 

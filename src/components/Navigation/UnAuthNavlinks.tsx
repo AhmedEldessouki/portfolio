@@ -20,13 +20,14 @@ const UnAuthNavlinks = () => {
     padding: 23px 40px 24px;
     text-decoration: none;
     font-size: 2rem;
-    background: ${colors.independenceBlue};
+    background: ${colors.darkBlue};
     margin: 16px 0;
     letter-spacing: 1.6px;
     border-radius: 12%;
     font-variant-caps: petite-caps;
-    :hover {
-      padding: 5px 10px;
+    :hover,
+    :focus,
+    :active {
       background-color: ${colors.independenceBlue};
       color: inherit;
     }

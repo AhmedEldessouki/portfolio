@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import React from 'react'
 import {toast} from 'react-toastify'
@@ -37,11 +38,10 @@ interface Context {
   setProject: React.Dispatch<React.SetStateAction<Project | undefined>>
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AuthContext = React.createContext<any>({})
 AuthContext.displayName = 'AuthContext'
 
-function AuthProvider({children}: {children: React.ReactNode}) {
+function AuthProvider({children}: {children?: React.ReactNode}) {
   const [user, setUser] = useLocalStorageState<Pick<
     UserType,
     'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'

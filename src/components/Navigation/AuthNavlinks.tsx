@@ -14,13 +14,13 @@ const AuthNavlinksX = () => {
   const nav = css`
     position: absolute;
     top: 0;
-    width: 100%;
+    width: calc(100% - 12px);
     display: flex;
     place-content: space-evenly;
     background: black;
     background-color: ${colors.darkBlue};
     padding: 18px 6px;
-    min-height: 111px;
+    min-height: 73px;
     & > a,
     button {
       text-decoration: none;

@@ -100,6 +100,9 @@ function ContactForm() {
           <div
             css={css`
               width: 48%;
+              display: flex;
+              flex-direction: column;
+              gap: 7px;
               ${mq.phoneLarge} {
                 width: 71%;
               }

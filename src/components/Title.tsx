@@ -5,7 +5,7 @@ import {css, jsx} from '@emotion/react'
 
 import {TitleProps} from '../../types/interfaces'
 import {colors, mq, weights} from '../Styles'
-import {replaceWhiteSpaceWith} from '../Utils/helpers'
+import {replaceWhiteSpaceWith} from '../Utils/replaceWhiteSpaceWith'
 
 function Title({
   name = '',

@@ -6,9 +6,8 @@ import React from 'react'
 
 import type {Message, Project} from '../../types/interfaces'
 import {colors} from '../Styles'
-import {replaceWhiteSpaceWith} from '../Utils/helpers'
+import {replaceWhiteSpaceWith} from '../Utils/replaceWhiteSpaceWith'
 import Title from './Title'
-
 
 interface OnToggleProps {
   items: Array<Project | Message>

@@ -1,6 +1,6 @@
 import faker from 'faker'
 import { projects } from '../test/data/projects'
-import { deepEqual } from '../Utils/helpers'
+import { deepEqual } from "../Utils/deepEqual";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 // let num: number, str: string, arr: Array<any>, obj: object, bol: boolean

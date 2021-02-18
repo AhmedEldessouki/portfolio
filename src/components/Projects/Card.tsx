@@ -3,123 +3,14 @@
 
 import {jsx, css} from '@emotion/react'
 import React from 'react'
-import {FaPen} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
 
 import {useAuth} from '../../context/AuthProvider'
 import {colors} from '../../Styles'
-import {deleteProject} from '../../Utils/apis'
-import {replaceWhiteSpaceWith} from '../../Utils/helpers'
 import type {Project} from '../../../types/interfaces'
-import PopUp from '../PopUp/PopUp'
 import Title from '../Title'
-import ImgWithFallback from '../Image'
-
-// TODO A11y switch to object to place name on image's alt
-function Tag({
-  tagUrl,
-  ...imageOverrides
-}: {tagUrl: string} & React.ImgHTMLAttributes<HTMLImageElement>) {
-  return (
-    <li>
-      <ImgWithFallback
-        css={css`
-          font-size: 108%;
-          margin: 0;
-        `}
-        height="30"
-        width="30"
-        fallback="/icons/apple-icon-180.png"
-        src={tagUrl}
-        alt="tag"
-        {...imageOverrides}
-      />
-    </li>
-  )
-}
-
-function EditAndDelete({
-  project,
-  onClick,
-}: {
-  project: Project
-  onClick: () => void
-}) {
-  return (
-    <div
-      css={css`
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      `}
-    >
-      <Link
-        to={`/edit/${project.id}`}
-        data-testid="edit-project"
-        aria-label={`edit ${project.name} project`}
-        onClick={() => {
-          onClick()
-        }}
-      >
-        <FaPen
-          css={css`
-            color: ${colors.blueFont};
-            font-size: 1.5rem;
-            :hover {
-              color: ${colors.kindaBlue};
-            }
-          `}
-        />
-      </Link>
-      <PopUp
-        info="Project"
-        onClickYes={() => deleteProject(project)}
-        controls={replaceWhiteSpaceWith(project.name)}
-      />
-    </div>
-  )
-}
-
-function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
-  const [hovered, setHover] = React.useState(false)
-  return (
-    <div
-      css={{
-        display: 'flex',
-        placeContent: 'flex-end',
-      }}
-    >
-      <span
-        onMouseEnter={() => setHover(!hovered)}
-        onMouseLeave={() => setHover(!hovered)}
-        onFocus={() => setHover(!hovered)}
-        onBlur={() => setHover(!hovered)}
-        aria-label={projType ?? 'personal'}
-        css={{
-          borderRadius: 50,
-          border: `1px solid`,
-          borderColor:
-            projType === 'Contribution' ? 'orange' : colors.lightGreen,
-          color: projType === 'Contribution' ? 'orange' : colors.lightGreen,
-          textAlign: 'center',
-          fontSize: hovered ? '0.95rem' : '1rem',
-          width: 24,
-          height: 24,
-          transition: 'width 0.3s ease-in-out',
-          marginBottom: 9,
-          overflow: 'hidden',
-          cursor: 'help',
-          ':hover, :focus': {
-            padding: '0 8px',
-            width: projType === 'Contribution' ? 110 : 80,
-          },
-        }}
-      >
-        {hovered ? projType : '!'}
-      </span>
-    </div>
-  )
-}
+import ProjectType from './ProjectType'
+import Tag from './Tag'
+import EditAndDelete from './EditAndDelete'
 
 function Card({
   items = [],

@@ -9,20 +9,18 @@ import {Profiler} from './profiler'
 import {AuthProvider} from './context/AuthProvider'
 import * as serviceWorkerRegistration from './serviceWorker/serviceWorkerRegistration'
 
-import 'bootstrap/dist/css/bootstrap-reboot.css'
-
 const queryClient = new QueryClient()
 
 trace('initial render', performance.now(), () =>
   ReactDOM.render(
-    <Profiler id="App Root" phases={['mount']}>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Profiler id="App Root" phases={['mount']}>
+        <AuthProvider>
           <App />
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </AuthProvider>
-    </Profiler>,
+        </AuthProvider>
+        <ReactQueryDevtools />
+      </Profiler>
+    </QueryClientProvider>,
     document.getElementById('root'),
   ),
 )

@@ -11,17 +11,17 @@ import OnToggle from '../OnToggle'
 import ErrorMessageFallback from '../ErrorMessageFallback'
 import type {Project} from '../../../types/interfaces'
 import {useSafeDispatch} from '../../Utils/hooks'
-import {deepEqual} from '../../Utils/helpers'
+import {deepEqual} from '../../Utils/deepEqual'
 import Card from './Card'
 import ProjectView from './ProjectView'
 
 // Note: Projects & Payload will never be undefined... need to dig deeper into to this later
 interface ReducerState {
-  sortedBy: 'reverse_date' | 'date' | 'alphabet' | 'none' | 'no_sorting'
+  sortedBy: 'alphabet' | 'none' | 'no_sorting'
   projects: Array<Project> | undefined
 }
 interface ReducerAction {
-  type: 'reverse_date' | 'none' | 'date' | 'alphabet' | 'reset_sort'
+  type: 'none' | 'alphabet' | 'reset_sort'
   payload?: Array<Project>
 }
 
@@ -49,20 +49,6 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
         ...state,
       }
     }
-    case 'date': {
-      state.projects = payload && [...payload]
-      state.sortedBy = 'date'
-      return {
-        ...state,
-      }
-    }
-    case 'reverse_date': {
-      state.projects = payload && [...payload]
-      state.sortedBy = 'reverse_date'
-      return {
-        ...state,
-      }
-    }
     default: {
       return state
     }
@@ -83,22 +69,14 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
     sortedBy: 'none',
     projects: undefined,
   })
-  const dispatch = useSafeDispatch<
-    'reverse_date' | 'date' | 'alphabet' | 'reset_sort',
-    Array<Project>
-  >(dispatchUnsafe)
+  const dispatch = useSafeDispatch<'alphabet' | 'reset_sort', Array<Project>>(
+    dispatchUnsafe,
+  )
 
   React.useEffect(() => {
     moveFocus()
   }, [displayProject])
 
-  const sortDate = (a: Project, b: Project) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const x = new Date(a.date) as any
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const y = new Date(b.date) as any
-    return x - y
-  }
   const btn = {
     borderRadius: '11%',
     border: 'none',
@@ -182,40 +160,6 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
               }}
             >
               Name
-            </button>
-            <button
-              type="button"
-              data-testid="sort_by_date"
-              css={[btn, sortedBy === 'date' ? btnHasFocus : null]}
-              onClick={() => {
-                if (sortedBy === 'date') {
-                  dispatch({type: 'reset_sort', payload: projectsData})
-                } else {
-                  dispatch({
-                    type: 'date',
-                    payload: projects?.sort(sortDate),
-                  })
-                }
-              }}
-            >
-              Oldest
-            </button>
-            <button
-              type="button"
-              data-testid="sort_by_date_reverse"
-              css={[btn, sortedBy === 'reverse_date' ? btnHasFocus : null]}
-              onClick={() => {
-                if (sortedBy === 'reverse_date') {
-                  dispatch({type: 'reset_sort', payload: projectsData})
-                } else {
-                  dispatch({
-                    type: 'reverse_date',
-                    payload: projects?.sort(sortDate).reverse(),
-                  })
-                }
-              }}
-            >
-              Latest
             </button>
           </section>
           <Card items={projects ?? projectsData} setState={setDisplayProject} />

@@ -30,20 +30,19 @@ function TagForm({
       <h2 css={h2XL}>Create Tag</h2>
       <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
         <form onSubmit={e => handleSubmit(e)} css={formStyles}>
-          <div className="field-container">
-            <Input
-              type="text"
-              placeholder="Enter Tag's Name"
-              name="name"
-              required
-            />
-            <Input
-              type="url"
-              name="url"
-              required
-              placeholder="Enter Tag's Link"
-            />
-          </div>
+          <Input
+            type="text"
+            placeholder="Enter Tag's Name"
+            name="name"
+            style={{marginBottom: '10px'}}
+            required
+          />
+          <Input
+            type="url"
+            name="url"
+            required
+            placeholder="Enter Tag's Link"
+          />
           {status === 'pending' ? (
             <Spinner />
           ) : (

@@ -11,7 +11,7 @@ import {useAuth} from '../../context/AuthProvider'
 import ErrorMessageFallback from '../../components/ErrorMessageFallback'
 import {useSafeDispatch} from '../../Utils/hooks'
 import {h1XL, mq} from '../../Styles'
-import {deepEqual} from '../../Utils/helpers'
+import {deepEqual} from '../../Utils/deepEqual'
 import {createNewProject, updateProject} from '../../Utils/apis'
 import {
   projectFormReducer,

@@ -6,7 +6,7 @@ import React from 'react'
 import type {Message} from '../../../types/interfaces'
 
 import {h1XL, colors, mq} from '../../Styles'
-import {replaceWhiteSpaceWith} from '../../Utils/helpers'
+import {replaceWhiteSpaceWith} from '../../Utils/replaceWhiteSpaceWith'
 
 function MessageView({message}: {message: Message}) {
   const [description, setDescription] = React.useState(message.description)

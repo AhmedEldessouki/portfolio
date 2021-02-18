@@ -21,10 +21,10 @@ function sendProfileQueue() {
 type ProfilerProps = {
   metadata?: string | any
   phases: string[]
-  children: React.ReactNode
+  children?: React.ReactNode
   id: string
 }
-function Profiler({metadata, phases, ...props}: ProfilerProps): JSX.Element {
+function Profiler({metadata, phases, ...props}: ProfilerProps) {
   function reportProfile(
     id: string, // the "id" prop of the Profiler tree that has just committed
     phase: string, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
@@ -33,7 +33,7 @@ function Profiler({metadata, phases, ...props}: ProfilerProps): JSX.Element {
     startTime: number, // when React began rendering this update
     commitTime: number, // when React committed this update
     interactions: any, // the Set of interactions belonging to this update
-  ): void {
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!phases || phases.includes(phase)) {
       queue.push({

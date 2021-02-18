@@ -84,8 +84,8 @@ export const formStyles = css`
 `
 
 export const inputStyles = css`
-  padding: 8px;
-  width: 100%;
+  padding: 0 8px;
+  width: calc(100% - 26px);
   height: 50px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
@@ -129,7 +129,7 @@ export const labelWrapper = css`
 `
 
 export const textArea = css`
-  width: 100%;
+  width: calc(100% - 16px);
   height: 168px;
   padding: 8px;
   color: ${colors.aliceLightBlue};
@@ -138,8 +138,8 @@ export const textArea = css`
   background-color: transparent;
   letter-spacing: 1.2px;
   ${mq.desktop} {
-    margin-top: -10px;
     height: 188px;
+    width: calc(100% - 25px);
   }
   ${mq.phoneLarge} {
     height: 124px;

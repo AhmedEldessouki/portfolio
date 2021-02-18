@@ -26,8 +26,6 @@ test('Project Render and check Card does not have Auth Features', async () => {
   expect(screen.getByText(/Portfolio/i)).toBeInTheDocument()
 
   expect(screen.getByTestId(/sort_by_name/i)).toBeInTheDocument()
-  expect(screen.getByTestId('sort_by_date')).toBeInTheDocument()
-  expect(screen.getByTestId(/sort_by_date_reverse/i)).toBeInTheDocument()
 
   expect(screen.queryByTestId(/delete-button/i)).not.toBeInTheDocument()
   expect(screen.queryByTestId(/edit-project/i)).not.toBeInTheDocument()
@@ -47,7 +45,7 @@ test('Project Details Render', async () => {
   expect(screen.getByText(projects[0].description)).toBeInTheDocument()
 })
 
-test('Projects OnToggle mount and unmount', async () => {
+test('Projects view (OnToggle) mount and unmount', async () => {
   await render(<Projects projectsData={projects} />, {
     user: null,
     doWait: false,
@@ -88,12 +86,6 @@ test('Projects Sorting buttons check', async () => {
 
   userEvent.click(screen.getByTestId(/sort_by_name/i))
   expect(screen.getByTestId(/sort_by_name/i)).toBeEnabled()
-
-  userEvent.click(screen.getByTestId('sort_by_date'))
-  expect(screen.getByTestId('sort_by_date')).toBeEnabled()
-
-  userEvent.click(screen.getByTestId(/sort_by_date_reverse/i))
-  expect(screen.getByTestId(/sort_by_date_reverse/i)).toBeEnabled()
 })
 
 test('Projects Sorting Integration', async () => {
@@ -110,24 +102,4 @@ test('Projects Sorting Integration', async () => {
   sortedByName.forEach((project, i) => {
     expect(screen.getByTestId(`project[${i}]`)).toHaveTextContent(project.name)
   })
-
-  userEvent.click(screen.getByTestId('sort_by_date'))
-  expect(screen.getByTestId('sort_by_date')).toBeEnabled()
-
-  const sortedByDate = projects.sort((a, b) => {
-    const x = new Date(a.date)
-    const y = new Date(b.date)
-    return x - y
-  })
-  sortedByDate.map((project, i) =>
-    expect(screen.getByTestId(`project[${i}]`)).toHaveTextContent(project.name),
-  )
-
-  userEvent.click(screen.getByTestId(/sort_by_date_reverse/i))
-  expect(screen.getByTestId(/sort_by_date_reverse/i)).toBeEnabled()
-
-  const sortedByDateReversed = sortedByDate.reverse()
-  sortedByDateReversed.map((project, i) =>
-    expect(screen.getByTestId(`project[${i}]`)).toHaveTextContent(project.name),
-  )
 })
