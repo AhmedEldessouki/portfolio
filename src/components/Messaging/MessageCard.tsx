@@ -36,7 +36,7 @@ function MessagesSummary({
       color: ${colors.kindaBlue};
     }
   `
-  const idByName = replaceWhiteSpaceWith(message.name, '-')
+  const dashifiedName = replaceWhiteSpaceWith(message.name ?? '', '-')
   return (
     <div css={messagesSummary}>
       <button
@@ -53,7 +53,7 @@ function MessagesSummary({
               margin: 0;
             `,
           ]}
-          id={idByName}
+          id={dashifiedName}
         >
           {message.name}
         </h2>
@@ -61,7 +61,7 @@ function MessagesSummary({
       <PopUp
         info={`this message from ${message.name}`}
         onClickYes={() => deleteMessage(message)}
-        controls={idByName}
+        controls={dashifiedName}
       />
     </div>
   )

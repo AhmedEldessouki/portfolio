@@ -75,7 +75,7 @@ function EditAndDelete({
       <PopUp
         info="Project"
         onClickYes={() => deleteProject(project)}
-        controls={replaceWhiteSpaceWith(project.name)}
+        controls={replaceWhiteSpaceWith(project.name ?? '')}
       />
     </div>
   )
