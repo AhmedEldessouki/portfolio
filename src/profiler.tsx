@@ -48,7 +48,8 @@ function Profiler({metadata, phases, ...props}: ProfilerProps): JSX.Element {
       })
     }
   }
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <React.Profiler onRender={reportProfile} {...props} />
 }
 
-export {Profiler}
+export default Profiler

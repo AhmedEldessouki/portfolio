@@ -25,42 +25,42 @@ interface ReducerAction {
   payload?: Array<Project>
 }
 
-const reducer = (state: ReducerState, action: ReducerAction) => {
+const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
   const {type, payload} = action
   switch (type) {
     case 'none': {
-      state.projects = payload && [...payload]
-      state.sortedBy = 'none'
       return {
         ...state,
+        sortedBy: 'none',
+        projects: payload && [...payload],
       }
     }
     case 'reset_sort': {
-      state.projects = payload && [...payload]
-      state.sortedBy = 'no_sorting'
       return {
         ...state,
+        sortedBy: 'no_sorting',
+        projects: payload && [...payload],
       }
     }
     case 'alphabet': {
-      state.projects = payload && [...payload]
-      state.sortedBy = 'alphabet'
       return {
         ...state,
+        sortedBy: 'alphabet',
+        projects: payload && [...payload],
       }
     }
     case 'date': {
-      state.projects = payload && [...payload]
-      state.sortedBy = 'date'
       return {
         ...state,
+        sortedBy: 'date',
+        projects: payload && [...payload],
       }
     }
     case 'reverse_date': {
-      state.projects = payload && [...payload]
-      state.sortedBy = 'reverse_date'
       return {
         ...state,
+        sortedBy: 'reverse_date',
+        projects: payload && [...payload],
       }
     }
     default: {
@@ -94,9 +94,9 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
 
   const sortDate = (a: Project, b: Project) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const x = new Date(a.date) as any
+    const x = new Date(a.date as Date) as any
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const y = new Date(b.date) as any
+    const y = new Date(b.date as Date) as any
     return x - y
   }
   const btn = {
@@ -169,14 +169,16 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
               data-testid="sort_by_name"
               css={[btn, sortedBy === 'alphabet' ? btnHasFocus : null]}
               onClick={() => {
+                if (!projects) return
                 if (sortedBy === 'alphabet') {
                   dispatch({type: 'reset_sort', payload: projectsData})
                 } else {
                   dispatch({
                     type: 'alphabet',
-                    payload: projects?.sort((a, b) => {
-                      return a.name.localeCompare(b.name)
-                    }),
+                    payload: projects.sort(
+                      (a: typeof projects[0], b: typeof projects[0]) =>
+                        a.name.localeCompare(b.name),
+                    ),
                   })
                 }
               }}
@@ -188,12 +190,13 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
               data-testid="sort_by_date"
               css={[btn, sortedBy === 'date' ? btnHasFocus : null]}
               onClick={() => {
+                if (!projects) return
                 if (sortedBy === 'date') {
                   dispatch({type: 'reset_sort', payload: projectsData})
                 } else {
                   dispatch({
                     type: 'date',
-                    payload: projects?.sort(sortDate),
+                    payload: projects.sort(sortDate),
                   })
                 }
               }}
@@ -205,12 +208,13 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
               data-testid="sort_by_date_reverse"
               css={[btn, sortedBy === 'reverse_date' ? btnHasFocus : null]}
               onClick={() => {
+                if (!projects) return
                 if (sortedBy === 'reverse_date') {
                   dispatch({type: 'reset_sort', payload: projectsData})
                 } else {
                   dispatch({
                     type: 'reverse_date',
-                    payload: projects?.sort(sortDate).reverse(),
+                    payload: projects.sort(sortDate).reverse(),
                   })
                 }
               }}
@@ -226,19 +230,16 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
 }
 
 const Projects = React.memo(
-  ({projectsData}: {projectsData: Array<Project>}) => {
-    return (
-      <ErrorBoundary
-        FallbackComponent={ErrorMessageFallback}
-        resetKeys={[projectsData]}
-      >
-        <ProjectComponent projectsData={projectsData} />
-      </ErrorBoundary>
-    )
-  },
-  (prevProps, nextProps) => {
-    return deepEqual(prevProps, nextProps)
-  },
+  ({projectsData}: {projectsData: Array<Project>}) => (
+    <ErrorBoundary
+      FallbackComponent={ErrorMessageFallback}
+      resetKeys={[projectsData]}
+    >
+      <ProjectComponent projectsData={projectsData} />
+    </ErrorBoundary>
+  ),
+  (prevProps, nextProps) =>
+    JSON.stringify(prevProps) === JSON.stringify(nextProps),
 )
 
 export default Projects

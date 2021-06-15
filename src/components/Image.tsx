@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 
 const ImgWithFallback = ({
@@ -9,13 +10,11 @@ const ImgWithFallback = ({
   src: string
   fallback: string
   type?: string
-} & React.ImgHTMLAttributes<HTMLImageElement>) => {
-  return (
-    <picture>
-      <source srcSet={src} type={type} />
-      <img src={fallback} alt="" {...delegated} />
-    </picture>
-  )
-}
+} & React.ImgHTMLAttributes<HTMLImageElement>) => (
+  <picture>
+    <source srcSet={src} type={type} />
+    <img src={fallback} alt="" {...delegated} />
+  </picture>
+)
 
 export default ImgWithFallback

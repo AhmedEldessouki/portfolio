@@ -77,7 +77,7 @@ function ContactForm() {
         <h1 css={h1XL}>Contact Me</h1>
         <a
           href="mailto:nemoahmed534@gmail.com"
-          aria-label={`click to contact me by mail`}
+          aria-label="click to contact me by mail"
         >
           <GrMail
             color={colors.whiteFaded}

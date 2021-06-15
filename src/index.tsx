@@ -1,3 +1,4 @@
+/* eslint-disable react/no-render-return-value */
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import {unstable_trace as trace} from 'scheduler/tracing'
@@ -5,9 +6,9 @@ import {ReactQueryDevtools} from 'react-query/devtools'
 import {QueryClient, QueryClientProvider} from 'react-query'
 
 import App from './App'
-import {Profiler} from './profiler'
+import Profiler from './profiler'
 import {AuthProvider} from './context/AuthProvider'
-import * as serviceWorkerRegistration from './serviceWorker/serviceWorkerRegistration'
+import * as serviceWorkerRegistration from './serviceWorkerFolder/serviceWorkerRegistration'
 
 import 'bootstrap/dist/css/bootstrap-reboot.css'
 

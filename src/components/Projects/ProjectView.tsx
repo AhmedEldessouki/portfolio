@@ -17,7 +17,7 @@ function ProjectView({project}: {project: Project | undefined}) {
     project?.description ?? '',
   )
   const [heightT, setHeightT] = React.useState('3')
-  const date = new Date(project?.date || '')
+  const date = new Date((project?.date as Date) || '')
 
   React.useEffect(() => {
     const textField = document.getElementById('textArea')

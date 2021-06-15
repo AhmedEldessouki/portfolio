@@ -20,12 +20,10 @@ async function uploadImage(
   formData.set('api_key', `${CLOUDINARY_API_KEY}`)
 
   return axios.post(`${CLOUDINARY_UPLOAD_URL}`, formData).then(
-    res => {
-      return res.data.secure_url
-    },
-    err => {
+    res => res.data.secure_url,
+    (err: Error) => {
       toast.error(`Upload of ${image.name}Failed!`)
-      throw new Error(err)
+      throw new Error(err.message)
     },
   )
 }
@@ -41,40 +39,39 @@ const gradualUpload = async (
   }
   return []
 }
-const projectFormReducer = (state: ReducerState, action: ReducerAction) => {
+const projectFormReducer = (
+  state: ReducerState,
+  action: ReducerAction,
+): ReducerState => {
   const {type, payload} = action
   switch (type) {
     case 'error': {
-      state.error = payload as typeof state.error
-      return {...state}
+      return {...state, error: payload as typeof state.error}
     }
     case 'idle': {
-      state.status = 'idle'
-      return {...state}
+      return {...state, status: 'idle'}
     }
     case 'pending': {
-      state.status = 'pending'
-      return {...state}
+      return {...state, status: 'pending'}
     }
     case 'redirect': {
-      state.status = 'redirect'
-      return {...state}
+      return {...state, status: 'redirect'}
     }
 
     case 'clean_up': {
-      state.enteredProjectData = {
-        name: '',
-        link: '',
-        repoLink: '',
-        description: '',
-        projectType: 'Personal',
-        projectLogo: [],
-        tag: [],
-      }
-      state.status = 'idle'
-      state.error = undefined
       return {
         ...state,
+        status: 'idle',
+        error: undefined,
+        enteredProjectData: {
+          name: '',
+          link: '',
+          repoLink: '',
+          description: '',
+          projectType: 'Personal',
+          projectLogo: [],
+          tag: [],
+        },
       }
     }
     default: {

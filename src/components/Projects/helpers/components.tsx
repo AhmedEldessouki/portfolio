@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
@@ -33,9 +34,10 @@ function ImageDropZone({
     onDropAccepted: acceptedFiles => {
       setIsDragActive(!isDragActive)
 
-      const newArr = acceptedFiles.map(file => {
-        return {file, preview: URL.createObjectURL(file)}
-      })
+      const newArr = acceptedFiles.map(file => ({
+        file,
+        preview: URL.createObjectURL(file),
+      }))
       setImportedImages({
         ...importedImages,
         acceptedImages: {
@@ -47,9 +49,10 @@ function ImageDropZone({
     onDropRejected: rejectedFiles => {
       setIsDragActive(!isDragActive)
 
-      const newArr = rejectedFiles.map(({file}) => {
-        return {file, preview: URL.createObjectURL(file)}
-      })
+      const newArr = rejectedFiles.map(({file}) => ({
+        file,
+        preview: URL.createObjectURL(file),
+      }))
       setImportedImages({
         ...importedImages,
         rejectedImages: {
@@ -285,47 +288,45 @@ function TagsCheckBoxX({
         flex-wrap: wrap;
       `}
     >
-      {tagsData.map((tag, i) => {
-        return (
-          <label
-            key={tag.id}
+      {tagsData.map((tag, i) => (
+        <label
+          key={tag.id}
+          css={css`
+            display: grid;
+            grid-gap: 4px;
+            place-items: center;
+            grid-auto-flow: column;
+            & input {
+            }
+          `}
+          htmlFor={tag.name}
+        >
+          <input
+            name="tags"
+            aria-label={`tag-${tag.name}`}
+            id={tag.url}
+            data-testid={`tag-${i}`}
+            color={colors.independenceBlue}
+            type="checkbox"
+            alt={tag.name}
+            onChange={e => {
+              isChecked.splice(i, 1, e.target.checked)
+              setChecked([...isChecked])
+            }}
+            value={tag.url}
+            checked={isChecked[i]}
+            {...inputProps}
+          />
+          <img
             css={css`
-              display: grid;
-              grid-gap: 4px;
-              place-items: center;
-              grid-auto-flow: column;
-              & input {
-              }
+              margin: 0;
             `}
-            htmlFor={tag.name}
-          >
-            <input
-              name="tags"
-              aria-label={`tag-${tag.name}`}
-              id={tag.url}
-              data-testid={`tag-${i}`}
-              color={colors.independenceBlue}
-              type="checkbox"
-              alt={tag.name}
-              onChange={e => {
-                isChecked.splice(i, 1, e.target.checked)
-                setChecked([...isChecked])
-              }}
-              value={tag.url}
-              checked={isChecked[i]}
-              {...inputProps}
-            />
-            <img
-              css={css`
-                margin: 0;
-              `}
-              src={tag.url}
-              alt={tag.name}
-              width="30"
-            />
-          </label>
-        )
-      })}
+            src={tag.url}
+            alt={tag.name}
+            width="30"
+          />
+        </label>
+      ))}
     </div>
   )
 }

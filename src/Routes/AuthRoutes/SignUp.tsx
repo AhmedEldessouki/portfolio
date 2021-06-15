@@ -12,9 +12,8 @@ import Spinner from '../../components/Spinner'
 import Input from '../../components/Input'
 
 function SignUp() {
-  const {useCreateNewUser} = useAuth()
-  const [newUserCreationFailed, createNewUser] = useCreateNewUser()
-  const {status, dispatch} = useAsync()
+  const {user, createNewUser} = useAuth()
+  const {error, status, dispatch} = useAsync()
 
   async function submitNewUserCredentials(e: React.SyntheticEvent) {
     e.preventDefault()
@@ -39,10 +38,14 @@ function SignUp() {
       password: password.value,
       confirmPassword: confirmPassword.value,
     }
-    await createNewUser(newUserData)
+    const response: {
+      user: typeof user
+      error: Error | undefined
+    } = await createNewUser(newUserData)
 
-    if (!newUserCreationFailed) {
-      dispatch({type: 'resolved'})
+    if (response.error) {
+      dispatch({type: 'rejected', payload: {error: response.error}})
+      return
     }
     dispatch({type: 'resolved'})
   }
@@ -142,9 +145,9 @@ function SignUp() {
               Password Don&apos;t Match
             </span>
           ) : null}
-          {newUserCreationFailed ? (
+          {error ? (
             <div css={warning} role="alert">
-              {newUserCreationFailed}
+              {error.message}
             </div>
           ) : null}
 

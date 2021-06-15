@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react'
 import App from '../App'
 import {
@@ -26,9 +27,7 @@ beforeAll(() => {
   jest.mock('react-query', () => ({
     useQuery: jest.fn(),
   }))
-  jest.mock('../Utils/apis', () => {
-    return { useClientFetch: jest.fn() }
-  })
+  jest.mock('../Utils/apis', () => ({ useClientFetch: jest.fn() }))
   jest.spyOn(console, 'error')
 })
 

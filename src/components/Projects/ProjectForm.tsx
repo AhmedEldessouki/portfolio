@@ -9,7 +9,7 @@ import {
   ButtonWithSpinner,
   ProjInput,
   TagsCheckBox,
-} from '../../components/Projects/helpers/components'
+} from "./helpers/components"
 
 import type {ImportedImages, ReducerState} from '../../../types/types'
 import type {Project} from '../../../types/interfaces'

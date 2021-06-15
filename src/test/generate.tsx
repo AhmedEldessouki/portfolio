@@ -4,8 +4,8 @@ import type {Message, NewUser, Project, Tag} from '../../types/interfaces'
 
 function buildUser(overrides?: Partial<NewUser>) {
   return {
-    uid: faker.random.uuid(),
-    token: faker.random.uuid(),
+    uid: faker.datatype.uuid(),
+    token: faker.datatype.uuid(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     username: faker.internet.userName(),
@@ -16,8 +16,8 @@ function buildUser(overrides?: Partial<NewUser>) {
 }
 function buildUserLogin(overrides?: Partial<User>) {
   return {
-    uid: faker.random.uuid(),
-    token: faker.random.uuid(),
+    uid: faker.datatype.uuid(),
+    token: faker.datatype.uuid(),
     name: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
@@ -30,7 +30,7 @@ function buildUserLogin(overrides?: Partial<User>) {
 
 function buildProject(overrides?: Partial<Project>) {
   return {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
     description: faker.lorem.paragraph(),
     link: faker.internet.url(),
     repoLink: faker.internet.url(),
@@ -46,7 +46,7 @@ function buildProject(overrides?: Partial<Project>) {
 
 function buildMessage(overrides?: Partial<Message>) {
   return {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
     email: faker.internet.email(),
     name: faker.name.firstName(),
     phoneNumber: faker.phone.phoneNumberFormat().replace(/[^0-9]/gi, ''),
@@ -58,7 +58,7 @@ function buildMessage(overrides?: Partial<Message>) {
 
 function buildTag(overrides?: Partial<Tag>) {
   return {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
     name: faker.name.firstName(),
     url: faker.image.imageUrl(),
     ...overrides,

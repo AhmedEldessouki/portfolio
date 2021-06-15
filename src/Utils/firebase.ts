@@ -28,6 +28,7 @@ const auth = firebase.auth()
 
 if (process.env.NODE_ENV !== 'production') {
   db.useEmulator('localhost', 8080)
+  auth.useEmulator('http://localhost:9099')
 }
 
 export {db, auth, firebase}

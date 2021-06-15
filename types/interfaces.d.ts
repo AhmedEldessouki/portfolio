@@ -1,5 +1,3 @@
-import type { Tag } from "./tagsTypes"
-
 interface NewUser {
   firstName: string
   lastName: string
@@ -13,13 +11,13 @@ interface Project {
   link: string
   repoLink: string
   projectLogo: Array<string>
-  tag: Array<string|Tag>
+  tag: Array<string | Tag>
   description: string
   id?: string
   projectType: `Personal` | `Contribution` | ''
   // Data is any because firebase uses linux timestamp
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  date: Date | any 
+  date: Date | any
 }
 
 interface Message {
@@ -49,4 +47,13 @@ interface Tag {
   url: string
   id?: string
 }
-export {NewUser, Project, Message, Status, ErrorType, CollectionTypes,TitleProps, Tag}
+export {
+  NewUser,
+  Project,
+  Message,
+  Status,
+  ErrorType,
+  CollectionTypes,
+  TitleProps,
+  Tag,
+}

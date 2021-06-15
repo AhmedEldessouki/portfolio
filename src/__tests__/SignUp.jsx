@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import * as React from 'react'
 import faker from 'faker'
 import App from '../App'

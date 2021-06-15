@@ -49,7 +49,6 @@ function WriteProject() {
   const dispatch = useSafeDispatch(unsafeDispatch)
   const [descriptionFieldControl, setDescriptionFieldControl] = React.useState({
     value: selectedProject?.description ?? '',
-
     color: '',
   })
   React.useEffect(() => {
@@ -64,21 +63,15 @@ function WriteProject() {
     e.preventDefault()
     dispatch({type: 'pending'})
 
-    const {
-      name,
-      link,
-      repoLink,
-      projectType,
-      description,
-      tags,
-    } = e.target as typeof e.target & {
-      name: HTMLInputElement
-      link: HTMLInputElement
-      repoLink: HTMLInputElement
-      projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
-      description: HTMLInputElement
-      tags: Array<HTMLInputElement>
-    }
+    const {name, link, repoLink, projectType, description, tags} =
+      e.target as typeof e.target & {
+        name: HTMLInputElement
+        link: HTMLInputElement
+        repoLink: HTMLInputElement
+        projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
+        description: HTMLInputElement
+        tags: Array<HTMLInputElement>
+      }
 
     const checkedTags: Array<Tag> = []
     for (const {alt, checked, value} of tags) {
@@ -134,7 +127,7 @@ function WriteProject() {
         | 'remove_acceptedImages'
         | 'remove_oldImages'
         | 'remove_rejectedImages',
-      index,
+      index: number,
     ) => {
       if (type === 'remove_oldImages') {
         enteredProjectData.projectLogo.splice(index, 1)

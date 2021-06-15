@@ -1,5 +1,5 @@
 import type {Project} from '../../../types/interfaces'
-import {projectsData} from './projects-data'
+import projectsData from './projects-data'
 
 const projects: Array<Project> = [...projectsData]
 

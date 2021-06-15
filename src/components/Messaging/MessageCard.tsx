@@ -39,7 +39,12 @@ function MessagesSummary({
   const idByName = replaceWhiteSpaceWith(message.name, '-')
   return (
     <div css={messagesSummary}>
-      <button css={btn} onClick={setMessageFunc} aria-pressed="false">
+      <button
+        css={btn}
+        type="button"
+        onClick={setMessageFunc}
+        aria-pressed="false"
+      >
         <h2
           css={[
             h1XL,

@@ -13,10 +13,12 @@ function ErrorMessageFallback({error, resetErrorBoundary}: FallbackProps) {
       <pre>{error.message}</pre>
       <ol>
         <li>
-          <button onClick={resetErrorBoundary}>retry</button>
+          <button type="button" onClick={resetErrorBoundary}>
+            retry
+          </button>
         </li>
         <li>
-          <button onClick={() => window.location.reload()}>
+          <button type="button" onClick={() => window.location.reload()}>
             Refresh the page
           </button>
         </li>

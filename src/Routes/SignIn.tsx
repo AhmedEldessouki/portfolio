@@ -12,24 +12,32 @@ import Spinner from '../components/Spinner'
 
 const SignIn = () => {
   const {useVerifyUserSignInCredentials} = useAuth()
-  const [
-    verificationFailed,
-    checkUserCredentials,
-  ] = useVerifyUserSignInCredentials()
+  const [verificationFailed, checkUserCredentials] =
+    useVerifyUserSignInCredentials()
   const {status, dispatch} = useAsync()
 
   async function submitUserCredentials(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
-    const {signin_email, signin_password} = e.target as typeof e.target & {
-      signin_email: {value: string}
-      signin_password: {value: string}
+    const {signinEmail, signinPassword} = e.target as typeof e.target & {
+      signinEmail: {value: string}
+      signinPassword: {value: string}
     }
     const credentials = {
-      email: signin_email.value,
-      password: signin_password.value,
+      email: signinEmail.value,
+      password: signinPassword.value,
     }
-
+    if (typeof checkUserCredentials === 'string') {
+      dispatch({
+        type: 'rejected',
+        payload: {
+          error: {
+            message: '[checkUserCredentials] has been detected as a String!',
+          } as Error,
+        },
+      })
+      return
+    }
     await checkUserCredentials(credentials)
 
     dispatch({type: 'resolved'})
@@ -50,14 +58,14 @@ const SignIn = () => {
         <form onSubmit={submitUserCredentials} css={[formStyles, {gap: 6}]}>
           <div css={{width: '89%'}}>
             <Input
-              name="signin_email"
+              name="signinEmail"
               placeholder="Enter email"
               type="email"
               required
             />
             <Input
               type="password"
-              name="signin_password"
+              name="signinPassword"
               minLength={6}
               maxLength={20}
               required

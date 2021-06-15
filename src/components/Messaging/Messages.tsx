@@ -59,15 +59,13 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
         </OnToggle>
       ) : (
         <div css={mWrapper}>
-          {messagesData.map(message => {
-            return (
-              <MessagesSummary
-                key={message.id}
-                setMessageFunc={() => setDisplayMessage(message)}
-                message={message}
-              />
-            )
-          })}
+          {messagesData.map(message => (
+            <MessagesSummary
+              key={message.id}
+              setMessageFunc={() => setDisplayMessage(message)}
+              message={message}
+            />
+          ))}
         </div>
       )}
     </React.Fragment>
@@ -75,19 +73,16 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
 }
 
 const Messages = React.memo(
-  ({messagesData}: {messagesData: Array<Message>}) => {
-    return (
-      <ErrorBoundary
-        resetKeys={[messagesData]}
-        FallbackComponent={ErrorMessageFallback}
-      >
-        <MessagesComponent messagesData={messagesData} />
-      </ErrorBoundary>
-    )
-  },
-  (prevProps, nextProps) => {
-    return deepEqual(prevProps, nextProps)
-  },
+  ({messagesData}: {messagesData: Array<Message>}) => (
+    <ErrorBoundary
+      resetKeys={[messagesData]}
+      FallbackComponent={ErrorMessageFallback}
+    >
+      <MessagesComponent messagesData={messagesData} />
+    </ErrorBoundary>
+  ),
+  (prevProps, nextProps) =>
+    JSON.stringify(prevProps) === JSON.stringify(nextProps),
 )
 
 export default Messages

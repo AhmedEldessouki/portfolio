@@ -1,16 +1,19 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 
 import SignIn from '../../Routes/SignIn'
 import PageNotFound from '../../Routes/PageNotFound'
 import Home from '../../Routes/Home'
+import SignUp from '../../Routes/AuthRoutes/SignUp'
 
 function UnAuthRoutes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
+      <Route path="/signUp" component={SignUp} />
       <Route path="/signin" component={SignIn} />
-      <Route from="*" to="/" component={PageNotFound} />
+      <Route path="/404" component={PageNotFound} />
+      <Redirect from="*" to="/404" />
     </Switch>
   )
 }

@@ -1,6 +1,9 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-bitwise */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const usersKey = '__portfolio_user__'
 
+// eslint-disable-next-line prefer-const
 let users = {}
 const persist = () =>
   window.localStorage.setItem(usersKey, JSON.stringify(users))
@@ -15,7 +18,17 @@ try {
   // ignore json parse error
 }
 
-function validateUserForm({ username, password }) {
+function hash(str) {
+  let hashIt = 5381
+  let i = str.length
+
+  while (i) {
+    hashIt = (hashIt * 33) ^ str.charCodeAt(--i)
+  }
+  return String(hashIt >>> 0)
+}
+
+function validateUserForm({username, password}) {
   if (!username) {
     const error = new Error('A username is required')
     error.status = 400
@@ -28,56 +41,9 @@ function validateUserForm({ username, password }) {
   }
 }
 
-function authenticate({ username, password }) {
-  validateUserForm({ username, password })
-  const id = hash(username)
-  const user = users[id] || {}
-  if (user.passwordHash === hash(password)) {
-    return { ...sanitizeUser(user), token: btoa(user.id) }
-  }
-  const error = new Error('Invalid username or password')
-  error.status = 400
-  throw error
-}
-
-function create({ username, password }) {
-  validateUserForm({ username, password })
-  const id = hash(username)
-  const passwordHash = hash(password)
-  if (users[id]) {
-    const error = new Error(
-      `Cannot create a new user with the username "${username}"`,
-    )
-    error.status = 400
-    throw error
-  }
-  users[id] = { id, username, passwordHash }
-  persist()
-  return read(id)
-}
-
-function read(id) {
-  validateUser(id)
-  return sanitizeUser(users[id])
-}
-
 function sanitizeUser(user) {
-  const { passwordHash, ...rest } = user
+  const {passwordHash, ...rest} = user
   return rest
-}
-
-function update(id, updates) {
-  validateUser(id)
-  Object.assign(users[id], updates)
-  persist()
-  return read(id)
-}
-
-// this would be called `delete` except that's a reserved word in JS :-(
-function remove(id) {
-  validateUser(id)
-  delete users[id]
-  persist()
 }
 
 function validateUser(id) {
@@ -89,19 +55,35 @@ function validateUser(id) {
   }
 }
 
-function hash(str) {
-  let hashIt = 5381
-  let i = str.length
-
-  while (i) {
-    hashIt = (hashIt * 33) ^ str.charCodeAt(--i)
+function authenticate({username, password}) {
+  validateUserForm({username, password})
+  const id = hash(username)
+  const user = users[id] || {}
+  if (user.passwordHash === hash(password)) {
+    return {...sanitizeUser(user), token: btoa(user.id)}
   }
-  return String(hashIt >>> 0)
+  const error = new Error('Invalid username or password')
+  error.status = 400
+  throw error
 }
-
-function reset() {
-  users = {}
+function read(id) {
+  validateUser(id)
+  return sanitizeUser(users[id])
+}
+function create({username, password}) {
+  validateUserForm({username, password})
+  const id = hash(username)
+  const passwordHash = hash(password)
+  if (users[id]) {
+    const error = new Error(
+      `Cannot create a new user with the username "${username}"`,
+    )
+    error.status = 400
+    throw error
+  }
+  users[id] = {id, username, passwordHash}
   persist()
+  return read(id)
 }
 
-export { authenticate, create, read, update, remove, reset, usersKey }
+export {authenticate, create, usersKey}

@@ -17,8 +17,9 @@ function AuthRoutes() {
       <Route path="/create-project" component={WriteProject} />
       <Route path="/tags-control" component={TagsControl} />
       <Route path="/edit/:id" component={WriteProject} />
+      <Route path="/404" component={PageNotFound} />
       <Redirect from="/signin" to="/" />
-      <Route from="*" to="/" component={PageNotFound} />
+      <Redirect from="*" to="/404" />
     </Switch>
   )
 }
