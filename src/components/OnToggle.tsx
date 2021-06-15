@@ -185,10 +185,10 @@ const OnToggle = React.forwardRef(
           >
             {items.map((item, i) => {
               if (i >= show.min && i <= show.max) {
-                const noSpaceName = replaceWhiteSpaceWith(item.name)
+                const dashifiedName = replaceWhiteSpaceWith(item.name ?? '')
                 return (
                   <Title
-                    key={`${replaceWhiteSpaceWith(noSpaceName)}-${i * 2}`}
+                    key={`${dashifiedName}-${i * 2}`}
                     name={item.name}
                     csx={css`
                       @keyframes example {
@@ -206,7 +206,7 @@ const OnToggle = React.forwardRef(
                     onClick={() => {
                       setDisplayData(item)
                     }}
-                    testId={`${noSpaceName}-title`}
+                    testId={`${dashifiedName}-title`}
                     highlight={displayedData?.id === item.id}
                   />
                 )
