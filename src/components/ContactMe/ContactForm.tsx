@@ -130,9 +130,9 @@ function ContactForm() {
               }}
               name="phoneNumber"
               inputMode="tel"
-              minLength={11}
+              minLength={10}
               required
-              maxLength={13}
+              maxLength={15}
               placeholder="Phone Number"
               pattern="^[0-9\b]+$"
             />
