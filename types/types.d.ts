@@ -1,7 +1,8 @@
+import type {ErrorType} from './interfaces'
+
 type ReducerState = {
   status: 'idle' | 'pending' | 'redirect'
   enteredProjectData: Omit<Project, 'id' | 'date'>
-
   error: ErrorType
 }
 type UploadedImagesArrayType = Array<{preview: string; file: File}>
@@ -23,7 +24,7 @@ type ReducerAction = {
     | 'clean_up'
     | 'redirect'
     | 'set_form_values'
-  payload?: ErrorType | string
+  payload?: ErrorType | string | Project
 }
 
 export {ImportedImages, ReducerAction, ReducerState, UploadedImagesArrayType}
