@@ -37,12 +37,12 @@ function Title({
       fontFamily: highlight ? 'sans-serif' : 'sans',
     },
   ]
-
+  const newNameForm = replaceWhiteSpaceWith(name ?? '', '-')
   return (
     <li
       css={{width: '100%', listStyle: 'none'}}
-      aria-describedby={`${replaceWhiteSpaceWith(name, '-')}-described`}
-      aria-labelledby={`${replaceWhiteSpaceWith(name, '-')}-labelled`}
+      aria-describedby={`${newNameForm}-described`}
+      aria-labelledby={`${newNameForm}-labelled`}
     >
       <button
         aria-label={`view ${name}`}
@@ -60,7 +60,7 @@ function Title({
           css={[title, csx]}
           data-testid={testId}
           key={testId}
-          id={replaceWhiteSpaceWith(name, '-')}
+          id={newNameForm}
         >
           {name}
         </h2>
