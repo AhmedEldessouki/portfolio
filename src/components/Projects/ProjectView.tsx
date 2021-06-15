@@ -46,6 +46,7 @@ function ProjectView({project}: {project: Project | undefined}) {
   if (!project) {
     return <Spinner />
   }
+  const dashifiedName = replaceWhiteSpaceWith(project.name, '-')
   return (
     <React.Fragment>
       {project.projectLogo.length !== 0 ? (
@@ -64,7 +65,7 @@ function ProjectView({project}: {project: Project | undefined}) {
           }
         `}
         aria-current="true"
-        id={replaceWhiteSpaceWith(project.name, '-')}
+        id={dashifiedName}
       >
         <div
           css={css`
@@ -93,7 +94,7 @@ function ProjectView({project}: {project: Project | undefined}) {
                 margin: 0;
               }
             `}
-            id={`${replaceWhiteSpaceWith(project.name, '-')}-labelled`}
+            id={`${dashifiedName}-labelled`}
           >
             {project.name}
           </h1>
