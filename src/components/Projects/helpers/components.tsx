@@ -331,13 +331,18 @@ function TagsCheckBoxX({
   )
 }
 const TagsCheckBox = React.memo(TagsCheckBoxX)
-function ProjInputX({
+
+function ProjInput({
   editableValue,
   ...inputOverrides
 }: {
-  editableValue?: string | undefined
+  editableValue: string
 } & React.InputHTMLAttributes<HTMLInputElement>) {
-  const [state, setState] = React.useState(editableValue)
+  const [state, setState] = React.useState('')
+  React.useEffect(() => {
+    if (state || !editableValue) return
+    setState(editableValue)
+  }, [editableValue, state])
   return (
     <Input
       value={state}
@@ -348,8 +353,6 @@ function ProjInputX({
     />
   )
 }
-
-const ProjInput = React.memo(ProjInputX)
 
 export {
   ProjInput,
