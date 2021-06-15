@@ -9,7 +9,7 @@ import {
   ButtonWithSpinner,
   ProjInput,
   TagsCheckBox,
-} from "./helpers/components"
+} from './helpers/components'
 
 import type {ImportedImages, ReducerState} from '../../../types/types'
 import type {Project} from '../../../types/interfaces'
@@ -23,7 +23,7 @@ function ProjectForm({
   setDescriptionFieldControl,
   selectedProject,
 }: {
-  useHandleSubmit: (e: React.SyntheticEvent) => Promise<void>
+  useHandleSubmit: (e: React.SyntheticEvent) => void
   importedImages: ImportedImages
   setImportedImages: React.Dispatch<React.SetStateAction<ImportedImages>>
   state: ReducerState

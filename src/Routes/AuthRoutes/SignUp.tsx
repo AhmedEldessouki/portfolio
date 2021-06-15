@@ -18,19 +18,14 @@ function SignUp() {
   async function submitNewUserCredentials(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-    } = e.target as typeof e.target & {
-      firstName: {value: string}
-      lastName: {value: string}
-      email: {value: string}
-      password: {value: string}
-      confirmPassword: {value: string}
-    }
+    const {firstName, lastName, email, password, confirmPassword} =
+      e.target as typeof e.target & {
+        firstName: {value: string}
+        lastName: {value: string}
+        email: {value: string}
+        password: {value: string}
+        confirmPassword: {value: string}
+      }
     const newUserData: NewUser = {
       firstName: firstName.value,
       lastName: lastName.value,

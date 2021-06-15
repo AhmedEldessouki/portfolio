@@ -25,13 +25,10 @@ import {createNewMessage} from '../../Utils/apis'
 import type {ErrorType} from '../../../types/interfaces'
 
 function ContactForm() {
-  const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(
-    false,
-  )
-  const [
-    sendMessageErrorApi,
-    setSendMessageErrorApi,
-  ] = React.useState<ErrorType>()
+  const [phoneNumberFieldError, setPhoneNumberFieldError] =
+    React.useState(false)
+  const [sendMessageErrorApi, setSendMessageErrorApi] =
+    React.useState<ErrorType>()
   const {status, dispatch} = useAsync()
 
   async function handleMessage(

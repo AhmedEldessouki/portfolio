@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react'
+import {render} from '@testing-library/react'
 import React from 'react'
-import { screen, userEvent } from '../test/app-test-utils'
+import {screen, userEvent} from '../test/app-test-utils'
 import Input from '../components/Input'
 
 // test('should Input onBlur Error: accept only text', () => {
@@ -29,7 +29,6 @@ import Input from '../components/Input'
 
 //   document.getElementById('name').focus()
 //   userEvent.type(screen.getByTestId('name'), 'sa')
-
 
 //   expect(screen.getByTestId('name'))
 //     .toHaveStyle(`border-image-source: linear-gradient(to right,#9f1919,#890620);`)
@@ -60,6 +59,7 @@ test('should test Input valid state', () => {
   userEvent.type(screen.getByTestId('name'), 'aasd')
   document.getElementById('name_XX').focus()
 
-  expect(screen.getByTestId('name'))
-    .toHaveStyle(`border-image-source: linear-gradient(to right, #1CA195, #1BBC9B);`)
+  expect(screen.getByTestId('name')).toHaveStyle(
+    `border-image-source: linear-gradient(to right, #1CA195, #1BBC9B);`,
+  )
 })

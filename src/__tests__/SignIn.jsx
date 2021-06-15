@@ -1,13 +1,13 @@
 import * as React from 'react'
 import App from '../App'
-import { buildUser } from '../test/generate'
-import { userEvent, screen, renderWithAllProviders } from '../test/app-test-utils'
+import {buildUser} from '../test/generate'
+import {userEvent, screen, renderWithAllProviders} from '../test/app-test-utils'
 import * as usersDB from '../test/data/user'
 
-async function renderAppScreen({ user, doWait } = {}) {
+async function renderAppScreen({user, doWait} = {}) {
   const route = `/`
 
-  const utils = await renderWithAllProviders(<App />, { user, route, doWait })
+  const utils = await renderWithAllProviders(<App />, {user, route, doWait})
 
   return {
     ...utils,
@@ -34,7 +34,7 @@ test('Should fill out Sign-In Form', async () => {
   expect(screen.getByLabelText(/email/i)).toHaveDisplayValue(user.email)
   expect(screen.getByLabelText(/password/i)).toHaveDisplayValue(user.password)
 
-  expect(screen.getByRole('button', { name: /submit/i })).toHaveAttribute(
+  expect(screen.getByRole('button', {name: /submit/i})).toHaveAttribute(
     'type',
     'submit',
   )

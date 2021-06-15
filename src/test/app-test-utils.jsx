@@ -53,7 +53,6 @@ async function render(
   return returnValue
 }
 
-
 const queryClient = new QueryClient()
 
 function AllProviders({children}) {
@@ -74,8 +73,6 @@ const renderWithAllProviders = (
 
   return render(ui, {wrapper: AllProviders, doWait, ...renderOptions})
 }
-
-
 
 export * from '@testing-library/react'
 export {

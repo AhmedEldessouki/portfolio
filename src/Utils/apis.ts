@@ -39,7 +39,10 @@ function useClientFetch(
         .get()
         .then(
           querySnapshot => {
-            const dataRes = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id}))
+            const dataRes = querySnapshot.docs.map(doc => ({
+              ...doc.data(),
+              id: doc.id,
+            }))
             return dataRes
           },
           err => Promise.reject(err),

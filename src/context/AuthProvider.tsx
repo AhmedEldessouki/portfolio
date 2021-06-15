@@ -54,12 +54,8 @@ function AuthProvider({children}: {children: React.ReactNode}) {
 }
 
 function useAuth() {
-  const {
-    user,
-    setUser,
-    selectedProject,
-    setProject,
-  } = React.useContext<Context>(AuthContext)
+  const {user, setUser, selectedProject, setProject} =
+    React.useContext<Context>(AuthContext)
 
   if (
     // eslint-disable-next-line no-constant-condition

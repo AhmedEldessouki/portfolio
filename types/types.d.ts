@@ -16,7 +16,13 @@ type ImportedImages = {
   }
 }
 type ReducerAction = {
-  type: 'error' | 'idle' | 'pending' | 'clean_up' | 'redirect'
+  type:
+    | 'error'
+    | 'idle'
+    | 'pending'
+    | 'clean_up'
+    | 'redirect'
+    | 'set_form_values'
   payload?: ErrorType | string
 }
 

@@ -2,7 +2,7 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react'
 import App from '../App'
-import { buildProject } from '../test/generate'
+import {buildProject} from '../test/generate'
 import {
   userEvent,
   loginAsUser,
@@ -11,7 +11,7 @@ import {
 } from '../test/app-test-utils'
 import * as projectsDB from '../test/data/projects'
 
-async function renderAppScreen({ user, doWait, project } = {}) {
+async function renderAppScreen({user, doWait, project} = {}) {
   if (user === undefined) {
     user = await loginAsUser()
   }
@@ -21,7 +21,7 @@ async function renderAppScreen({ user, doWait, project } = {}) {
 
   const route = `/`
 
-  const utils = await renderWithAllProviders(<App />, { user, route, doWait })
+  const utils = await renderWithAllProviders(<App />, {user, route, doWait})
 
   return {
     ...utils,
@@ -31,7 +31,7 @@ async function renderAppScreen({ user, doWait, project } = {}) {
 }
 
 test('Should fill out Create Project Form', async () => {
-  const { project } = await renderAppScreen({
+  const {project} = await renderAppScreen({
     doWait: false,
     message: null,
     tag: null,
@@ -64,7 +64,7 @@ test('Should fill out Create Project Form', async () => {
   userEvent.click(screen.getByTestId('tag-0'))
   expect(screen.getByTestId('tag-0')).not.toBeChecked()
 
-  expect(screen.getByRole('button', { name: /create project/i })).toHaveAttribute(
+  expect(screen.getByRole('button', {name: /create project/i})).toHaveAttribute(
     'type',
     'submit',
   )
