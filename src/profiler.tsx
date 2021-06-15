@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable no-console */
 import React from 'react'
 
 let queue: Array<{[key: string]: string | number}> = []

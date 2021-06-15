@@ -79,19 +79,15 @@ type SomeType = IAction<Status, {error?: Error; data?: unknown} | undefined>
 function asyncReducer(state: UseAsyncState, action: SomeType): UseAsyncState {
   switch (action.type) {
     case 'idle': {
-      console.log(`['idle']`, state)
       return {status: 'idle', data: undefined, error: undefined}
     }
     case 'pending': {
-      console.log(`['pending']`, state)
       return {status: 'pending', data: undefined, error: undefined}
     }
     case 'resolved': {
-      console.log(`['resolved']`, state)
       return {status: 'resolved', data: action.payload?.data, error: undefined}
     }
     case 'rejected': {
-      console.log(`['rejected']`, state)
       return {status: 'rejected', data: undefined, error: action.payload?.error}
     }
     default: {

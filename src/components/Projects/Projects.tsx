@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
@@ -11,7 +10,6 @@ import OnToggle from '../OnToggle'
 import ErrorMessageFallback from '../ErrorMessageFallback'
 import type {Project} from '../../../types/interfaces'
 import {useSafeDispatch} from '../../Utils/hooks'
-import {deepEqual} from '../../Utils/helpers'
 import Card from './Card'
 import ProjectView from './ProjectView'
 
