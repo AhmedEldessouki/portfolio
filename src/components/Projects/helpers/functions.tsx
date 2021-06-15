@@ -57,7 +57,9 @@ const projectFormReducer = (
     case 'redirect': {
       return {...state, status: 'redirect'}
     }
-
+    case 'set_form_values': {
+      return {...state, enteredProjectData: payload}
+    }
     case 'clean_up': {
       return {
         ...state,
