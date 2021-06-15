@@ -118,10 +118,11 @@
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [
       "eslint --fix",
-      "npm run test:precommit"
+      "npm run test:precommit",
+      "pretty-quick --staged"
     ],
     "*.+(json|yml|yaml|css|less|scss)": [
-      "prettier --write"
+      "pretty-quick --staged"
     ]
   }
 }
