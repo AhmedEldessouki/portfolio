@@ -30,7 +30,7 @@ jobs:
 
       - name: Install Packages
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: yarn install
 
       - name: 🛠 Run build script
         run: npm run build
