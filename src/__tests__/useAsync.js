@@ -1,14 +1,17 @@
-import { renderHook, act } from '@testing-library/react-hooks'
-import { useAsync } from '../Utils/hooks'
+import {renderHook, act} from '@testing-library/react-hooks'
+import {useAsync} from '../Utils/hooks'
 
 const defaultState = {
   status: 'idle',
-
+  error: undefined,
+  data: undefined,
   isIdle: true,
   isLoading: false,
   isRejected: false,
   isSuccess: false,
-
+  setData: expect.any(Function),
+  setError: expect.any(Function),
+  run: expect.any(Function),
   dispatch: expect.any(Function),
 }
 
@@ -31,50 +34,63 @@ const rejectedState = {
   status: 'rejected',
   isIdle: false,
   isRejected: true,
+  error: {code: 'Bam_Bam', message: 'it blew up!'},
 }
 
 test('can specify an initial state as resolved', () => {
-  const customInitialState = { status: 'resolved' }
-  const { result } = renderHook(() => useAsync(customInitialState))
+  const customInitialStatus = 'resolved'
+  const {result} = renderHook(() =>
+    useAsync({initialStatus: customInitialStatus}),
+  )
   expect(result.current).toEqual({
     ...resolvedState,
-    ...customInitialState,
+    ...{status: customInitialStatus},
   })
 })
 
 test('can specify an initial state as pending', () => {
-  const customInitialState = { status: 'pending' }
-  const { result } = renderHook(() => useAsync(customInitialState))
+  const customInitialStatus = 'pending'
+  const {result} = renderHook(() =>
+    useAsync({initialStatus: customInitialStatus}),
+  )
   expect(result.current).toEqual({
     ...pendingState,
-    ...customInitialState,
+    ...{status: customInitialStatus},
   })
 })
 
-test('can specify an initial state as rejected', () => {
-  const customInitialState = { status: 'rejected' }
-  const { result } = renderHook(() => useAsync(customInitialState))
+test('can specify an initial state as rejected & dispatch Error', () => {
+  const customInitialStatus = 'rejected'
+  const {result} = renderHook(() =>
+    useAsync({initialStatus: customInitialStatus}),
+  )
+  act(() => {
+    result.current.dispatch({
+      type: 'rejected',
+      payload: {error: rejectedState.error},
+    })
+  })
   expect(result.current).toEqual({
     ...rejectedState,
-    ...customInitialState,
+    ...{status: customInitialStatus},
   })
 })
 
 test('No state updates happen if the component is unmounted while pending', () => {
-  const { result, unmount } = renderHook(() => useAsync())
+  const {result, unmount} = renderHook(() => useAsync())
   act(() => {
-    result.current.dispatch({ type: 'pending' })
+    result.current.dispatch({type: 'pending'})
   })
   unmount()
   act(() => {
-    result.current.dispatch({ type: 'resolved' })
+    result.current.dispatch({type: 'resolved'})
   })
 })
 
 test('can dispatch', () => {
-  const { result } = renderHook(() => useAsync())
+  const {result} = renderHook(() => useAsync())
   act(() => {
-    result.current.dispatch({ type: 'resolved' })
+    result.current.dispatch({type: 'resolved'})
   })
   expect(result.current).toEqual({
     ...resolvedState,
