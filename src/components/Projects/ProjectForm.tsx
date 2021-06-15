@@ -34,14 +34,7 @@ function ProjectForm({
   selectedProject: Project | undefined
 }) {
   const {status, enteredProjectData, error} = state
-  const {
-    name,
-    link,
-    repoLink,
-
-    projectType,
-    tag,
-  } = enteredProjectData
+  const {name, link, repoLink, projectType, tag} = enteredProjectData
   return (
     <form
       css={[formStyles, {gap: 6}]}
