@@ -49,11 +49,8 @@ const globalStyles = css`
   }
 
   main {
-    margin-top: 95px;
-    min-height: 75vh;
-    ${mq.phoneLarge} {
-      margin-top: 242px;
-    }
+    margin-top: 114px;
+    min-height: 80vh;
   }
 
   img {
