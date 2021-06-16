@@ -25,13 +25,10 @@ import {createNewMessage} from '../../Utils/apis'
 import type {ErrorType} from '../../../types/interfaces'
 
 function ContactForm() {
-  const [phoneNumberFieldError, setPhoneNumberFieldError] = React.useState(
-    false,
-  )
-  const [
-    sendMessageErrorApi,
-    setSendMessageErrorApi,
-  ] = React.useState<ErrorType>()
+  const [phoneNumberFieldError, setPhoneNumberFieldError] =
+    React.useState(false)
+  const [sendMessageErrorApi, setSendMessageErrorApi] =
+    React.useState<ErrorType>()
   const {status, dispatch} = useAsync()
 
   async function handleMessage(
@@ -77,7 +74,7 @@ function ContactForm() {
         <h1 css={h1XL}>Contact Me</h1>
         <a
           href="mailto:nemoahmed534@gmail.com"
-          aria-label={`click to contact me by mail`}
+          aria-label="click to contact me by mail"
         >
           <GrMail
             color={colors.whiteFaded}
@@ -133,9 +130,9 @@ function ContactForm() {
               }}
               name="phoneNumber"
               inputMode="tel"
-              minLength={11}
+              minLength={10}
               required
-              maxLength={13}
+              maxLength={15}
               placeholder="Phone Number"
               pattern="^[0-9\b]+$"
             />

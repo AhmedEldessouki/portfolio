@@ -11,7 +11,6 @@ import {useAuth} from '../../context/AuthProvider'
 import ErrorMessageFallback from '../../components/ErrorMessageFallback'
 import {useSafeDispatch} from '../../Utils/hooks'
 import {h1XL, mq} from '../../Styles'
-import {deepEqual} from '../../Utils/helpers'
 import {createNewProject, updateProject} from '../../Utils/apis'
 import {
   projectFormReducer,
@@ -28,59 +27,69 @@ function WriteProject() {
     acceptedImages: {imagesType: 'acceptedImages', imgs: []},
     rejectedImages: {imagesType: 'rejectedImages', imgs: []},
   })
-  const proj = React.useCallback(
-    oldProj => ({
-      name: oldProj?.name ?? '',
-      link: oldProj?.link ?? '',
-      repoLink: oldProj?.repoLink ?? '',
-      projectType: oldProj?.projectType ?? 'Personal',
-      projectLogo: oldProj?.projectLogo ?? [],
-      tag: oldProj?.tag ?? [],
-      description: oldProj?.description ?? '',
-    }),
-    [],
-  )
+
   const [state, unsafeDispatch] = React.useReducer(projectFormReducer, {
     status: 'idle',
-    // Passing Selected Project Data to the Form
-    enteredProjectData: proj(selectedProject),
+    enteredProjectData: {
+      name: '',
+      link: '',
+      repoLink: '',
+      projectType: 'Personal',
+      projectLogo: [],
+      tag: [],
+      description: '',
+    },
     error: undefined,
   })
+
   const dispatch = useSafeDispatch(unsafeDispatch)
   const [descriptionFieldControl, setDescriptionFieldControl] = React.useState({
     value: selectedProject?.description ?? '',
-
     color: '',
   })
+
   React.useEffect(() => {
-    if (selectedProject) {
-      window.scroll(0, 0)
-    }
+    if (!selectedProject) return
+    if (
+      JSON.stringify(selectedProject) ===
+      JSON.stringify(state.enteredProjectData)
+    )
+      return
+
+    dispatch({
+      type: 'set_form_values',
+      payload: {
+        name: selectedProject.name,
+        link: selectedProject.link,
+        repoLink: selectedProject.repoLink,
+        projectType: selectedProject.projectType,
+        projectLogo: selectedProject.projectLogo,
+        tag: selectedProject.tag,
+        description: selectedProject.description,
+      },
+    })
+    window.scroll(0, 0)
+    // eslint-disable-next-line consistent-return
     return () => {
       setProject(undefined)
     }
-  }, [selectedProject, setProject])
+  }, [dispatch, selectedProject, setProject, state.enteredProjectData])
+
   async function useHandleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
-
-    const {
-      name,
-      link,
-      repoLink,
-      projectType,
-      description,
-      tags,
-    } = e.target as typeof e.target & {
-      name: HTMLInputElement
-      link: HTMLInputElement
-      repoLink: HTMLInputElement
-      projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
-      description: HTMLInputElement
-      tags: Array<HTMLInputElement>
-    }
+    const {name, link, repoLink, projectType, description, tags} =
+      e.target as typeof e.target & {
+        name: HTMLInputElement
+        link: HTMLInputElement
+        repoLink: HTMLInputElement
+        projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
+        description: HTMLInputElement
+        tags: Array<HTMLInputElement>
+      }
 
     const checkedTags: Array<Tag> = []
+
     for (const {alt, checked, value} of tags) {
       if (checked) {
         checkedTags.push({name: alt, url: value})
@@ -103,13 +112,13 @@ function WriteProject() {
     }
 
     if (selectedProject) {
-      // Note: deepEqual return true if they are equal
-      const hasChanged = !deepEqual(selectedProject, {
-        ...formData,
-        id: selectedProject.id,
-      })
-
-      if (hasChanged) {
+      if (
+        JSON.stringify(selectedProject) ===
+        JSON.stringify({
+          ...formData,
+          id: selectedProject.id,
+        })
+      ) {
         await updateProject({...formData, id: selectedProject.id})
         setProject(undefined)
         dispatch({type: 'redirect'})
@@ -134,7 +143,7 @@ function WriteProject() {
         | 'remove_acceptedImages'
         | 'remove_oldImages'
         | 'remove_rejectedImages',
-      index,
+      index: number,
     ) => {
       if (type === 'remove_oldImages') {
         enteredProjectData.projectLogo.splice(index, 1)

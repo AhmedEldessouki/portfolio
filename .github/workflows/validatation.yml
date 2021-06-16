@@ -26,18 +26,17 @@ jobs:
         with:
           path: node_modules
           key:
-            ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json')
-            }}
+            ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn-lock.json')}}
 
       - name: Install Packages
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: yarn install
 
       - name: 🛠 Run build script
-        run: npm run build
+        run: yarn build
 
       - name: 💡 Run lint script
-        run: npm run lint:ci
+        run: yarn lint:ci
 
       - name: ⚡ Run test script
-        run: npm test
+        run: yarn test

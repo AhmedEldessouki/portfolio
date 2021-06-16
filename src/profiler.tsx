@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable no-console */
 import React from 'react'
 
 let queue: Array<{[key: string]: string | number}> = []
@@ -48,7 +47,8 @@ function Profiler({metadata, phases, ...props}: ProfilerProps): JSX.Element {
       })
     }
   }
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <React.Profiler onRender={reportProfile} {...props} />
 }
 
-export {Profiler}
+export default Profiler

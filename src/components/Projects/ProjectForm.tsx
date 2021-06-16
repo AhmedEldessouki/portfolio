@@ -9,7 +9,7 @@ import {
   ButtonWithSpinner,
   ProjInput,
   TagsCheckBox,
-} from '../../components/Projects/helpers/components'
+} from './helpers/components'
 
 import type {ImportedImages, ReducerState} from '../../../types/types'
 import type {Project} from '../../../types/interfaces'
@@ -23,7 +23,7 @@ function ProjectForm({
   setDescriptionFieldControl,
   selectedProject,
 }: {
-  useHandleSubmit: (e: React.SyntheticEvent) => Promise<void>
+  useHandleSubmit: (e: React.SyntheticEvent) => void
   importedImages: ImportedImages
   setImportedImages: React.Dispatch<React.SetStateAction<ImportedImages>>
   state: ReducerState
@@ -34,14 +34,7 @@ function ProjectForm({
   selectedProject: Project | undefined
 }) {
   const {status, enteredProjectData, error} = state
-  const {
-    name,
-    link,
-    repoLink,
-
-    projectType,
-    tag,
-  } = enteredProjectData
+  const {name, link, repoLink, projectType, tag} = enteredProjectData
   return (
     <form
       css={[formStyles, {gap: 6}]}
@@ -103,12 +96,13 @@ function ProjectForm({
             padding: 8,
           },
         }}
-        defaultValue={projectType ?? 'Personal'}
+        defaultValue={projectType ?? 'personal'}
         name="projectType"
         aria-label="Please Select Project Type"
       >
-        <option value="Personal">Personal</option>
-        <option value="Contribution">Contribution</option>
+        <option value="personal">Personal</option>
+        <option value="contribution">Contribution</option>
+        <option value="freelance">Freelance</option>
       </select>
       <TagsCheckBox projectTags={tag} />
       <label

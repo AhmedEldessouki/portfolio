@@ -66,7 +66,7 @@ const MyInfo = () => {
     gap: 10px;
     background-color: ${colors.darkBlue};
     opacity: 0.8;
-    & li {
+    li {
       font-size: 124%;
       margin: 0 15px;
       padding: 15px 25px;
@@ -86,7 +86,6 @@ const MyInfo = () => {
       flex-direction: column;
       grid-row: 3;
       grid-column: 1;
-
       li {
         font-size: 108%;
         text-align: center;

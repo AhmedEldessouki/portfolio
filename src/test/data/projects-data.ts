@@ -177,4 +177,4 @@ const projectsData: Array<Project> = [
   },
 ]
 
-export {projectsData}
+export default projectsData

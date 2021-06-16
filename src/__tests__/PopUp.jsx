@@ -10,10 +10,13 @@ import PopUp from '../components/PopUp/PopUp'
 const func = jest.fn()
 
 test('should display PopUp then reject then PopUp closes', async () => {
-  await render(<PopUp info="Entered Titled" onClickYes={func} controls="none" />, {
-    user: null,
-    doWait: false,
-  })
+  await render(
+    <PopUp info="Entered Titled" onClickYes={func} controls="none" />,
+    {
+      user: null,
+      doWait: false,
+    },
+  )
 
   userEvent.click(screen.getByTestId('delete-button'))
 
@@ -33,9 +36,12 @@ test('should display PopUp then reject then PopUp closes', async () => {
 })
 
 test('should display PopUp then accept then PopUp closes', async () => {
-  await render(<PopUp info="Entered Titled" onClickYes={func} controls="none" />, {
-    doWait: false,
-  })
+  await render(
+    <PopUp info="Entered Titled" onClickYes={func} controls="none" />,
+    {
+      doWait: false,
+    },
+  )
 
   userEvent.click(screen.getByTestId('delete-button'))
 

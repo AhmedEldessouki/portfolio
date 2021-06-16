@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 

@@ -6,3 +6,5 @@ public
 .firebase
 .circleci
 desc
+jest.config.js
+src/serviceWorkerFolder

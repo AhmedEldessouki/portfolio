@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
@@ -74,7 +75,7 @@ function EditAndDelete({
       <PopUp
         info="Project"
         onClickYes={() => deleteProject(project)}
-        controls={replaceWhiteSpaceWith(project.name)}
+        controls={replaceWhiteSpaceWith(project.name ?? '')}
       />
     </div>
   )
@@ -111,7 +112,7 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
           cursor: 'help',
           ':hover, :focus': {
             padding: '0 8px',
-            width: projType === 'Contribution' ? 110 : 80,
+            width: projType === 'Contribution' ? '110px' : '83px',
           },
         }}
       >
@@ -151,47 +152,46 @@ function Card({
   return (
     <section>
       <ul css={mWrapper}>
-        {items.map((item, i) => {
-          return (
-            <li
-              css={pWrapper}
-              key={item.id}
-              data-testid={`${item.name}-card`}
-              aria-label="project list"
+        {items.map((item, i) => (
+          <li
+            css={pWrapper}
+            key={item.id}
+            data-testid={`${item.name}-card`}
+            aria-label="project list"
+          >
+            {user ? (
+              <EditAndDelete project={item} onClick={() => setPorj(item)} />
+            ) : null}
+            <ProjectType projType={item.projectType} />
+            <ul css={{padding: 0}}>
+              <Title
+                name={item.name}
+                onClick={() => {
+                  setState(item)
+                }}
+                testId={`project[${i}]`}
+              />
+            </ul>
+            <ul
+              css={css`
+                display: flex;
+                place-content: center;
+                place-items: center;
+                height: 50px;
+                gap: 15px;
+                margin-bottom: 0px;
+                padding-left: 0;
+              `}
             >
-              {user ? (
-                <EditAndDelete project={item} onClick={() => setPorj(item)} />
-              ) : null}
-              <ProjectType projType={item.projectType} />
-              <ul css={{padding: 0}}>
-                <Title
-                  name={item.name}
-                  onClick={() => {
-                    setState(item)
-                  }}
-                  testId={`project[${i}]`}
-                />
-              </ul>
-              <ul
-                css={css`
-                  display: flex;
-                  place-content: center;
-                  place-items: center;
-                  height: 50px;
-                  gap: 15px;
-                  margin-bottom: 0px;
-                  padding-left: 0;
-                `}
-              >
-                {/* TODO: Add alt Later After Changing all Tags of ProjectData to an object */}
-                {item.tag?.map((tag, index) => {
-                  const url = typeof tag === 'object' ? tag.url : tag
-                  return <Tag key={`${url}_${index}`} tagUrl={url} width="30" />
-                })}
-              </ul>
-            </li>
-          )
-        })}
+              {/* TODO: Add alt Later After Changing all Tags of ProjectData to an object */}
+              {item.tag?.map((tag, index) => {
+                const url = typeof tag === 'object' ? tag.url : tag
+                // eslint-disable-next-line react/no-array-index-key
+                return <Tag key={`${url}_${index}`} tagUrl={url} width="30" />
+              })}
+            </ul>
+          </li>
+        ))}
       </ul>
     </section>
   )

@@ -83,7 +83,7 @@ function MessageView({message}: {message: Message}) {
     <section
       aria-current="true"
       css={container}
-      id={replaceWhiteSpaceWith(message.name, '-')}
+      id={replaceWhiteSpaceWith(message.name ?? '', '-')}
     >
       <h1 css={[h1XL, forH1]}>{message.name.toUpperCase()}</h1>
       <div css={phoneAndEmailWrapper}>

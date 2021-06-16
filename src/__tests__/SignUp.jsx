@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import * as React from 'react'
 import faker from 'faker'
 import App from '../App'
@@ -8,14 +9,14 @@ import {
   renderWithAllProviders,
 } from '../test/app-test-utils'
 
-async function renderAppScreen({ user, doWait } = {}) {
+async function renderAppScreen({user, doWait} = {}) {
   if (user === undefined) {
     user = await loginAsUser()
   }
 
   const route = `/`
 
-  const utils = await renderWithAllProviders(<App />, { user, route, doWait })
+  const utils = await renderWithAllProviders(<App />, {user, route, doWait})
 
   return {
     ...utils,
@@ -27,7 +28,7 @@ const password = faker.internet.password(6)
 const wrongPassword = `${password}123456`
 
 test('Should fill out Sign-Up Form', async () => {
-  const { user } = await renderAppScreen({
+  const {user} = await renderAppScreen({
     doWait: false,
     message: null,
     tag: null,
@@ -69,7 +70,7 @@ test('Should fill out Sign-Up Form', async () => {
   // isnt working......
   //   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
 
-  expect(screen.getByRole('button', { name: /submit/i })).toHaveAttribute(
+  expect(screen.getByRole('button', {name: /submit/i})).toHaveAttribute(
     'type',
     'submit',
   )

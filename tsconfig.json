@@ -17,5 +17,5 @@
     "jsx": "react"
   },
   "include": ["src", "cypress", "types"],
-  "exclude": ["src/serviceWorker"]
+  "exclude": ["src/serviceWorkerFolder", "node_modules"]
 }

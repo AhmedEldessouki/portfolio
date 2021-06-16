@@ -1,15 +1,19 @@
 import faker from 'faker'
-import { projects } from '../test/data/projects'
-import { deepEqual } from '../Utils/helpers'
+import {projects} from '../test/data/projects'
+import {deepEqual} from '../Utils/helpers'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 // let num: number, str: string, arr: Array<any>, obj: object, bol: boolean
-let num, str, arr, obj, bol;
+let num
+let str
+let arr
+let obj
+let bol
 beforeAll(() => {
-  num = faker.random.number()
+  num = faker.datatype.number()
   str = faker.random.words()
   arr = [num, str, num, str, str, str]
-  obj = projects[0]
+  obj = {...projects[0]}
   bol = false
 })
 describe('Should Return True', () => {

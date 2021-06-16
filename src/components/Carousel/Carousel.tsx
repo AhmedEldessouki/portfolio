@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /** @jsxRuntime classic */
@@ -268,25 +269,23 @@ function Carousel({
           }
         `}
       >
-        {imgArray.map((image, i) => {
-          return (
-            <button
-              aria-controls="carousel-items"
-              key={image}
-              type="button"
-              onClick={() => setCurrentImage(i)}
-              data-testid={`btn${i}`}
-              aria-label={`click to view image number ${i + 1}`}
-              css={[
-                carouselNav,
-                {
-                  background:
-                    currentImage === i ? colors.blueFont : colors.darkBlue,
-                },
-              ]}
-            />
-          )
-        })}
+        {imgArray.map((image, i) => (
+          <button
+            aria-controls="carousel-items"
+            key={image}
+            type="button"
+            onClick={() => setCurrentImage(i)}
+            data-testid={`btn${i}`}
+            aria-label={`click to view image number ${i + 1}`}
+            css={[
+              carouselNav,
+              {
+                background:
+                  currentImage === i ? colors.blueFont : colors.darkBlue,
+              },
+            ]}
+          />
+        ))}
       </div>
     </section>
   )

@@ -4,7 +4,7 @@ import {css} from '@emotion/react'
 
 import {colors, mq, weights} from './css-utils'
 
-export const globalStyles = css`
+const globalStyles = css`
   /*
    * Global Typography & Normalization
    */
@@ -49,11 +49,8 @@ export const globalStyles = css`
   }
 
   main {
-    margin-top: 95px;
-    min-height: 75vh;
-    ${mq.phoneLarge} {
-      margin-top: 242px;
-    }
+    margin-top: 114px;
+    min-height: 80vh;
   }
 
   img {
@@ -192,3 +189,5 @@ export const globalStyles = css`
     opacity: 0.2;
   }
 `
+// eslint-disable-next-line import/prefer-default-export
+export {globalStyles}

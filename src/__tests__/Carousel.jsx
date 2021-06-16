@@ -1,9 +1,9 @@
 import * as React from 'react'
 import userEvent from '@testing-library/user-event'
-import { render, screen } from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 
 import Carousel from '../components/Carousel/Carousel'
-import { colors } from '../Styles'
+import {colors} from '../Styles'
 
 test('Carousel should Render and btn functionality', () => {
   render(
@@ -23,8 +23,8 @@ test('Carousel should Render and btn functionality', () => {
   expect(screen.queryByTestId(/btn1/i)).not.toHaveStyle(
     `background: ${colors.blueFont}`,
   )
-  expect(screen.getByTestId(/btn0/i)).toBeTruthy()
-  expect(screen.getByTestId(/btn2/i)).toBeTruthy()
+  expect(screen.getByTestId(/btn0/i)).toBeInTheDocument()
+  expect(screen.getByTestId(/btn2/i)).toBeInTheDocument()
   expect(screen.getByTestId(/next/i)).toBeEnabled()
 
   userEvent.click(screen.getByTestId(/next/i))

@@ -1,10 +1,12 @@
+/* eslint-disable no-console */
 /// <reference types="cypress" />
 
 import {a11yRunOnly, terminalLog} from 'utils/utils'
+
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
-  console.log(err,runnable)
+  console.log(err, runnable)
   return false
 })
 describe('A11y check', () => {
@@ -58,7 +60,6 @@ describe('A11y check', () => {
     cy.findByText(/sign up/i).should('exist')
     cy.injectAxe()
     cy.checkA11y(undefined, a11yRunOnly, terminalLog)
-
   })
 
   it('404', () => {

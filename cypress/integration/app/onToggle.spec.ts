@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 /// <reference types="cypress" />
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
-  console.log(err,runnable)
+  console.log(err, runnable)
   return false
 })
 describe('onToggle desktop', () => {

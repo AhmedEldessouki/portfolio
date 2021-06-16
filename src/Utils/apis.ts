@@ -2,7 +2,13 @@
 import {useQuery} from 'react-query'
 import {toast} from 'react-toastify'
 
-import type {ErrorType, Message, Project, CollectionTypes,Tag} from '../../types/interfaces'
+import type {
+  ErrorType,
+  Message,
+  Project,
+  CollectionTypes,
+  Tag,
+} from '../../types/interfaces'
 import {db} from './firebase'
 
 const placeholderData = [
@@ -22,7 +28,7 @@ const placeholderData = [
   },
 ]
 
-function useClientFetch (
+function useClientFetch(
   collection: CollectionTypes,
 ): Project | Message | Tag | unknown {
   const {data} = useQuery(
@@ -33,9 +39,10 @@ function useClientFetch (
         .get()
         .then(
           querySnapshot => {
-            const dataRes = querySnapshot.docs.map(doc => {
-              return {...doc.data(), id: doc.id}
-            })
+            const dataRes = querySnapshot.docs.map(doc => ({
+              ...doc.data(),
+              id: doc.id,
+            }))
             return dataRes
           },
           err => Promise.reject(err),
@@ -57,6 +64,7 @@ function handleUpdate<T>(collection: CollectionTypes) {
     db
       .collection(collection)
       .doc(`${data.id}`)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .update({
         ...data,
         updatedOn: new Date(),
@@ -93,6 +101,7 @@ function handleCreate<T>(collection: CollectionTypes) {
     let error: ErrorType
     await db
       .collection(collection)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .add({
         ...data,
         date: new Date(),
@@ -113,9 +122,8 @@ const createNewProject = handleCreate<Omit<Project, 'date' | 'id'>>('projects')
 const updateProject = handleUpdate<Partial<Project>>('projects')
 const deleteProject = handleDelete<Partial<Project>>('projects')
 
-const createNewMessage = handleCreate<Omit<Message, 'date' | 'id'>>(
-  'contactedMe',
-)
+const createNewMessage =
+  handleCreate<Omit<Message, 'date' | 'id'>>('contactedMe')
 const deleteMessage = handleDelete<Partial<Message>>('contactedMe')
 
 const createNewTag = handleCreate<Omit<Tag, 'date' | 'id'>>('tags')

@@ -10,53 +10,30 @@ import {useLocalStorageState} from '../Utils/hooks'
 import type {NewUser, Project} from '../../types/interfaces'
 
 interface Context {
-  useVerifyUserSignInCredentials: () => [
-    verificationFailed: string,
-    checkUserCredentials: (arg0: {
-      email: string
-      password: string
-    }) => Promise<UserType>,
-  ]
-
-  signUserOut: () => void
-  user: Pick<
-    UserType,
-    'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
-  > | null
-  setUser: React.Dispatch<
-    React.SetStateAction<Pick<
-      UserType,
-      'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
-    > | null>
-  >
-  useCreateNewUser: () => [
-    newUserCreationFailed: string,
-    createNewUser: (newUser: NewUser) => Promise<NewUser>,
-  ]
+  user: UserType | null | undefined
+  setUser: React.Dispatch<React.SetStateAction<UserType | null | undefined>>
   selectedProject: Project | undefined
   setProject: React.Dispatch<React.SetStateAction<Project | undefined>>
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AuthContext = React.createContext<any>({})
+const AuthContext = React.createContext<Context>({
+  user: null,
+  selectedProject: undefined,
+  setProject: () => {},
+  setUser: () => {},
+})
 AuthContext.displayName = 'AuthContext'
 
 function AuthProvider({children}: {children: React.ReactNode}) {
-  const [user, setUser] = useLocalStorageState<Pick<
-    UserType,
-    'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
-  > | null>('__portfolio_user__', null)
+  const {state: user, setState: setUser} = useLocalStorageState<
+    UserType | null | undefined
+  >('__portfolio_user__', null)
 
   const [selectedProject, setProject] = React.useState<Project | undefined>()
 
   React.useEffect(() => {
     if (!auth?.currentUser) return
-    function verifyCurrentUserCredentials(
-      userArg: Pick<
-        UserType,
-        'uid' | 'email' | 'phoneNumber' | 'photoURL' | 'providerId'
-      > | null,
-    ) {
+    function verifyCurrentUserCredentials(userArg: typeof user) {
       firebase.auth().onAuthStateChanged(currentUser => {
         if (currentUser && currentUser.uid !== userArg?.uid) {
           setUser(currentUser)
@@ -66,6 +43,31 @@ function AuthProvider({children}: {children: React.ReactNode}) {
     verifyCurrentUserCredentials(user)
   }, [user, setUser])
 
+  const value = {
+    user,
+    setUser,
+    selectedProject,
+    setProject,
+  }
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+function useAuth() {
+  const {user, setUser, selectedProject, setProject} =
+    React.useContext<Context>(AuthContext)
+
+  if (
+    // eslint-disable-next-line no-constant-condition
+    !{
+      user,
+      setUser,
+      selectedProject,
+      setProject,
+    }
+  ) {
+    throw new Error('"useAuth" should be used inside "AuthProvider"')
+  }
   function useVerifyUserSignInCredentials() {
     const [verificationFailed, setVerificationFailed] = React.useState('')
 
@@ -80,7 +82,7 @@ function AuthProvider({children}: {children: React.ReactNode}) {
             setUser(res.user)
             toast.success(`LogIn Successful`)
           },
-          err => {
+          (err: Error) => {
             toast.error(`SignIn Failed "${err.message}"`)
             setVerificationFailed(err.message)
           },
@@ -94,75 +96,38 @@ function AuthProvider({children}: {children: React.ReactNode}) {
     toast.success(`See You Soon`)
   }
 
-  function useCreateNewUser() {
-    const [newUserCreationFailed, setNewUserCreationFailed] = React.useState('')
-
-    const createNewUser = async (newUser: NewUser) => {
-      return auth
-        .createUserWithEmailAndPassword(newUser.email, newUser.password)
-        .then(
-          async resp => {
-            await db
-              .collection('users')
-              .doc(user?.uid)
-              .set({
-                firstName: newUser.firstName,
-                lastName: newUser.lastName,
-                initials: newUser.firstName[0] + newUser.lastName[0],
-              })
-            setUser(resp.user)
-            toast.success(`Welcome "${newUser.email}" to The Club`)
-          },
-          err => {
-            setNewUserCreationFailed(err.message)
-          },
-        )
+  async function createNewUser(newUser: NewUser) {
+    const response: {user: UserType | null; error: Error | undefined} = {
+      user: null,
+      error: undefined,
     }
-    return [newUserCreationFailed, createNewUser]
+
+    await auth
+      .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .then(
+        async resp => {
+          await db
+            .collection('users')
+            .doc(user?.uid)
+            .set({
+              firstName: newUser.firstName,
+              lastName: newUser.lastName,
+              initials: newUser.firstName[0] + newUser.lastName[0],
+            })
+          setUser(resp.user)
+          response.user = resp.user
+          toast.success(`Welcome "${newUser.email}" to The Club`)
+        },
+        (err: Error) => {
+          response.error = err
+        },
+      )
+    return response
   }
-
-  const value = {
-    useVerifyUserSignInCredentials,
-    signUserOut,
-    useCreateNewUser,
-    user,
-    setUser,
-    selectedProject,
-    setProject,
-  }
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
-
-function useAuth() {
-  const {
-    useVerifyUserSignInCredentials,
-    signUserOut,
-    useCreateNewUser,
-    user,
-    setUser,
-    selectedProject,
-    setProject,
-  } = React.useContext<Context>(AuthContext)
-
-  if (
-    // eslint-disable-next-line no-constant-condition
-    !{
-      useVerifyUserSignInCredentials,
-      signUserOut,
-      useCreateNewUser,
-      user,
-      setUser,
-      selectedProject,
-      setProject,
-    }
-  )
-    throw new Error('"useAuth" should be used inside "AuthProvider"')
-
   return {
     useVerifyUserSignInCredentials,
     signUserOut,
-    useCreateNewUser,
+    createNewUser,
     user,
     setUser,
     selectedProject,

@@ -12,26 +12,20 @@ import Spinner from '../../components/Spinner'
 import Input from '../../components/Input'
 
 function SignUp() {
-  const {useCreateNewUser} = useAuth()
-  const [newUserCreationFailed, createNewUser] = useCreateNewUser()
-  const {status, dispatch} = useAsync()
+  const {user, createNewUser} = useAuth()
+  const {error, status, dispatch} = useAsync()
 
   async function submitNewUserCredentials(e: React.SyntheticEvent) {
     e.preventDefault()
     dispatch({type: 'pending'})
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-    } = e.target as typeof e.target & {
-      firstName: {value: string}
-      lastName: {value: string}
-      email: {value: string}
-      password: {value: string}
-      confirmPassword: {value: string}
-    }
+    const {firstName, lastName, email, password, confirmPassword} =
+      e.target as typeof e.target & {
+        firstName: {value: string}
+        lastName: {value: string}
+        email: {value: string}
+        password: {value: string}
+        confirmPassword: {value: string}
+      }
     const newUserData: NewUser = {
       firstName: firstName.value,
       lastName: lastName.value,
@@ -39,10 +33,14 @@ function SignUp() {
       password: password.value,
       confirmPassword: confirmPassword.value,
     }
-    await createNewUser(newUserData)
+    const response: {
+      user: typeof user
+      error: Error | undefined
+    } = await createNewUser(newUserData)
 
-    if (!newUserCreationFailed) {
-      dispatch({type: 'resolved'})
+    if (response.error) {
+      dispatch({type: 'rejected', payload: {error: response.error}})
+      return
     }
     dispatch({type: 'resolved'})
   }
@@ -142,9 +140,9 @@ function SignUp() {
               Password Don&apos;t Match
             </span>
           ) : null}
-          {newUserCreationFailed ? (
+          {error ? (
             <div css={warning} role="alert">
-              {newUserCreationFailed}
+              {error.message}
             </div>
           ) : null}
 

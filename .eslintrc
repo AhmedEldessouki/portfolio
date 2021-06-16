@@ -2,28 +2,27 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true,
     "cypress/globals": true
   },
+  "ignorePatterns": [".eslintrc"],
   "extends": [
-    "eslint:recommended",
+    "airbnb-typescript",
     "react-app",
-    "plugin:@typescript-eslint/recommended",
     "plugin:jsx-a11y/recommended",
     "prettier",
-    "kentcdodds/possible-errors",
-    "kentcdodds/best-practices",
-    "kentcdodds/es6/possible-errors",
-    "kentcdodds/import",
-    "kentcdodds/jest",
+    "react-app/jest",
     "plugin:cypress/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "cypress", "prettier", "@emotion"],
+  "plugins": ["react","@typescript-eslint", "cypress", "prettier", "@emotion"],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
@@ -44,7 +43,9 @@
       {
         "handlers": ["onClick", "onKeyPress", "onKeyDown", "onKeyUp"]
       }
-    ]
+    ],
+    "react/prop-types": 0,
+    "react/require-default-props": 0
   },
   "settings": {
     "react": {

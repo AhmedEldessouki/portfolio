@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { screen } from '@testing-library/react'
+import {screen} from '@testing-library/react'
 
-import { render, userEvent } from '../test/app-test-utils'
-import { projects } from '../test/data/projects'
+import {render, userEvent} from '../test/app-test-utils'
+import {projects} from '../test/data/projects'
 import Projects from '../components/Projects/Projects'
 
 beforeAll(() => {
   jest.doMock('react-query', () => ({
-    useQuery: () => ({ isLoading: false, error: {}, data: [] }),
+    useQuery: () => ({isLoading: false, error: {}, data: []}),
   }))
   // jest.doMock('../components/Utils/apis', () => {
   //   return { useClientFetch: jest.fn().mockReturnValue(projects) }

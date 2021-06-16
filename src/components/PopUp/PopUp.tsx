@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import {jsx, css} from '@emotion/react'
-import React, {Fragment} from 'react'
+import React from 'react'
 import {GoTrashcan} from 'react-icons/go'
 
 import {colors, mq, weights} from '../../Styles'
@@ -93,7 +93,7 @@ function PopUp({
   }
 
   return (
-    <Fragment>
+    <React.Fragment>
       <button
         css={btnTrash}
         type="button"
@@ -157,7 +157,7 @@ function PopUp({
           </div>
         </div>
       )}
-    </Fragment>
+    </React.Fragment>
   )
 }
 
