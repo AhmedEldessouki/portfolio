@@ -112,7 +112,7 @@ function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
           cursor: 'help',
           ':hover, :focus': {
             padding: '0 8px',
-            width: projType === 'Contribution' ? 110 : 80,
+            width: projType === 'Contribution' ? '110px' : '83px',
           },
         }}
       >

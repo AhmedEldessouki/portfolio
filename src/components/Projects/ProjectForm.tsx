@@ -96,12 +96,13 @@ function ProjectForm({
             padding: 8,
           },
         }}
-        defaultValue={projectType ?? 'Personal'}
+        defaultValue={projectType ?? 'personal'}
         name="projectType"
         aria-label="Please Select Project Type"
       >
-        <option value="Personal">Personal</option>
-        <option value="Contribution">Contribution</option>
+        <option value="personal">Personal</option>
+        <option value="contribution">Contribution</option>
+        <option value="freelance">Freelance</option>
       </select>
       <TagsCheckBox projectTags={tag} />
       <label
