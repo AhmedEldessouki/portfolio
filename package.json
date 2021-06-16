@@ -3,9 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "proxy": "http://localhost:3001",
-  "engines": {
-    "node": "14.x"
-  },
   "dependencies": {
     "@emotion/react": "^11.1.5",
     "@testing-library/cypress": "^7.0.6",
