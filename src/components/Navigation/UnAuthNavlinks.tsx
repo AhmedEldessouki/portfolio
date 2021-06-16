@@ -15,6 +15,7 @@ const UnAuthNavlinks = () => {
     display: flex;
     justify-content: center;
     min-width: 100%;
+    min-height: 114px;
   `
   const h1a = css`
     padding: 23px 40px 24px;
@@ -26,9 +27,8 @@ const UnAuthNavlinks = () => {
     border-radius: 12%;
     font-variant-caps: petite-caps;
     :hover {
-      padding: 5px 10px;
       background-color: ${colors.independenceBlue};
-      color: inherit;
+      opacity: 0.8;
     }
     ${mq.s} {
       font-size: 1.2rem;
