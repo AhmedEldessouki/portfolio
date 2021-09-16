@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import React from 'react'
 import {toast} from 'react-toastify'
-import {Redirect} from 'react-router'
 import type {UserCredential} from '@firebase/auth'
 import {
   auth,
@@ -107,7 +106,6 @@ function useAuth() {
     if (auth?.currentUser) auth.signOut()
     setUser(null)
     toast.success(`See You Soon`)
-    new Redirect({to: '/'})
   }
 
   async function createNewUser(newUser: NewUser) {
