@@ -17,7 +17,7 @@ const AuthNavlinksX = () => {
     place-content: space-evenly;
     background: black;
     background-color: ${colors.darkBlue};
-    padding: 18px 6px;
+    padding: 5px 0;
     min-height: 111px;
     & > a,
     button {
@@ -58,6 +58,7 @@ const AuthNavlinksX = () => {
     }
     ${mq.phoneLarge} {
       flex-direction: column;
+      padding: 18px 0;
       padding-bottom: 17px;
       & > a,
       button {

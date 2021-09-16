@@ -22,7 +22,6 @@ const MyFooter = () => {
     background: ${colors.darkBlue};
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    width: 100%;
     div {
       line-height: 38px;
     }

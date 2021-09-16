@@ -85,7 +85,7 @@ export const formStyles = css`
 
 export const inputStyles = css`
   padding: 8px;
-  width: 100%;
+  width: 95%;
   height: 50px;
   background-color: transparent;
   color: ${colors.aliceLightBlue};
@@ -125,12 +125,12 @@ export const labelWrapper = css`
   display: block;
   font-size: 1.4rem;
   width: 100%;
-  }
+  margin: 6px 0;
 `
 
 export const textArea = css`
-  width: 100%;
-  height: 168px;
+  width: 95%;
+  height: 212px;
   padding: 8px;
   color: ${colors.aliceLightBlue};
   border: 5px solid #6572a9;
