@@ -8,7 +8,9 @@ import {
   FaInstagram,
   FaGooglePlusSquare,
   FaGoodreads,
+  FaHackerrank,
 } from 'react-icons/fa'
+import {SiCodewars} from 'react-icons/si'
 import {VscTwitter, VscGithub} from 'react-icons/vsc'
 import {GrReactjs} from 'react-icons/gr'
 import {Link} from 'react-router-dom'
@@ -120,6 +122,22 @@ const MyFooter = () => {
           href="https://www.goodreads.com/review/list/18907056?ref=nav_mybooks"
         >
           <FaGoodreads />
+        </a>
+        <a
+          aria-label="Check more about what kind of books i want to read on goodreads"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.codewars.com/users/AhmedEldessouki"
+        >
+          <SiCodewars />
+        </a>
+        <a
+          aria-label="Check more about what kind of books i want to read on goodreads"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.hackerrank.com/nemoahmed"
+        >
+          <FaHackerrank />
         </a>
       </div>
       <div css={reactIcon}>
