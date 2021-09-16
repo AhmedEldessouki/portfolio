@@ -116,7 +116,6 @@ function WriteProject() {
       }
 
       if (selectedProject) {
-        console.log(`update`, formData)
         if (
           JSON.stringify(selectedProject) !==
           JSON.stringify({
@@ -124,23 +123,17 @@ function WriteProject() {
             id: selectedProject?.id,
           })
         ) {
-          console.log(`awaiting update`)
           await updateProject({...formData, id: selectedProject.id})
           setProject(undefined)
           dispatch({type: 'redirect'})
-          console.log(`done update`)
         } else {
-          console.log(`no update`)
           toast.warn(`No Update Found in ${formData.name}`, {
             style: {color: 'black'},
           })
         }
-        console.log(`update`)
       } else {
-        console.log(`create`)
         await createNewProject(formData)
         dispatch({type: 'redirect'})
-        console.log(`create`)
       }
 
       dispatch({type: 'idle'})

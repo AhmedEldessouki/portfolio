@@ -14,7 +14,6 @@ import {
   getDocs,
   doc,
   collection,
-  getDoc,
   updateDoc,
   addDoc,
   deleteDoc,
@@ -69,19 +68,15 @@ function useClientFetch(
 }
 
 function handleUpdate<T>(collectionName: CollectionTypes) {
-  console.log(` update`, collectionName)
   return async (data: T | any): Promise<void> => {
-    console.log(` update`, data)
     await updateDoc(doc(db, collectionName, data.id), {
       ...data,
       updatedOn: new Date(),
     })
       .then(() => {
-        console.log(` done`)
         toast.success(`Project "${data.name}" Updated`)
       })
       .catch((err: ErrorType) => {
-        console.log(` failed`, err)
         toast.error(`Project Didn't Update ${err?.message}`)
       })
   }

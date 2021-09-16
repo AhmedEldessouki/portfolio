@@ -9,7 +9,7 @@ import {useAuth} from '../../context/AuthProvider'
 import {colors, mq} from '../../Styles'
 
 const AuthNavlinksX = () => {
-  const {signUserOut, selectedProject} = useAuth()
+  const {signUserOut} = useAuth()
 
   const nav = css`
     position: absolute;
