@@ -17,10 +17,23 @@ import {
   gradualUpload,
 } from '../../components/Projects/helpers/functions'
 import {DisplayingImages} from '../../components/Projects/helpers/components'
-import type {ImportedImages} from '../../../types/types'
+import type {ImportedImages, ReducerState} from '../../../types/types'
 import type {Tag} from '../../../types/interfaces'
 import ProjectForm from '../../components/Projects/ProjectForm'
 
+const initialState: ReducerState = {
+  status: 'idle',
+  enteredProjectData: {
+    name: '',
+    link: '',
+    repoLink: '',
+    projectType: 'Personal',
+    projectLogo: [],
+    tag: [],
+    description: '',
+  },
+  error: undefined,
+}
 function WriteProject() {
   const {selectedProject, setProject} = useAuth()
   const [importedImages, setImportedImages] = React.useState<ImportedImages>({
@@ -28,113 +41,111 @@ function WriteProject() {
     rejectedImages: {imagesType: 'rejectedImages', imgs: []},
   })
 
-  const [state, unsafeDispatch] = React.useReducer(projectFormReducer, {
-    status: 'idle',
-    enteredProjectData: {
-      name: '',
-      link: '',
-      repoLink: '',
-      projectType: 'Personal',
-      projectLogo: [],
-      tag: [],
-      description: '',
+  const [state, unsafeDispatch] = React.useReducer(
+    projectFormReducer,
+    initialState,
+    () => {
+      if (selectedProject?.name) {
+        return {
+          ...initialState,
+          enteredProjectData: {
+            name: selectedProject.name,
+            link: selectedProject.link,
+            repoLink: selectedProject.repoLink,
+            projectType: selectedProject.projectType,
+            projectLogo: selectedProject.projectLogo,
+            tag: selectedProject.tag,
+            description: selectedProject.description,
+          },
+        }
+      }
+      return initialState
     },
-    error: undefined,
-  })
-
+  )
+  React.useEffect(() => () => setProject(undefined), [setProject])
   const dispatch = useSafeDispatch(unsafeDispatch)
   const [descriptionFieldControl, setDescriptionFieldControl] = React.useState({
     value: selectedProject?.description ?? '',
     color: '',
   })
 
-  React.useEffect(() => {
-    if (!selectedProject) return
-    if (
-      JSON.stringify(selectedProject) ===
-      JSON.stringify(state.enteredProjectData)
-    )
-      return
+  const useHandleSubmit = React.useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      dispatch({type: 'pending'})
+      const {name, link, repoLink, projectType, description, tags} =
+        e.target as typeof e.target & {
+          name: HTMLInputElement
+          link: HTMLInputElement
+          repoLink: HTMLInputElement
+          projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
+          description: HTMLInputElement
+          tags: Array<HTMLInputElement> | HTMLInputElement
+        }
 
-    dispatch({
-      type: 'set_form_values',
-      payload: {
-        name: selectedProject.name,
-        link: selectedProject.link,
-        repoLink: selectedProject.repoLink,
-        projectType: selectedProject.projectType,
-        projectLogo: selectedProject.projectLogo,
-        tag: selectedProject.tag,
-        description: selectedProject.description,
-      },
-    })
-    window.scroll(0, 0)
-    // eslint-disable-next-line consistent-return
-    return () => {
-      setProject(undefined)
-    }
-  }, [dispatch, selectedProject, setProject, state.enteredProjectData])
-
-  async function useHandleSubmit(e: React.SyntheticEvent) {
-    e.preventDefault()
-    dispatch({type: 'pending'})
-    const {name, link, repoLink, projectType, description, tags} =
-      e.target as typeof e.target & {
-        name: HTMLInputElement
-        link: HTMLInputElement
-        repoLink: HTMLInputElement
-        projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
-        description: HTMLInputElement
-        tags: Array<HTMLInputElement>
+      const checkedTags: Array<Tag> = []
+      if (Array.isArray(tags)) {
+        for (const {alt, checked, value} of tags) {
+          if (checked) {
+            checkedTags.push({name: alt, url: value})
+          }
+        }
+      } else if (tags.checked) {
+        checkedTags.push({name: tags.alt, url: tags.value})
       }
 
-    const checkedTags: Array<Tag> = []
-
-    for (const {alt, checked, value} of tags) {
-      if (checked) {
-        checkedTags.push({name: alt, url: value})
+      let uploadedImages: PromiseFulfilledResult<string>[] = []
+      if (importedImages.acceptedImages.imgs.length > 0) {
+        uploadedImages = await gradualUpload(
+          importedImages.acceptedImages.imgs,
+          name.value,
+        )
       }
-    }
 
-    const uploadedImages = await gradualUpload(
-      importedImages.acceptedImages.imgs,
-      name.value,
-    )
+      const formData = {
+        name: name.value,
+        link: link.value,
+        repoLink: repoLink.value,
+        projectType: projectType.value,
+        description: description.value,
+        projectLogo: [
+          ...state.enteredProjectData.projectLogo,
+          ...uploadedImages,
+        ],
+        tag: checkedTags,
+      }
 
-    const formData = {
-      name: name.value,
-      link: link.value,
-      repoLink: repoLink.value,
-      projectType: projectType.value,
-      description: description.value,
-      projectLogo: [...state.enteredProjectData.projectLogo, ...uploadedImages],
-      tag: checkedTags,
-    }
-
-    if (selectedProject) {
-      if (
-        JSON.stringify(selectedProject) ===
-        JSON.stringify({
-          ...formData,
-          id: selectedProject.id,
-        })
-      ) {
-        await updateProject({...formData, id: selectedProject.id})
-        setProject(undefined)
-        dispatch({type: 'redirect'})
+      if (selectedProject) {
+        if (
+          JSON.stringify(selectedProject) !==
+          JSON.stringify({
+            ...formData,
+            id: selectedProject?.id,
+          })
+        ) {
+          await updateProject({...formData, id: selectedProject.id})
+          setProject(undefined)
+          dispatch({type: 'redirect'})
+        } else {
+          toast.warn(`No Update Found in ${formData.name}`, {
+            style: {color: 'black'},
+          })
+        }
       } else {
-        toast.warn(`No Update Found in ${formData.name}`, {
-          style: {color: 'black'},
-        })
+        await createNewProject(formData)
+        dispatch({type: 'redirect'})
       }
-    }
 
-    if (!selectedProject) {
-      await createNewProject(formData)
-      dispatch({type: 'redirect'})
-    }
-    dispatch({type: 'idle'})
-  }
+      dispatch({type: 'idle'})
+    },
+    [
+      dispatch,
+      importedImages.acceptedImages.imgs,
+      selectedProject,
+      setProject,
+      state.enteredProjectData.projectLogo,
+    ],
+  )
   const {status, enteredProjectData, error} = state
 
   const handleImageRemoval = React.useCallback(

@@ -2,18 +2,26 @@
 import React from 'react'
 import {toast} from 'react-toastify'
 
-import type {User as UserType} from '@firebase/auth-types/index'
-
-import {auth, db, firebase} from '../Utils/firebase'
+import type {UserCredential} from '@firebase/auth'
+import {
+  auth,
+  db,
+  collection,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  addDoc,
+  signInWithEmailAndPassword,
+} from '../Utils/firebase'
 import {useLocalStorageState} from '../Utils/hooks'
 
-import type {NewUser, Project} from '../../types/interfaces'
+import type {NewUser, ProjectInterface} from '../../types/interfaces'
 
+type UserType = UserCredential['user']
 interface Context {
   user: UserType | null | undefined
   setUser: React.Dispatch<React.SetStateAction<UserType | null | undefined>>
-  selectedProject: Project | undefined
-  setProject: React.Dispatch<React.SetStateAction<Project | undefined>>
+  selectedProject: ProjectInterface | undefined
+  setProject: React.Dispatch<React.SetStateAction<ProjectInterface | undefined>>
 }
 
 const AuthContext = React.createContext<Context>({
@@ -29,13 +37,16 @@ function AuthProvider({children}: {children: React.ReactNode}) {
     UserType | null | undefined
   >('__portfolio_user__', null)
 
-  const [selectedProject, setProject] = React.useState<Project | undefined>()
+  const [selectedProject, setProject] = React.useState<
+    ProjectInterface | undefined
+  >()
 
   React.useEffect(() => {
     if (!auth?.currentUser) return
     function verifyCurrentUserCredentials(userArg: typeof user) {
-      firebase.auth().onAuthStateChanged(currentUser => {
-        if (currentUser && currentUser.uid !== userArg?.uid) {
+      onAuthStateChanged(auth, currentUser => {
+        if (!currentUser) return
+        if (currentUser.uid !== userArg?.uid) {
           setUser(currentUser)
         }
       })
@@ -75,18 +86,20 @@ function useAuth() {
       email: string
       password: string
     }) {
-      await auth
-        .signInWithEmailAndPassword(credentials.email, credentials.password)
-        .then(
-          res => {
-            setUser(res.user)
-            toast.success(`LogIn Successful`)
-          },
-          (err: Error) => {
-            toast.error(`SignIn Failed "${err.message}"`)
-            setVerificationFailed(err.message)
-          },
-        )
+      await signInWithEmailAndPassword(
+        auth,
+        credentials.email,
+        credentials.password,
+      ).then(
+        res => {
+          setUser(res.user)
+          toast.success(`LogIn Successful`)
+        },
+        (err: Error) => {
+          toast.error(`SignIn Failed "${err.message}"`)
+          setVerificationFailed(err.message)
+        },
+      )
     }
     return [verificationFailed, checkUserCredentials]
   }
@@ -102,26 +115,26 @@ function useAuth() {
       error: undefined,
     }
 
-    await auth
-      .createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .then(
-        async resp => {
-          await db
-            .collection('users')
-            .doc(user?.uid)
-            .set({
-              firstName: newUser.firstName,
-              lastName: newUser.lastName,
-              initials: newUser.firstName[0] + newUser.lastName[0],
-            })
-          setUser(resp.user)
-          response.user = resp.user
-          toast.success(`Welcome "${newUser.email}" to The Club`)
-        },
-        (err: Error) => {
-          response.error = err
-        },
-      )
+    await createUserWithEmailAndPassword(
+      auth,
+      newUser.email,
+      newUser.password,
+    ).then(
+      async resp => {
+        await addDoc(collection(db, 'users'), {
+          uid: user?.uid,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          initials: newUser.firstName[0] + newUser.lastName[0],
+        })
+        setUser(resp.user)
+        response.user = resp.user
+        toast.success(`Welcome "${newUser.email}" to The Club`)
+      },
+      (err: Error) => {
+        response.error = err
+      },
+    )
     return response
   }
   return {

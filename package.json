@@ -13,7 +13,7 @@
     "bootstrap": "^4.6.0",
     "cypress-axe": "^0.12.2",
     "faker": "^5.5.3",
-    "firebase": "^8.2.6",
+    "firebase": "^9.0.2",
     "firebase-mock": "^2.3.2",
     "firebase-tools": "^9.3.0",
     "react": "^17.0.2",
@@ -109,7 +109,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "prepare"
     }
   },
   "lint-staged": {

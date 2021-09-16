@@ -12,7 +12,7 @@ import {
 } from './helpers/components'
 
 import type {ImportedImages, ReducerState} from '../../../types/types'
-import type {Project} from '../../../types/interfaces'
+import type {ProjectInterface} from '../../../types/interfaces'
 
 function ProjectForm({
   useHandleSubmit,
@@ -31,7 +31,7 @@ function ProjectForm({
   setDescriptionFieldControl: React.Dispatch<
     React.SetStateAction<{value: string; color: string}>
   >
-  selectedProject: Project | undefined
+  selectedProject: ProjectInterface | undefined
 }) {
   const {status, enteredProjectData, error} = state
   const {name, link, repoLink, projectType, tag} = enteredProjectData

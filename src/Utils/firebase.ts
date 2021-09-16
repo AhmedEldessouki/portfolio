@@ -1,6 +1,25 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth'
+import firebase from 'firebase/compat/app'
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  connectFirestoreEmulator,
+  updateDoc,
+  getDoc,
+  addDoc,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore'
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  connectAuthEmulator,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
+
 import {
   apiKey,
   databaseURL,
@@ -19,16 +38,30 @@ const firebaseApp = {
   messagingSenderId,
 }
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseApp)
-}
+const app = firebase.initializeApp(firebaseApp)
 
-const db = firebase.firestore()
-const auth = firebase.auth()
+const db = getFirestore(app)
+const auth = getAuth(app)
 
 if (process.env.NODE_ENV !== 'production') {
-  db.useEmulator('localhost', 8080)
-  auth.useEmulator('http://localhost:9099')
+  connectFirestoreEmulator(db, 'localhost', 8080)
+  connectAuthEmulator(auth, 'http://localhost:9099')
 }
 
-export {db, auth, firebase}
+export {
+  firebase,
+  auth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  db,
+  query,
+  where,
+  collection,
+  doc,
+  getDocs,
+  addDoc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+}

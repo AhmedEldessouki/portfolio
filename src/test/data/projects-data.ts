@@ -1,6 +1,6 @@
-import {Project} from '../../../types/interfaces'
+import type {ProjectInterface} from '../../../types/interfaces'
 
-const projectsData: Array<Project> = [
+const projectsData: Array<ProjectInterface> = [
   {
     id: '2Az5lOeuEpimusasRbu4',
     repoLink: 'xx',

@@ -4,17 +4,20 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import type {Message, Project} from '../../types/interfaces'
+import type {
+  Message as MessageInterface,
+  ProjectInterface,
+} from '../../types/interfaces'
 import {colors} from '../Styles'
 import {replaceWhiteSpaceWith} from '../Utils/helpers'
 import Title from './Title'
 
 interface OnToggleProps {
-  items: Array<Project | Message>
+  items: Array<ProjectInterface | MessageInterface>
   children: React.ReactNode
-  displayedData: Project | Message | undefined
+  displayedData: ProjectInterface | MessageInterface | undefined
   setDisplayData: React.Dispatch<
-    React.SetStateAction<Project | Message | undefined>
+    React.SetStateAction<ProjectInterface | MessageInterface | undefined>
   >
 }
 

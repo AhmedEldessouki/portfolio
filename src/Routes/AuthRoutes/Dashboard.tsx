@@ -3,11 +3,11 @@ import React from 'react'
 import {useClientFetch} from '../../Utils/apis'
 import Projects from '../../components/Projects/Projects'
 
-import type {Message, Project} from '../../../types/interfaces'
+import type {Message, ProjectInterface} from '../../../types/interfaces'
 import Messages from '../../components/Messaging/Messages'
 
 const Dashboard = () => {
-  const projectsData = useClientFetch('projects') as Array<Project>
+  const projectsData = useClientFetch('projects') as Array<ProjectInterface>
   const messagesData = useClientFetch('contactedMe') as Array<Message>
   return (
     <main>

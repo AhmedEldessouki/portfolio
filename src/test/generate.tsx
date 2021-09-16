@@ -1,8 +1,13 @@
 import faker from 'faker'
 import type {User} from '@firebase/auth-types/index'
-import type {Message, NewUser, Project, Tag} from '../../types/interfaces'
+import type {
+  Message as MessageInterface,
+  NewUser as NewUserInterface,
+  ProjectInterface,
+  Tag as TagInterface,
+} from '../../types/interfaces'
 
-function buildUser(overrides?: Partial<NewUser>) {
+function buildUser(overrides?: Partial<NewUserInterface>) {
   return {
     uid: faker.datatype.uuid(),
     token: faker.datatype.uuid(),
@@ -28,7 +33,7 @@ function buildUserLogin(overrides?: Partial<User>) {
   }
 }
 
-function buildProject(overrides?: Partial<Project>) {
+function buildProject(overrides?: Partial<ProjectInterface>) {
   return {
     id: faker.datatype.uuid(),
     description: faker.lorem.paragraph(),
@@ -44,7 +49,7 @@ function buildProject(overrides?: Partial<Project>) {
   }
 }
 
-function buildMessage(overrides?: Partial<Message>) {
+function buildMessage(overrides?: Partial<MessageInterface>) {
   return {
     id: faker.datatype.uuid(),
     email: faker.internet.email(),
@@ -56,7 +61,7 @@ function buildMessage(overrides?: Partial<Message>) {
   }
 }
 
-function buildTag(overrides?: Partial<Tag>) {
+function buildTag(overrides?: Partial<TagInterface>) {
   return {
     id: faker.datatype.uuid(),
     name: faker.name.firstName(),
