@@ -21,6 +21,7 @@
     "react-error-boundary": "^3.1.0",
     "react-icons": "^4.2.0",
     "react-query": "^3.23.2",
+    "react-router": "^5.2.1",
     "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
     "react-toastify": "^8.0.2",
@@ -88,8 +89,8 @@
     "lint": "eslint --fix --ext js,jsx,ts,tsx --ignore-path .eslintignore .",
     "lint:ci": "eslint --ext js,jsx,ts,tsx --ignore-path .eslintignore .",
     "test": "react-scripts test",
-    "test:precommit": "yarn test --watch=false --findRelatedTests",
-    "test:coverage": "yarn test --watch=false --coverage",
+    "test:precommit": "yarn test --watchAll=false --findRelatedTests",
+    "test:coverage": "yarn test --watchAll=false --coverage",
     "test:watch": "yarn test --watch",
     "test:e2e:n": "start-server-and-test start 8888 cy:run",
     "test:e2e:ci": "start-server-and-test serve 5000 cy:run",
@@ -112,7 +113,7 @@
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [
       "eslint --fix",
-      "npm run test:precommit",
+      "yarn test:precommit",
       "pretty-quick --staged"
     ],
     "*.+(json|yml|yaml|css|less|scss)": [
