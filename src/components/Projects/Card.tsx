@@ -11,7 +11,7 @@ import {useAuth} from '../../context/AuthProvider'
 import {colors} from '../../Styles'
 import {deleteProject} from '../../Utils/apis'
 import {replaceWhiteSpaceWith} from '../../Utils/helpers'
-import type {Project} from '../../../types/interfaces'
+import type {ProjectInterface, ProjectTypeType} from '../../../types/interfaces'
 import PopUp from '../PopUp/PopUp'
 import Title from '../Title'
 import ImgWithFallback from '../Image'
@@ -43,7 +43,7 @@ function EditAndDelete({
   project,
   onClick,
 }: {
-  project: Project
+  project: ProjectInterface
   onClick: () => void
 }) {
   return (
@@ -81,7 +81,7 @@ function EditAndDelete({
   )
 }
 
-function ProjectType({projType}: {projType: 'Personal' | 'Contribution' | ''}) {
+function ProjectType({projType}: {projType: ProjectTypeType}) {
   const [hovered, setHover] = React.useState(false)
   return (
     <div
@@ -126,8 +126,8 @@ function Card({
   items = [],
   setState,
 }: {
-  items: Array<Project>
-  setState: React.Dispatch<React.SetStateAction<Project | unknown>>
+  items: Array<ProjectInterface>
+  setState: React.Dispatch<React.SetStateAction<ProjectInterface | unknown>>
 }) {
   const {user, setProject: setPorj} = useAuth()
 

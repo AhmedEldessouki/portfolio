@@ -1,8 +1,8 @@
-import type {ErrorType} from './interfaces'
+import type {ErrorType, Project} from './interfaces'
 
 type ReducerState = {
   status: 'idle' | 'pending' | 'redirect'
-  enteredProjectData: Omit<Project, 'id' | 'date'>
+  enteredProjectData: Project
   error: ErrorType
 }
 type UploadedImagesArrayType = Array<{preview: string; file: File}>

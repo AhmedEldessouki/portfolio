@@ -6,7 +6,8 @@ interface NewUser {
   confirmPassword: string
 }
 
-interface Project {
+type ProjectTypeType = `Personal` | `Contribution` | `Freelance`
+interface ProjectInterface {
   name: string
   link: string
   repoLink: string
@@ -14,10 +15,10 @@ interface Project {
   tag: Array<string | Tag>
   description: string
   id?: string
-  projectType: `Personal` | `Contribution` | ''
+  projectType: ProjectTypeType
   // Data is any because firebase uses linux timestamp
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  date: Date | any
+  date?: Date | any
 }
 
 interface Message {
@@ -49,11 +50,12 @@ interface Tag {
 }
 export {
   NewUser,
-  Project,
+  ProjectInterface,
   Message,
   Status,
   ErrorType,
   CollectionTypes,
   TitleProps,
+  ProjectTypeType,
   Tag,
 }

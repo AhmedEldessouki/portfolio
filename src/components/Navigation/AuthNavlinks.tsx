@@ -99,7 +99,7 @@ const AuthNavlinksX = () => {
           padding: `1% 2%`,
         }}
       >
-        <h2>{selectedProject ? 'Edit' : 'Create'} Project</h2>
+        <h2>Create Project</h2>
       </NavLink>
       <NavLink
         to="/tags-control"
