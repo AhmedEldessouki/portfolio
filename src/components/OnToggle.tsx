@@ -9,7 +9,7 @@ import type {
   ProjectInterface,
 } from '../../types/interfaces'
 import {colors} from '../Styles'
-import {replaceWhiteSpaceWith} from '../Utils/helpers'
+import replaceWhiteSpaceWith from '../Utils/helpers'
 import Title from './Title'
 
 interface OnToggleProps {
