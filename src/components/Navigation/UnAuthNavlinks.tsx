@@ -8,8 +8,6 @@ import {colors, mq} from '../../Styles'
 
 const UnAuthNavlinks = () => {
   const nav = css`
-    position: absolute;
-    top: 0;
     width: 100%;
     background-color: ${colors.darkBlue};
     display: flex;

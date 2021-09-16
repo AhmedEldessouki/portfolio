@@ -12,8 +12,6 @@ const AuthNavlinksX = () => {
   const {signUserOut} = useAuth()
 
   const nav = css`
-    position: absolute;
-    top: 0;
     width: 100%;
     display: flex;
     place-content: space-evenly;
