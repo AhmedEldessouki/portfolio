@@ -10,7 +10,6 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
     "axios": "^0.21.1",
-    "bootstrap": "^4.6.0",
     "cypress-axe": "^0.12.2",
     "faker": "^5.5.3",
     "firebase": "^9.0.2",
