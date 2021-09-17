@@ -16,6 +16,16 @@ import type {
 import MessageView from './MessageView'
 import MessagesSummary from './MessageCard'
 
+const mWrapper = css`
+  margin: 0 10px;
+  padding: 20px 10px;
+  display: grid;
+  grid-gap: 25px;
+  place-items: center;
+  place-content: space-evenly;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
+`
+
 function MessagesComponent({
   messagesData,
 }: {
@@ -32,15 +42,6 @@ function MessagesComponent({
     moveFocus()
   }, [displayMessage])
 
-  const mWrapper = css`
-    margin: 0 10px;
-    padding: 20px 10px;
-    display: grid;
-    grid-gap: 25px;
-    place-items: center;
-    place-content: space-evenly;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
-  `
   if (!messagesData || messagesData.length < 0) {
     return (
       <p role="alert">

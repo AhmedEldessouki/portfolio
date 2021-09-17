@@ -9,6 +9,23 @@ import React from 'react'
 
 import {colors, mq} from '../../Styles'
 
+const imgStyle = css`
+  @keyframes in {
+    from {
+      opacity: 0;
+      filter: grayscale(100%);
+    }
+    to {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+  }
+  filter: grayscale(0);
+  margin: 0;
+  animation-name: in;
+  animation-duration: 3s;
+`
+
 type ImgProps = {
   imgAlt: string
   onClick: () => void
@@ -27,27 +44,102 @@ function Img({
       onClick={() => {
         onClick()
       }}
-      css={css`
-        @keyframes in {
-          from {
-            opacity: 0;
-            filter: grayscale(100%);
-          }
-          to {
-            filter: grayscale(0);
-            opacity: 1;
-          }
-        }
-        filter: grayscale(0);
-        margin: 0;
-        animation-name: in;
-        animation-duration: 3s;
-      `}
+      css={imgStyle}
       src={src}
       {...imgOverride}
     />
   )
 }
+
+const cWrapper = css`
+  width: 100%;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  div {
+    grid-row: 1 / span 4;
+    grid-column: 2 / span 3;
+    opacity: 1;
+    transition: cubic-bezier(0.65, 0.05, 0.36, 1) 2s;
+    margin: 0;
+  }
+  ${mq.phoneLarge} {
+    grid-gap: 0;
+    div {
+      grid-row: 1;
+      grid-column: 1;
+    }
+  }
+`
+const btn = css`
+  border: none;
+  background: rgb(0, 153, 255, 0.9);
+  color: ${colors.kindaDarkBlue};
+  font-weight: 900;
+  opacity: 0.6;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 11.5px;
+  width: 78px;
+  height: 60px;
+  :hover {
+    background: ${colors.blueFont};
+  }
+  ${mq.phoneLarge} {
+    display: none;
+  }
+`
+const leftS = css`
+  grid-row: 1 / span 5;
+  grid-column: 1;
+`
+const rightS = css`
+  grid-row: 1 / span 5;
+  grid-column: 5;
+`
+const disabledBTN = css`
+  background: ${colors.burgundyRed};
+  :hover {
+    background: ${colors.burgundyRed};
+  }
+`
+const carouselNav = css`
+  border: none;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: 0 5px 10px;
+  cursor: pointer;
+
+  :hover {
+    background: ${colors.blueFont};
+  }
+`
+
+const sectionStyle = css`
+  background: #32374d;
+  padding: 11px 0;
+  border-top: 13px double ${colors.darkBlue};
+  border-bottom: 13px double ${colors.darkBlue};
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+`
+const imagesWrapper = css`
+  justify-self: center;
+  grid-row: 5;
+  grid-column: 2 / span 3;
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  place-content: center;
+  margin-top: 10px;
+  ${mq.phoneLarge} {
+    grid-row: 2;
+    grid-column: 1;
+  }
+`
 
 function Carousel({
   imgArray,
@@ -67,71 +159,6 @@ function Carousel({
   React.useEffect(() => {
     setCurrentImage(0)
   }, [imgArray])
-
-  const cWrapper = css`
-    width: 100%;
-    display: grid;
-    place-items: center;
-    gap: 10px;
-    div {
-      grid-row: 1 / span 4;
-      grid-column: 2 / span 3;
-      opacity: 1;
-      transition: cubic-bezier(0.65, 0.05, 0.36, 1) 2s;
-      margin: 0;
-    }
-    ${mq.phoneLarge} {
-      grid-gap: 0;
-      div {
-        grid-row: 1;
-        grid-column: 1;
-      }
-    }
-  `
-  const btn = css`
-    border: none;
-    background: rgb(0, 153, 255, 0.9);
-    color: ${colors.kindaDarkBlue};
-    font-weight: 900;
-    opacity: 0.6;
-    font-size: 2rem;
-    cursor: pointer;
-    border-radius: 11.5px;
-    width: 78px;
-    height: 60px;
-    :hover {
-      background: ${colors.blueFont};
-    }
-    ${mq.phoneLarge} {
-      display: none;
-    }
-  `
-  const leftS = css`
-    grid-row: 1 / span 5;
-    grid-column: 1;
-  `
-  const rightS = css`
-    grid-row: 1 / span 5;
-    grid-column: 5;
-  `
-  const disabledBTN = css`
-    background: ${colors.burgundyRed};
-    :hover {
-      background: ${colors.burgundyRed};
-    }
-  `
-  const carouselNav = css`
-    border: none;
-    border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
-    margin: 0 5px 10px;
-    cursor: pointer;
-
-    :hover {
-      background: ${colors.blueFont};
-    }
-  `
 
   const displayPrevious = React.useCallback(() => {
     if (currentImage !== 0) setCurrentImage(currentImage - 1)
@@ -155,16 +182,7 @@ function Carousel({
 
   return (
     <section
-      css={css`
-        background: #32374d;
-        padding: 11px 0;
-        border-top: 13px double ${colors.darkBlue};
-        border-bottom: 13px double ${colors.darkBlue};
-        border-radius: 22px;
-        display: flex;
-        flex-direction: column;
-        place-items: center;
-      `}
+      css={sectionStyle}
       aria-roledescription="carousel"
       aria-label="Highlighted Project Images"
     >
@@ -253,22 +271,7 @@ function Carousel({
           {'>'}
         </button>
       </div>
-      <div
-        css={css`
-          justify-self: center;
-          grid-row: 5;
-          grid-column: 2 / span 3;
-          display: flex;
-          flex-wrap: wrap;
-          width: 80%;
-          place-content: center;
-          margin-top: 10px;
-          ${mq.phoneLarge} {
-            grid-row: 2;
-            grid-column: 1;
-          }
-        `}
-      >
+      <div css={imagesWrapper}>
         {imgArray.map((image, i) => (
           <button
             aria-controls="carousel-items"

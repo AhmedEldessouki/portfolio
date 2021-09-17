@@ -7,6 +7,28 @@ import {TitleProps} from '../../types/interfaces'
 import {colors, mq, weights} from '../Styles'
 import replaceWhiteSpaceWith from '../Utils/helpers'
 
+const title = css`
+  padding: 15px 10px;
+  font-size: 1.62rem;
+  font-weight: ${weights.medium};
+  border-radius: 13%;
+  margin: 0;
+  text-transform: capitalize;
+  transition: cubic-bezier(1, 0, 0, 1) 0.5s;
+  :hover {
+    cursor: pointer;
+    font-family: sans-serif;
+  }
+  ${mq.s} {
+    font-size: 1.2rem;
+  }
+`
+const titleBtn = css`
+  background: transparent;
+  border: none;
+  width: 100%;
+`
+
 function Title({
   name = '',
   onClick,
@@ -14,29 +36,6 @@ function Title({
   testId,
   csx,
 }: TitleProps) {
-  const title = [
-    css`
-      padding: 15px 10px;
-      font-size: 1.62rem;
-      font-weight: ${weights.medium};
-      border-radius: 13%;
-      margin: 0;
-      text-transform: capitalize;
-      transition: cubic-bezier(1, 0, 0, 1) 0.5s;
-      :hover {
-        cursor: pointer;
-        font-family: sans-serif;
-      }
-      ${mq.s} {
-        font-size: 1.2rem;
-      }
-    `,
-    {
-      background: highlight ? colors.whiteFaded : colors.darkBlue,
-      color: highlight ? colors.darkBlue : colors.whiteFaded,
-      fontFamily: highlight ? 'sans-serif' : 'sans',
-    },
-  ]
   const newNameForm = replaceWhiteSpaceWith(name ?? '', '-')
   return (
     <li
@@ -50,14 +49,18 @@ function Title({
         onClick={() => {
           onClick()
         }}
-        css={css`
-          background: transparent;
-          border: none;
-          width: 100%;
-        `}
+        css={titleBtn}
       >
         <h2
-          css={[title, csx]}
+          css={[
+            title,
+            {
+              background: highlight ? colors.whiteFaded : colors.darkBlue,
+              color: highlight ? colors.darkBlue : colors.whiteFaded,
+              fontFamily: highlight ? 'sans-serif' : 'sans',
+            },
+            csx,
+          ]}
           data-testid={testId}
           key={testId}
           id={newNameForm}

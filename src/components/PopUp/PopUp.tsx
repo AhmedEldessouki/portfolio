@@ -8,6 +8,65 @@ import {GoTrashcan} from 'react-icons/go'
 import {colors, mq, weights} from '../../Styles'
 import {useAsync} from '../../Utils/hooks'
 
+const popWrapper = css`
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  background-color: ${colors.independenceBlue};
+  opacity: 94.7%;
+  border: 10px solid ${colors.darkBlue};
+  padding: 10px 20px;
+  border-radius: 29%;
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+`
+const btn = css`
+  background-color: ${colors.blueFont};
+  color: ${colors.independenceBlue};
+  border-radius: 14%;
+  border: none;
+
+  font-size: 140%;
+  :hover {
+    opacity: 0.8;
+  }
+  ${mq.s} {
+    font-size: 100%;
+  }
+`
+const btnTrash = css`
+  background: inherit;
+  box-shadow: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  color: ${colors.burgundyRed};
+  font-size: 2rem;
+  font-weight: ${weights.black};
+  :hover,
+  :focus {
+    color: ${colors.kindaBlue};
+  }
+`
+const popUpContainer = css({
+  position: 'fixed',
+  width: '362px',
+  height: '161px',
+  top: '50%',
+  left: '50%',
+  marginTop: '-84px',
+  marginLeft: '-188px',
+})
+
 function PopUp({
   info,
   onClickYes,
@@ -17,55 +76,6 @@ function PopUp({
   onClickYes: Function
   controls: string
 }) {
-  const popWrapper = css`
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    background-color: ${colors.independenceBlue};
-    opacity: 94.7%;
-    border: 10px solid ${colors.darkBlue};
-    padding: 10px 20px;
-    border-radius: 29%;
-    width: 300px;
-    justify-content: center;
-    align-items: center;
-  `
-  const btn = css`
-    background-color: ${colors.blueFont};
-    color: ${colors.independenceBlue};
-    border-radius: 14%;
-    border: none;
-
-    font-size: 140%;
-    :hover {
-      opacity: 0.8;
-    }
-    ${mq.s} {
-      font-size: 100%;
-    }
-  `
-  const btnTrash = css`
-    background: inherit;
-    box-shadow: none;
-    border: 0;
-    margin: 0;
-    padding: 0;
-    color: ${colors.burgundyRed};
-    font-size: 2rem;
-    font-weight: ${weights.black};
-    :hover,
-    :focus {
-      color: ${colors.kindaBlue};
-    }
-  `
   const {status, dispatch} = useAsync()
 
   // onClick outside PopUp Component close PopUp
@@ -106,15 +116,7 @@ function PopUp({
       {status === 'pending' && (
         <div
           id="popup"
-          css={{
-            position: 'fixed',
-            width: '362px',
-            height: '161px',
-            top: '50%',
-            left: '50%',
-            marginTop: '-84px',
-            marginLeft: '-188px',
-          }}
+          css={popUpContainer}
           aria-modal="true"
           role="alertdialog"
           aria-labelledby="dialog_label"

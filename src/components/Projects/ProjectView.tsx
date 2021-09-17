@@ -12,6 +12,64 @@ import Spinner from '../Spinner'
 import type {ProjectInterface} from '../../../types/interfaces'
 import replaceWhiteSpaceWith from '../../Utils/helpers'
 
+const anc = css`
+  color: ${colors.darkBlue};
+  text-align: center;
+  font-size: 2rem;
+  :hover,
+  :focus {
+    color: ${colors.blueFont};
+  }
+`
+const customTextArea = css`
+  resize: none;
+  place-self: center;
+  padding: 10px 1%;
+  font-size: 1.45rem;
+  letter-spacing: 1px;
+  background: ${colors.independenceBlue};
+  color: inherit;
+  border: none;
+  margin-bottom: 23.2px;
+  min-width: 80%;
+  border-radius: 5%;
+`
+const hOne = css`
+  font-size: 2.75rem;
+  font-weight: 900;
+  padding-left: 0;
+  border-radius: 7.5%;
+  ${mq.s} {
+    width: 100%;
+    text-align: center;
+    font-size: 1.75rem;
+    margin: 0;
+  }
+`
+const headerWrapper = css`
+  display: flex;
+  place-items: baseline;
+  margin-top: 10px;
+  gap: 10px;
+  font-size: 2rem;
+  flex-wrap: wrap;
+  place-content: center;
+  margin-bottom: 5px;
+  a {
+  }
+`
+const projViewContainer = css`
+  display: flex;
+  flex-direction: column;
+  padding: 10px 50px 33px;
+  place-content: center;
+  min-height: 241px;
+  border-bottom: 24px solid ${colors.darkBlue};
+  ${mq.s} {
+    padding: 10px;
+  }
+`
+
 function ProjectView({project}: {project: ProjectInterface | undefined}) {
   const [description, setDescription] = React.useState(
     project?.description ?? '',
@@ -34,15 +92,6 @@ function ProjectView({project}: {project: ProjectInterface | undefined}) {
     }
   }, [description, project?.description])
 
-  const anc = css`
-    color: ${colors.darkBlue};
-    text-align: center;
-    font-size: 2rem;
-    :hover,
-    :focus {
-      color: ${colors.blueFont};
-    }
-  `
   if (!project) {
     return <Spinner />
   }
@@ -52,50 +101,9 @@ function ProjectView({project}: {project: ProjectInterface | undefined}) {
       {project.projectLogo.length !== 0 ? (
         <Carousel imgArray={project.projectLogo} imgAlt={project.name} />
       ) : null}
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          padding: 10px 50px 33px;
-          place-content: center;
-          min-height: 241px;
-          border-bottom: 24px solid ${colors.darkBlue};
-          ${mq.s} {
-            padding: 10px;
-          }
-        `}
-        aria-current="true"
-        id={dashifiedName}
-      >
-        <div
-          css={css`
-            display: flex;
-            place-items: baseline;
-            margin-top: 10px;
-            gap: 10px;
-            font-size: 2rem;
-            flex-wrap: wrap;
-            place-content: center;
-            margin-bottom: 5px;
-            a {
-            }
-          `}
-        >
-          <h1
-            css={css`
-              font-size: 2.75rem;
-              font-weight: 900;
-              padding-left: 0;
-              border-radius: 7.5%;
-              ${mq.s} {
-                width: 100%;
-                text-align: center;
-                font-size: 1.75rem;
-                margin: 0;
-              }
-            `}
-            id={`${dashifiedName}-labelled`}
-          >
+      <div css={projViewContainer} aria-current="true" id={dashifiedName}>
+        <div css={headerWrapper}>
+          <h1 css={hOne} id={`${dashifiedName}-labelled`}>
             {project.name}
           </h1>
           <a
@@ -118,6 +126,7 @@ function ProjectView({project}: {project: ProjectInterface | undefined}) {
                 ? null
                 : css`
                     cursor: not-allowed;
+                    opacity: 50%;
                     :hover,
                     :focus {
                       color: ${colors.darkBlue};
@@ -132,20 +141,7 @@ function ProjectView({project}: {project: ProjectInterface | undefined}) {
           disabled
           id="textArea"
           wrap="hard"
-          css={css`
-            resize: none;
-            place-self: center;
-            padding: 10px 1%;
-            font-size: 1.45rem;
-            letter-spacing: 1px;
-            background: ${colors.independenceBlue};
-            color: inherit;
-            border: none;
-            height: ${heightT};
-            margin-bottom: 23.2px;
-            min-width: 80%;
-            border-radius: 5%;
-          `}
+          css={[customTextArea, css({height: heightT})]}
           value={description}
           readOnly
         />
