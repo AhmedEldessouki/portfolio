@@ -11,6 +11,13 @@ import Spinner from '../Spinner'
 
 import type {Status} from '../../../types/interfaces'
 
+const tagFormWrapper = css`
+  width: 100%;
+  display: flex;
+  place-content: center;
+  flex-wrap: wrap;
+`
+
 function TagForm({
   status,
   handleSubmit,
@@ -19,14 +26,7 @@ function TagForm({
   handleSubmit: (e: React.SyntheticEvent) => void
 }) {
   return (
-    <div
-      css={css`
-        width: 100%;
-        display: flex;
-        place-content: center;
-        flex-wrap: wrap;
-      `}
-    >
+    <div css={tagFormWrapper}>
       <h2 css={h2XL}>Create Tag</h2>
       <ErrorBoundary FallbackComponent={ErrorMessageFallback}>
         <form onSubmit={e => handleSubmit(e)} css={formStyles}>
