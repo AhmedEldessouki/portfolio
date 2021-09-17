@@ -33,14 +33,12 @@ const h1a = css`
   }
 `
 
-const UnAuthNavlinks = () => {
-  return (
-    <nav css={nav}>
-      <NavLink to="/" style={{textDecoration: 'none'}}>
-        <h1 css={h1a}>Ahmed Eldessouki</h1>
-      </NavLink>
-    </nav>
-  )
-}
+const UnAuthNavlinks = () => (
+  <nav css={nav}>
+    <NavLink to="/" style={{textDecoration: 'none'}}>
+      <h1 css={h1a}>Ahmed Eldessouki</h1>
+    </NavLink>
+  </nav>
+)
 
 export default UnAuthNavlinks

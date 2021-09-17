@@ -105,38 +105,36 @@ const gitHub = css`
   }
 `
 
-const MyInfo = () => {
-  return (
-    <div css={container}>
-      <ImgWithFallback
-        src="/images/pic.jp2"
-        fallback="/images/pic.png"
-        type="image/jp2"
-        alt="profile Picture"
-        height="265"
-        width="265"
-      />
-      <p>
-        I am Ahmed ElDessouki. Front-end developer using <em>React.js</em>{' '}
-        Framework, small time <em>Designer</em>, and <em>Self-Improvement</em>{' '}
-        driven person.
-      </p>
-      <ul css={ulContainer}>
-        <li>Ahmed ElDessouki</li>
-        <li className="follow-container">Istanbul, Turkey</li>
-        <li css={gitHub}>
-          <a
-            href="https://www.github.com/ahmedeldessouki"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{textDecoration: 'none', color: 'inherit'}}
-          >
-            <GoMarkGithub /> Github Account
-          </a>
-        </li>
-      </ul>
-    </div>
-  )
-}
+const MyInfo = () => (
+  <div css={container}>
+    <ImgWithFallback
+      src="/images/pic.jp2"
+      fallback="/images/pic.png"
+      type="image/jp2"
+      alt="profile Picture"
+      height="265"
+      width="265"
+    />
+    <p>
+      I am Ahmed ElDessouki. Front-end developer using <em>React.js</em>{' '}
+      Framework, small time <em>Designer</em>, and <em>Self-Improvement</em>{' '}
+      driven person.
+    </p>
+    <ul css={ulContainer}>
+      <li>Ahmed ElDessouki</li>
+      <li className="follow-container">Istanbul, Turkey</li>
+      <li css={gitHub}>
+        <a
+          href="https://www.github.com/ahmedeldessouki"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{textDecoration: 'none', color: 'inherit'}}
+        >
+          <GoMarkGithub /> Github Account
+        </a>
+      </li>
+    </ul>
+  </div>
+)
 
 export default MyInfo
