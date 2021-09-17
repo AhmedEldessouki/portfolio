@@ -57,6 +57,15 @@ const btnTrash = css`
     color: ${colors.kindaBlue};
   }
 `
+const popUpContainer = css({
+  position: 'fixed',
+  width: '362px',
+  height: '161px',
+  top: '50%',
+  left: '50%',
+  marginTop: '-84px',
+  marginLeft: '-188px',
+})
 
 function PopUp({
   info,
@@ -107,15 +116,7 @@ function PopUp({
       {status === 'pending' && (
         <div
           id="popup"
-          css={{
-            position: 'fixed',
-            width: '362px',
-            height: '161px',
-            top: '50%',
-            left: '50%',
-            marginTop: '-84px',
-            marginLeft: '-188px',
-          }}
+          css={popUpContainer}
           aria-modal="true"
           role="alertdialog"
           aria-labelledby="dialog_label"
