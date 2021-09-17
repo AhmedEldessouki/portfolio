@@ -23,6 +23,11 @@ const title = css`
     font-size: 1.2rem;
   }
 `
+const titleBtn = css`
+  background: transparent;
+  border: none;
+  width: 100%;
+`
 
 function Title({
   name = '',
@@ -44,11 +49,7 @@ function Title({
         onClick={() => {
           onClick()
         }}
-        css={css`
-          background: transparent;
-          border: none;
-          width: 100%;
-        `}
+        css={titleBtn}
       >
         <h2
           css={[
