@@ -81,8 +81,67 @@ function EditAndDelete({
   )
 }
 
+const projectTypeStyling = css({
+  borderRadius: 50,
+  border: `1px solid`,
+  textAlign: 'center',
+  width: 24,
+  height: 24,
+  transition: 'width 0.3s ease-in-out',
+  marginBottom: 9,
+  overflow: 'hidden',
+  cursor: 'help',
+  textTransform: 'capitalize',
+})
+
 function ProjectType({projType}: {projType: ProjectTypeType}) {
   const [hovered, setHover] = React.useState(false)
+  const [projTypeCss] = React.useState(() => {
+    switch (projType) {
+      case 'contribution':
+        return {
+          borderColor: 'orange',
+          color: 'orange',
+          fontSize: hovered ? '0.95rem' : '1rem',
+          ':hover, :focus': {
+            padding: '0 8px',
+            width: '110px',
+          },
+        }
+
+      case 'freelance':
+        return {
+          borderColor: 'dodgerblue',
+          color: 'dodgerblue',
+          fontSize: hovered ? '0.95rem' : '1rem',
+          ':hover, :focus': {
+            padding: '0 8px',
+            width: '83px',
+          },
+        }
+
+      case 'personal':
+        return {
+          borderColor: colors.lightGreen,
+          color: colors.lightGreen,
+          fontSize: hovered ? '0.95rem' : '1rem',
+          ':hover, :focus': {
+            padding: '0 8px',
+            width: '83px',
+          },
+        }
+      default:
+        return {
+          borderColor: colors.aliceLightBlue,
+          color: colors.aliceLightBlue,
+          fontSize: hovered ? '0.95rem' : '1rem',
+          ':hover, :focus': {
+            padding: '0 8px',
+            width: '83px',
+          },
+        }
+    }
+  })
   return (
     <div
       css={{
@@ -96,25 +155,7 @@ function ProjectType({projType}: {projType: ProjectTypeType}) {
         onFocus={() => setHover(!hovered)}
         onBlur={() => setHover(!hovered)}
         aria-label={projType ?? 'personal'}
-        css={{
-          borderRadius: 50,
-          border: `1px solid`,
-          borderColor:
-            projType === 'Contribution' ? 'orange' : colors.lightGreen,
-          color: projType === 'Contribution' ? 'orange' : colors.lightGreen,
-          textAlign: 'center',
-          fontSize: hovered ? '0.95rem' : '1rem',
-          width: 24,
-          height: 24,
-          transition: 'width 0.3s ease-in-out',
-          marginBottom: 9,
-          overflow: 'hidden',
-          cursor: 'help',
-          ':hover, :focus': {
-            padding: '0 8px',
-            width: projType === 'Contribution' ? '110px' : '83px',
-          },
-        }}
+        css={[projectTypeStyling, css(projTypeCss)]}
       >
         {hovered ? projType : '!'}
       </span>
@@ -139,6 +180,15 @@ const mWrapper = css`
   grid-gap: 25px;
   justify-content: space-evenly;
   grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
+`
+const tagWrapper = css`
+  display: flex;
+  place-content: center;
+  place-items: center;
+  height: 50px;
+  gap: 15px;
+  margin-bottom: 0px;
+  padding-left: 0;
 `
 
 function Card({
@@ -173,17 +223,7 @@ function Card({
                 testId={`project[${i}]`}
               />
             </ul>
-            <ul
-              css={css`
-                display: flex;
-                place-content: center;
-                place-items: center;
-                height: 50px;
-                gap: 15px;
-                margin-bottom: 0px;
-                padding-left: 0;
-              `}
-            >
+            <ul css={tagWrapper}>
               {/* TODO: Add alt Later After Changing all Tags of ProjectData to an object */}
               {item.tag?.map((tag, index) => {
                 const url = typeof tag === 'object' ? tag.url : tag
