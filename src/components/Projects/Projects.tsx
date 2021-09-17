@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import {jsx} from '@emotion/react'
+import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
@@ -67,6 +67,40 @@ const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
   }
 }
 
+const btn = css({
+  borderRadius: '11%',
+  border: 'none',
+  background: colors.darkBlue,
+  color: colors.whiteFaded,
+  cursor: 'pointer',
+  ':hover': {
+    opacity: 0.8,
+    transform: 'scale(1.1)',
+  },
+})
+
+const btnHasFocus = css({
+  opacity: 0.8,
+  transform: 'scale(1.1)',
+  border: `2px solid dodgerblue`,
+})
+
+const projCompSecWrapper = css({
+  display: 'flex',
+  gap: '10px',
+  placeContent: 'flex-end',
+  paddingRight: '25px',
+  background: colors.backgroundShade,
+  padding: '10px 25px 10px 0',
+})
+
+const titleSpan = css({
+  fontFamily: 'sans',
+  letterSpacing: '1.5px',
+  fontSize: '1.3rem',
+  fontWeight: weights.black,
+})
+
 function ProjectComponent({
   projectsData,
 }: {
@@ -101,22 +135,9 @@ function ProjectComponent({
     const y = new Date(b.date as Date) as any
     return x - y
   }
-  const btn = {
-    borderRadius: '11%',
-    border: 'none',
-    background: colors.darkBlue,
-    color: colors.whiteFaded,
-    cursor: 'pointer',
-    ':hover': {
-      opacity: 0.8,
-      transform: 'scale(1.1)',
-    },
-  }
-  const btnHasFocus = {
-    opacity: 0.8,
-    transform: 'scale(1.1)',
-  }
+
   const {sortedBy, projects} = state
+
   if (!projectsData) {
     return (
       <p role="alert">
@@ -127,6 +148,7 @@ function ProjectComponent({
       </p>
     )
   }
+
   return (
     <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
@@ -142,30 +164,14 @@ function ProjectComponent({
       ) : (
         <React.Fragment>
           <section
-            css={{
-              display: 'flex',
-              gap: '10px',
-              placeContent: 'flex-end',
-              paddingRight: '25px',
-              background: colors.backgroundShade,
-              padding: '10px 25px 10px 0',
-            }}
+            css={projCompSecWrapper}
             onMouseEnter={() => {
               if (sortedBy === 'none') {
                 dispatch({type: 'reset_sort', payload: projectsData})
               }
             }}
           >
-            <span
-              css={{
-                fontFamily: 'sans',
-                letterSpacing: '1.5px',
-                fontSize: '1.3rem',
-                fontWeight: weights.black,
-              }}
-            >
-              Filter
-            </span>
+            <span css={titleSpan}>Filter</span>
             <button
               type="button"
               data-testid="sort_by_name"
