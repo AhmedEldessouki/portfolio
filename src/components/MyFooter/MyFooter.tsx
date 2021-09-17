@@ -63,6 +63,13 @@ const copyWrite = css`
   font-weight: ${weights.light};
   place-self: flex-end;
 `
+const secretLink = {
+  ':hover': {
+    textDecoration: 'none',
+    color: 'inherit',
+    cursor: 'context-menu',
+  },
+}
 
 const MyFooter = () => {
   return (
@@ -155,13 +162,7 @@ const MyFooter = () => {
         <Link
           to="/signin"
           aria-label="© 2021 Ahmed ElDessouki"
-          css={{
-            ':hover': {
-              textDecoration: 'none',
-              color: 'inherit',
-              cursor: 'context-menu',
-            },
-          }}
+          css={secretLink}
         >
           <span>© 2021 Ahmed ElDessouki</span>
         </Link>
