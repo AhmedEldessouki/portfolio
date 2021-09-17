@@ -136,6 +136,38 @@ function ButtonWithSpinner({
   )
 }
 
+const imgWrap = css`
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 10px;
+  overflow: auto hidden;
+  background: ${colors.kindaDarkBlue};
+  height: 199px;
+  padding-left: 22px;
+`
+const xyz = css`
+  background: ${colors.darkBlue};
+  overflow: hidden;
+  padding: 0 31px 43px;
+  width: 36vw;
+  ${mq.phoneLarge} {
+    width: 76vw;
+  }
+`
+const hStyle = css`
+  margin: 3px 0px 3px -15px;
+  background: ${colors.independenceBlue};
+  padding: 5px;
+`
+const div = css`
+  display: flex;
+  place-items: flex-start;
+  padding-right: 28px;
+  :hover {
+    background: ${colors.backgroundShade};
+  }
+`
+
 function DisplayingImages({
   acceptedImages,
   rejectedImages,
@@ -153,37 +185,6 @@ function DisplayingImages({
     arg1: number,
   ) => void
 }) {
-  const imgWrap = css`
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: 10px;
-    overflow: auto hidden;
-    background: ${colors.kindaDarkBlue};
-    height: 199px;
-    padding-left: 22px;
-  `
-  const xyz = css`
-    background: ${colors.darkBlue};
-    overflow: hidden;
-    padding: 0 31px 43px;
-    width: 36vw;
-    ${mq.phoneLarge} {
-      width: 76vw;
-    }
-  `
-  const hStyle = css`
-    margin: 3px 0px 3px -15px;
-    background: ${colors.independenceBlue};
-    padding: 5px;
-  `
-  const div = css`
-    display: flex;
-    place-items: flex-start;
-    padding-right: 28px;
-    :hover {
-      background: ${colors.backgroundShade};
-    }
-  `
   return (
     <section
       css={css`

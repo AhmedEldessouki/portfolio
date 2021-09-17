@@ -122,6 +122,25 @@ function ProjectType({projType}: {projType: ProjectTypeType}) {
   )
 }
 
+const pWrapper = css`
+  border-bottom: 10px solid ${colors.darkBlue};
+  border-radius: 11%;
+  width: 100%;
+  padding: 0;
+  :hover,
+  :focus {
+    border-bottom-color: ${colors.blueFont};
+  }
+`
+const mWrapper = css`
+  margin: 0 10px;
+  padding: 20px 10px;
+  display: grid;
+  grid-gap: 25px;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
+`
+
 function Card({
   items = [],
   setState,
@@ -131,24 +150,6 @@ function Card({
 }) {
   const {user, setProject: setPorj} = useAuth()
 
-  const pWrapper = css`
-    border-bottom: 10px solid ${colors.darkBlue};
-    border-radius: 11%;
-    width: 100%;
-    padding: 0;
-    :hover,
-    :focus {
-      border-bottom-color: ${colors.blueFont};
-    }
-  `
-  const mWrapper = css`
-    margin: 0 10px;
-    padding: 20px 10px;
-    display: grid;
-    grid-gap: 25px;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(auto-fit, minmax(231px, 264px));
-  `
   return (
     <section>
       <ul css={mWrapper}>

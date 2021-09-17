@@ -49,6 +49,71 @@ function Img({
   )
 }
 
+const cWrapper = css`
+  width: 100%;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  div {
+    grid-row: 1 / span 4;
+    grid-column: 2 / span 3;
+    opacity: 1;
+    transition: cubic-bezier(0.65, 0.05, 0.36, 1) 2s;
+    margin: 0;
+  }
+  ${mq.phoneLarge} {
+    grid-gap: 0;
+    div {
+      grid-row: 1;
+      grid-column: 1;
+    }
+  }
+`
+const btn = css`
+  border: none;
+  background: rgb(0, 153, 255, 0.9);
+  color: ${colors.kindaDarkBlue};
+  font-weight: 900;
+  opacity: 0.6;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 11.5px;
+  width: 78px;
+  height: 60px;
+  :hover {
+    background: ${colors.blueFont};
+  }
+  ${mq.phoneLarge} {
+    display: none;
+  }
+`
+const leftS = css`
+  grid-row: 1 / span 5;
+  grid-column: 1;
+`
+const rightS = css`
+  grid-row: 1 / span 5;
+  grid-column: 5;
+`
+const disabledBTN = css`
+  background: ${colors.burgundyRed};
+  :hover {
+    background: ${colors.burgundyRed};
+  }
+`
+const carouselNav = css`
+  border: none;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: 0 5px 10px;
+  cursor: pointer;
+
+  :hover {
+    background: ${colors.blueFont};
+  }
+`
+
 function Carousel({
   imgArray,
   imgAlt,
@@ -67,71 +132,6 @@ function Carousel({
   React.useEffect(() => {
     setCurrentImage(0)
   }, [imgArray])
-
-  const cWrapper = css`
-    width: 100%;
-    display: grid;
-    place-items: center;
-    gap: 10px;
-    div {
-      grid-row: 1 / span 4;
-      grid-column: 2 / span 3;
-      opacity: 1;
-      transition: cubic-bezier(0.65, 0.05, 0.36, 1) 2s;
-      margin: 0;
-    }
-    ${mq.phoneLarge} {
-      grid-gap: 0;
-      div {
-        grid-row: 1;
-        grid-column: 1;
-      }
-    }
-  `
-  const btn = css`
-    border: none;
-    background: rgb(0, 153, 255, 0.9);
-    color: ${colors.kindaDarkBlue};
-    font-weight: 900;
-    opacity: 0.6;
-    font-size: 2rem;
-    cursor: pointer;
-    border-radius: 11.5px;
-    width: 78px;
-    height: 60px;
-    :hover {
-      background: ${colors.blueFont};
-    }
-    ${mq.phoneLarge} {
-      display: none;
-    }
-  `
-  const leftS = css`
-    grid-row: 1 / span 5;
-    grid-column: 1;
-  `
-  const rightS = css`
-    grid-row: 1 / span 5;
-    grid-column: 5;
-  `
-  const disabledBTN = css`
-    background: ${colors.burgundyRed};
-    :hover {
-      background: ${colors.burgundyRed};
-    }
-  `
-  const carouselNav = css`
-    border: none;
-    border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
-    margin: 0 5px 10px;
-    cursor: pointer;
-
-    :hover {
-      background: ${colors.blueFont};
-    }
-  `
 
   const displayPrevious = React.useCallback(() => {
     if (currentImage !== 0) setCurrentImage(currentImage - 1)

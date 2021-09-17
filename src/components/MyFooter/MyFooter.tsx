@@ -17,53 +17,54 @@ import {Link} from 'react-router-dom'
 
 import {colors, mq, weights} from '../../Styles'
 
-const MyFooter = () => {
-  const fWrapper = css`
-    display: grid;
-    padding: 10px;
-    background: ${colors.darkBlue};
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+const fWrapper = css`
+  display: grid;
+  padding: 10px;
+  background: ${colors.darkBlue};
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  div {
+    line-height: 38px;
+  }
+  ${mq.phoneLarge} {
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     div {
-      line-height: 38px;
+      width: 100%;
+      display: flex;
+      place-content: center;
     }
-    ${mq.phoneLarge} {
-      grid-template-rows: 1fr 1fr 1fr;
-      grid-template-columns: 1fr;
-      div {
-        width: 100%;
-        display: flex;
-        place-content: center;
-      }
+  }
+`
+const whereToFindMe = css`
+  padding-left: 20px;
+  font-size: 219%;
+  color: ${colors.whiteFaded};
+  place-self: flex-start;
+  & > * {
+    transition: color 200ms ease-in;
+    padding-right: 5px;
+    :hover {
+      color: ${colors.blueFont};
     }
-  `
-  const whereToFindMe = css`
-    padding-left: 20px;
-    font-size: 219%;
-    color: ${colors.whiteFaded};
-    place-self: flex-start;
-    & > * {
-      transition: color 200ms ease-in;
-      padding-right: 5px;
-      :hover {
-        color: ${colors.blueFont};
-      }
-    }
-    ${mq.phoneLarge} {
-      padding-left: 0;
-    }
-  `
-  const reactIcon = css`
-    font-size: 219%;
-    color: ${colors.blueFont};
-    place-self: center;
-  `
-  const copyWrite = css`
-    padding-right: 20px;
-    color: ${colors.whiteFaded};
-    font-weight: ${weights.light};
-    place-self: flex-end;
-  `
+  }
+  ${mq.phoneLarge} {
+    padding-left: 0;
+  }
+`
+const reactIcon = css`
+  font-size: 219%;
+  color: ${colors.blueFont};
+  place-self: center;
+`
+const copyWrite = css`
+  padding-right: 20px;
+  color: ${colors.whiteFaded};
+  font-weight: ${weights.light};
+  place-self: flex-end;
+`
+
+const MyFooter = () => {
   return (
     <footer css={fWrapper} role="contentinfo">
       <div css={whereToFindMe}>

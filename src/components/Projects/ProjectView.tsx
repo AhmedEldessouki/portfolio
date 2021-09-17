@@ -12,6 +12,16 @@ import Spinner from '../Spinner'
 import type {ProjectInterface} from '../../../types/interfaces'
 import replaceWhiteSpaceWith from '../../Utils/helpers'
 
+const anc = css`
+  color: ${colors.darkBlue};
+  text-align: center;
+  font-size: 2rem;
+  :hover,
+  :focus {
+    color: ${colors.blueFont};
+  }
+`
+
 function ProjectView({project}: {project: ProjectInterface | undefined}) {
   const [description, setDescription] = React.useState(
     project?.description ?? '',
@@ -34,15 +44,6 @@ function ProjectView({project}: {project: ProjectInterface | undefined}) {
     }
   }, [description, project?.description])
 
-  const anc = css`
-    color: ${colors.darkBlue};
-    text-align: center;
-    font-size: 2rem;
-    :hover,
-    :focus {
-      color: ${colors.blueFont};
-    }
-  `
   if (!project) {
     return <Spinner />
   }

@@ -9,6 +9,27 @@ import PopUp from '../PopUp/PopUp'
 import {deleteMessage} from '../../Utils/apis'
 import replaceWhiteSpaceWith from '../../Utils/helpers'
 
+const messagesSummary = css`
+  display: flex;
+  background-color: ${colors.independenceBlue};
+  place-content: space-between;
+  border: 6px solid ${colors.darkBlue};
+  border-radius: 10px;
+  font-family: 'Merienda One', cursive;
+  padding: 5px 18px;
+  min-width: 250px;
+`
+
+const btn = css`
+  border: 0;
+  margin: 0;
+  background: none;
+  color: ${colors.darkBlue};
+  :hover {
+    color: ${colors.kindaBlue};
+  }
+`
+
 function MessagesSummary({
   message,
   setMessageFunc,
@@ -16,26 +37,6 @@ function MessagesSummary({
   message: Message
   setMessageFunc(): void
 }) {
-  const messagesSummary = css`
-    display: flex;
-    background-color: ${colors.independenceBlue};
-    place-content: space-between;
-    border: 6px solid ${colors.darkBlue};
-    border-radius: 10px;
-    font-family: 'Merienda One', cursive;
-    padding: 5px 18px;
-    min-width: 250px;
-  `
-
-  const btn = css`
-    border: 0;
-    margin: 0;
-    background: none;
-    color: ${colors.darkBlue};
-    :hover {
-      color: ${colors.kindaBlue};
-    }
-  `
   const dashifiedName = replaceWhiteSpaceWith(message.name ?? '', '-')
   return (
     <div css={messagesSummary}>
