@@ -96,6 +96,15 @@ const ulContainer = css`
     grid-column: 1 / span 2;
   }
 `
+const gitHub = css`
+  font-style: italic;
+  &:hover,
+  &:focus {
+    background-color: ${colors.independenceBlue};
+    color: ${colors.blueFont};
+  }
+`
+
 const MyInfo = () => {
   return (
     <div css={container}>
@@ -115,16 +124,7 @@ const MyInfo = () => {
       <ul css={ulContainer}>
         <li>Ahmed ElDessouki</li>
         <li className="follow-container">Istanbul, Turkey</li>
-        <li
-          css={css`
-            font-style: italic;
-            &:hover,
-            &:focus {
-              background-color: ${colors.independenceBlue};
-              color: ${colors.blueFont};
-            }
-          `}
-        >
+        <li css={gitHub}>
           <a
             href="https://www.github.com/ahmedeldessouki"
             target="_blank"
