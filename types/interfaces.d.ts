@@ -6,7 +6,7 @@ interface NewUser {
   confirmPassword: string
 }
 
-type ProjectTypeType = `Personal` | `Contribution` | `Freelance`
+type ProjectTypeType = `personal` | `contribution` | `freelance`
 interface ProjectInterface {
   name: string
   link: string
