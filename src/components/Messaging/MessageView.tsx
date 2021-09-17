@@ -47,11 +47,16 @@ const phoneAndEmailWrapper = css`
 `
 
 const midWrapper = css`
+  resize: none;
+  letter-spacing: 0.4px;
+  color: ${colors.lightBlue};
+  border: 5px solid ${colors.darkBlue};
+  margin-bottom: 23.2px;
+  border-radius: 4.2%;
   grid-column: 2;
   grid-row: 2;
   place-self: center;
   font-size: 175%;
-  width: 61vw;
   background-color: ${colors.darkBlue};
   padding: 10px 26px;
   width: 80%;
@@ -101,22 +106,7 @@ function MessageView({message}: {message: Message}) {
         rows={7}
         wrap="hard"
         maxLength={description.length}
-        css={[
-          css`
-            resize: none;
-            place-self: center;
-            padding: 10px 1%;
-            font-size: 1.45rem;
-            letter-spacing: 0.4px;
-            background: ${colors.independenceBlue};
-            color: ${colors.lightBlue};
-            border: 5px solid ${colors.darkBlue};
-            margin-bottom: 23.2px;
-            min-width: 80%;
-            border-radius: 4.2%;
-          `,
-          midWrapper,
-        ]}
+        css={midWrapper}
         value={description}
         readOnly
       />
