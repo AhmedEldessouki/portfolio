@@ -9,6 +9,23 @@ import React from 'react'
 
 import {colors, mq} from '../../Styles'
 
+const imgStyle = css`
+  @keyframes in {
+    from {
+      opacity: 0;
+      filter: grayscale(100%);
+    }
+    to {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+  }
+  filter: grayscale(0);
+  margin: 0;
+  animation-name: in;
+  animation-duration: 3s;
+`
+
 type ImgProps = {
   imgAlt: string
   onClick: () => void
@@ -27,22 +44,7 @@ function Img({
       onClick={() => {
         onClick()
       }}
-      css={css`
-        @keyframes in {
-          from {
-            opacity: 0;
-            filter: grayscale(100%);
-          }
-          to {
-            filter: grayscale(0);
-            opacity: 1;
-          }
-        }
-        filter: grayscale(0);
-        margin: 0;
-        animation-name: in;
-        animation-duration: 3s;
-      `}
+      css={imgStyle}
       src={src}
       {...imgOverride}
     />
@@ -114,6 +116,31 @@ const carouselNav = css`
   }
 `
 
+const sectionStyle = css`
+  background: #32374d;
+  padding: 11px 0;
+  border-top: 13px double ${colors.darkBlue};
+  border-bottom: 13px double ${colors.darkBlue};
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+`
+const imagesWrapper = css`
+  justify-self: center;
+  grid-row: 5;
+  grid-column: 2 / span 3;
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  place-content: center;
+  margin-top: 10px;
+  ${mq.phoneLarge} {
+    grid-row: 2;
+    grid-column: 1;
+  }
+`
+
 function Carousel({
   imgArray,
   imgAlt,
@@ -155,16 +182,7 @@ function Carousel({
 
   return (
     <section
-      css={css`
-        background: #32374d;
-        padding: 11px 0;
-        border-top: 13px double ${colors.darkBlue};
-        border-bottom: 13px double ${colors.darkBlue};
-        border-radius: 22px;
-        display: flex;
-        flex-direction: column;
-        place-items: center;
-      `}
+      css={sectionStyle}
       aria-roledescription="carousel"
       aria-label="Highlighted Project Images"
     >
@@ -253,22 +271,7 @@ function Carousel({
           {'>'}
         </button>
       </div>
-      <div
-        css={css`
-          justify-self: center;
-          grid-row: 5;
-          grid-column: 2 / span 3;
-          display: flex;
-          flex-wrap: wrap;
-          width: 80%;
-          place-content: center;
-          margin-top: 10px;
-          ${mq.phoneLarge} {
-            grid-row: 2;
-            grid-column: 1;
-          }
-        `}
-      >
+      <div css={imagesWrapper}>
         {imgArray.map((image, i) => (
           <button
             aria-controls="carousel-items"
