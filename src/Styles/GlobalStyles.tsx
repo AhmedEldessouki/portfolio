@@ -169,6 +169,10 @@ const globalStyles = css`
     text-transform: none;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   fieldset {
     border: 1px solid silver;
     margin: 0 2px;
