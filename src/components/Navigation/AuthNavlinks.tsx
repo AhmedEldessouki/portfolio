@@ -65,59 +65,29 @@ const nav = css`
   }
 `
 
+const activeStyling = {
+  backgroundColor: colors.independenceBlue,
+  padding: `1% 2%`,
+}
+
 const AuthNavlinksX = () => {
   const {signUserOut} = useAuth()
 
   return (
     <nav css={nav}>
-      <NavLink
-        to="/"
-        exact
-        activeStyle={{
-          backgroundColor: colors.independenceBlue,
-          padding: `1% 2%`,
-        }}
-      >
+      <NavLink to="/" exact activeStyle={activeStyling}>
         <h1>Ahmed ElDessouki</h1>
       </NavLink>
-      <NavLink
-        to="/dashboard"
-        exact
-        activeStyle={{
-          backgroundColor: colors.independenceBlue,
-          padding: `1% 2%`,
-        }}
-      >
+      <NavLink to="/dashboard" exact activeStyle={activeStyling}>
         <h2>DashBoard</h2>
       </NavLink>
-      <NavLink
-        to="/create-project"
-        exact
-        activeStyle={{
-          backgroundColor: colors.independenceBlue,
-          padding: `1% 2%`,
-        }}
-      >
+      <NavLink to="/create-project" exact activeStyle={activeStyling}>
         <h2>Create Project</h2>
       </NavLink>
-      <NavLink
-        to="/tags-control"
-        exact
-        activeStyle={{
-          backgroundColor: colors.independenceBlue,
-          padding: `1% 2%`,
-        }}
-      >
+      <NavLink to="/tags-control" exact activeStyle={activeStyling}>
         <h2>Tags</h2>
       </NavLink>
-      <NavLink
-        to="/signup"
-        exact
-        activeStyle={{
-          backgroundColor: colors.independenceBlue,
-          padding: `1% 2%`,
-        }}
-      >
+      <NavLink to="/signup" exact activeStyle={activeStyling}>
         <h2>SignUp</h2>
       </NavLink>
       <button
