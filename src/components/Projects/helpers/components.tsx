@@ -18,6 +18,23 @@ import type {
 } from '../../../../types/types'
 import type {Tag} from '../../../../types/interfaces'
 
+const dropZoneWrapper = css`
+  display: flex;
+  place-items: center;
+  place-content: center;
+  width: 95%;
+  height: 200px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 0;
+  margin-right: 0;
+  :hover,
+  :focus {
+    border-color: ${colors.blueFont};
+  }
+`
+
 function ImageDropZone({
   importedImages,
   setImportedImages,
@@ -71,23 +88,13 @@ function ImageDropZone({
 
   return (
     <article
-      css={css`
-        display: flex;
-        place-items: center;
-        place-content: center;
-        border: 10px dashed ${isDragActive ? colors.blueFont : colors.darkBlue};
-        width: 95%;
-        height: 200px;
-        text-align: center;
-        cursor: pointer;
-        margin-bottom: 20px;
-        padding: 0;
-        margin-right: 0;
-        :hover,
-        :focus {
-          border-color: ${colors.blueFont};
-        }
-      `}
+      css={[
+        dropZoneWrapper,
+        css`
+          border: 10px dashed
+            ${isDragActive ? colors.blueFont : colors.darkBlue};
+        `,
+      ]}
       {...getRootProps()}
     >
       <em
@@ -167,6 +174,11 @@ const div = css`
     background: ${colors.backgroundShade};
   }
 `
+const sectionCSS = css`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+`
 
 function DisplayingImages({
   acceptedImages,
@@ -186,13 +198,7 @@ function DisplayingImages({
   ) => void
 }) {
   return (
-    <section
-      css={css`
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 50px;
-      `}
-    >
+    <section css={sectionCSS}>
       {acceptedImages?.length > 0 && (
         <article css={[xyz]}>
           <h2 css={[hStyle, {background: '#11826B'}]}>Accepted Images</h2>
@@ -257,6 +263,25 @@ function DisplayingImages({
   )
 }
 
+const tagsLabel = css`
+  display: grid;
+  grid-gap: 4px;
+  place-items: center;
+  grid-auto-flow: column;
+  & input {
+  }
+`
+const tagsWrapper = css`
+  display: flex;
+  place-content: space-evenly;
+  width: 94%;
+  margin: 10px 0;
+  border: 10px dashed ${colors.darkBlue};
+  padding: 9px 0;
+  place-items: center;
+  flex-wrap: wrap;
+`
+
 // TODO: After Changing All the `ProjectData` Tags into [Object] Remove the type [String] of `ProjectTags`
 function TagsCheckBoxX({
   projectTags,
@@ -277,31 +302,9 @@ function TagsCheckBoxX({
     ),
   )
   return (
-    <div
-      css={css`
-        display: flex;
-        place-content: space-evenly;
-        width: 94%;
-        margin: 10px 0;
-        border: 10px dashed ${colors.darkBlue};
-        padding: 9px 0;
-        place-items: center;
-        flex-wrap: wrap;
-      `}
-    >
+    <div css={tagsWrapper}>
       {tagsData.map((tag, i) => (
-        <label
-          key={tag.id}
-          css={css`
-            display: grid;
-            grid-gap: 4px;
-            place-items: center;
-            grid-auto-flow: column;
-            & input {
-            }
-          `}
-          htmlFor={tag.name}
-        >
+        <label key={tag.id} css={tagsLabel} htmlFor={tag.name}>
           <input
             name="tags"
             aria-label={`tag-${tag.name}`}
@@ -340,10 +343,12 @@ function ProjInput({
   editableValue: string
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   const [state, setState] = React.useState('')
+
   React.useEffect(() => {
     if (state || !editableValue) return
     setState(editableValue)
   }, [editableValue, state])
+
   return (
     <Input
       value={state}
