@@ -213,7 +213,9 @@ function Card({
             {user ? (
               <EditAndDelete project={item} onClick={() => setPorj(item)} />
             ) : null}
-            <ProjectType projType={item.projectType} />
+            <ProjectType
+              projType={item.projectType?.toLowerCase() as ProjectTypeType}
+            />
             <ul css={{padding: 0}}>
               <Title
                 name={item.name}
