@@ -9,8 +9,7 @@ import App from './App'
 import Profiler from './profiler'
 import {AuthProvider} from './context/AuthProvider'
 import * as serviceWorkerRegistration from './serviceWorkerFolder/serviceWorkerRegistration'
-
-import 'bootstrap/dist/css/bootstrap-reboot.css'
+// import './Styles/layout.css'
 
 const queryClient = new QueryClient()
 

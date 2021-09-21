@@ -1,10 +1,10 @@
-import {Project} from '../../../types/interfaces'
+import type {ProjectInterface} from '../../../types/interfaces'
 
-const projectsData: Array<Project> = [
+const projectsData: Array<ProjectInterface> = [
   {
     id: '2Az5lOeuEpimusasRbu4',
     repoLink: 'xx',
-    projectType: `Contribution`,
+    projectType: `contribution`,
     date: new Date(),
 
     description:
@@ -26,7 +26,7 @@ const projectsData: Array<Project> = [
     link: 'https://ahmedeldessouki-a7488.firebaseapp.com/',
     id: '9lfMA1DnbWHq2mTtYIpq',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
 
     description:
@@ -56,7 +56,7 @@ const projectsData: Array<Project> = [
     name: 'Tic Tac Teo',
     id: 'EJodDJ1pjvvLSGTDfnco',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--0wyS4BK6--/v1608653815/profileLogos/1_cPh7ujRIfcHAy4kW2ADGOw_1.png',
@@ -81,7 +81,7 @@ const projectsData: Array<Project> = [
     description: 'React.js\nChart.js\nMatirial-Ui\nReact-Query',
     id: 'ZiqNw0MPUYAGct8j7jm6',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--0wyS4BK6--/v1608653815/profileLogos/1_cPh7ujRIfcHAy4kW2ADGOw_1.png',
@@ -101,7 +101,7 @@ const projectsData: Array<Project> = [
     link: 'https://booklist-mine.web.app',
     id: 'kirCDouOW2L8QH5iahG2',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
   },
   {
@@ -117,7 +117,7 @@ const projectsData: Array<Project> = [
 
     id: 'lELoGl25TpRptuqj5TXr',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--N2uohADv--/v1608654350/profileLogos/angular.png',
@@ -134,7 +134,7 @@ const projectsData: Array<Project> = [
 
     id: 'qTAV4jdpv1eq696Z42hG',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
     tag: [
       'https://res.cloudinary.com/ahmedeldessouki/image/authenticated/s--0wyS4BK6--/v1608653815/profileLogos/1_cPh7ujRIfcHAy4kW2ADGOw_1.png',
@@ -156,7 +156,7 @@ const projectsData: Array<Project> = [
 
     id: 'syNENmmECalb7AKP76ni',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
   },
   {
@@ -171,7 +171,7 @@ const projectsData: Array<Project> = [
     ],
     id: 'wut9gkeMxT6GAgjB4Tqn',
     repoLink: 'xx',
-    projectType: `Personal`,
+    projectType: `personal`,
     date: new Date(),
     name: 'Weather',
   },

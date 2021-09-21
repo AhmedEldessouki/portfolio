@@ -1,23 +1,24 @@
+rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /projects/{project} {
+    match /projects/{document=**} {
       allow read;
-      allow write: if request.auth.uid !=null
+      allow write: if request.auth != null; 
     }
-     match /tags/{tag} {
-      allow read;
-      allow write: if request.auth.uid !=null
+    match /tags/{document=**} {
+      allow read; 
+      allow write: if request.auth != null; 
     }
-    match /users/{userId}{
-    allow create, read: if request.auth.uid != null
-    allow write: if request.auth.uid != null // == userId to allow only the owner to update or delete
+    match /users/{document=**}{
+     allow create, read: if request.auth != null; 
+     allow write: if request.auth != null;  // == userId to allow only the owner to update or delete
     }
-    match /notifications/{notification}{
-    allow read, write: if request.auth.uid != null
+    match /notifications/{document=**}{
+      allow read, write: if request.auth != null; 
     }
-    match /contactedMe/{message}{
-    allow create;
-    allow read, write: if request.auth.uid != null
+    match /contactedMe/{document=**}{
+      allow create;
+      allow read, delete: if request.auth != null; 
     }
     
   }

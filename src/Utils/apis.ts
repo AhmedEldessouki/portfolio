@@ -5,11 +5,19 @@ import {toast} from 'react-toastify'
 import type {
   ErrorType,
   Message,
-  Project,
+  ProjectInterface,
   CollectionTypes,
   Tag,
 } from '../../types/interfaces'
-import {db} from './firebase'
+import {
+  db,
+  getDocs,
+  doc,
+  collection,
+  updateDoc,
+  addDoc,
+  deleteDoc,
+} from './firebase'
 
 const placeholderData = [
   {
@@ -29,26 +37,26 @@ const placeholderData = [
 ]
 
 function useClientFetch(
-  collection: CollectionTypes,
-): Project | Message | Tag | unknown {
+  collectionName: CollectionTypes,
+): ProjectInterface | Message | Tag | unknown {
   const {data} = useQuery(
-    collection,
+    collectionName,
     async () =>
-      db
-        .collection(collection)
-        .get()
+      getDocs(collection(db, collectionName))
         .then(
-          querySnapshot => {
-            const dataRes = querySnapshot.docs.map(doc => ({
-              ...doc.data(),
-              id: doc.id,
-            }))
+          (querySnapshot: {docs: any[]}) => {
+            const dataRes = querySnapshot.docs.map(
+              (dok: {data: () => any; id: any}) => ({
+                ...dok.data(),
+                id: dok.id,
+              }),
+            )
             return dataRes
           },
-          err => Promise.reject(err),
+          (err: ErrorType) => toast.error(`Fetch Failed${err?.message}`),
         )
-        .catch(err => {
-          Promise.reject(err)
+        .catch((err: ErrorType) => {
+          toast.error(`Fetch Failed${err?.message}`)
         }),
     {
       staleTime: 1000 * 60 * 60,
@@ -59,68 +67,58 @@ function useClientFetch(
   return data ?? placeholderData
 }
 
-function handleUpdate<T>(collection: CollectionTypes) {
-  return async (data: T | any): Promise<void> =>
-    db
-      .collection(collection)
-      .doc(`${data.id}`)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      .update({
-        ...data,
-        updatedOn: new Date(),
-      })
+function handleUpdate<T>(collectionName: CollectionTypes) {
+  return async (data: T | any): Promise<void> => {
+    await updateDoc(doc(db, collectionName, data.id), {
+      ...data,
+      updatedOn: new Date(),
+    })
       .then(() => {
         toast.success(`Project "${data.name}" Updated`)
       })
-      .catch(err => {
-        toast.error(`Project Didn't Update ${err.message}`)
-        throw err.message
+      .catch((err: ErrorType) => {
+        toast.error(`Project Didn't Update ${err?.message}`)
       })
+  }
 }
 
-function handleDelete<T>(collection: CollectionTypes) {
+function handleDelete<T>(collectionName: CollectionTypes) {
   return async (data: T | any): Promise<void> =>
-    db
-      .collection(collection)
-      .doc(`${data.id}`)
-      .delete()
+    deleteDoc(doc(db, collectionName, data.id))
       .then(() => {
         toast.success(`data "${data.name}" deleted`)
       })
-      .catch(err => {
-        toast.error(`Project Deletion Failed ${err.message}`)
-        throw err
+      .catch((err: ErrorType) => {
+        toast.error(`Project Deletion Failed ${err?.message}`)
       })
 }
 
-function handleCreate<T>(collection: CollectionTypes) {
+function handleCreate<T>(collectionName: CollectionTypes) {
   return async (
     data: T | any,
   ): Promise<{isResolved: boolean; error: ErrorType}> => {
     let isResolved = false
     let error: ErrorType
-    await db
-      .collection(collection)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      .add({
-        ...data,
-        date: new Date(),
-      })
+    await addDoc(collection(db, collectionName), {
+      ...data,
+      date: new Date(),
+    })
       .then(() => {
         toast.success(`Project "${data.name}" Created`)
         isResolved = true
       })
-      .catch(err => {
-        toast.error(`Project Creation Failed ${err.message}`)
+      .catch((err: ErrorType) => {
+        toast.error(`Project Creation Failed ${err?.message}`)
         error = err as ErrorType
       })
     return {isResolved, error}
   }
 }
 
-const createNewProject = handleCreate<Omit<Project, 'date' | 'id'>>('projects')
-const updateProject = handleUpdate<Partial<Project>>('projects')
-const deleteProject = handleDelete<Partial<Project>>('projects')
+const createNewProject =
+  handleCreate<Omit<ProjectInterface, 'date' | 'id'>>('projects')
+const updateProject = handleUpdate<Partial<ProjectInterface>>('projects')
+const deleteProject = handleDelete<Partial<ProjectInterface>>('projects')
 
 const createNewMessage =
   handleCreate<Omit<Message, 'date' | 'id'>>('contactedMe')

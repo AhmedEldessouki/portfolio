@@ -23,13 +23,13 @@ function App() {
       <Router>
         {user ? (
           <>
-            <AuthRoutes />
             <AuthNavlinks />
+            <AuthRoutes />
           </>
         ) : (
           <>
-            <UnAuthRoutes />
             <UnAuthNavlinks />
+            <UnAuthRoutes />
           </>
         )}
         <React.Suspense fallback={<h1>Loading Footer...</h1>}>

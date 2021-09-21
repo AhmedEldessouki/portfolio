@@ -8,5 +8,5 @@ test('App Rendered', async () => {
 
   expect(screen.getByAltText(/profile Picture/i)).toBeInTheDocument()
   expect(screen.getAllByText(/Ahmed eldessouki/i)).toHaveLength(2)
-  expect(screen.getByRole('link')).toHaveTextContent(/github/i)
+  expect(screen.getByText(/github/i)).toBeInTheDocument()
 })

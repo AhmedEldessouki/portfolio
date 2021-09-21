@@ -4,19 +4,87 @@
 import {jsx, css} from '@emotion/react'
 import React from 'react'
 
-import type {Message, Project} from '../../types/interfaces'
+import type {
+  Message as MessageInterface,
+  ProjectInterface,
+} from '../../types/interfaces'
 import {colors} from '../Styles'
-import {replaceWhiteSpaceWith} from '../Utils/helpers'
+import replaceWhiteSpaceWith from '../Utils/helpers'
 import Title from './Title'
 
 interface OnToggleProps {
-  items: Array<Project | Message>
+  items: Array<ProjectInterface | MessageInterface>
   children: React.ReactNode
-  displayedData: Project | Message | undefined
+  displayedData: ProjectInterface | MessageInterface | undefined
   setDisplayData: React.Dispatch<
-    React.SetStateAction<Project | Message | undefined>
+    React.SetStateAction<ProjectInterface | MessageInterface | undefined>
   >
 }
+
+const closeBtnWrapper = css`
+  display: flex;
+  place-content: flex-end;
+  margin-right: 5px;
+`
+const closeBtn = css`
+  background: ${colors.darkBlue};
+  color: ${colors.aliceLightBlue};
+  border: 5px solid ${colors.darkBlue};
+  font-weight: bolder;
+  border-radius: 32%;
+  padding: 0px 10px;
+  :hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+`
+const disclosureNavWrapper = css`
+  display: flex;
+  margin: 0 5px;
+  border-top: 22px solid ${colors.darkBlue};
+  padding: 21px 0;
+  border-radius: 13%;
+  border-bottom: 22px solid ${colors.darkBlue};
+  place-items: center;
+  place-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+`
+const btnStyle = css`
+  border: 5px solid ${colors.darkBlue};
+  height: 50px;
+  width: 25px;
+  :hover {
+    cursor: pointer;
+    background: ${colors.kindaDarkBlue};
+  }
+`
+const prevBtn = css`
+  border-radius: 23px 0 0 24px;
+  ${btnStyle}
+`
+const btnNext = css`
+  border-radius: 0 23px 24px 0;
+  ${btnStyle}
+`
+const navTitleWrapper = css`
+  width: 100%;
+  display: flex;
+  place-content: space-evenly;
+`
+const titleCustomCss = css`
+  @keyframes example {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  opacity: 1;
+  animation-name: example;
+  animation-duration: 3s;
+`
 
 const OnToggle = React.forwardRef(
   ({items, setDisplayData, children, displayedData}: OnToggleProps, ref) => {
@@ -80,27 +148,10 @@ const OnToggle = React.forwardRef(
 
     return (
       <section id="disclosure">
-        <div
-          css={css`
-            display: flex;
-            place-content: flex-end;
-            margin-right: 5px;
-          `}
-        >
+        <div css={closeBtnWrapper}>
           <button
             type="button"
-            css={css`
-              background: ${colors.darkBlue};
-              color: ${colors.aliceLightBlue};
-              border: 5px solid ${colors.darkBlue};
-              font-weight: bolder;
-              border-radius: 32%;
-              padding: 0px 10px;
-              :hover {
-                cursor: pointer;
-                opacity: 0.8;
-              }
-            `}
+            css={closeBtn}
             ref={containerRef}
             data-testid="close-toggler"
             onClick={() => setDisplayData(undefined)}
@@ -111,38 +162,14 @@ const OnToggle = React.forwardRef(
             X
           </button>
         </div>
-        <div
-          css={css`
-            display: flex;
-            margin: 0 5px;
-            border-top: 22px solid ${colors.darkBlue};
-            padding: 21px 0;
-            border-radius: 13%;
-            border-bottom: 22px solid ${colors.darkBlue};
-            place-items: center;
-            place-content: space-between;
-            gap: 10px;
-            margin-bottom: 16px;
-          `}
-          role="navigation"
-          id="disclosure-nav"
-        >
+        <div css={disclosureNavWrapper} role="navigation" id="disclosure-nav">
           <button
             onClick={handlePrevious}
             type="button"
             aria-controls="disclosure-nav"
             data-testid="before-toggle"
             css={[
-              css`
-                border: 5px solid ${colors.darkBlue};
-                border-radius: 23px 0 0 24px;
-                height: 50px;
-                width: 25px;
-                :hover {
-                  cursor: pointer;
-                  background: ${colors.kindaDarkBlue};
-                }
-              `,
+              prevBtn,
               {
                 background:
                   show.min === 0 ? colors.burgundyRed : colors.darkBlue,
@@ -153,11 +180,7 @@ const OnToggle = React.forwardRef(
           />
           <div
             aria-controls="disclosure-view"
-            css={css`
-              width: 100%;
-              display: flex;
-              place-content: space-evenly;
-            `}
+            css={navTitleWrapper}
             onMouseDown={e => {
               e.preventDefault()
               setTouchStart(e.screenX)
@@ -190,19 +213,7 @@ const OnToggle = React.forwardRef(
                   <Title
                     key={`${dashifiedName}-${i * 2}`}
                     name={item.name}
-                    csx={css`
-                      @keyframes example {
-                        from {
-                          opacity: 0.4;
-                        }
-                        to {
-                          opacity: 1;
-                        }
-                      }
-                      opacity: 1;
-                      animation-name: example;
-                      animation-duration: 3s;
-                    `}
+                    csx={titleCustomCss}
                     onClick={() => {
                       setDisplayData(item)
                     }}
@@ -220,16 +231,7 @@ const OnToggle = React.forwardRef(
             type="button"
             aria-controls="disclosure-nav"
             css={[
-              css`
-                border-radius: 0 23px 24px 0;
-                border: 5px solid ${colors.darkBlue};
-                height: 50px;
-                width: 25px;
-                :hover {
-                  cursor: pointer;
-                  background: ${colors.kindaDarkBlue};
-                }
-              `,
+              btnNext,
               {
                 background:
                   show.max >= items.length - 1

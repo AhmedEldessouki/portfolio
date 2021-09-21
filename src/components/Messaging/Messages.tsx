@@ -9,13 +9,30 @@ import {h1XL} from '../../Styles'
 import OnToggle from '../OnToggle'
 import ErrorMessageFallback from '../ErrorMessageFallback'
 
-import type {Message, Project} from '../../../types/interfaces'
+import type {
+  Message as MessageInterface,
+  ProjectInterface,
+} from '../../../types/interfaces'
 import MessageView from './MessageView'
 import MessagesSummary from './MessageCard'
 
-function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
+const mWrapper = css`
+  margin: 0 10px;
+  padding: 20px 10px;
+  display: grid;
+  grid-gap: 25px;
+  place-items: center;
+  place-content: space-evenly;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
+`
+
+function MessagesComponent({
+  messagesData,
+}: {
+  messagesData: Array<MessageInterface>
+}) {
   const [displayMessage, setDisplayMessage] = React.useState<
-    Message | undefined | Project
+    MessageInterface | undefined | ProjectInterface
   >()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectedRef = React.useRef<any>()
@@ -25,16 +42,7 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
     moveFocus()
   }, [displayMessage])
 
-  const mWrapper = css`
-    margin: 0 10px;
-    padding: 20px 10px;
-    display: grid;
-    grid-gap: 25px;
-    place-items: center;
-    place-content: space-evenly;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1.5fr));
-  `
-  if (!messagesData) {
+  if (!messagesData || messagesData.length < 0) {
     return (
       <p role="alert">
         Ooops Something is not right{' '}
@@ -54,11 +62,11 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
           setDisplayData={setDisplayMessage}
           ref={selectedRef}
         >
-          <MessageView message={displayMessage as Message} />
+          <MessageView message={displayMessage as MessageInterface} />
         </OnToggle>
       ) : (
         <div css={mWrapper}>
-          {messagesData.map(message => (
+          {messagesData?.map(message => (
             <MessagesSummary
               key={message.id}
               setMessageFunc={() => setDisplayMessage(message)}
@@ -72,7 +80,7 @@ function MessagesComponent({messagesData}: {messagesData: Array<Message>}) {
 }
 
 const Messages = React.memo(
-  ({messagesData}: {messagesData: Array<Message>}) => (
+  ({messagesData}: {messagesData: Array<MessageInterface>}) => (
     <ErrorBoundary
       resetKeys={[messagesData]}
       FallbackComponent={ErrorMessageFallback}

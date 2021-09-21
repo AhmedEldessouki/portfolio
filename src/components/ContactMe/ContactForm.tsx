@@ -24,6 +24,16 @@ import {createNewMessage} from '../../Utils/apis'
 
 import type {ErrorType} from '../../../types/interfaces'
 
+const cosWrapper = css`
+  width: 48%;
+  ${mq.phoneLarge} {
+    width: 71%;
+  }
+  ${mq.s} {
+    width: 89%;
+  }
+`
+
 function ContactForm() {
   const [phoneNumberFieldError, setPhoneNumberFieldError] =
     React.useState(false)
@@ -94,17 +104,7 @@ function ContactForm() {
           onSubmit={handleMessage}
           css={[wrapper, {marginBottom: 0}]}
         >
-          <div
-            css={css`
-              width: 48%;
-              ${mq.phoneLarge} {
-                width: 71%;
-              }
-              ${mq.s} {
-                width: 89%;
-              }
-            `}
-          >
+          <div css={cosWrapper}>
             <Input
               name="name"
               pattern="[^\(\)0-9]*"
@@ -142,17 +142,7 @@ function ContactForm() {
               </span>
             ) : null}
           </div>
-          <div
-            css={css`
-              width: 48%;
-              ${mq.phoneLarge} {
-                width: 71%;
-              }
-              ${mq.s} {
-                width: 89%;
-              }
-            `}
-          >
+          <div css={cosWrapper}>
             <label css={labelWrapper} htmlFor="description">
               <textarea
                 name="description"

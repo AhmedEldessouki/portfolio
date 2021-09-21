@@ -1,14 +1,14 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import {jsx} from '@emotion/react'
+import {jsx, css} from '@emotion/react'
 import React from 'react'
 import {ErrorBoundary} from 'react-error-boundary'
 
 import {colors, h1XL, weights} from '../../Styles'
 import OnToggle from '../OnToggle'
 import ErrorMessageFallback from '../ErrorMessageFallback'
-import type {Project} from '../../../types/interfaces'
+import type {ProjectInterface} from '../../../types/interfaces'
 import {useSafeDispatch} from '../../Utils/hooks'
 import Card from './Card'
 import ProjectView from './ProjectView'
@@ -16,11 +16,11 @@ import ProjectView from './ProjectView'
 // Note: Projects & Payload will never be undefined... need to dig deeper into to this later
 interface ReducerState {
   sortedBy: 'reverse_date' | 'date' | 'alphabet' | 'none' | 'no_sorting'
-  projects: Array<Project> | undefined
+  projects: Array<ProjectInterface> | undefined
 }
 interface ReducerAction {
   type: 'reverse_date' | 'none' | 'date' | 'alphabet' | 'reset_sort'
-  payload?: Array<Project>
+  payload?: Array<ProjectInterface>
 }
 
 const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
@@ -67,10 +67,48 @@ const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
   }
 }
 
-function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
+const btn = css({
+  borderRadius: '11%',
+  border: 'none',
+  background: colors.darkBlue,
+  color: colors.whiteFaded,
+  cursor: 'pointer',
+  ':hover': {
+    opacity: 0.8,
+    transform: 'scale(1.1)',
+  },
+})
+
+const btnHasFocus = css({
+  opacity: 0.8,
+  transform: 'scale(1.1)',
+  border: `2px solid dodgerblue`,
+})
+
+const projCompSecWrapper = css({
+  display: 'flex',
+  gap: '10px',
+  placeContent: 'flex-end',
+  paddingRight: '25px',
+  background: colors.backgroundShade,
+  padding: '10px 25px 10px 0',
+})
+
+const titleSpan = css({
+  fontFamily: 'sans',
+  letterSpacing: '1.5px',
+  fontSize: '1.3rem',
+  fontWeight: weights.black,
+})
+
+function ProjectComponent({
+  projectsData,
+}: {
+  projectsData: Array<ProjectInterface>
+}) {
   // Its set to any Even thu It can be either Project | undefined but the OnToggle component expects Message to be assigned
   const [displayProject, setDisplayProject] = React.useState<
-    Project | unknown | undefined
+    ProjectInterface | unknown | undefined
   >()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectedRef = React.useRef<any>()
@@ -83,36 +121,23 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
   })
   const dispatch = useSafeDispatch<
     'reverse_date' | 'date' | 'alphabet' | 'reset_sort',
-    Array<Project>
+    Array<ProjectInterface>
   >(dispatchUnsafe)
 
   React.useEffect(() => {
     moveFocus()
   }, [displayProject])
 
-  const sortDate = (a: Project, b: Project) => {
+  const sortDate = (a: ProjectInterface, b: ProjectInterface) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const x = new Date(a.date as Date) as any
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const y = new Date(b.date as Date) as any
     return x - y
   }
-  const btn = {
-    borderRadius: '11%',
-    border: 'none',
-    background: colors.darkBlue,
-    color: colors.whiteFaded,
-    cursor: 'pointer',
-    ':hover': {
-      opacity: 0.8,
-      transform: 'scale(1.1)',
-    },
-  }
-  const btnHasFocus = {
-    opacity: 0.8,
-    transform: 'scale(1.1)',
-  }
+
   const {sortedBy, projects} = state
+
   if (!projectsData) {
     return (
       <p role="alert">
@@ -123,45 +148,30 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
       </p>
     )
   }
+
   return (
     <React.Fragment>
       <h1 css={h1XL}>Projects</h1>
       {displayProject ? (
         <OnToggle
           items={projects ?? projectsData}
-          displayedData={displayProject as Project}
+          displayedData={displayProject as ProjectInterface}
           setDisplayData={setDisplayProject}
           ref={selectedRef}
         >
-          <ProjectView project={displayProject as Project} />
+          <ProjectView project={displayProject as ProjectInterface} />
         </OnToggle>
       ) : (
         <React.Fragment>
           <section
-            css={{
-              display: 'flex',
-              gap: '10px',
-              placeContent: 'flex-end',
-              paddingRight: '25px',
-              background: colors.backgroundShade,
-              padding: '10px 25px 10px 0',
-            }}
+            css={projCompSecWrapper}
             onMouseEnter={() => {
               if (sortedBy === 'none') {
                 dispatch({type: 'reset_sort', payload: projectsData})
               }
             }}
           >
-            <span
-              css={{
-                fontFamily: 'sans',
-                letterSpacing: '1.5px',
-                fontSize: '1.3rem',
-                fontWeight: weights.black,
-              }}
-            >
-              Filter
-            </span>
+            <span css={titleSpan}>Filter</span>
             <button
               type="button"
               data-testid="sort_by_name"
@@ -228,7 +238,7 @@ function ProjectComponent({projectsData}: {projectsData: Array<Project>}) {
 }
 
 const Projects = React.memo(
-  ({projectsData}: {projectsData: Array<Project>}) => (
+  ({projectsData}: {projectsData: Array<ProjectInterface>}) => (
     <ErrorBoundary
       FallbackComponent={ErrorMessageFallback}
       resetKeys={[projectsData]}

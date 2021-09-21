@@ -1,8 +1,8 @@
 // Global CSS Styles
 
 import {css} from '@emotion/react'
-
 import {colors, mq, weights} from './css-utils'
+import './layout.css'
 
 const globalStyles = css`
   /*
@@ -49,8 +49,7 @@ const globalStyles = css`
   }
 
   main {
-    margin-top: 114px;
-    min-height: 80vh;
+    min-height: 90vh;
   }
 
   img {
@@ -168,6 +167,10 @@ const globalStyles = css`
   button,
   select {
     text-transform: none;
+  }
+
+  button {
+    cursor: pointer;
   }
 
   fieldset {

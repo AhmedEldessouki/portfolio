@@ -8,10 +8,23 @@ import {h1XL, h2XL} from '../../Styles'
 import PopUp from '../PopUp/PopUp'
 import {useAsync} from '../../Utils/hooks'
 import {createNewTag, deleteTag} from '../../Utils/apis'
-import {replaceWhiteSpaceWith} from '../../Utils/helpers'
+import replaceWhiteSpaceWith from '../../Utils/helpers'
 import type {Tag} from '../../../types/interfaces'
 import ImgWithFallback from '../Image'
 import TagForm from './TagForm'
+
+const tagsInnerWrapper = css`
+  display: flex;
+  place-items: flex-start;
+  flex-direction: row-reverse;
+  margin: 0 10px;
+`
+const tagsOuterWrapper = css`
+  display: flex;
+  place-content: space-around;
+  flex-wrap: wrap;
+  margin-button: 20px;
+`
 
 function Tags({tagsData}: {tagsData: Array<Tag>}) {
   const {status, dispatch} = useAsync()
@@ -38,24 +51,9 @@ function Tags({tagsData}: {tagsData: Array<Tag>}) {
       <h1 css={h1XL}>Tags Control</h1>
       <TagForm status={status} handleSubmit={handleSubmit} />
       <h2 css={h2XL}>Tags Control</h2>
-      <div
-        css={css`
-          display: flex;
-          place-content: space-around;
-          flex-wrap: wrap;
-          margin-button: 20px;
-        `}
-      >
+      <div css={tagsOuterWrapper}>
         {tagsData?.map(tag => (
-          <div
-            key={tag.id}
-            css={css`
-              display: flex;
-              place-items: flex-start;
-              flex-direction: row-reverse;
-              margin: 0 10px;
-            `}
-          >
+          <div key={tag.id} css={tagsInnerWrapper}>
             <PopUp
               info={`${tag.name} Tag`}
               onClickYes={() => deleteTag(tag)}
