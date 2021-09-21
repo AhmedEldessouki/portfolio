@@ -131,7 +131,6 @@ const MyFooter = () => (
         <FaGoodreads />
       </a>
       <a
-        aria-label="Check more about what kind of books i want to read on goodreads"
         target="_blank"
         rel="noopener noreferrer"
         href="https://www.codewars.com/users/AhmedEldessouki"
@@ -139,7 +138,6 @@ const MyFooter = () => (
         <SiCodewars />
       </a>
       <a
-        aria-label="Check more about what kind of books i want to read on goodreads"
         target="_blank"
         rel="noopener noreferrer"
         href="https://www.hackerrank.com/nemoahmed"
