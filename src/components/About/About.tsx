@@ -104,6 +104,17 @@ const gitHub = css`
     color: ${colors.blueFont};
   }
 `
+const customLink = css({
+  borderBottom: `solid ${colors.independenceBlue} 3px`,
+  borderBottomLeftRadius: '13%',
+  borderBottomRightRadius: '13%',
+  textUnderlineOffset: '6px',
+  paddingBottom: '2px',
+  ':hover, :focus': {
+    color: 'dodgerblue',
+    borderColor: 'dodgerblue',
+  },
+})
 
 const MyInfo = () => (
   <div css={container}>
@@ -116,19 +127,37 @@ const MyInfo = () => (
       width="265"
     />
     <p>
-      I am Ahmed ElDessouki. Front-end developer using <em>React.js</em>{' '}
-      Framework, small time <em>Designer</em>, and <em>Self-Improvement</em>{' '}
-      driven person.
+      I am Ahmed ElDessouki. Front-end developer using <em>React.js</em> , with
+      interest in <em>Design</em>, and <em>Self-Improvement</em> driven person.
+      Like to spend time solving challenges on{' '}
+      <a
+        css={customLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.codewars.com/users/AhmedEldessouki"
+      >
+        CodeWars
+      </a>{' '}
+      and sometimes on{' '}
+      <a
+        css={customLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.hackerrank.com/nemoahmed"
+      >
+        HackerRank
+      </a>
+      .
     </p>
     <ul css={ulContainer}>
       <li>Ahmed ElDessouki</li>
       <li className="follow-container">Istanbul, Turkey</li>
       <li css={gitHub}>
         <a
+          css={customLink}
           href="https://www.github.com/ahmedeldessouki"
           target="_blank"
           rel="noopener noreferrer"
-          style={{textDecoration: 'none', color: 'inherit'}}
         >
           <GoMarkGithub /> Github Account
         </a>
