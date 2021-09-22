@@ -80,20 +80,15 @@ function WriteProject() {
           repoLink: HTMLInputElement
           projectType: HTMLInputElement & {value: 'Personal' | 'Contribution'}
           description: HTMLInputElement
-          tags: Array<HTMLInputElement> | HTMLInputElement
+          tags: Array<HTMLInputElement>
         }
 
       const checkedTags: Array<Tag> = []
-      if (Array.isArray(tags)) {
-        for (const {alt, checked, value} of tags) {
-          if (checked) {
-            checkedTags.push({name: alt, url: value})
-          }
+      for (const {alt, checked, value} of tags) {
+        if (checked) {
+          checkedTags.push({name: alt, url: value})
         }
-      } else if (tags.checked) {
-        checkedTags.push({name: tags.alt, url: tags.value})
       }
-
       let uploadedImages: PromiseFulfilledResult<string>[] = []
       if (importedImages.acceptedImages.imgs.length > 0) {
         uploadedImages = await gradualUpload(

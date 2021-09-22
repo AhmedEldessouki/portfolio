@@ -9,7 +9,7 @@
       "photoUrl": "",
       "passwordHash": "fakeHash:salt=fakeSaltACHmUT1bfQT4L2tGw7QQ:password=123456",
       "salt": "fakeSaltACHmUT1bfQT4L2tGw7QQ",
-      "passwordUpdatedAt": 1631879273646,
+      "passwordUpdatedAt": 1632312238934,
       "providerUserInfo": [
         {
           "providerId": "password",
@@ -20,11 +20,10 @@
           "photoUrl": ""
         }
       ],
-      "validSince": "1631879273",
+      "validSince": "1632312238",
       "email": "nemo_ahmed@hotmail.com",
       "emailVerified": false,
-      "disabled": false,
-      "lastRefreshAt": "2021-09-17T21:21:34.158Z"
+      "disabled": false
     }
   ]
 }
